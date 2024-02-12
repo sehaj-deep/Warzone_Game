@@ -11,50 +11,50 @@ public class InputHandler {
 	public void parseUserCommand() {
 		System.out.print("Enter command: ");
 
-		Scanner scanner = new Scanner(System.in);
+		Scanner l_scanner = new Scanner(System.in);
 
 		try {
-			String command = scanner.nextLine().trim();
-			String[] tokens = command.split("\\s+");
+			String l_userInput = l_scanner.nextLine().trim();
+			String[] l_tokens = l_userInput.split("\\s+");
 
-			String cmd = tokens[0].toLowerCase();
+			String l_command = l_tokens[0].toLowerCase();
 
-			switch (cmd) {
+			switch (l_command) {
 			case "editcontinent":
-				parseEditContinentCommand(tokens);
+				parseEditContinentCommand(l_tokens);
 				break;
 			case "editcountry":
-				parseEditCountryCommand(tokens);
+				parseEditCountryCommand(l_tokens);
 				break;
 			case "editneighbor":
-				parseEditNeighborCommand(tokens);
+				parseEditNeighborCommand(l_tokens);
 				break;
 			case "showmap":
-				parseShowMapCommand(tokens);
+				parseShowMapCommand(l_tokens);
 				break;
 			case "savemap":
-				parseSaveMapCommand(tokens);
+				parseSaveMapCommand(l_tokens);
 				break;
 			case "editmap":
-				parseEditMapCommand(tokens);
+				parseEditMapCommand(l_tokens);
 				break;
 			case "validatemap":
-				parseValidateMapCommand(tokens);
+				parseValidateMapCommand(l_tokens);
 				break;
 			case "gameplayer":
-				parseGamePlayerCommand(tokens);
+				parseGamePlayerCommand(l_tokens);
 				break;
 			case "assigncountries":
-				parseAssignCountriesCommand(tokens);
+				parseAssignCountriesCommand(l_tokens);
 				break;
 			case "loadmap":
-				parseLoadMapCommand(tokens);
+				parseLoadMapCommand(l_tokens);
 				break;
 			default:
 				System.out.println("Invalid command. Please try again.");
 			}
 		} finally {
-			scanner.close(); // Ensure the Scanner is closed
+			l_scanner.close(); // Ensure the Scanner is closed
 		}
 	}
 
@@ -63,30 +63,30 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseEditContinentCommand(String[] tokens) {
-		if (tokens.length < 2) {
+	private static void parseEditContinentCommand(String[] l_tokens) {
+		if (l_tokens.length < 2) {
 			System.out.println(
 					"Invalid command. Syntax: editcontinent -add continentID continentvalue -remove continentID");
 			return;
 		}
 
-		String option = "";
-		String continentID = "";
-		String continentValue = "";
+		String l_option = "";
+		String l_continentID = "";
+		String l_continentValue = "";
 
-		for (int i = 1; i < tokens.length; i++) {
-			if (tokens[i].startsWith("-")) {
-				option = tokens[i].toLowerCase();
+		for (int i = 1; i < l_tokens.length; i++) {
+			if (l_tokens[i].startsWith("-")) {
+				l_option = l_tokens[i].toLowerCase();
 			} else {
-				switch (option) {
+				switch (l_option) {
 				case "-add":
-					continentID = tokens[i];
-					continentValue = tokens[++i];
+					l_continentID = l_tokens[i];
+					l_continentValue = l_tokens[++i];
 					// TODO: Implement logic to handle adding continent with ID and value
 					// MapEditor.AddContinent(continentId, continentValue);
 					break;
 				case "-remove":
-					continentID = tokens[i];
+					l_continentID = l_tokens[i];
 					// TODO: Implement logic to handle removing continent by ID
 					// MapEditor.RemoveContinent(continentId);
 					break;
@@ -102,29 +102,29 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseEditCountryCommand(String[] tokens) {
-		if (tokens.length < 2) {
+	private static void parseEditCountryCommand(String[] l_tokens) {
+		if (l_tokens.length < 2) {
 			System.out.println("Invalid command. Syntax: editcountry -add countryID continentID -remove countryID");
 			return;
 		}
 
-		String option = "";
-		String countryID = "";
-		String continentID = "";
+		String l_option = "";
+		String l_countryID = "";
+		String l_continentID = "";
 
-		for (int i = 1; i < tokens.length; i++) {
-			if (tokens[i].startsWith("-")) {
-				option = tokens[i].toLowerCase();
+		for (int i = 1; i < l_tokens.length; i++) {
+			if (l_tokens[i].startsWith("-")) {
+				l_option = l_tokens[i].toLowerCase();
 			} else {
-				switch (option) {
+				switch (l_option) {
 				case "-add":
-					countryID = tokens[i];
-					continentID = tokens[++i];
+					l_countryID = l_tokens[i];
+					l_continentID = l_tokens[++i];
 					// TODO: Implement logic to handle adding country with ID and continent ID
 					// MapEditor.addCountry(countryId, continentId);
 					break;
 				case "-remove":
-					countryID = tokens[i];
+					l_countryID = l_tokens[i];
 					// TODO: Implement logic to handle removing country by ID
 					// MapEditor.RemoveCountry(countryId);
 					break;
@@ -140,31 +140,31 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseEditNeighborCommand(String[] tokens) {
-		if (tokens.length < 2) {
+	private static void parseEditNeighborCommand(String[] l_tokens) {
+		if (l_tokens.length < 2) {
 			System.out.println(
 					"Invalid command. Syntax: editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID");
 			return;
 		}
 
-		String option = "";
-		String countryID = "";
-		String neighborCountryID = "";
+		String l_option = "";
+		String l_countryID = "";
+		String l_neighborCountryID = "";
 
-		for (int i = 1; i < tokens.length; i++) {
-			if (tokens[i].startsWith("-")) {
-				option = tokens[i].toLowerCase();
+		for (int i = 1; i < l_tokens.length; i++) {
+			if (l_tokens[i].startsWith("-")) {
+				l_option = l_tokens[i].toLowerCase();
 			} else {
-				switch (option) {
+				switch (l_option) {
 				case "-add":
-					countryID = tokens[i];
-					neighborCountryID = tokens[++i];
+					l_countryID = l_tokens[i];
+					l_neighborCountryID = l_tokens[++i];
 					// TODO: Implement logic to handle adding neighbor country
 					// MapEditor.AddNeighbor(countryId, neighborCountryId);
 					break;
 				case "-remove":
-					countryID = tokens[i];
-					neighborCountryID = tokens[++i];
+					l_countryID = l_tokens[i];
+					l_neighborCountryID = l_tokens[++i];
 					// TODO: Implement logic to handle removing neighbor country
 					// MapEditor.RemoveNeighbor(countryId, neighborCOuntryId);
 					break;
@@ -180,7 +180,7 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseShowMapCommand(String[] tokens) {
+	private static void parseShowMapCommand(String[] l_tokens) {
 		// TODO
 		// if(currentPhase == MAP_EDITING_PHASE){
 		// MapEditor.showMap();
@@ -194,11 +194,11 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseSaveMapCommand(String[] tokens) {
-		if (tokens.length != 2) {
+	private static void parseSaveMapCommand(String[] l_tokens) {
+		if (l_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
 		} else {
-			String filename = tokens[1];
+			String l_filename = l_tokens[1];
 			// TODO: Implement logic to save the map with the specified filename
 			// MapEditor.saveMap(filename);
 		}
@@ -209,11 +209,11 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseEditMapCommand(String[] tokens) {
-		if (tokens.length != 2) {
+	private static void parseEditMapCommand(String[] l_tokens) {
+		if (l_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
-			String filename = tokens[1];
+			String l_filename = l_tokens[1];
 			// TODO: Implement logic to edit the map with the specified filename
 			// MapEditor.editMap(filename);
 		}
@@ -224,7 +224,9 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseValidateMapCommand(String[] tokens) {
+	private static void parseValidateMapCommand(String
+
+	[] l_tokens) {
 		// TODO
 		// MapEditor.validateMap();
 	}
@@ -234,27 +236,27 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseGamePlayerCommand(String[] tokens) {
-		if (tokens.length < 3) {
+	private static void parseGamePlayerCommand(String[] l_tokens) {
+		if (l_tokens.length < 3) {
 			System.out.println("Invalid command. Syntax: gameplayer -add playername -remove playername");
 
 			return;
 		}
-		String option = "";
-		String playerName = "";
+		String l_option = "";
+		String l_playerName = "";
 
-		for (int i = 1; i < tokens.length; i++) {
-			if (tokens[i].startsWith("-")) {
-				option = tokens[i].toLowerCase();
+		for (int i = 1; i < l_tokens.length; i++) {
+			if (l_tokens[i].startsWith("-")) {
+				l_option = l_tokens[i].toLowerCase();
 			} else {
-				switch (option) {
+				switch (l_option) {
 				case "-add":
-					playerName = tokens[i];
+					l_playerName = l_tokens[i];
 					// TODO
 					// GameEngine.addPlayer(playerName);
 					break;
 				case "-remove":
-					playerName = tokens[i];
+					l_playerName = l_tokens[i];
 					// TODO
 					// GameEngine.removePlayer(playerName);
 					break;
@@ -270,7 +272,7 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseAssignCountriesCommand(String[] tokens) {
+	private static void parseAssignCountriesCommand(String[] l_tokens) {
 		// TODO
 		// MapEditor.assignCountries();
 	}
@@ -280,11 +282,11 @@ public class InputHandler {
 	 * 
 	 * @param tokens Command tokens.
 	 */
-	private static void parseLoadMapCommand(String[] tokens) {
-		if (tokens.length != 2) {
+	private static void parseLoadMapCommand(String[] l_tokens) {
+		if (l_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
-			String filename = tokens[1];
+			String l_filename = l_tokens[1];
 			// TODO
 			// MapEditor.loadMap(filename);
 		}
