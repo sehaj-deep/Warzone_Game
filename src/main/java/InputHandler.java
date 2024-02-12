@@ -5,6 +5,15 @@ import java.util.Scanner;
  */
 public class InputHandler {
 
+	// TODO
+	// private MapEditor mapEditor;
+	// private GameEngine gameEngine;
+	//
+	public InputHandler(/* MapEditor mapEditor, GameEngine gameEngine */) {
+		// this.mapEditor = mapEditor;
+		// this.gameEngine = gameEngine;
+	}
+
 	/**
 	 * Parses user input commands.
 	 */
@@ -54,7 +63,7 @@ public class InputHandler {
 				System.out.println("Invalid command. Please try again.");
 			}
 		} finally {
-			l_scanner.close(); // Ensure the Scanner is closed
+			l_scanner.close();
 		}
 	}
 
