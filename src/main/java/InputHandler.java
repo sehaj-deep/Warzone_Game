@@ -1,7 +1,13 @@
 import java.util.Scanner;
 
+/**
+ * InputHandler class responsible for handling user input commands.
+ */
 public class InputHandler {
 
+	/**
+	 * Parses user input commands.
+	 */
 	public void parseUserCommand() {
 		System.out.print("Enter command: ");
 
@@ -52,6 +58,11 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'editcontinent' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseEditContinentCommand(String[] tokens) {
 		if (tokens.length < 2) {
 			System.out.println(
@@ -86,6 +97,11 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'editcountry' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseEditCountryCommand(String[] tokens) {
 		if (tokens.length < 2) {
 			System.out.println("Invalid command. Syntax: editcountry -add countryID continentID -remove countryID");
@@ -119,6 +135,11 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'editneighbor' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseEditNeighborCommand(String[] tokens) {
 		if (tokens.length < 2) {
 			System.out.println(
@@ -154,6 +175,11 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'showmap' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseShowMapCommand(String[] tokens) {
 		// TODO
 		// if(currentPhase == MAP_EDITING_PHASE){
@@ -163,6 +189,11 @@ public class InputHandler {
 		// }
 	}
 
+	/**
+	 * Parses the 'savemap' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseSaveMapCommand(String[] tokens) {
 		if (tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
@@ -173,6 +204,11 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'editmap' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseEditMapCommand(String[] tokens) {
 		if (tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: editmap filename");
@@ -183,11 +219,21 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'validatemap' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseValidateMapCommand(String[] tokens) {
 		// TODO
 		// MapEditor.validateMap();
 	}
 
+	/**
+	 * Parses the 'gameplayer' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseGamePlayerCommand(String[] tokens) {
 		if (tokens.length < 3) {
 			System.out.println("Invalid command. Syntax: gameplayer -add playername -remove playername");
@@ -219,11 +265,21 @@ public class InputHandler {
 		}
 	}
 
+	/**
+	 * Parses the 'assigncountries' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseAssignCountriesCommand(String[] tokens) {
 		// TODO
 		// MapEditor.assignCountries();
 	}
 
+	/**
+	 * Parses the 'loadmap' command.
+	 * 
+	 * @param tokens Command tokens.
+	 */
 	private static void parseLoadMapCommand(String[] tokens) {
 		if (tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
