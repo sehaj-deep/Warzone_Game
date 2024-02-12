@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Player {
 
-    // each player name adding to d_playerName list
+    // player name list
     private final static List<Player> d_playerNameList = new ArrayList<>();
 
-    // getting each player name using this string
+    // player name
     public String d_playerName;
 
     // defining constructor for player class
@@ -22,29 +22,29 @@ public class Player {
     }
 
     // method to Add player name
-    public void setD_PlayerName(String d_playerName) {
+    public void setD_PlayerName(String p_playerName) {
 
         // if input player name is null or empty
-        if (d_playerName == null || d_playerName.trim().isEmpty()) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
             System.out.println("Error: player name cannot be empty");
             return;
         }
 
-        if (!d_playerName.matches("[a-zA-Z0-9]+")) {
+        if (!p_playerName.matches("[a-zA-Z0-9]+")) {
             System.out.println("Error: Invalid characters are not allowed");
             return;
         }
 
-        // same player name not allowed
+        // player name already exist
         for (Player name : d_playerNameList) {
-            if (name.get_playerName().equals(d_playerName)) {
-                System.out.println("Error: player " + d_playerName + " already exist");
+            if (name.get_playerName().equals(p_playerName)) {
+                System.out.println("Error: player " + p_playerName + " already exist");
+                return;
             }
-            return;
         }
 
         // add new player
-        Player name = new Player(d_playerName);
+        Player name = new Player(p_playerName);
         d_playerNameList.add(name);
         System.out.println("Player: " + name + " successfully added");
     }
@@ -58,20 +58,20 @@ public class Player {
             return;
         }
 
-        boolean playerFound = false;
+        boolean l_playerFound = false;
 
         // remove player
         for (Player name : d_playerNameList) {
             if (name.get_playerName().equals(d_playerName)) {
                 d_playerNameList.remove(name);
                 System.out.println("Player: " + d_playerName + " successfully removed");
-                playerFound = true;
+                l_playerFound = true;
                 break;
             }
         }
 
         // if player not found
-        if (!playerFound) {
+        if (!l_playerFound) {
             System.out.println("Error: Player " + d_playerName + " not found");
         }
     }
