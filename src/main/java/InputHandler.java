@@ -1,23 +1,22 @@
 import java.util.Scanner;
 
+import map.GameMap;
+
 /**
  * InputHandler class responsible for handling user input commands.
  */
 public class InputHandler {
 
-	// TODO
-	// private MapEditor mapEditor;
-	// private GameEngine gameEngine;
-	//
-	public InputHandler(/* MapEditor mapEditor, GameEngine gameEngine */) {
-		// this.mapEditor = mapEditor;
-		// this.gameEngine = gameEngine;
+	static GameMap d_gameMap;
+
+	public InputHandler(GameMap p_gameMap) {
+		this.d_gameMap = p_gameMap;
 	}
 
 	/**
 	 * Parses user input commands.
 	 */
-	public void parseUserCommand() {
+	public static void parseUserCommand() {
 		System.out.print("Enter command: ");
 
 		Scanner l_scanner = new Scanner(System.in);
@@ -28,6 +27,7 @@ public class InputHandler {
 
 			String l_command = l_tokens[0].toLowerCase();
 
+			// FIXME Replace exception with custom exception
 			switch (l_command) {
 			case "editcontinent":
 				parseEditContinentCommand(l_tokens);
@@ -73,7 +73,7 @@ public class InputHandler {
 	 * @param tokens Command tokens.
 	 */
 	private static void parseEditContinentCommand(String[] p_tokens) {
-		if (p_tokens.length < 2) {
+		if (p_tokens.length < 3) {
 			System.out.println(
 					"Invalid command. Syntax: editcontinent -add continentId continentvalue -remove continentId");
 			return;
@@ -84,26 +84,52 @@ public class InputHandler {
 		String l_continentValue = "";
 
 		for (int i = 1; i < p_tokens.length; i++) {
-			if (p_tokens[i].startsWith("-")) {
-				l_option = p_tokens[i].toLowerCase();
-			} else {
-				switch (l_option) {
-				case "-add":
-					l_continentId = p_tokens[i];
-					l_continentValue = p_tokens[++i];
-					// TODO: Implement logic to handle adding continent with ID and value
-					// MapEditor.AddContinent(continentId, continentValue);
-					break;
-				case "-remove":
-					l_continentId = p_tokens[i];
-					// TODO: Implement logic to handle removing continent by ID
-					// MapEditor.RemoveContinent(continentId);
-					break;
-				default:
-					System.out.println("Invalid option for editcontinent command. Use -add or -remove.");
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						// Validation - there should be at least 2 tokens after add
+						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+							// Validation - parameter should not start with "-"
+
+							// TODO: refactor so that continent id means the same throughout the code
+							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
+								l_continentId = p_tokens[++i];
+								l_continentValue = p_tokens[++i];
+
+								try {
+									d_gameMap.addContinent(l_continentId, l_continentValue);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						if (i + 1 < p_tokens.length) {
+							if (!p_tokens[i + 1].startsWith("-")) {
+								l_continentId = p_tokens[++i];
+
+								try {
+									d_gameMap.removeContinent(l_continentId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editcontinent command. Use -add or -remove.");
+					}
 				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
+
 	}
 
 	/**
@@ -122,24 +148,45 @@ public class InputHandler {
 		String l_continentId = "";
 
 		for (int i = 1; i < p_tokens.length; i++) {
-			if (p_tokens[i].startsWith("-")) {
-				l_option = p_tokens[i].toLowerCase();
-			} else {
-				switch (l_option) {
-				case "-add":
-					l_countryId = p_tokens[i];
-					l_continentId = p_tokens[++i];
-					// TODO: Implement logic to handle adding country with ID and continent ID
-					// MapEditor.addCountry(countryId, continentId);
-					break;
-				case "-remove":
-					l_countryId = p_tokens[i];
-					// TODO: Implement logic to handle removing country by ID
-					// MapEditor.RemoveCountry(countryId);
-					break;
-				default:
-					System.out.println("Invalid option for editcountry command. Use -add or -remove.");
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
+								l_countryId = p_tokens[++i];
+								l_continentId = p_tokens[++i];
+
+								try {
+									d_gameMap.addCountry(l_continentId, l_continentId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						if (i + 1 < p_tokens.length) {
+							if (!p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[++i];
+
+								try {
+									d_gameMap.removeCountry(l_countryId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editcountry command. Use -add or -remove.");
+					}
 				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -161,25 +208,46 @@ public class InputHandler {
 		String l_neighborCountryId = "";
 
 		for (int i = 1; i < p_tokens.length; i++) {
-			if (p_tokens[i].startsWith("-")) {
-				l_option = p_tokens[i].toLowerCase();
-			} else {
-				switch (l_option) {
-				case "-add":
-					l_countryId = p_tokens[i];
-					l_neighborCountryId = p_tokens[++i];
-					// TODO: Implement logic to handle adding neighbor country
-					// MapEditor.AddNeighbor(countryId, neighborCountryId);
-					break;
-				case "-remove":
-					l_countryId = p_tokens[i];
-					l_neighborCountryId = p_tokens[++i];
-					// TODO: Implement logic to handle removing neighbor country
-					// MapEditor.RemoveNeighbor(countryId, neighborCOuntryId);
-					break;
-				default:
-					System.out.println("Invalid option for editneighbor command. Use -add or -remove.");
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
+								l_countryId = p_tokens[++i];
+								l_neighborCountryId = p_tokens[++i];
+
+								try {
+									d_gameMap.addNeighbor(l_countryId, l_neighborCountryId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
+								l_countryId = p_tokens[++i];
+								l_neighborCountryId = p_tokens[++i];
+
+								try {
+									d_gameMap.removeNeighbor(l_countryId, l_neighborCountryId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editneighbor command. Use -add or -remove.");
+					}
 				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 	}
@@ -249,6 +317,7 @@ public class InputHandler {
 
 			return;
 		}
+
 		String l_option = "";
 		String l_playerName = "";
 
@@ -258,14 +327,22 @@ public class InputHandler {
 			} else {
 				switch (l_option) {
 				case "-add":
-					l_playerName = p_tokens[i];
-					// TODO
-					// GameEngine.addPlayer(playerName);
+					if (i + 1 < p_tokens.length) {
+						if (!p_tokens[i + 1].startsWith("-")) {
+							l_playerName = p_tokens[++i];
+							// TODO
+							// GameEngine.addPlayer(playerName);
+						}
+					}
 					break;
 				case "-remove":
-					l_playerName = p_tokens[i];
-					// TODO
-					// GameEngine.removePlayer(playerName);
+					if (i + 1 < p_tokens.length) {
+						if (!p_tokens[i + 1].startsWith("-")) {
+							l_playerName = p_tokens[++i];
+							// TODO
+							// GameEngine.removePlayer(playerName);
+						}
+					}
 					break;
 				default:
 					System.out.println("Invalid option for gameplayer command. Use -add or -remove.");
