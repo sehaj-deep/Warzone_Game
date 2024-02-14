@@ -26,9 +26,9 @@ public class Deploy implements Order {
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public boolean isValid(State state) {
+	public boolean isValid(GameState p_state, int p_playerId) {
 		// p_remaining_amry is number of armies in available for deployment in the remaining reinforcements 
-		if (!state.d_ownership.contains(d_country_id)) {
+		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_country_id)) {
 			// country where army to be deployed is not owned by the player issued the order
 			return false;
 		}
@@ -36,7 +36,7 @@ public class Deploy implements Order {
 			// can't pass negative number for number of armies for deployment
 			return false;
 		}
-		if (d_num_army > state.d_available_army ) {
+		if (d_num_army > p_state.getReinforcements().get(p_playerId) ) {
 			// deploying more armies than the player has
 			return false;
 		}
@@ -49,6 +49,7 @@ public class Deploy implements Order {
 	@Override
 	public void execute() {
 		/*
+		p_state.getReinforcements().set(p_playerId) = p_state.getReinforcements().get(p_playerId) - d_num_army
 		 */
 		System.out.println("IMPLEMENT EXECUTION");
 	}

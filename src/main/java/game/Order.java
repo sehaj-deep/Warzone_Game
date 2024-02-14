@@ -9,7 +9,7 @@ public interface Order {
 	
 	public void execute();
 	
-	public boolean isValid(State p_state);
+	public boolean isValid(GameState p_state, int p_playerID);
 	
 	public void addOrderID(String p_id);
 	
