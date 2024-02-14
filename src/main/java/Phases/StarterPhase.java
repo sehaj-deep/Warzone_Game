@@ -9,7 +9,7 @@ import java.util.List;
 public class StarterPhase {
 
     // List to store player names
-    private final List<String> playerNameList = new ArrayList<>();
+    private static final List<String> playerNameList = new ArrayList<>();
 
     // Player name
     private final String playerName;
@@ -37,7 +37,7 @@ public class StarterPhase {
      *
      * @param playerName The name of the player to add.
      */
-    public void addPlayer(String playerName) {
+    public static void addPlayer(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
@@ -59,7 +59,7 @@ public class StarterPhase {
      *
      * @param playerName The name of the player to remove.
      */
-    public void removePlayer(String playerName) {
+    public static void removePlayer(String playerName) {
         if (playerName == null || playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
@@ -72,3 +72,4 @@ public class StarterPhase {
         System.out.println("Player: " + playerName + " successfully removed");
     }
 }
+
