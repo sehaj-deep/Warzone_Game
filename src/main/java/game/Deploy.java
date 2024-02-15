@@ -1,12 +1,12 @@
 package game;
 
-/*
+/**
  * Implementation of Deploy order command from Order class
  */
 public class Deploy implements Order {
-	private int d_num_army;  // number of armies to be deployed
-	private int d_country_id;  // id of country where armies will be deployed to
-	private String d_order_name = "Deploy";  // name of the order type
+	private int d_numArmy;  // number of armies to be deployed
+	private int d_countryId;  // id of country where armies will be deployed to
+	private String d_orderName = "Deploy";  // name of the order type
 	
 	/*
 	 * Parameterized Constructor of Deploy class
@@ -14,9 +14,9 @@ public class Deploy implements Order {
 	 * @param p_num_army is a number of armies for deployment
 	 * @param p_country_id is the country where armies will be placed
 	 */
-	Deploy(int p_num_army, int p_country_id) {
-		d_num_army = p_num_army;
-		d_country_id = p_country_id;
+	Deploy(int p_numArmy, int p_countryId) {
+		d_numArmy = p_numArmy;
+		d_countryId = p_countryId;
 	}
 	
 	/*
@@ -28,15 +28,15 @@ public class Deploy implements Order {
 	@Override
 	public boolean isValid(GameState p_state, int p_playerId) {
 		// p_remaining_amry is number of armies in available for deployment in the remaining reinforcements 
-		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_country_id)) {
+		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
 			// country where army to be deployed is not owned by the player issued the order
 			return false;
 		}
-		if (d_num_army < 0) {
+		if (d_numArmy < 0) {
 			// can't pass negative number for number of armies for deployment
 			return false;
 		}
-		if (d_num_army > p_state.getReinforcements().get(p_playerId) ) {
+		if (d_numArmy > p_state.getReinforcements().get(p_playerId) ) {
 			// deploying more armies than the player has
 			return false;
 		}
@@ -61,7 +61,7 @@ public class Deploy implements Order {
 	 */
 	@Override
 	public void addOrderID(String p_id) {
-		d_order_name = d_order_name + p_id;
+		d_orderName = d_orderName + p_id;
 	}
 	
 	/*
@@ -71,6 +71,6 @@ public class Deploy implements Order {
 	 */
 	@Override
 	public String toString() {
-		return d_order_name;
+		return d_orderName;
 	}
 }

@@ -1,7 +1,7 @@
 package game;
 
 
-/*
+/**
  * abstract interface of Order class to represent player's orders
  * All order types will inherit from Order class
  */

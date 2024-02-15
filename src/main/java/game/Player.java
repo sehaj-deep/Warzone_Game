@@ -2,15 +2,15 @@ package game;
 
 import java.util.*;
 
-/*  Player Class
+/**  Player Class
  * this class stores information and the state of the game about a player
  */
 
 
 public class Player {
-	private int d_player_id;  // player id
-	private String d_player_name;  // player name
-	private Queue<Order> d_list_orders;  // list of orders issued by the player
+	private int d_playerId;  // player id
+	private String d_playerName;  // player name
+	private Queue<Order> d_listOrders;  // list of orders issued by the player
 	private Set<Integer> d_ownership;  // set of countries owned by the player
 	
 	
@@ -19,9 +19,9 @@ public class Player {
 	 * 
 	 * @param p_player_id is a player id in integer 
 	 */
-	Player (int p_player_id) {
-		d_player_id = p_player_id;
-		d_list_orders = new LinkedList<>();
+	Player (int p_playerId) {
+		d_playerId = p_playerId;
+		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<Integer>();
 	}
 
@@ -31,7 +31,7 @@ public class Player {
 	 * @return player's id
 	 */
 	public int getPlayerId() {
-		return d_player_id;
+		return d_playerId;
 	}
 
 	/*
@@ -40,7 +40,7 @@ public class Player {
 	 * @return player's name
 	 */
 	public String getPlayerName() {
-		return d_player_name;
+		return d_playerName;
 	}
 
 	/*
@@ -48,8 +48,8 @@ public class Player {
 	 *
 	 * @param new player's name
 	 */
-	public void setPlayerName(String p_player_name) {
-		d_player_name = p_player_name;
+	public void setPlayerName(String p_playerName) {
+		d_playerName = p_playerName;
 	}
 
 
@@ -69,8 +69,8 @@ public class Player {
 	*
 	* @param a new set of countries owned
 	 */
-	public void setOwnership(Set<Integer> p_ownsership) {
-		d_ownership = p_ownsership;
+	public void setOwnership(Set<Integer> p_ownership) {
+		d_ownership = p_ownership;
 	}
 	
 	/*
@@ -79,16 +79,16 @@ public class Player {
 	 * @return a queue data structure storing the orders in the order of issuance
 	 */
 	public Queue<Order> getListOrders() {
-		return d_list_orders;
+		return d_listOrders;
 	}
 	
 	/*
 	 * issue an order for this round
 	 * 
-	 * @param p_new_order is the new order a player wants to take in the current round
+	 * @param new order a player wants to take in the current round
 	 */
-	public void issue_order(Order p_new_order) {
-		d_list_orders.add(p_new_order);
+	public void issue_order(Order p_newOrder) {
+		d_listOrders.add(p_newOrder);
 	}
 	
 	/*
@@ -97,6 +97,6 @@ public class Player {
 	 * @return An order to be executed next
 	 */
 	public Order next_order() {
-		return d_list_orders.poll();
+		return d_listOrders.poll();
 	}
 }

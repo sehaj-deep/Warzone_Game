@@ -2,7 +2,7 @@ package game;
 
 import java.util.*;
 
-/* GameState class
+/** GameState class
  * This class captures the current state of the game
  * and store information needed for game playing
  */
