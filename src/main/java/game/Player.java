@@ -14,7 +14,7 @@ public class Player {
 	private Set<Integer> d_ownership;  // set of countries owned by the player
 	
 	
-	/*
+	/**
 	 * Parameterized constructor for the player
 	 * 
 	 * @param p_player_id is a player id in integer 
@@ -25,7 +25,7 @@ public class Player {
 		d_ownership = new HashSet<Integer>();
 	}
 
-	/*
+	/**
 	 * get this player's id
 	 * 
 	 * @return player's id
@@ -34,7 +34,7 @@ public class Player {
 		return d_playerId;
 	}
 
-	/*
+	/**
 	 * get this player's name
 	 *
 	 * @return player's name
@@ -43,7 +43,7 @@ public class Player {
 		return d_playerName;
 	}
 
-	/*
+	/**
 	 * set this player's name
 	 *
 	 * @param new player's name
@@ -54,7 +54,7 @@ public class Player {
 
 
 	
-	/*
+	/**
 	 * get the countries owned by this player
 	 * 
 	 * @return a set of countries owned by the player
@@ -64,7 +64,7 @@ public class Player {
 	}
 
 
-	/*
+	/**
 	* set the player's countries owned set to the set provided
 	*
 	* @param a new set of countries owned
@@ -73,7 +73,7 @@ public class Player {
 		d_ownership = p_ownership;
 	}
 	
-	/*
+	/**
 	 * get the list of orders issued by this player
 	 * 
 	 * @return a queue data structure storing the orders in the order of issuance
@@ -82,7 +82,7 @@ public class Player {
 		return d_listOrders;
 	}
 	
-	/*
+	/**
 	 * issue an order for this round
 	 * 
 	 * @param new order a player wants to take in the current round
@@ -91,7 +91,7 @@ public class Player {
 		d_listOrders.add(p_newOrder);
 	}
 	
-	/*
+	/**
 	 * get next order in the order list of a player
 	 * 
 	 * @return An order to be executed next

@@ -10,7 +10,7 @@ import org.junit.Before;
 public class TestPlayer {
 	static Player d_player;
 	
-	/*
+	/**
 	 * This is the common setup for all test cases and will be run before each test
 	 */
 	@Before public void before() {
@@ -18,7 +18,7 @@ public class TestPlayer {
 		System.out.println("Test Player Setup completed");
 	}
 	
-	/*
+	/**
 	 * test issue_order function of Player
 	 * 
 	 * check whether issuance of an order successfully adds that order to the list of orders
@@ -40,7 +40,7 @@ public class TestPlayer {
 		System.out.println("Testing issue_order method PASSED!\n");
 	}
 	
-	/*
+	/**
 	 * test next_order function of Player
 	 * 
 	 * check whether next_order successfully extracts an order from the list of orders

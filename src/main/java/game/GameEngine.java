@@ -12,7 +12,7 @@ public class GameEngine {
     private HashMap<String, Integer> d_board;  // key: country name. val: num army in the country
     private GameMap d_gMap;
 
-    /* Unparameterized Constructor
+    /** Unparameterized Constructor
      *
      */
     GameEngine() {

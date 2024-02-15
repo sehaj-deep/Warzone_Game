@@ -16,7 +16,7 @@ public class TestDeploy {
 	static int d_plyrId = 0;
 	static GameState d_state;
 	
-	/*
+	/**
 	 * This is the common setup for all test cases and will be run before each test
 	 */
 	@Before public void before() {
@@ -26,7 +26,7 @@ public class TestDeploy {
 		d_state = new GameState(d_players);
 	}
 	
-	/*
+	/**
 	 * test isValid method of Deploy class
 	 * test one valid case where expecting output true from isValid
 	 * test three invalid cases where expecting output false from isValid

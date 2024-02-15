@@ -12,7 +12,7 @@ public class GameState {
     // list of available reinforcements for all players. Order same as d_players
     private List<Integer> d_reinforcements;
 
-    /* Parameterized Constructor
+    /** Parameterized Constructor
      *
      * @param p_players is a list of players playing the game
      */
@@ -20,7 +20,7 @@ public class GameState {
         d_players = p_players;
     }
 
-    /* getter function for a list of players playing the game
+    /** getter function for a list of players playing the game
      *
      * @return d_players a list of players playing the game
      */
@@ -28,7 +28,7 @@ public class GameState {
         return d_players;
     }
 
-    /* getter function to get the list of available reinforcements for all players
+    /** getter function to get the list of available reinforcements for all players
      *
      * @return d_reinforcements a list of available reinforcements for all players
      */
@@ -36,7 +36,7 @@ public class GameState {
         return d_reinforcements;
     }
 
-    /* setter function to set d_reinforcements to the provided list
+    /** setter function to set d_reinforcements to the provided list
      * may handy for unit testing
      *
      * @param p_reinforcements a new list of available reinforcements for all players

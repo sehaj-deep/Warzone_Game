@@ -8,7 +8,7 @@ public class Deploy implements Order {
 	private int d_countryId;  // id of country where armies will be deployed to
 	private String d_orderName = "Deploy";  // name of the order type
 	
-	/*
+	/**
 	 * Parameterized Constructor of Deploy class
 	 * 
 	 * @param p_num_army is a number of armies for deployment
@@ -19,7 +19,7 @@ public class Deploy implements Order {
 		d_countryId = p_countryId;
 	}
 	
-	/*
+	/**
 	 * Validate whether the given deploy order is legal according to the rules of the game
 	 * 
 	 * @param state is the game state for the requesting player at the current moment
@@ -43,7 +43,7 @@ public class Deploy implements Order {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Execute this deployment order 
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class Deploy implements Order {
 		System.out.println("IMPLEMENT EXECUTION");
 	}
 	
-	/*
+	/**
 	 * Add order's id to the order name to differentiate an order from others in the same class
 	 * 
 	 * @param p_id is the distinguishable order id
@@ -64,7 +64,7 @@ public class Deploy implements Order {
 		d_orderName = d_orderName + p_id;
 	}
 	
-	/*
+	/**
 	 * String format of the Deployment class for print statement
 	 * 
 	 * @return order name which is "Deploy"
