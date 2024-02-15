@@ -1,5 +1,6 @@
 package models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Continent {
@@ -22,7 +23,7 @@ public class Continent {
 	/**
 	 * All the countries in a continent
 	 */
-	private Set<String> d_countries;
+	private Set<Country> d_countries = new HashSet<>();
 
 	/**
 	 * constructor of continent class
@@ -86,7 +87,26 @@ public class Continent {
 	}
 	
 	
-	
-	
+	/**
+	 * 
+	 * @return the set of countries corresponding to a continent
+	 */
+	public Set<Country> getD_countries() {
+		return d_countries;
+	}
+
+	/**
+	 * 
+	 * @param country Country in a continent
+	 */
+	public void addD_countries(Country country) {
+		if(!this.getD_countries().contains(country)) {
+			this.d_countries.add(country);
+		}
+		else {
+			//TODO: throw a validation exception
+		}
+	}
+
 
 }
