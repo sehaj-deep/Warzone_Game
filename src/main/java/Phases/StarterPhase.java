@@ -71,5 +71,7 @@ public class StarterPhase {
         playerNameList.remove(playerName);
         System.out.println("Player: " + playerName + " successfully removed");
     }
+
+    
 }
 
