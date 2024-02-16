@@ -12,7 +12,7 @@ public class Common {
 	 * @param p_mapName
 	 * @return path of the map
 	 */
-	public String getMapPath(String p_mapName) {
+	public static String getMapPath(String p_mapName) {
 		return GameConstants.SRC_MAIN_RESOURCES + File.pathSeparator + p_mapName;
 	}
 
