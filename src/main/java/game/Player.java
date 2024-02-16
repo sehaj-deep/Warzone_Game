@@ -17,7 +17,7 @@ public class Player {
 	/**
 	 * Parameterized constructor for the player
 	 * 
-	 * @param p_player_id is a player id in integer 
+	 * @param p_playerId is a player id in integer
 	 */
 	Player (int p_playerId) {
 		d_playerId = p_playerId;
@@ -46,7 +46,7 @@ public class Player {
 	/**
 	 * set this player's name
 	 *
-	 * @param new player's name
+	 * @param p_playerName new player's name
 	 */
 	public void setPlayerName(String p_playerName) {
 		d_playerName = p_playerName;
@@ -67,7 +67,7 @@ public class Player {
 	/**
 	* set the player's countries owned set to the set provided
 	*
-	* @param a new set of countries owned
+	* @param p_ownership a new set of countries owned
 	 */
 	public void setOwnership(Set<Integer> p_ownership) {
 		d_ownership = p_ownership;
@@ -81,11 +81,19 @@ public class Player {
 	public Queue<Order> getListOrders() {
 		return d_listOrders;
 	}
+
+	/** Add country to the player's owned countries
+	 *
+	 * @param p_country is the country id to be added to player's owned countries
+	 */
+	public void addCountry(int p_country) {
+		d_ownership.add(p_country);
+	}
 	
 	/**
 	 * issue an order for this round
 	 * 
-	 * @param new order a player wants to take in the current round
+	 * @param p_newOrder new order a player wants to take in the current round
 	 */
 	public void issue_order(Order p_newOrder) {
 		d_listOrders.add(p_newOrder);

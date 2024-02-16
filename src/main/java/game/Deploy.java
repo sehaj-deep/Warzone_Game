@@ -11,8 +11,8 @@ public class Deploy implements Order {
 	/**
 	 * Parameterized Constructor of Deploy class
 	 * 
-	 * @param p_num_army is a number of armies for deployment
-	 * @param p_country_id is the country where armies will be placed
+	 * @param p_numArmy is a number of armies for deployment
+	 * @param p_countryId is the country where armies will be placed
 	 */
 	Deploy(int p_numArmy, int p_countryId) {
 		d_numArmy = p_numArmy;
@@ -22,7 +22,7 @@ public class Deploy implements Order {
 	/**
 	 * Validate whether the given deploy order is legal according to the rules of the game
 	 * 
-	 * @param state is the game state for the requesting player at the current moment
+	 * @param p_state is the game state for the requesting player at the current moment
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override

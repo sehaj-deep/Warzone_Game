@@ -1,6 +1,6 @@
 package game;
 
-import map.GameMap;
+
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ import java.util.*;
 public class GameEngine {
     private List<Player> d_players;  // list of players playing the game
     private HashMap<String, Integer> d_board;  // key: country name. val: num army in the country
-    private GameMap d_gMap;
+    //private GameMap d_gMap;
 
     /** Unparameterized Constructor
      *
