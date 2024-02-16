@@ -80,7 +80,7 @@ public class InputHandler {
 		}
 
 		String l_option = "";
-		String l_continentId = "";
+		String l_continentName = "";
 		String l_continentValue = "";
 
 		for (int i = 1; i < p_tokens.length; i++) {
@@ -96,11 +96,11 @@ public class InputHandler {
 
 							// TODO: refactor so that continent id means the same throughout the code
 							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
-								l_continentId = p_tokens[++i];
+								l_continentName = p_tokens[++i];
 								l_continentValue = p_tokens[++i];
 
 								try {
-									d_gameMap.addContinent(l_continentId, l_continentValue);
+									d_gameMap.addContinent(l_continentName, Integer.parseInt(l_continentValue));
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -110,10 +110,10 @@ public class InputHandler {
 					case "-remove":
 						if (i + 1 < p_tokens.length) {
 							if (!p_tokens[i + 1].startsWith("-")) {
-								l_continentId = p_tokens[++i];
+								l_continentName = p_tokens[++i];
 
 								try {
-									d_gameMap.removeContinent(l_continentId);
+									d_gameMap.removeContinent(l_continentName);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -220,7 +220,7 @@ public class InputHandler {
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
-									d_gameMap.addNeighbor(l_countryId, l_neighborCountryId);
+									d_gameMap.addNeighbors(l_countryId, l_neighborCountryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
