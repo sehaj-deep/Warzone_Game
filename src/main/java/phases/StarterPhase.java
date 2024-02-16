@@ -1,4 +1,4 @@
-package Phases;
+package phases;
 
 import java.util.ArrayList;
 import java.util.HashMap;
