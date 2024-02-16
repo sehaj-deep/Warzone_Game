@@ -1,23 +1,24 @@
 package models;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 public class Country {
-	
+
 	/**
 	 * store id of the country
 	 */
 	private int d_id;
-	
+
 	/**
 	 * store name of the country
 	 */
 	private String d_name;
 
-	private HashSet<Country> neighbors = new HashSet<>();
-	
+	/**
+	 * store name of neighbors
+	 */
+	private HashSet<Country> d_neighbors = new HashSet<>();
+
 	/**
 	 * 
 	 * @return the id of the country
@@ -36,25 +37,24 @@ public class Country {
 
 	/**
 	 * 
-	 * @param d_id the id of the country
+	 * @param d_id   the id of the country
 	 * @param d_name the name of the country
 	 */
 	public Country(int d_id, String d_name) {
 		this.d_id = d_id;
 		this.d_name = d_name;
 	}
+
 	/**
-	 * return the list of all neighbors corresponding 
+	 * return the list of all neighbors corresponding
 	 */
 	public HashSet<Country> getNeighbors() {
-		return neighbors;
+		return d_neighbors;
 	}
-	
+
 	public void addNeighbors(Country name) {
-		//TODO: handle the case if already present, throw an exception
-		neighbors.add(name);
+		// TODO: handle the case if already present, throw an exception
+		d_neighbors.add(name);
 	}
-	
-	
 
 }
