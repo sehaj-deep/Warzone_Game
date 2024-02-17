@@ -2,17 +2,17 @@ package iohandlers;
 
 import java.util.Scanner;
 
-import map.GameMap;
+import map.MapEditor;
 
 /**
- * InputHandler class responsible for handling user input commands.
+ * InputHandler class is responsible for handling user input commands.
  */
 public class InputHandler {
 
-	static GameMap d_gameMap;
+	static MapEditor d_mapEditor;
 
-	public InputHandler(GameMap p_gameMap) {
-		d_gameMap = p_gameMap;
+	public InputHandler(MapEditor p_mapEditor) {
+		d_mapEditor = p_mapEditor;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class InputHandler {
 								l_continentValue = p_tokens[++i];
 
 								try {
-									d_gameMap.addContinent(l_continentName, Integer.parseInt(l_continentValue));
+									d_mapEditor.addContinent(l_continentName, Integer.parseInt(l_continentValue));
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -114,7 +114,7 @@ public class InputHandler {
 								l_continentName = p_tokens[++i];
 
 								try {
-									d_gameMap.removeContinent(l_continentName);
+									d_mapEditor.removeContinent(l_continentName);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -164,7 +164,7 @@ public class InputHandler {
 								l_continentId = p_tokens[++i];
 
 								try {
-									d_gameMap.addCountry(l_continentId, l_continentId);
+									d_mapEditor.addCountry(l_continentId, l_continentId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -177,7 +177,7 @@ public class InputHandler {
 								l_countryId = p_tokens[++i];
 
 								try {
-									d_gameMap.removeCountry(l_countryId);
+									d_mapEditor.removeCountry(l_countryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -227,7 +227,7 @@ public class InputHandler {
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
-									d_gameMap.addNeighbor(l_countryId, l_neighborCountryId);
+									d_mapEditor.addNeighbor(l_countryId, l_neighborCountryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -244,7 +244,7 @@ public class InputHandler {
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
-									d_gameMap.removeNeighbor(l_countryId, l_neighborCountryId);
+									d_mapEditor.removeNeighbor(l_countryId, l_neighborCountryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -270,7 +270,7 @@ public class InputHandler {
 	private static void parseShowMapCommand(String[] p_tokens) {
 		// TODO
 		// if(currentPhase == MAP_EDITING_PHASE){
-		d_gameMap.showMap();
+		d_mapEditor.showMap();
 		// } else {
 		// GameEngine.showMap();
 		// }
@@ -287,7 +287,7 @@ public class InputHandler {
 		} else {
 			String l_filename = p_tokens[1];
 			// TODO: Implement logic to save the map with the specified filename
-			// d_gameMap.saveMap(filename);
+			// d_mapEditor.saveMap(filename);
 		}
 	}
 
@@ -301,7 +301,7 @@ public class InputHandler {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
 			String l_filename = p_tokens[1];
-			d_gameMap.editMap(l_filename);
+			d_mapEditor.editMap(l_filename);
 		}
 	}
 
@@ -311,7 +311,7 @@ public class InputHandler {
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseValidateMapCommand(String[] p_tokens) {
-		d_gameMap.validateMap();
+		d_mapEditor.validateMap();
 	}
 
 	/**

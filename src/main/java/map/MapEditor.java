@@ -7,14 +7,16 @@ import java.util.Set;
 import models.Continent;
 import models.Country;
 
-public class GameMap {
+/**
+ * The MapEditor class manages editing of the game map.
+ */
+public class MapEditor {
 
 	/**
 	 * A hashmap to store the continents
 	 */
 	private HashMap<String, Continent> d_continents = new HashMap<>();
 
-	// TODO: Discuss if we need this
 	/**
 	 * To map continent id with continent name
 	 */
@@ -25,21 +27,20 @@ public class GameMap {
 	 */
 	private HashMap<String, Country> d_countries = new HashMap<>();
 
-	// TODO: Discuss if we need this
 	/**
 	 * To map countries id with country name
 	 */
 	private HashMap<Integer, Country> d_countriesId = new HashMap<>();
 
 	/**
-	 * To store the name
+	 * The name of the map.
 	 */
 	private String d_mapName;
 
 	/**
-	 * Default constructor of the GameMap class
+	 * Default constructor of the MapEditor class
 	 */
-	public GameMap() {
+	public MapEditor() {
 
 	}
 
@@ -47,7 +48,7 @@ public class GameMap {
 	 * 
 	 * @return the list of continents
 	 */
-	private HashMap<String, Continent> getD_Continents() {
+	private HashMap<String, Continent> getD_continents() {
 		return d_continents;
 	}
 
@@ -77,10 +78,21 @@ public class GameMap {
 		return d_continentId.get(p_continentId);
 	}
 
+	/**
+	 * Retrieves the hashmap containing the countries.
+	 *
+	 * @return The hashmap containing the countries.
+	 */
 	public HashMap<String, Country> getD_countries() {
 		return d_countries;
 	}
 
+	/**
+	 * Retrieves the country object with the specified country name.
+	 *
+	 * @param p_countryName The name of the country to retrieve.
+	 * @return The country object corresponding to the given country name.
+	 */
 	public Country getD_countries(String p_countryName) {
 		return d_countries.get(p_countryName);
 	}
@@ -119,12 +131,12 @@ public class GameMap {
 	 *                        particular continent
 	 */
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
-		if (this.getD_Continents().containsKey(p_continentName)) {
+		if (this.getD_continents().containsKey(p_continentName)) {
 			// TODO: validate that the continent has not been already added.
 			// TODO: throw an exception here
 		}
 		Continent l_continent = new Continent(p_continentId, p_continentName, p_bonusArmies);
-		this.getD_Continents().put(p_continentName, l_continent);
+		this.getD_continents().put(p_continentName, l_continent);
 
 		// TODO: Delete this if not required.
 		this.getD_continentId().put(p_continentId, l_continent);
@@ -144,12 +156,12 @@ public class GameMap {
 
 		int l_newContinentId = this.getD_continentId().size() + 1;
 
-		if (this.getD_Continents().containsKey(p_continentName)) {
+		if (this.getD_continents().containsKey(p_continentName)) {
 			// TODO: validate that the continent has not been already added.
 			// TODO: throw an exception here
 		}
 		Continent l_continent = new Continent(l_newContinentId, p_continentName, p_bonusArmies);
-		this.getD_Continents().put(p_continentName, l_continent);
+		this.getD_continents().put(p_continentName, l_continent);
 
 		// TODO: Delete this if not required.
 		this.getD_continentId().put(l_newContinentId, l_continent);
@@ -164,8 +176,8 @@ public class GameMap {
 	 */
 	public void removeContinent(String p_continentName) {
 		// check if this continent is present, if not throw an exception
-		if (!this.getD_Continents().containsKey(p_continentName)) {
-			Continent l_remContinent = this.getD_Continents().get(p_continentName);
+		if (!this.getD_continents().containsKey(p_continentName)) {
+			Continent l_remContinent = this.getD_continents().get(p_continentName);
 
 			// remove it from the list of <int, Continent>
 			int l_remContinetId = l_remContinent.getD_continentID();
@@ -180,6 +192,13 @@ public class GameMap {
 
 	}
 
+	/**
+	 * Adds a new country to the map.
+	 *
+	 * @param p_countryId   The ID of the country to be added.
+	 * @param p_countryName The name of the country to be added.
+	 * @param p_continentId The ID of the continent to which the country belongs.
+	 */
 	public void addCountry(int p_countryId, String p_countryName, int p_continentId) {
 		// TODO: validate if this country has already been added
 		// TODO: throw an exception here
@@ -195,11 +214,10 @@ public class GameMap {
 	}
 
 	/**
-	 * To add a country to a continent
-	 * 
-	 * @param p_countryName The name of the country
-	 * @param p_continent   The name of the continent in which this country is
-	 *                      present
+	 * Adds a new country to the map.
+	 *
+	 * @param p_countryName The name of the country to be added.
+	 * @param p_continent   The name of the continent to which the country belongs.
 	 */
 	public void addCountry(String p_countryName, String p_continent) {
 		// TODO: validate if this country has already been added
@@ -221,7 +239,7 @@ public class GameMap {
 	}
 
 	/**
-	 * To remove the given country from the map.
+	 * Removes the given country from the map.
 	 * 
 	 * @param p_countryName The name of the country
 	 */
@@ -239,7 +257,7 @@ public class GameMap {
 	}
 
 	/**
-	 * To add the neighbor to a country using commands
+	 * Adds a neighbor to the specified country
 	 * 
 	 * @param p_country  The country to which we need to add the neighbor
 	 * @param p_neighbor The country which needs to be added as the neighbor
@@ -266,7 +284,7 @@ public class GameMap {
 	}
 
 	/**
-	 * To add the neighbor to a country through the
+	 * Adds a neighbor to the specified country
 	 * 
 	 * @param p_country  The id of the country to which we need to add the neighbor
 	 * @param p_neighbor The id of the country which needs to be added as the
@@ -289,6 +307,13 @@ public class GameMap {
 		}
 	}
 
+	/**
+	 * Removes a neighbor from the specified country.
+	 *
+	 * @param p_country  The name of the country from which the neighbor will be
+	 *                   removed.
+	 * @param p_neighbor The name of the neighbor country to be removed.
+	 */
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		if (this.getD_countries().containsKey(p_country) && this.getD_countries().containsKey(p_neighbor)) {
 			Country l_country = this.getD_countries().get(p_country);
@@ -309,14 +334,14 @@ public class GameMap {
 	/**
 	 * Displays the map as text during the Map Editor Phase.
 	 * 
-	 * @param p_gameMap An object of the GameMap class.
+	 * @param p_mapEditor An object of the MapEditor class.
 	 */
 	public void showMap() {
 		// for all continents
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
 
-		HashMap<String, Continent> l_continents = this.getD_Continents();
+		HashMap<String, Continent> l_continents = this.getD_continents();
 		for (HashMap.Entry<String, Continent> l_cont : l_continents.entrySet()) {
 			Continent l_currContinent = l_cont.getValue();
 			String l_nameOfCont = l_currContinent.getD_continentName();
@@ -413,6 +438,12 @@ public class GameMap {
 		}
 	}
 
+	/**
+	 * Loads a map from an existing map file, or creates a new map from scratch if
+	 * the file does not exist.
+	 * 
+	 * @param p_filename The name of the file containing the map data.
+	 */
 	public void editMap(String p_filename) {
 		// TODO this is the readMap() function in MapReader
 	}
