@@ -168,8 +168,8 @@ public class GameMap {
 			Continent l_remContinent = this.getD_Continents().get(p_continentName);
 
 			// remove it from the list of <int, Continent>
-			int l_remContinentId = l_remContinent.getD_continentID();
-			d_continentId.remove(l_remContinent);
+			int l_remContinetId = l_remContinent.getD_continentID();
+			d_continentId.remove(l_remContinetId);
 
 			// remove it from the list of <String, Continent>
 			String l_remContinentName = l_remContinent.getD_continentName();
@@ -244,7 +244,7 @@ public class GameMap {
 	 * @param p_country  The country to which we need to add the neighbor
 	 * @param p_neighbor The country which needs to be added as the neighbor
 	 */
-	public void addNeighbors(String p_country, String p_neighbor) {
+	public void addNeighbor(String p_country, String p_neighbor) {
 		// check if the country exists, if the neighbor exists and if the neighbor is
 		// already been added to the country.
 
@@ -252,7 +252,8 @@ public class GameMap {
 
 			Country l_country = this.getD_countries().get(p_country);
 			Country l_neighbor = this.getD_countries().get(p_neighbor);
-			if (!this.getD_countries().get(p_country).getNeighbors().contains(p_neighbor)) {
+
+			if (!this.getD_countries().get(p_country).getNeighbors().contains(l_neighbor)) {
 				l_country.addNeighbors(l_neighbor);
 			} else {
 				System.err.println("The neighbor " + l_neighbor.getD_name() + " was already added as the neighbor of "
@@ -271,7 +272,7 @@ public class GameMap {
 	 * @param p_neighbor The id of the country which needs to be added as the
 	 *                   neighbor
 	 */
-	public void addNeighbors(int p_country, int p_neighbor) {
+	public void addNeighbor(int p_country, int p_neighbor) {
 		if (this.getD_countriesId().containsKey(p_country) && this.getD_countriesId().containsKey(p_neighbor)) {
 			Country l_country = this.getD_countriesId().get(p_country);
 			Country l_neighbor = this.getD_countriesId().get(p_neighbor);
@@ -289,9 +290,9 @@ public class GameMap {
 	}
 
 	public void removeNeighbor(String p_country, String p_neighbor) {
-		if (this.getD_countriesId().containsKey(p_country) && this.getD_countriesId().containsKey(p_neighbor)) {
-			Country l_country = this.getD_countriesId().get(p_country);
-			Country l_neighbor = this.getD_countriesId().get(p_neighbor);
+		if (this.getD_countries().containsKey(p_country) && this.getD_countries().containsKey(p_neighbor)) {
+			Country l_country = this.getD_countries().get(p_country);
+			Country l_neighbor = this.getD_countries().get(p_neighbor);
 
 			if (l_country.getNeighbors().contains(l_neighbor)) {
 				l_country.getNeighbors().remove(l_neighbor);
@@ -306,15 +307,16 @@ public class GameMap {
 	}
 
 	/**
-	 * Show Map during Map Editor Phase.
+	 * Displays the map as text during the Map Editor Phase.
 	 * 
-	 * @param p_gameMap object of GameMap Class
+	 * @param p_gameMap An object of the GameMap class.
 	 */
-	public void showMap(GameMap p_gameMap) {
+	public void showMap() {
 		// for all continents
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
-		HashMap<String, Continent> l_continents = p_gameMap.getD_Continents();
+
+		HashMap<String, Continent> l_continents = this.getD_Continents();
 		for (HashMap.Entry<String, Continent> l_cont : l_continents.entrySet()) {
 			Continent l_currContinent = l_cont.getValue();
 			String l_nameOfCont = l_currContinent.getD_continentName();
@@ -333,7 +335,6 @@ public class GameMap {
 				}
 				System.out.println();
 			}
-
 			System.out.println("----------------------------------------------------------------------");
 		}
 	}
@@ -363,8 +364,8 @@ public class GameMap {
 	}
 
 	/**
-	 * Traverses the map graph using depth-first search algorithm to visit all
-	 * countries.
+	 * Traverses the countries of the current map to determine if it's a connected
+	 * graph
 	 * 
 	 * @return true if all countries have been visited, false otherwise.
 	 */
@@ -378,8 +379,8 @@ public class GameMap {
 	}
 
 	/**
-	 * Traverses the graph of countries within the specified continent using
-	 * depth-first search algorithm.
+	 * Traverses the countries of the specified continent to determine if it's a
+	 * connected graph
 	 * 
 	 * @param p_continent The continent whose countries are to be traversed.
 	 * @return true if all countries within the continent have been visited, false
@@ -410,5 +411,9 @@ public class GameMap {
 				depthFirstSearch(l_neighbor, p_visitedCountries);
 			}
 		}
+	}
+
+	public void editMap(String p_filename) {
+		// TODO this is the readMap() function in MapReader
 	}
 }

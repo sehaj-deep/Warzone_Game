@@ -10,12 +10,12 @@ import java.util.Scanner;
  */
 public class MapReader {
 
-	public static void readMap(GameMap p_gameMap, String p_mapName) {
+	public static void readMap(GameMap p_gameMap, String p_fileName) {
 
 		Scanner l_scanner = null;
 
 		try {
-			File l_file = new File(p_mapName);
+			File l_file = new File(p_fileName);
 			l_scanner = new Scanner(new FileInputStream(l_file));
 		} catch (FileNotFoundException e) {
 			System.err.println("Error opening the file");
@@ -80,7 +80,7 @@ public class MapReader {
 		String[] l_neighborsArr = p_singleLine.split("\\s+");
 
 		for (int i = 1; i < l_neighborsArr.length; i++) {
-			p_gameMap.addNeighbors(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
+			p_gameMap.addNeighbor(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
 		}
 	}
 }

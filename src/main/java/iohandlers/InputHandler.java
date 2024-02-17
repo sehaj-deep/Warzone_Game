@@ -1,3 +1,5 @@
+package iohandlers;
+
 import java.util.Scanner;
 
 import map.GameMap;
@@ -10,7 +12,7 @@ public class InputHandler {
 	static GameMap d_gameMap;
 
 	public InputHandler(GameMap p_gameMap) {
-		this.d_gameMap = p_gameMap;
+		d_gameMap = p_gameMap;
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'editcontinent' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditContinentCommand(String[] p_tokens) {
 		if (p_tokens.length < 3) {
@@ -92,9 +94,8 @@ public class InputHandler {
 					case "-add":
 						// Validation - there should be at least 2 tokens after add
 						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
-							// Validation - parameter should not start with "-"
 
-							// TODO: refactor so that continent id means the same throughout the code
+							// Validation - parameter should not start with "-"
 							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
 								l_continentName = p_tokens[++i];
 								l_continentValue = p_tokens[++i];
@@ -135,7 +136,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'editcountry' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditCountryCommand(String[] p_tokens) {
 		if (p_tokens.length < 2) {
@@ -154,7 +155,10 @@ public class InputHandler {
 				} else {
 					switch (l_option) {
 					case "-add":
+						// Validation - there should be at least 2 tokens after add
 						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
 							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
 								l_countryId = p_tokens[++i];
 								l_continentId = p_tokens[++i];
@@ -194,7 +198,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'editneighbor' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditNeighborCommand(String[] p_tokens) {
 		if (p_tokens.length < 2) {
@@ -214,13 +218,16 @@ public class InputHandler {
 				} else {
 					switch (l_option) {
 					case "-add":
+						// Validation - there should be at least 2 tokens after add
 						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
 							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
 								l_countryId = p_tokens[++i];
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
-									d_gameMap.addNeighbors(l_countryId, l_neighborCountryId);
+									d_gameMap.addNeighbor(l_countryId, l_neighborCountryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -228,7 +235,10 @@ public class InputHandler {
 						}
 						break;
 					case "-remove":
+						// Validation - there should be at least 2 tokens after add
 						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
 							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
 								l_countryId = p_tokens[++i];
 								l_neighborCountryId = p_tokens[++i];
@@ -255,12 +265,12 @@ public class InputHandler {
 	/**
 	 * Parses the 'showmap' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseShowMapCommand(String[] p_tokens) {
 		// TODO
 		// if(currentPhase == MAP_EDITING_PHASE){
-		// MapEditor.showMap();
+		d_gameMap.showMap();
 		// } else {
 		// GameEngine.showMap();
 		// }
@@ -269,7 +279,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'savemap' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseSaveMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
@@ -277,44 +287,41 @@ public class InputHandler {
 		} else {
 			String l_filename = p_tokens[1];
 			// TODO: Implement logic to save the map with the specified filename
-			// MapEditor.saveMap(filename);
+			// d_gameMap.saveMap(filename);
 		}
 	}
 
 	/**
 	 * Parses the 'editmap' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
 			String l_filename = p_tokens[1];
-			// TODO: Implement logic to edit the map with the specified filename
-			// MapEditor.editMap(filename);
+			d_gameMap.editMap(l_filename);
 		}
 	}
 
 	/**
 	 * Parses the 'validatemap' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseValidateMapCommand(String[] p_tokens) {
-		// TODO
-		// MapEditor.validateMap();
+		d_gameMap.validateMap();
 	}
 
 	/**
 	 * Parses the 'gameplayer' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseGamePlayerCommand(String[] p_tokens) {
 		if (p_tokens.length < 3) {
 			System.out.println("Invalid command. Syntax: gameplayer -add playername -remove playername");
-
 			return;
 		}
 
@@ -354,7 +361,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'assigncountries' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseAssignCountriesCommand(String[] p_tokens) {
 		// TODO
@@ -364,7 +371,7 @@ public class InputHandler {
 	/**
 	 * Parses the 'loadmap' command.
 	 * 
-	 * @param tokens Command tokens.
+	 * @param p_tokens Command tokens.
 	 */
 	private static void parseLoadMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
