@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e5161908-ceeb-44e9-af03-d58f716d231b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/map/GameMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/GameMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/map/MapReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/map/MapReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Continent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Continent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Country.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Country.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/StarterPhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/StarterPhase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Common.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Common.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,16 +48,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.StarterPhase.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging build__one__NB",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nitinbirdi/Desktop/work/assignments/warzone project/Warzone_Game"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.StarterPhase.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;build__one__NB&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nitinbirdi/Desktop/work/assignments/warzone project/Warzone_Game&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Warzone_Game" />
