@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collections;
 
+
 /**
  * Represents the phase where players are added or removed.
  */
