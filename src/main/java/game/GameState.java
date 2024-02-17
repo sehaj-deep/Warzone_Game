@@ -1,7 +1,7 @@
 package game;
 
 import java.util.*;
-import map.GameMap;
+import map.MapEditor;
 
 /** GameState class
  * This class captures the current state of the game
@@ -12,7 +12,7 @@ public class GameState {
 
     // list of available reinforcements for all players. Order same as d_players
     private List<Integer> d_reinforcements;
-    private GameMap d_gMap;  // OOP representation of map
+    private MapEditor d_gMap;  // OOP representation of map
 
     /** Parameterized Constructor
      *
@@ -51,7 +51,7 @@ public class GameState {
      *
      * @return a game map used in the current game
      */
-    public GameMap getGameMap() {
+    public MapEditor getGameMap() {
         return d_gMap;
     }
 
@@ -60,7 +60,7 @@ public class GameState {
      *
      * @param p_gMap a game map loaded for the game
      */
-    public void setGameMap(GameMap p_gMap) {
+    public void setGameMap(MapEditor p_gMap) {
         d_gMap = p_gMap;
     }
 }
