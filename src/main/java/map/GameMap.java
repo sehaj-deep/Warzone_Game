@@ -1,6 +1,7 @@
 package map;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 import models.Continent;
@@ -334,6 +335,80 @@ public class GameMap {
 			}
 
 			System.out.println("----------------------------------------------------------------------");
+		}
+	}
+
+	/**
+	 * Validates if the map's continents form a connected graph.
+	 * 
+	 * @return true if the map's continents form a connected graph, otherwise false
+	 */
+	public boolean validateMap() {
+		boolean l_isMapConnectedGraph = traverseMapGraph();
+		boolean l_isContinentConnectedGraph = false;
+
+		if (!l_isMapConnectedGraph) {
+			return false;
+		}
+
+		for (HashMap.Entry<String, Continent> l_continentEntry : d_continents.entrySet()) {
+
+			l_isContinentConnectedGraph = traverseContinentGraph(l_continentEntry.getValue());
+
+			if (!l_isContinentConnectedGraph) {
+				return false;
+			}
+		}
+		return l_isMapConnectedGraph && l_isContinentConnectedGraph;
+	}
+
+	/**
+	 * Traverses the map graph using depth-first search algorithm to visit all
+	 * countries.
+	 * 
+	 * @return true if all countries have been visited, false otherwise.
+	 */
+	public boolean traverseMapGraph() {
+		Set<Country> l_visitedCountries = new HashSet<>();
+		Country l_startCountry = getD_countries().values().iterator().next();
+
+		depthFirstSearch(l_startCountry, l_visitedCountries);
+
+		return l_visitedCountries.size() == getD_countries().size();
+	}
+
+	/**
+	 * Traverses the graph of countries within the specified continent using
+	 * depth-first search algorithm.
+	 * 
+	 * @param p_continent The continent whose countries are to be traversed.
+	 * @return true if all countries within the continent have been visited, false
+	 *         otherwise.
+	 */
+	public boolean traverseContinentGraph(Continent p_continent) {
+		Set<Country> l_countriesInContinent = p_continent.getD_countries();
+		Set<Country> l_visitedCountries = new HashSet<>();
+		Country startCountry = l_countriesInContinent.iterator().next();
+
+		depthFirstSearch(startCountry, l_visitedCountries);
+
+		return l_visitedCountries.size() == l_countriesInContinent.size();
+	}
+
+	/**
+	 * Performs depth-first search traversal starting from the specified country.
+	 * 
+	 * @param p_country          The starting country for the traversal.
+	 * @param p_visitedCountries Set to store visited countries during traversal.
+	 */
+	private void depthFirstSearch(Country p_country, Set<Country> p_visitedCountries) {
+		p_visitedCountries.add(p_country);
+		Set<Country> l_neighboringCountries = p_country.getNeighbors();
+
+		for (Country l_neighbor : l_neighboringCountries) {
+			if (!p_visitedCountries.contains(l_neighbor)) {
+				depthFirstSearch(l_neighbor, p_visitedCountries);
+			}
 		}
 	}
 }
