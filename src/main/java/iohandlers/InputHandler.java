@@ -1,7 +1,5 @@
 package iohandlers;
 
-import java.util.Scanner;
-
 import map.MapEditor;
 
 /**
@@ -18,54 +16,45 @@ public class InputHandler {
 	/**
 	 * Parses user input commands.
 	 */
-	public static void parseUserCommand() {
-		System.out.print("Enter command: ");
+	public static void parseUserCommand(String p_userInput) {
 
-		Scanner l_scanner = new Scanner(System.in);
+		String[] l_tokens = p_userInput.split("\\s+");
+		String l_command = l_tokens[0].toLowerCase();
 
-		try {
-			String l_userInput = l_scanner.nextLine().trim();
-			String[] l_tokens = l_userInput.split("\\s+");
-
-			String l_command = l_tokens[0].toLowerCase();
-
-			// FIXME Replace exception with custom exception
-			switch (l_command) {
-			case "editcontinent":
-				parseEditContinentCommand(l_tokens);
-				break;
-			case "editcountry":
-				parseEditCountryCommand(l_tokens);
-				break;
-			case "editneighbor":
-				parseEditNeighborCommand(l_tokens);
-				break;
-			case "showmap":
-				parseShowMapCommand(l_tokens);
-				break;
-			case "savemap":
-				parseSaveMapCommand(l_tokens);
-				break;
-			case "editmap":
-				parseEditMapCommand(l_tokens);
-				break;
-			case "validatemap":
-				parseValidateMapCommand(l_tokens);
-				break;
-			case "gameplayer":
-				parseGamePlayerCommand(l_tokens);
-				break;
-			case "assigncountries":
-				parseAssignCountriesCommand(l_tokens);
-				break;
-			case "loadmap":
-				parseLoadMapCommand(l_tokens);
-				break;
-			default:
-				System.out.println("Invalid command. Please try again.");
-			}
-		} finally {
-			l_scanner.close();
+		// FIXME Replace exception with custom exception
+		switch (l_command) {
+		case "editcontinent":
+			parseEditContinentCommand(l_tokens);
+			break;
+		case "editcountry":
+			parseEditCountryCommand(l_tokens);
+			break;
+		case "editneighbor":
+			parseEditNeighborCommand(l_tokens);
+			break;
+		case "showmap":
+			parseShowMapCommand(l_tokens);
+			break;
+		case "savemap":
+			parseSaveMapCommand(l_tokens);
+			break;
+		case "editmap":
+			parseEditMapCommand(l_tokens);
+			break;
+		case "validatemap":
+			parseValidateMapCommand(l_tokens);
+			break;
+		case "gameplayer":
+			parseGamePlayerCommand(l_tokens);
+			break;
+		case "assigncountries":
+			parseAssignCountriesCommand(l_tokens);
+			break;
+		case "loadmap":
+			parseLoadMapCommand(l_tokens);
+			break;
+		default:
+			System.out.println("Invalid command. Please try again.");
 		}
 	}
 
