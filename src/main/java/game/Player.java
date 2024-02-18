@@ -11,7 +11,7 @@ public class Player {
 	private int d_playerId;  // player id
 	private String d_playerName;  // player name
 	private Queue<Order> d_listOrders;  // list of orders issued by the player
-	private Set<Integer> d_ownership;  // set of countries owned by the player
+	private Set<String> d_ownership;  // set of countries owned by the player
 	
 	
 	/**
@@ -22,7 +22,7 @@ public class Player {
 	Player (int p_playerId) {
 		d_playerId = p_playerId;
 		d_listOrders = new LinkedList<>();
-		d_ownership = new HashSet<Integer>();
+		d_ownership = new HashSet<String>();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Player {
 	 * 
 	 * @return a set of countries owned by the player
 	 */
-	public Set<Integer> getOwnership() {
+	public Set<String> getOwnership() {
 		return d_ownership;
 	}
 
@@ -69,7 +69,7 @@ public class Player {
 	*
 	* @param p_ownership a new set of countries owned
 	 */
-	public void setOwnership(Set<Integer> p_ownership) {
+	public void setOwnership(Set<String> p_ownership) {
 		d_ownership = p_ownership;
 	}
 	
@@ -86,7 +86,7 @@ public class Player {
 	 *
 	 * @param p_country is the country id to be added to player's owned countries
 	 */
-	public void addCountry(int p_country) {
+	public void addCountry(String p_country) {
 		d_ownership.add(p_country);
 	}
 	
