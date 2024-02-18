@@ -20,12 +20,12 @@ public class Reinforcements {
 
     /**
      * Constructor for Reinforcements class.
-     * @param gameMap The game map object.
+     * @param MapEditor The game map object.
      * @param player The player instance.
      */
     //@param playerCountriesMap The map of player names and their assigned countries.
-    public Reinforcements(MapEditor p_gameMap, Player p_player) {
-        d_mapEditor = p_gameMap;
+    public Reinforcements(MapEditor p_MapEditor, Player p_player) {
+        d_mapEditor = p_MapEditor;
         this.d_player = p_player;
         this.d_countriesOwned = new HashMap<>(); // Initialize the countries owned map
     }
@@ -48,7 +48,7 @@ public class Reinforcements {
                 }
             }
             if (!l_OwnsAllCountries) {
-                // Get the bonus armies for the continent from the game map
+                // Get the bonus armies for the continent from the map editor
                 int bonusArmies = l_continent.getValue().getD_continentValue();
                 d_reinforcementArmies += bonusArmies;
             }
