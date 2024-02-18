@@ -48,7 +48,7 @@ public class MapEditor {
 	 * 
 	 * @return the list of continents
 	 */
-	private HashMap<String, Continent> getD_continents() {
+	public HashMap<String, Continent> getD_continents() {
 		return d_continents;
 	}
 
