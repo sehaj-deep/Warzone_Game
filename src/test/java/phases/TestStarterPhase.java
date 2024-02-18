@@ -22,7 +22,36 @@ public class TestStarterPhase {
         d_players = new ArrayList<>();
     }
 
-    @org.junit.Test
+    @Test
+    public void addPlayerSuccessful() {
+        GameState gameState = new GameState(d_players);
+
+        String[] dummyPlayerName = {"player1", "player2", "player3"};
+        List<String> dummyPlayerNameList = Arrays.asList(dummyPlayerName);
+
+        for (String s : dummyPlayerNameList) {
+            starterPhase.addPlayer(s, gameState);
+        }
+
+        assertEquals(3, gameState.getPlayers().size());
+        assertEquals(dummyPlayerNameList, starterPhase.getPlayerNameList());
+    }
+
+    @Test
+    public void removePlayerSuccessful() {
+        GameState gameState = new GameState(d_players);
+
+        String[] dummyPlayerName = {"player1", "player2", "player3"};
+        List<String> dummyPlayerNameList = Arrays.asList(dummyPlayerName);
+
+        for (String s : dummyPlayerNameList) {
+            starterPhase.removePlayer(s, gameState);
+        }
+
+        assertEquals(0, gameState.getPlayers().size());
+        assertNotEquals(dummyPlayerNameList,  starterPhase.getPlayerNameList());
+    }
+
     @Test
     public void testIsAssignCountriesValid() {
         System.out.println("Testing isAssignCountriesValid method");
@@ -46,7 +75,6 @@ public class TestStarterPhase {
         System.out.println("Testing StarterPhase.isAssignCountriesValid method PASSED!");
     }
 
-    @org.junit.Test
     @Test
     public void testShuffleAndDistributeCountries() {
         System.out.println("Testing shuffleAndDistributeCountries method");

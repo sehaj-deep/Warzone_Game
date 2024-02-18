@@ -24,6 +24,16 @@ public class StarterPhase {
     private final List<String> d_playerNameList = new ArrayList<>();
 
     /**
+     * get this player's name
+     *
+     * @return d_playerNameList name
+     */
+
+    public List<String> getPlayerNameList() {
+        return d_playerNameList;
+    }
+
+    /**
      * Adds a player to the player list and assigns countries.
      *
      * @param p_playerName The name of the player to add.
@@ -70,7 +80,6 @@ public class StarterPhase {
 
         System.out.println("Player: " + p_playerName + " successfully removed");
     }
-
 
     /**
      * check validity of assigned countries
