@@ -6,7 +6,7 @@ import java.util.Set;
 
 import models.Continent;
 import models.Country;
-import map.GameMap;
+import map.MapEditor;
 
 /**
  * Reinforcements class represents the reinforcement phase in the game.
@@ -15,7 +15,7 @@ public class Reinforcements {
     
     private int d_reinforcementArmies;
     private Map<String, Country> d_countriesOwned; // A HashMap to store countries owned by the player
-    private static GameMap d_gameMap; // A reference to the game map
+    private static MapEditor d_mapEditor; // A reference to the game map editor
     Player d_player; // player Instance
 
     /**
@@ -24,9 +24,10 @@ public class Reinforcements {
      * @param player The player instance.
      */
     //@param playerCountriesMap The map of player names and their assigned countries.
-    public Reinforcements(GameMap p_gameMap, Player p_player) {
-        d_gameMap = p_gameMap;
+    public Reinforcements(MapEditor p_gameMap, Player p_player) {
+        d_mapEditor = p_gameMap;
         this.d_player = p_player;
+        this.d_countriesOwned = new HashMap<>(); // Initialize the countries owned map
     }
 
     /**
@@ -36,7 +37,7 @@ public class Reinforcements {
         d_reinforcementArmies = d_countriesOwned.size() / 3; // Basic calculation based on territories owned
 
         // Add bonus armies from continents owned
-        for (HashMap.Entry<String, Continent> l_continent : d_gameMap.getD_Continents().entrySet()) {
+        for (HashMap.Entry<String, Continent> l_continent : d_mapEditor.getD_Continents().entrySet()) {
 
             Set<Country> l_countries = l_continent.getValue().getD_countries();
             boolean l_OwnsAllCountries = false;
