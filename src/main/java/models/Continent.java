@@ -18,7 +18,7 @@ public class Continent {
 	/**
 	 * continent value.
 	 */
-	private int d_continentValue;
+	private int d_continentBonusArmies;
 	
 	/**
 	 * All the countries in a continent
@@ -30,12 +30,12 @@ public class Continent {
 	 * 
 	 * @param p_continentID
 	 * @param p_continentName
-	 * @param p_continentValue
+	 * @param p_continentBonusArmies
 	 */
-	public Continent(int p_continentID, String p_continentName, int p_continentValue) {
+	public Continent(int p_continentID, String p_continentName, int p_continentBonusArmies) {
 		this.d_continentID = p_continentID;
 		this.d_continentName = p_continentName;
-		this.d_continentValue = p_continentValue;
+		this.d_continentBonusArmies = p_continentBonusArmies;
 	}
 
 	/**
@@ -74,16 +74,16 @@ public class Continent {
 	 * 
 	 * @return continent Value
 	 */
-	public int getD_continentValue() {
-		return d_continentValue;
+	public int getD_continentBonusArmies() {
+		return d_continentBonusArmies;
 	}
 
 	/**
 	 * 
 	 * @param p_continentValue
 	 */
-	public void setD_continentValue(int p_continentValue) {
-		this.d_continentValue = p_continentValue;
+	public void setD_continentBonusArmies(int p_continentValue) {
+		this.d_continentBonusArmies = p_continentValue;
 	}
 	
 	
