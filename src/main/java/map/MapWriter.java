@@ -37,7 +37,8 @@ public class MapWriter {
 
 		for (int i = 1; i <= d_mapEditor.getD_continentId().size(); i++) {
 			Continent l_currContinent = d_mapEditor.getD_continentId(i);
-			l_printWriter.println(l_currContinent.getD_continentName() + " " + l_currContinent.getD_continentValue());
+			l_printWriter
+					.println(l_currContinent.getD_continentName() + " " + l_currContinent.getD_continentBonusArmies());
 		}
 
 		l_printWriter.println();
