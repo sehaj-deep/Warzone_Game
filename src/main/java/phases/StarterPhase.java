@@ -2,92 +2,130 @@ package phases;
 
 import game.GameState;
 import game.Player;
+import map.MapEditor;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Collections;
 
 /**
  * Represents the phase where players are added or removed.
  */
 public class StarterPhase {
 
-    // List to store player names
-    private final List<String> d_playerNameList = new ArrayList<>();
-
-    // List of available countries
-    private final List<String> d_availableCountries = new ArrayList<>(); // Assuming i have a list of country names
-
     /**
      * Constructor for the StarterPhase class.
-     *
-     * @param playerName The name of the player.
      */
-    public StarterPhase(String playerName) {
-        this.d_playerNameList.add(playerName);
+    public StarterPhase() {
     }
+
+    // List to store player names
+    private final List<String> d_playerNameList = new ArrayList<>();
 
     /**
      * Adds a player to the player list and assigns countries.
      *
-     * @param gameState The current game state.
-     * @param player The player to add.
+     * @param p_playerName The name of the player to add.
      */
-    public void addPlayer(GameState gameState, Player player) {
-        if (player == null || player.getPlayerName().trim().isEmpty()) {
-            throw new IllegalArgumentException("Player cannot be null or have an empty name");
+    public void addPlayer(String p_playerName, GameState p_state) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
         }
 
-        if (d_playerNameList.contains(player.getPlayerName())) {
-            throw new IllegalArgumentException("Player " + player.getPlayerName() + " already exists");
+        if (!p_playerName.matches("[a-zA-Z0-9]+")) {
+            throw new IllegalArgumentException("Invalid characters are not allowed");
         }
 
-        d_playerNameList.add(player.getPlayerName());
-        assignCountriesToPlayer(gameState, player);
-        System.out.println("Player: " + player.getPlayerName() + " successfully added with assigned countries: " + player.getOwnership());
+        if (d_playerNameList.contains(p_playerName)) {
+            throw new IllegalArgumentException("Player " + p_playerName + " already exists");
+        }
+
+        d_playerNameList.add(p_playerName);
+
+        Player l_player = new Player(d_playerNameList.indexOf(p_playerName));
+        p_state.getPlayers().add(l_player);
+
+        System.out.println("Player: " + p_playerName + " successfully added ");
+    }
+
+    /**
+     * Removes a player from the player list.
+     *
+     * @param p_playerName The name of the player to remove.
+     */
+    public void removePlayer(String p_playerName, GameState p_state) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
+
+        if (!d_playerNameList.contains(p_playerName)) {
+            throw new IllegalArgumentException("Player " + p_playerName + " not found");
+        }
+
+        d_playerNameList.remove(p_playerName);
+
+        Player l_player = new Player(d_playerNameList.indexOf(p_playerName));
+        p_state.getPlayers().remove(l_player);
+
+        System.out.println("Player: " + p_playerName + " successfully removed");
+    }
+
+
+    /**
+     * check validity of assigned countries
+     * if a player has 2 or more countries assigned than another player has, then this is invalid
+     *
+     * @param p_state current game state
+     * @return true if valid. false if invalid
+     */
+    public boolean isAssignCountriesValid(GameState p_state) {
+        int minSize = p_state.getPlayers().get(0).getOwnership().size();  // min of number of player's owned countries
+        int maxSize = p_state.getPlayers().get(0).getOwnership().size();  // max of number of player's owned countries
+
+        for (int i = 1; i < p_state.getPlayers().size(); i++) {
+            Player player = p_state.getPlayers().get(i);
+            int numCountriesOwned = player.getOwnership().size();
+            if (numCountriesOwned < minSize) {
+                minSize = numCountriesOwned;
+            }
+            if (numCountriesOwned > maxSize) {
+                maxSize = numCountriesOwned;
+            }
+        }
+
+        System.out.println("min: " + minSize + "\nmax: " + maxSize);
+        return (maxSize - minSize) <= 1;
+    }
+
+    /**
+     * Randomly shuffle countries and distribute one by one to a player
+     *
+     * @param p_state   the current game state
+     * @param countries all countries available to assign to the players
+     */
+    public void shuffleAndDistributeCountries(GameState p_state, Set<String> countries) {
+        List<String> countriesList = new ArrayList<>(countries); // cast set to list
+
+        // Shuffle the list of available countries
+        Collections.shuffle(countriesList);
+
+        for (int i = 0; i < countriesList.size(); i++) {
+            // Add assigned country to player's countries (d_ownership)
+            int idx = i % (p_state.getPlayers().size());
+            Player player = p_state.getPlayers().get(idx);
+            player.conquerCountry(countriesList.get(i));
+        }
     }
 
     /**
      * Assigns countries to the specified player.
      *
-     * @param gameState The current game state.
-     * @param player The player to whom countries are assigned.
+     * @param p_state the current game state
+     * @param p_gMap  the map used in this game
      */
-    private void assignCountriesToPlayer(GameState gameState, Player player) {
-        // Check if there are available countries to assign
-        if (d_availableCountries.isEmpty()) {
-            throw new IllegalStateException("No available countries to assign");
-        }
-
-        List<String> l_assignedCountries = new ArrayList<>(d_availableCountries); // Copy available countries
-
-        // Shuffle the list of available countries
-        Collections.shuffle(l_assignedCountries);
-
-        int l_playerCount = d_playerNameList.size();
-        int l_countryCount = l_assignedCountries.size();
-        int l_countriesPerPlayer = l_countryCount / l_playerCount;
-        int l_extraCountries = l_countryCount % l_playerCount;
-
-        int playerIndex = gameState.getPlayers().indexOf(player);
-        int l_startIndex = playerIndex * l_countriesPerPlayer;
-        int l_endIndex = l_startIndex + l_countriesPerPlayer;
-
-        if (playerIndex < l_extraCountries) {
-            l_startIndex += playerIndex;
-            l_endIndex += playerIndex + 1;
-        } else {
-            l_startIndex += l_extraCountries;
-            l_endIndex += l_extraCountries;
-        }
-
-        // Assign countries to the player based on the shuffled list
-        List<String> playerCountries = l_assignedCountries.subList(l_startIndex, l_endIndex);
-
-        // Remove assigned countries from the available countries list
-        d_availableCountries.removeAll(playerCountries);
-
-        // Update the player's owned countries
-        player.setOwnership(new HashSet<>(playerCountries));
+    public void assignCountriesToPlayer(GameState p_state, MapEditor p_gMap) {
+        Set<String> mapCountries = p_gMap.getD_countries().keySet();
+        shuffleAndDistributeCountries(p_state, mapCountries);
     }
 }
