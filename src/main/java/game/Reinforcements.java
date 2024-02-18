@@ -37,7 +37,7 @@ public class Reinforcements {
         d_reinforcementArmies = d_countriesOwned.size() / 3; // Basic calculation based on territories owned
 
         // Add bonus armies from continents owned
-        for (HashMap.Entry<String, Continent> l_continent : d_mapEditor.getD_Continents().entrySet()) {
+        for (HashMap.Entry<String, Continent> l_continent : d_mapEditor.getD_continents().entrySet()) {
 
             Set<Country> l_countries = l_continent.getValue().getD_countries();
             boolean l_OwnsAllCountries = false;
@@ -49,7 +49,7 @@ public class Reinforcements {
             }
             if (!l_OwnsAllCountries) {
                 // Get the bonus armies for the continent from the map editor
-                int bonusArmies = l_continent.getValue().getD_continentValue();
+                int bonusArmies = l_continent.getValue().getD_continentBonusArmies();
                 d_reinforcementArmies += bonusArmies;
             }
         }
