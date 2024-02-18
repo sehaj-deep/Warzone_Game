@@ -10,6 +10,43 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.TestDeploy.executor": "Run",
+    "JUnit.TestStarterPhase.executor": "Run",
+    "JUnit.TestStarterPhase.removePlayerSuccessful.executor": "Debug",
+    "TestNG.TestStarterPhase.executor": "Run",
+    "last_opened_file_path": "/Users/nitinbirdi/Desktop/work/assignments/warzone project/Warzone_Game",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="TestStarterPhase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.TestStarterPhase" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestStarterPhase" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="TaskManager">
     <servers />
   </component>
