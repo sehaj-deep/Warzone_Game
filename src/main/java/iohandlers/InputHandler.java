@@ -1,6 +1,9 @@
 package iohandlers;
 
+import game.GameState;
 import map.MapEditor;
+
+import java.util.regex.Pattern;
 
 /**
  * InputHandler class is responsible for handling user input commands.
@@ -8,9 +11,11 @@ import map.MapEditor;
 public class InputHandler {
 
 	static MapEditor d_mapEditor;
+	static GameState d_gameState;
 
-	public InputHandler(MapEditor p_mapEditor) {
+	public InputHandler(MapEditor p_mapEditor, GameState p_gameState) {
 		d_mapEditor = p_mapEditor;
+		d_gameState = p_gameState;
 	}
 
 	/**
@@ -52,6 +57,9 @@ public class InputHandler {
 			break;
 		case "loadmap":
 			parseLoadMapCommand(l_tokens);
+			break;
+		case "deploy":
+			parseDeployCommand(l_tokens);
 			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
@@ -370,5 +378,30 @@ public class InputHandler {
 			// TODO
 			// MapEditor.loadMap(filename);
 		}
+	}
+
+	/** Parse the Deploy command from the user command in terminal
+	 *  Store the user input tokens in the game state so that Phase classes can access the inputs
+	 * 
+	 * @param p_tokens an array of tokens given in the user input command
+	 */
+	private static void parseDeployCommand(String[] p_tokens) {
+		Pattern numericRegex = Pattern.compile("\\d+");
+		if (p_tokens.length != 3) {
+			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
+			return;
+		}
+		if (!numericRegex.matcher(p_tokens[2]).matches()) {
+			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
+			return;
+		}
+    /*
+    if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
+       System.out.println("Invalid command for Deploy order." +
+             "Country name must be the name of existing country in the map");
+       return;
+    }
+     */
+		d_gameState.setOrderInput(p_tokens);
 	}
 }
