@@ -3,6 +3,7 @@ package map;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,17 +18,29 @@ public class MapReader {
 	 * @param p_mapEditor The MapEditor instance to populate.
 	 * @param p_fileName  The name of the file containing the map data.
 	 */
-	public static void readMap(MapEditor p_mapEditor, String p_fileName) {
+	public static void readMap(MapEditor p_mapEditor, String p_fileName, boolean p_createNew) {
 
 		Scanner l_scanner = null;
 
 		try {
 			File l_file = new File(p_fileName);
+			if (!l_file.exists() && p_createNew == false) {
+				return;
+			}
+			if (!l_file.exists() && p_createNew) {
+				try {
+					l_file.createNewFile();
+					System.out.println("New file created.");
+					return;
+				} catch (IOException e) {
+					System.out.println("File creation failed");
+				}
+			}
 			l_scanner = new Scanner(new FileInputStream(l_file));
 		} catch (FileNotFoundException e) {
 			System.err.println("Error opening the file");
 			l_scanner.close();
-			System.exit(1);
+			System.exit(0);
 		}
 
 		String l_singleLine = l_scanner.nextLine();

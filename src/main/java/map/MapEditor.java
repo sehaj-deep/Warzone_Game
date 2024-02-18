@@ -6,6 +6,7 @@ import java.util.Set;
 
 import models.Continent;
 import models.Country;
+import utils.ValidationException;
 
 /**
  * The MapEditor class manages editing of the game map.
@@ -167,6 +168,8 @@ public class MapEditor {
 		this.getD_continentId().put(l_newContinentId, l_continent);
 		// TODO: replace the below statement with either the logger or by deleting it
 		// System.out.println("Successfully added the continent: " + p_continentName);
+		System.out.println("The continent " + this.getD_continents().get(p_continentName).getD_continentName()
+				+ " has been added successfully.");
 	}
 
 	/**
@@ -176,7 +179,7 @@ public class MapEditor {
 	 */
 	public void removeContinent(String p_continentName) {
 		// check if this continent is present, if not throw an exception
-		if (!this.getD_continents().containsKey(p_continentName)) {
+		if (this.getD_continents().containsKey(p_continentName)) {
 			Continent l_remContinent = this.getD_continents().get(p_continentName);
 
 			// remove it from the list of <int, Continent>
@@ -186,6 +189,8 @@ public class MapEditor {
 			// remove it from the list of <String, Continent>
 			String l_remContinentName = l_remContinent.getD_continentName();
 			d_continents.remove(l_remContinentName);
+
+			System.out.println("The continent " + p_continentName + " has been removed successfully.");
 		} else {
 			// TODO: throw an exception and catch it in calling function.
 		}
@@ -233,8 +238,10 @@ public class MapEditor {
 			// To add a country to its continent
 			Continent l_continent = this.getD_Continents(p_continent);
 			l_continent.getD_countries().add(l_country);
+			System.out.println("The country " + this.getD_countries().get(p_countryName).getD_name()
+					+ " has been added into the continent " + this.getD_Continents(p_continent).getD_continentName());
 		} else {
-			// TODO: throw an exception
+			System.out.println("Country " + this.getD_countries().get(p_countryName).getD_name() + " already exists");
 		}
 	}
 
@@ -244,13 +251,39 @@ public class MapEditor {
 	 * @param p_countryName The name of the country
 	 */
 	public void removeCountry(String p_countryName) {
-		if (!this.getD_countries().containsKey(p_countryName)) {
+		if (this.getD_countries().containsKey(p_countryName)) {
+
+			// remove from continent
+			Country l_countryToRemove = this.getD_countries().get(p_countryName);
+			HashMap<String, Continent> l_listOfContinents = this.getD_continents();
+			for (HashMap.Entry<String, Continent> l_continent : l_listOfContinents.entrySet()) {
+				Set<Country> l_listOfCountries = l_continent.getValue().getD_countries();
+				if (l_listOfCountries.contains(l_countryToRemove)) {
+					l_continent.getValue().getD_countries().remove(l_countryToRemove);
+					break;
+				}
+			}
+
+			// to remove from each Countries' neighbors
+			HashMap<String, Country> l_listOfCountries = this.getD_countries();
+			for (HashMap.Entry<String, Country> l_country : l_listOfCountries.entrySet()) {
+				HashSet<Country> l_neighbors = l_country.getValue().getNeighbors();
+				for (Country l_countryNeighbor : l_neighbors) {
+					if (l_countryNeighbor.equals(l_countryToRemove)) {
+						l_neighbors.remove(l_countryToRemove);
+						break;
+					}
+				}
+			}
+
 			// get the Integer id of the continent and remove from the Integer HashMap
 			int l_countryId = this.getD_countries().get(p_countryName).getD_id();
 			this.getD_countriesId().remove(l_countryId);
 
 			// remove from the String HashMap
 			this.getD_countries().remove(p_countryName);
+			System.out.println("The country " + p_countryName + " has been removed successfully.");
+
 		} else {
 			// TODO: throw an exception
 		}
@@ -266,21 +299,28 @@ public class MapEditor {
 		// check if the country exists, if the neighbor exists and if the neighbor is
 		// already been added to the country.
 
-		if (this.getD_countries().containsKey(p_country) && this.getD_countries().containsKey(p_neighbor)) {
+		if (!p_country.equalsIgnoreCase(p_neighbor)) {
+			if (this.getD_countries().containsKey(p_country) && this.getD_countries().containsKey(p_neighbor)) {
 
-			Country l_country = this.getD_countries().get(p_country);
-			Country l_neighbor = this.getD_countries().get(p_neighbor);
+				Country l_country = this.getD_countries().get(p_country);
+				Country l_neighbor = this.getD_countries().get(p_neighbor);
 
-			if (!this.getD_countries().get(p_country).getNeighbors().contains(l_neighbor)) {
-				l_country.addNeighbors(l_neighbor);
+				if (!this.getD_countries().get(p_country).getNeighbors().contains(l_neighbor)) {
+					l_country.addNeighbors(l_neighbor);
+					System.out.println("The country " + p_neighbor + " has been added as the neighbor of " + p_country);
+				} else {
+					System.err.println("The neighbor " + l_neighbor.getD_name()
+							+ " was already added as the neighbor of " + l_country.getD_name());
+				}
 			} else {
-				System.err.println("The neighbor " + l_neighbor.getD_name() + " was already added as the neighbor of "
-						+ l_country.getD_name());
+				System.out.println("Either the country or the neighbor does not exist.");
+				// TODO: throw an exception that the country or neighbor not given in list of
+				// countries
 			}
 		} else {
-			// TODO: throw an exception that the country or neighbor not given in list of
-			// countries
+			System.out.println("The country " + p_country + " cannot be it's own neighbor.");
 		}
+
 	}
 
 	/**
@@ -321,6 +361,7 @@ public class MapEditor {
 
 			if (l_country.getNeighbors().contains(l_neighbor)) {
 				l_country.getNeighbors().remove(l_neighbor);
+				System.out.println("The country: " + p_neighbor + " has been removed as the neighbor of " + p_country);
 			} else {
 				System.err.println("The neighbor " + l_neighbor.getD_name() + " was not present as the neighbor of "
 						+ l_country.getD_name());
@@ -374,17 +415,27 @@ public class MapEditor {
 		boolean l_isContinentConnectedGraph = false;
 
 		if (!l_isMapConnectedGraph) {
+			System.out.println("Map is not a connected graph.");
 			return false;
 		}
 
 		for (HashMap.Entry<String, Continent> l_continentEntry : d_continents.entrySet()) {
 
+			if (l_continentEntry.getValue().getD_countries().isEmpty()) {
+				System.out.println(l_continentEntry.getValue().getD_continentName()
+						+ " is invalid: It does not have any countries.");
+				return false;
+			}
+
 			l_isContinentConnectedGraph = traverseContinentGraph(l_continentEntry.getValue());
 
 			if (!l_isContinentConnectedGraph) {
+				System.out.println(l_continentEntry.getValue().getD_continentName() + " is not a connected graph.");
 				return false;
 			}
 		}
+
+		System.out.println("The map is valid.");
 		return l_isMapConnectedGraph && l_isContinentConnectedGraph;
 	}
 
@@ -398,7 +449,7 @@ public class MapEditor {
 		Set<Country> l_visitedCountries = new HashSet<>();
 		Country l_startCountry = getD_countries().values().iterator().next();
 
-		depthFirstSearch(l_startCountry, l_visitedCountries);
+		depthFirstSearchForMap(l_startCountry, l_visitedCountries);
 
 		return l_visitedCountries.size() == getD_countries().size();
 	}
@@ -414,9 +465,9 @@ public class MapEditor {
 	public boolean traverseContinentGraph(Continent p_continent) {
 		Set<Country> l_countriesInContinent = p_continent.getD_countries();
 		Set<Country> l_visitedCountries = new HashSet<>();
-		Country startCountry = l_countriesInContinent.iterator().next();
+		Country l_startCountry = l_countriesInContinent.iterator().next();
 
-		depthFirstSearch(startCountry, l_visitedCountries);
+		depthFirstSearchForContinent(l_startCountry, p_continent, l_visitedCountries);
 
 		return l_visitedCountries.size() == l_countriesInContinent.size();
 	}
@@ -427,13 +478,32 @@ public class MapEditor {
 	 * @param p_country          The starting country for the traversal.
 	 * @param p_visitedCountries Set to store visited countries during traversal.
 	 */
-	private void depthFirstSearch(Country p_country, Set<Country> p_visitedCountries) {
+	private void depthFirstSearchForMap(Country p_country, Set<Country> p_visitedCountries) {
 		p_visitedCountries.add(p_country);
 		Set<Country> l_neighboringCountries = p_country.getNeighbors();
 
 		for (Country l_neighbor : l_neighboringCountries) {
 			if (!p_visitedCountries.contains(l_neighbor)) {
-				depthFirstSearch(l_neighbor, p_visitedCountries);
+				depthFirstSearchForMap(l_neighbor, p_visitedCountries);
+			}
+		}
+	}
+
+	/**
+	 * Performs depth-first search traversal starting from the specified country.
+	 * 
+	 * @param p_country          The starting country for the traversal.
+	 * @param p_visitedCountries Set to store visited countries during traversal.
+	 */
+	private void depthFirstSearchForContinent(Country p_country, Continent p_continent,
+			Set<Country> p_visitedCountries) {
+		p_visitedCountries.add(p_country);
+
+		Set<Country> l_neighboringCountries = p_country.getNeighbors();
+
+		for (Country l_neighbor : l_neighboringCountries) {
+			if (p_continent.getD_countries().contains(l_neighbor) && !p_visitedCountries.contains(l_neighbor)) {
+				depthFirstSearchForContinent(l_neighbor, p_continent, p_visitedCountries);
 			}
 		}
 	}
@@ -442,9 +512,49 @@ public class MapEditor {
 	 * Loads a map from an existing map file, or creates a new map from scratch if
 	 * the file does not exist.
 	 * 
-	 * @param p_filename The name of the file containing the map data.
+	 * @param p_mapEditor The object of the map Editor currently in use
+	 * @param p_filename  The name of the file containing the map data.
+	 * 
 	 */
-	public void editMap(String p_filename) {
-		// TODO this is the readMap() function in MapReader
+	public void editMap(MapEditor p_mapEditor, String p_filename) {
+		MapReader.readMap(p_mapEditor, p_filename, true);
+		String[] l_path = p_filename.split("/");
+		System.out.println("You are now editing " + l_path[l_path.length - 1]);
 	}
+
+	/**
+	 * Loads a map from an existing map file
+	 * 
+	 * @param p_mapEditor The object of the map Editor currently in use
+	 * @param p_filename  The name of the file containing the map data.
+	 */
+	public void loadMap(MapEditor p_mapEditor, String p_filename) {
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to load map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+		}
+
+		MapReader.readMap(p_mapEditor, p_filename, false);
+		System.out.println("The map " + p_filename + " has been loaded into the game.");
+	}
+
+	public void saveMap(MapEditor p_mapEditor, String p_filename) {
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to save map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+		}
+
+		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
+		l_mapWriter.fileWrite(p_filename);
+		System.out.println("The map has been saved successfully into the file: " + p_filename);
+	}
+
 }

@@ -1,13 +1,16 @@
 package iohandlers;
 
 import map.MapEditor;
+import utils.Common;
 
 /**
  * InputHandler class is responsible for handling user input commands.
  */
 public class InputHandler {
 
-	static MapEditor d_mapEditor;
+	// FIXME: make all functions as non static for this.
+
+	private static MapEditor d_mapEditor = null;
 
 	public InputHandler(MapEditor p_mapEditor) {
 		d_mapEditor = p_mapEditor;
@@ -82,11 +85,11 @@ public class InputHandler {
 					switch (l_option) {
 					case "-add":
 						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+						if (i + 1 < p_tokens.length) {
 
 							// Validation - parameter should not start with "-"
-							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
-								l_continentName = p_tokens[++i];
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_continentName = p_tokens[i];
 								l_continentValue = p_tokens[++i];
 
 								try {
@@ -98,15 +101,13 @@ public class InputHandler {
 						}
 						break;
 					case "-remove":
-						if (i + 1 < p_tokens.length) {
-							if (!p_tokens[i + 1].startsWith("-")) {
-								l_continentName = p_tokens[++i];
+						if (!p_tokens[i].startsWith("-")) {
+							l_continentName = p_tokens[i];
 
-								try {
-									d_mapEditor.removeContinent(l_continentName);
-								} catch (Exception e) {
-									System.out.println(e.getMessage());
-								}
+							try {
+								d_mapEditor.removeContinent(l_continentName);
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
 							}
 						}
 						break;
@@ -145,15 +146,15 @@ public class InputHandler {
 					switch (l_option) {
 					case "-add":
 						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+						if (i + 1 < p_tokens.length) {
 
 							// Validation - parameter should not start with "-"
-							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
-								l_countryId = p_tokens[++i];
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
 								l_continentId = p_tokens[++i];
 
 								try {
-									d_mapEditor.addCountry(l_continentId, l_continentId);
+									d_mapEditor.addCountry(l_countryId, l_continentId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -161,15 +162,13 @@ public class InputHandler {
 						}
 						break;
 					case "-remove":
-						if (i + 1 < p_tokens.length) {
-							if (!p_tokens[i + 1].startsWith("-")) {
-								l_countryId = p_tokens[++i];
+						if (!p_tokens[i].startsWith("-")) {
+							l_countryId = p_tokens[i];
 
-								try {
-									d_mapEditor.removeCountry(l_countryId);
-								} catch (Exception e) {
-									System.out.println(e.getMessage());
-								}
+							try {
+								d_mapEditor.removeCountry(l_countryId);
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
 							}
 						}
 						break;
@@ -208,11 +207,11 @@ public class InputHandler {
 					switch (l_option) {
 					case "-add":
 						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+						if (i + 1 < p_tokens.length) {
 
 							// Validation - parameter should not start with "-"
-							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
-								l_countryId = p_tokens[++i];
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
@@ -225,11 +224,11 @@ public class InputHandler {
 						break;
 					case "-remove":
 						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length && i + 2 < p_tokens.length) {
+						if (i + 1 < p_tokens.length) {
 
 							// Validation - parameter should not start with "-"
-							if (!p_tokens[i + 1].startsWith("-") && !p_tokens[i + 2].startsWith("-")) {
-								l_countryId = p_tokens[++i];
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
 								l_neighborCountryId = p_tokens[++i];
 
 								try {
@@ -277,6 +276,8 @@ public class InputHandler {
 			String l_filename = p_tokens[1];
 			// TODO: Implement logic to save the map with the specified filename
 			// d_mapEditor.saveMap(filename);
+			d_mapEditor.saveMap(d_mapEditor, l_filename);
+
 		}
 	}
 
@@ -290,8 +291,9 @@ public class InputHandler {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
 			String l_filename = p_tokens[1];
-			d_mapEditor.editMap(l_filename);
+			d_mapEditor.editMap(d_mapEditor, Common.getMapPath(l_filename));
 		}
+
 	}
 
 	/**
