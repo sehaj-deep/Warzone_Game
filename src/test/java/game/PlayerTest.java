@@ -7,7 +7,7 @@ import org.junit.Before;
 /**
  * This class is designed to do unit test of features in Player class
  */
-public class TestPlayer {
+public class PlayerTest {
 	static Player d_player;
 	
 	/**

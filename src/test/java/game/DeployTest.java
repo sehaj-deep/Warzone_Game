@@ -9,7 +9,7 @@ import org.junit.Before;
 /**
  * This class is designed to do unit test of features in Deploy class (inherits from Order)
  */
-public class TestDeploy {
+public class DeployTest {
 	// Used one player for players list to test the deploy order class for simplicity
 	static Deploy d_deployOrder;
 	static List<Player> d_players;

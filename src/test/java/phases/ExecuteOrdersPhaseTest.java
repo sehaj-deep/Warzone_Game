@@ -14,7 +14,7 @@ import java.util.*;
 /** This class tests executeOrderPhase class in JUnit testing
  * 
  */
-public class TestExecuteOrdersPhase {
+public class ExecuteOrdersPhaseTest {
     private static GameState d_state;
     private static MapEditor d_gMap;
     ExecuteOrdersPhase executeOrdersPhase;
