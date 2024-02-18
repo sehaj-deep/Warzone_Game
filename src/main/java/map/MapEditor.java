@@ -6,6 +6,7 @@ import java.util.Set;
 
 import models.Continent;
 import models.Country;
+import utils.ValidationException;
 
 /**
  * The MapEditor class manages editing of the game map.
@@ -420,6 +421,12 @@ public class MapEditor {
 
 		for (HashMap.Entry<String, Continent> l_continentEntry : d_continents.entrySet()) {
 
+			if (l_continentEntry.getValue().getD_countries().isEmpty()) {
+				System.out.println(l_continentEntry.getValue().getD_continentName()
+						+ " is invalid: It does not have any countries.");
+				return false;
+			}
+
 			l_isContinentConnectedGraph = traverseContinentGraph(l_continentEntry.getValue());
 
 			if (!l_isContinentConnectedGraph) {
@@ -511,7 +518,8 @@ public class MapEditor {
 	 */
 	public void editMap(MapEditor p_mapEditor, String p_filename) {
 		MapReader.readMap(p_mapEditor, p_filename, true);
-		System.out.println("You are now editing " + p_filename);
+		String[] l_path = p_filename.split("/");
+		System.out.println("You are now editing " + l_path[l_path.length - 1]);
 	}
 
 	/**
@@ -521,15 +529,32 @@ public class MapEditor {
 	 * @param p_filename  The name of the file containing the map data.
 	 */
 	public void loadMap(MapEditor p_mapEditor, String p_filename) {
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to load map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+		}
+
 		MapReader.readMap(p_mapEditor, p_filename, false);
 		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 
 	public void saveMap(MapEditor p_mapEditor, String p_filename) {
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to save map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+		}
+
 		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
 		l_mapWriter.fileWrite(p_filename);
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
-		// FIXME: Not working properly.
 	}
 
 }

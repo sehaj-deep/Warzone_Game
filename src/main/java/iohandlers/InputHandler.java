@@ -1,6 +1,7 @@
 package iohandlers;
 
 import map.MapEditor;
+import utils.Common;
 
 /**
  * InputHandler class is responsible for handling user input commands.
@@ -290,8 +291,7 @@ public class InputHandler {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
 			String l_filename = p_tokens[1];
-			d_mapEditor.editMap(d_mapEditor,
-					"C:/Users/sehaj/eclipse-workspace/warzone/src/main/resources/" + l_filename);
+			d_mapEditor.editMap(d_mapEditor, Common.getMapPath(l_filename));
 		}
 
 	}
