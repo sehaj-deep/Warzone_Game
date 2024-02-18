@@ -9,15 +9,25 @@ public interface Order {
 
 	/** execute the order
 	 *
+	 *  @param p_state is the game state at the current moment
+	 * 	@param p_playerId the id of player gave this order
 	 */
-	public void execute();
+	public void execute(GameState p_state, int p_playerId);
 
 	/** check the validity of the order
 	 *
 	 * @param p_state is the current game state storing how many armies in country, player, etc
-	 * @param p_playerID is the id of the player who gave this order
+	 * @param p_playerId is the id of the player who gave this order
 	 */
-	public boolean isValid(GameState p_state, int p_playerID);
+	public boolean isValid(GameState p_state, int p_playerId);
+
+	/** change the game state to accommodate the given order
+	 *  This method does not execute the order but modify the game state to validate succeeding orders
+	 *
+	 * @param p_state is the current game state storing how many armies in country, player, etc
+	 * @param p_playerId is the id of the player who gave this order
+	 */
+	public void changeGameState(GameState p_state, int p_playerId);
 
 	/** add order ID to order name (mainly for debugging purpose)
 	 *  to help differentiate this order from the orders from the same type
