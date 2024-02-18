@@ -60,7 +60,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'editcontinent' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditContinentCommand(String[] p_tokens) {
@@ -124,7 +124,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'editcountry' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditCountryCommand(String[] p_tokens) {
@@ -186,7 +186,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'editneighbor' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditNeighborCommand(String[] p_tokens) {
@@ -253,7 +253,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'showmap' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseShowMapCommand(String[] p_tokens) {
@@ -267,7 +267,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'savemap' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseSaveMapCommand(String[] p_tokens) {
@@ -282,7 +282,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'editmap' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseEditMapCommand(String[] p_tokens) {
@@ -296,7 +296,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'validatemap' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseValidateMapCommand(String[] p_tokens) {
@@ -305,7 +305,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'gameplayer' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseGamePlayerCommand(String[] p_tokens) {
@@ -327,7 +327,7 @@ public class InputHandler {
 						if (!p_tokens[i + 1].startsWith("-")) {
 							l_playerName = p_tokens[++i];
 							// TODO
-							// GameEnginez.addPlayer(playerName);
+							// GameEngine.addPlayer(playerName);
 						}
 					}
 					break;
@@ -348,15 +348,8 @@ public class InputHandler {
 	}
 
 	/**
-	 *
-	 *
-	 *
-	 *
-	 */
-
-	/**
 	 * Parses the 'assigncountries' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseAssignCountriesCommand(String[] p_tokens) {
@@ -366,7 +359,7 @@ public class InputHandler {
 
 	/**
 	 * Parses the 'loadmap' command.
-	 *
+	 * 
 	 * @param p_tokens Command tokens.
 	 */
 	private static void parseLoadMapCommand(String[] p_tokens) {
