@@ -529,6 +529,12 @@ public class MapEditor {
 		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 
+	/**
+	 * Saves the current map to a file.
+	 *
+	 * @param p_mapEditor The object of the map Editor currently in use.
+	 * @param p_filename  The name of the file to save the map data to.
+	 */
 	public void saveMap(MapEditor p_mapEditor, String p_filename) {
 		try {
 			boolean l_isValidated = validateMap();
@@ -544,6 +550,11 @@ public class MapEditor {
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
 	}
 
+	/**
+	 * Displays the map and player information during the game.
+	 *
+	 * @param p_gameState The current state of the game.
+	 */
 	public void showmap(GameState p_gameState) {
 
 		System.out.println("The following is the text format of the map");

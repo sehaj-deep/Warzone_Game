@@ -3,8 +3,11 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Continent class represents a continent in the game map.
+ */
 public class Continent {
-	
+
 	/**
 	 * continent ID.
 	 */
@@ -19,7 +22,7 @@ public class Continent {
 	 * continent value.
 	 */
 	private int d_continentBonusArmies;
-	
+
 	/**
 	 * All the countries in a continent
 	 */
@@ -48,6 +51,7 @@ public class Continent {
 
 	/**
 	 * set continent ID
+	 * 
 	 * @param d_continentID
 	 */
 	public void setD_continentID(int p_continentID) {
@@ -85,8 +89,7 @@ public class Continent {
 	public void setD_continentBonusArmies(int p_continentValue) {
 		this.d_continentBonusArmies = p_continentValue;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return the set of countries corresponding to a continent
@@ -100,13 +103,11 @@ public class Continent {
 	 * @param country Country in a continent
 	 */
 	public void addD_countries(Country country) {
-		if(!this.getD_countries().contains(country)) {
+		if (!this.getD_countries().contains(country)) {
 			this.d_countries.add(country);
-		}
-		else {
-			//TODO: throw a validation exception
+		} else {
+			System.out.println(this.getD_continentName() + " already contains " + country.getD_name());
 		}
 	}
-
 
 }

@@ -28,7 +28,6 @@ public class StarterPhase {
 	 *
 	 * @return d_playerNameList name
 	 */
-
 	public List<String> getPlayerNameList() {
 		return d_playerNameList;
 	}
@@ -52,7 +51,6 @@ public class StarterPhase {
 		}
 
 		this.getPlayerNameList().add(p_playerName);
-//		d_playerNameList.add(p_playerName);
 
 		Player l_player = new Player(p_playerName);
 		p_state.getPlayers().add(l_player);
@@ -87,7 +85,7 @@ public class StarterPhase {
 	}
 
 	/**
-	 * check validity of assigned countries if a player has 2 or more countries
+	 * Checks validity of assigned countries if a player has 2 or more countries
 	 * assigned than another player has, then this is invalid
 	 *
 	 * @param p_state current game state
