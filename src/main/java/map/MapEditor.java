@@ -515,6 +515,8 @@ public class MapEditor {
 	 * @param p_filename  The name of the file containing the map data.
 	 */
 	public void loadMap(MapEditor p_mapEditor, String p_filename) {
+
+		MapReader.readMap(p_mapEditor, p_filename, false);
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {
@@ -524,7 +526,6 @@ public class MapEditor {
 			System.out.print(e.getMessage());
 		}
 
-		MapReader.readMap(p_mapEditor, p_filename, false);
 		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 

@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import iohandlers.InputHandler;
 import map.MapEditor;
+import phases.ExecuteOrdersPhase;
+import phases.IssueOrdersPhase;
+import phases.ReinforcePhase;
 
 /**
  * GameEngine Class This Class runs a game by integrating all the functions and
@@ -16,25 +20,10 @@ public class GameEngine {
 	private static MapEditor d_mapEditor = new MapEditor();
 	private static InputHandler d_inputHandler = new InputHandler(d_mapEditor);
 
-	private List<Player> d_players = new ArrayList<>(); // list of players playing the game
-	private HashMap<String, Integer> d_board = new HashMap<String, Integer>(); // key: country name. val: num army in
-	GameState d_state = new GameState(d_players); // the country
-
-	// IssueOrdersPhase issueOrderPhase;
-	// ExecuteOrdersPhase executeOrdersPhase;
-
-	/**
-	 * Unparameterized Constructor
-	 *
-	 */
-//	public GameEngine() {
-//		d_mapEditor = new MapEditor();
-//		d_inputHandler = new InputHandler(d_mapEditor);
-//		d_players = new ArrayList<>();
-//		d_board = new HashMap<String, Integer>();
-//		// FIXME: delete below sysout
-//		System.out.println("Inside constructor of gameEngine");
-//	}
+	private static List<Player> d_players = new ArrayList<>(); // list of players playing the game
+	private static HashMap<String, Integer> d_board = new HashMap<String, Integer>(); // key: country name. val: num
+																						// army in
+	private static GameState d_state = new GameState(d_players); // the country
 
 	public static void main(String[] args) {
 
@@ -99,30 +88,82 @@ public class GameEngine {
 		}
 
 		// Game playing phase
-//		if (l_gamePhase) {
-//			System.out.println("You are now in the game playing phase.");
-//			System.out.println("Available commands: showmap, gameplayer, assigncountries, loadmap");
-//
-//			boolean l_playingGame = true;
-//
-//			// startup phase here
-//
-//			// game playing: reinforcmeent, issue order, execute order phases
-//			while (l_playingGame) {
-//				System.out.print("Enter game command (type 'done' to finish): ");
-//				l_userInput = l_scanner.nextLine().trim();
-//
-//				if (l_userInput.equalsIgnoreCase("done")) {
-//					l_playingGame = false;
-//				} else {
-//					InputHandler.parseUserCommand(l_userInput);
-//				}
-//				// put reinforcement phase here
-//				issueOrdersPhase.run(d_state, d_mapEditor);
-//				executeOrdersPhase.run(d_state, d_mapEditor);
-//			}
-//		}
+		if (l_gamePhase) {
+			InputHandler l_inputHandlerGame = new InputHandler(d_mapEditor, d_state);
+			IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
+			ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
+			ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
+			System.out.println("You are now in the game playing phase.");
+			while (true) {
+				System.out.println("Please load a map where you want to play a game");
+				l_userInput = l_scanner.nextLine().trim();
+				l_inputHandlerGame.parseUserCommand(l_userInput);
+				if (d_mapEditor.getD_countries().size() > 0) {
+					break;
+				}
+				System.out.println("Map is not loaded. Please load a map before playing a game");
+			}
+			initalizeBoard();
+			d_state.setGameBoard(d_board);
+
+			System.out.println("Available commands: showmap, gameplayer, assigncountries, loadmap");
+
+			boolean l_playingGame = true;
+
+			// startup phase
+			while (l_playingGame) {
+				System.out.print("Enter setup command (type 'assigncountries' to play): ");
+				if (l_userInput.equals("assigncountries")) {
+					if (d_state.getPlayers().size() <= 1) {
+						System.out.println("Require At least 2 players to play a game");
+						continue;
+					}
+					l_playingGame = false;
+				}
+				l_userInput = l_scanner.nextLine().trim();
+
+				l_inputHandlerGame.parseUserCommand(l_userInput);
+				System.out.println(d_state.getPlayers());
+
+				// if (l_userInput.equals("assigncountries") && d_state.getPlayers().size() > 0)
+				// {
+				// l_playingGame = false;
+				// }
+			}
+			System.out.println("Game Started");
+			l_playingGame = true;
+			// game playing phases: reinforcmeent, issue order, execute order phases
+
+			// game playing phases: reinforcmeent, issue order, execute order phases
+			while (l_playingGame) {
+				System.out.print("Enter game command (type 'done' to finish): ");
+				l_userInput = l_scanner.nextLine().trim();
+
+				if (l_userInput.equalsIgnoreCase("done")) {
+					l_playingGame = false;
+				}
+
+				l_reinforcementPhase.execute(d_state, d_mapEditor); // reinforcement phase
+
+				l_issueOrderPhase.run(d_state, d_mapEditor); // issue order phase
+				l_executeOrdersPhase.run(d_state, d_mapEditor); // execute order phase
+			}
+		}
 
 		l_scanner.close();
+	}
+
+	/**
+	 * Initialize the hash map representation of game board based on the map used in
+	 * the current game update d_board where key: country name, and value: number of
+	 * army positioned in the country
+	 * 
+	 * @return
+	 *
+	 */
+	public static void initalizeBoard() {
+		Set<String> l_mapCountries = d_mapEditor.getD_countries().keySet();
+		for (String countryName : l_mapCountries)
+			d_board.put(countryName, 0);
 	}
 }

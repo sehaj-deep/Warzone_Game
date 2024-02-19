@@ -1,6 +1,7 @@
 package iohandlers;
 
 import java.util.regex.Pattern;
+
 import game.GameState;
 import map.MapEditor;
 import phases.StarterPhase;
@@ -13,6 +14,7 @@ public class InputHandler {
 
 	private MapEditor d_mapEditor = null;
 	private GameState d_gameState = null;
+	StarterPhase d_startPhase = new StarterPhase();
 
 	/**
 	 * Parameterized Constructor For MapEditor Phase
@@ -301,7 +303,7 @@ public class InputHandler {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
 		} else {
-			String l_filename = p_tokens[1];
+			String l_filename = Common.getMapPath(p_tokens[1]);
 			// TODO: Implement logic to save the map with the specified filename
 			// d_mapEditor.saveMap(filename);
 			d_mapEditor.saveMap(d_mapEditor, l_filename);
@@ -346,7 +348,6 @@ public class InputHandler {
 
 		String l_option = "";
 		String l_playerName = "";
-		StarterPhase l_startPhase = new StarterPhase();
 
 		for (int i = 1; i < p_tokens.length; i++) {
 			if (p_tokens[i].startsWith("-")) {
@@ -354,21 +355,15 @@ public class InputHandler {
 			} else {
 				switch (l_option) {
 				case "-add":
-					if (i + 1 < p_tokens.length) {
-						if (!p_tokens[i + 1].startsWith("-")) {
-							l_playerName = p_tokens[++i];
-							// TODO
-							l_startPhase.addPlayer(l_playerName, d_gameState);
-						}
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_startPhase.addPlayer(l_playerName, d_gameState);
 					}
 					break;
 				case "-remove":
-					if (i + 1 < p_tokens.length) {
-						if (!p_tokens[i + 1].startsWith("-")) {
-							l_playerName = p_tokens[++i];
-							// TODO
-							l_startPhase.removePlayer(l_playerName, d_gameState);
-						}
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_startPhase.removePlayer(l_playerName, d_gameState);
 					}
 					break;
 				default:
@@ -398,14 +393,14 @@ public class InputHandler {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
-			String l_filename = p_tokens[1];
-			// TODO
-			// MapEditor.loadMap(filename);
+			String l_filename = Common.getMapPath(p_tokens[1]);
+			d_mapEditor.loadMap(d_mapEditor, l_filename);
 		}
 	}
-	
-	/** Parse the Deploy command from the user command in terminal
-	 *  Store the user input tokens in the game state so that Phase classes can access the inputs
+
+	/**
+	 * Parse the Deploy command from the user command in terminal Store the user
+	 * input tokens in the game state so that Phase classes can access the inputs
 	 * 
 	 * @param p_tokens an array of tokens given in the user input command
 	 */
@@ -419,13 +414,11 @@ public class InputHandler {
 			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
 			return;
 		}
-    /*
-    if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
-       System.out.println("Invalid command for Deploy order." +
-             "Country name must be the name of existing country in the map");
-       return;
-    }
-     */
+		/*
+		 * if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
+		 * System.out.println("Invalid command for Deploy order." +
+		 * "Country name must be the name of existing country in the map"); return; }
+		 */
 		d_gameState.setOrderInput(p_tokens);
 	}
 }
