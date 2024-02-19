@@ -91,6 +91,7 @@ public class Deploy implements Order {
 	
 	/**
 	 * Add order's id to the order name to differentiate an order from others in the same class
+	 * used mainly for debugging
 	 * 
 	 * @param p_id is the distinguishable order id
 	 */

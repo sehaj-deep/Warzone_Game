@@ -25,7 +25,7 @@ public class DeployTest {
 		d_deployOrder = new Deploy(4, "korea");
 		d_players = new ArrayList<>();
 		d_reinforcements  = new ArrayList<>();
-		d_players.add(new Player(d_plyrId));
+		d_players.add(new Player("0"));
 		d_state = new GameState(d_players);
 	}
 	
@@ -39,21 +39,21 @@ public class DeployTest {
 		
 	  // own countries 3, 7, and 9, and 8 armies available for the player
 		System.out.println("Testing valid deployment");
-		Set<String> ownedCountries = new HashSet<>(Arrays.asList("korea", "usa", "italy"));
-		d_players.get(0).setOwnership(ownedCountries);
+		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("korea", "usa", "italy"));
+		d_players.get(0).setOwnership(l_ownedCountries);
 		d_reinforcements = Collections.singletonList(8);
 		d_state.setReinforcements(d_reinforcements);
 		assertTrue(d_deployOrder.isValid(d_state, d_plyrId));
 		
 		// Invalid case 1: country not occupied by the player
 		System.out.println("Testing invalid deployment: deploy to country not owned");
-		Set<String> ownedCountries2 = new HashSet<>(Arrays.asList("usa", "italy"));
-		d_players.get(0).setOwnership(ownedCountries2);
+		Set<String> l_ownedCountries2 = new HashSet<>(Arrays.asList("usa", "italy"));
+		d_players.get(0).setOwnership(l_ownedCountries2);
 		assertFalse(d_deployOrder.isValid(d_state, d_plyrId));
 		
 		// Invalid case 2: negative number of armies for deploy
 		System.out.println("Testing invalid deployment: negative number of armies for deply");
-		d_players.get(0).setOwnership(ownedCountries);
+		d_players.get(0).setOwnership(l_ownedCountries);
 		assertFalse(new Deploy(-1, "korea").isValid(d_state, d_plyrId));
 		
 		// Invalid case 3: more armies to be deployed than the armies available for the player
@@ -69,10 +69,6 @@ public class DeployTest {
 	 * check whether number of army in the destination country reflect the update after execution of order
 	 */
 	@Test public void testExecute() {
-		//HashMap<String, Integer> board = new HashMap<String, Integer>();
-		//board.put("korea", 8);
-		//board.put("italy", 9);
-		//d_state.setGameBoard(board);
 		d_state.getGameBoard().put("korea", 8);
 		d_state.getGameBoard().put("italy", 9);
 		System.out.println("Testing execute deploy order");
@@ -80,8 +76,8 @@ public class DeployTest {
 		System.out.println("Deploy 4 armies to korea");
 		d_deployOrder.execute(d_state, d_plyrId);
 		System.out.println("Game board after execution:\n" + d_state.getGameBoard());
-		int num_army = d_state.getGameBoard().get("korea");
-		assertEquals(num_army, 12);
+		int l_num_army = d_state.getGameBoard().get("korea");
+		assertEquals(l_num_army, 12);
 		System.out.println("Testing deploy.execute method PASSED!");
 	}
 
@@ -95,8 +91,8 @@ public class DeployTest {
 		System.out.println("Reinforcement Available players before change: " + d_state.getReinforcements());
 		d_deployOrder.changeGameState(d_state, d_plyrId);
 		System.out.println("Reinforcement Available players after change: " + d_state.getReinforcements());
-		int modifiedReinforcement = d_state.getReinforcements().get(d_plyrId);
-		assertEquals(modifiedReinforcement,  4);
+		int l_modifiedReinforcement = d_state.getReinforcements().get(d_plyrId);
+		assertEquals(l_modifiedReinforcement,  4);
 		System.out.println("Testing deploy.changeGameState method PASSED!");
 	}
 }

@@ -9,7 +9,6 @@ import java.util.*;
 
 
 public class Player {
-    private int d_playerId;  // player id
     private String d_playerName;  // player name
     private Queue<Order> d_listOrders;  // list of orders issued by the player
     private Set<String> d_ownership;  // set of countries owned by the player
@@ -20,18 +19,12 @@ public class Player {
      *
      * @param p_playerId is a player id in integer
      */
-    public Player(int p_playerId) {
-        d_playerId = p_playerId;
+    public Player(String p_playerName) {
+        //d_playerId = p_playerId;
+    		d_playerName = p_playerName;
         d_listOrders = new LinkedList<>();
         d_ownership = new HashSet<String>();
     }
-
-    /**
-     * get this player's id
-     *
-     * @return player's id
-     */
-    public int getPlayerId() { return d_playerId; }
 
     /**
      * get this player's name
@@ -40,15 +33,6 @@ public class Player {
      */
     public String getPlayerName() {
         return d_playerName;
-    }
-
-    /**
-     * set this player's name
-     *
-     * @param p_playerName new player's name
-     */
-    public void setPlayerName(String p_playerName) {
-        d_playerName = p_playerName;
     }
 
 

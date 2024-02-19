@@ -2,8 +2,11 @@ package map;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import game.GameState;
+import game.Player;
 import models.Continent;
 import models.Country;
 import utils.ValidationException;
@@ -133,16 +136,13 @@ public class MapEditor {
 	 */
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
 		if (this.getD_continents().containsKey(p_continentName)) {
-			// TODO: validate that the continent has not been already added.
-			// TODO: throw an exception here
+			System.out.println("The continent " + p_continentName + " has already been added");
+			return;
 		}
 		Continent l_continent = new Continent(p_continentId, p_continentName, p_bonusArmies);
 		this.getD_continents().put(p_continentName, l_continent);
 
-		// TODO: Delete this if not required.
 		this.getD_continentId().put(p_continentId, l_continent);
-		// TODO: replace the below statement with either the logger or by deleting it
-		// System.out.println("Successfully added the continent: " + p_continentName);
 	}
 
 	/**
@@ -153,21 +153,17 @@ public class MapEditor {
 	 *                        particular continent
 	 */
 	public void addContinent(String p_continentName, int p_bonusArmies) {
-		// handling the case where the continent is already present.
 
 		int l_newContinentId = this.getD_continentId().size() + 1;
 
 		if (this.getD_continents().containsKey(p_continentName)) {
-			// TODO: validate that the continent has not been already added.
-			// TODO: throw an exception here
+			System.out.println("The continent " + p_continentName + " has already been added.");
+			return;
 		}
 		Continent l_continent = new Continent(l_newContinentId, p_continentName, p_bonusArmies);
 		this.getD_continents().put(p_continentName, l_continent);
 
-		// TODO: Delete this if not required.
 		this.getD_continentId().put(l_newContinentId, l_continent);
-		// TODO: replace the below statement with either the logger or by deleting it
-		// System.out.println("Successfully added the continent: " + p_continentName);
 		System.out.println("The continent " + this.getD_continents().get(p_continentName).getD_continentName()
 				+ " has been added successfully.");
 	}
@@ -178,7 +174,6 @@ public class MapEditor {
 	 * @param p_continentName The name of the given continent
 	 */
 	public void removeContinent(String p_continentName) {
-		// check if this continent is present, if not throw an exception
 		if (this.getD_continents().containsKey(p_continentName)) {
 			Continent l_remContinent = this.getD_continents().get(p_continentName);
 
@@ -192,7 +187,7 @@ public class MapEditor {
 
 			System.out.println("The continent " + p_continentName + " has been removed successfully.");
 		} else {
-			// TODO: throw an exception and catch it in calling function.
+			System.out.println("The continent " + p_continentName + " does not exist.");
 		}
 
 	}
@@ -205,9 +200,11 @@ public class MapEditor {
 	 * @param p_continentId The ID of the continent to which the country belongs.
 	 */
 	public void addCountry(int p_countryId, String p_countryName, int p_continentId) {
-		// TODO: validate if this country has already been added
-		// TODO: throw an exception here
 
+		if (this.getD_countries().containsKey(p_countryName)) {
+			System.out.println("The country " + p_countryName + " was already present.");
+			return;
+		}
 		Country l_country = new Country(p_countryId, p_countryName);
 		this.getD_countriesId().put(p_countryId, l_country);
 		this.getD_countries().put(p_countryName, l_country);
@@ -215,7 +212,6 @@ public class MapEditor {
 		// To add a country to its continent
 		Continent l_continent = this.getD_continentId(p_continentId);
 		l_continent.getD_countries().add(l_country);
-		// TODO: handle the case that the country should not be already present.
 	}
 
 	/**
@@ -225,8 +221,6 @@ public class MapEditor {
 	 * @param p_continent   The name of the continent to which the country belongs.
 	 */
 	public void addCountry(String p_countryName, String p_continent) {
-		// TODO: validate if this country has already been added
-		// TODO: throw an exception here
 
 		if (!this.getD_countries().containsKey(p_countryName)) {
 			int l_newCountryId = this.getD_countries().size() + 1;
@@ -285,7 +279,7 @@ public class MapEditor {
 			System.out.println("The country " + p_countryName + " has been removed successfully.");
 
 		} else {
-			// TODO: throw an exception
+			System.out.println("The country " + p_countryName + " does not exist.");
 		}
 	}
 
@@ -296,8 +290,6 @@ public class MapEditor {
 	 * @param p_neighbor The country which needs to be added as the neighbor
 	 */
 	public void addNeighbor(String p_country, String p_neighbor) {
-		// check if the country exists, if the neighbor exists and if the neighbor is
-		// already been added to the country.
 
 		if (!p_country.equalsIgnoreCase(p_neighbor)) {
 			if (this.getD_countries().containsKey(p_country) && this.getD_countries().containsKey(p_neighbor)) {
@@ -314,8 +306,6 @@ public class MapEditor {
 				}
 			} else {
 				System.out.println("Either the country or the neighbor does not exist.");
-				// TODO: throw an exception that the country or neighbor not given in list of
-				// countries
 			}
 		} else {
 			System.out.println("The country " + p_country + " cannot be it's own neighbor.");
@@ -342,8 +332,7 @@ public class MapEditor {
 						+ l_country.getD_name());
 			}
 		} else {
-			// TODO: throw an exception that the country or neighbor not given in list of
-			// countries
+			System.out.println("The country " + p_country + " already has " + p_neighbor + " as its neighbor.");
 		}
 	}
 
@@ -367,15 +356,12 @@ public class MapEditor {
 						+ l_country.getD_name());
 			}
 		} else {
-			// TODO: throw an exception that the country or neighbor not given in list of
-			// countries
+			System.out.println("Either/Both " + p_country + " or " + p_neighbor + " does not exist.");
 		}
 	}
 
 	/**
 	 * Displays the map as text during the Map Editor Phase.
-	 * 
-	 * @param p_mapEditor An object of the MapEditor class.
 	 */
 	public void showMap() {
 		// for all continents
@@ -557,4 +543,48 @@ public class MapEditor {
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
 	}
 
+	public void showmap(GameState p_gameState) {
+
+		System.out.println("The following is the text format of the map");
+		System.out.println("----------------------------------------------------------------------");
+
+		HashMap<String, Continent> l_continents = this.getD_continents();
+		for (HashMap.Entry<String, Continent> l_cont : l_continents.entrySet()) {
+			Continent l_currContinent = l_cont.getValue();
+			String l_nameOfCont = l_currContinent.getD_continentName();
+			System.out.println("For the continent: " + l_nameOfCont);
+			System.out.println("[Country: Neighbors]");
+
+			Set<Country> l_corresCountries = l_currContinent.getD_countries();
+			for (Country l_country : l_corresCountries) {
+				String l_countryName = l_country.getD_name();
+				System.out.print(l_countryName + ": ");
+
+				Set<Country> l_countryNeighbors = l_country.getNeighbors();
+				for (Country neighbor : l_countryNeighbors) {
+					String l_neighborName = neighbor.getD_name();
+					System.out.print(l_neighborName + " ");
+				}
+				System.out.println();
+			}
+			System.out.println("----------------------------------------------------------------------");
+		}
+
+		// to get the list of players
+		List<Player> l_allPlayers = p_gameState.getPlayers();
+
+		HashMap<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
+
+		for (Player l_currPlayer : l_allPlayers) {
+			System.out.print(l_currPlayer.getPlayerName() + ": ");
+
+			Set<String> l_countriesOwned = l_currPlayer.getOwnership();
+
+			for (String l_singleCountry : l_countriesOwned) {
+				int l_numOfArmies = l_countriesArmies.get(l_singleCountry);
+				System.out.println("[" + l_singleCountry + ", " + l_numOfArmies + "] ");
+			}
+		}
+		System.out.println();
+	}
 }

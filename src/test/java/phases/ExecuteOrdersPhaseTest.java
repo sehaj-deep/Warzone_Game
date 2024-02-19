@@ -17,36 +17,35 @@ import java.util.*;
 public class ExecuteOrdersPhaseTest {
     private static GameState d_state;
     private static MapEditor d_gMap;
-    ExecuteOrdersPhase executeOrdersPhase;
+    ExecuteOrdersPhase d_executeOrdersPhase;
 
     /** This is the common setup for all test cases and will be run before each test 
      * 
      */
     @Before public void before() {
-        executeOrdersPhase = new ExecuteOrdersPhase();
+        d_executeOrdersPhase = new ExecuteOrdersPhase();
         System.out.println("Setting up a game state to test ExecuteOrderPhase");
-        List<Integer> reinforcements = new ArrayList<>(Arrays.asList(10, 15));  // set up reinforcement pool
-        System.out.println("Reinforcements available to Player0 and Player1: " + reinforcements);
+        List<Integer> l_reinforcements = new ArrayList<>(Arrays.asList(10, 15));  // set up reinforcement pool
+        System.out.println("Reinforcements available to Player0 and Player1: " + l_reinforcements);
         // set up players list
-        List<Player> players = new ArrayList<>();
+        List<Player> l_players = new ArrayList<>();
         for(int i=0; i < 2; i++) {
-            Player player = new Player(i);
-            player.setPlayerName(Integer.toString(i));
-            player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i),
+            Player l_player = new Player(Integer.toString(i));
+            l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i),
                                     Integer.toString(2 * i + 1))));  // provide countries owned by this player
-            System.out.println("Player" + i + " has countries: " + player.getOwnership());
-            int deployNumArmy = reinforcements.get(i) / (2 + i);
+            System.out.println("Player" + i + " has countries: " + l_player.getOwnership());
+            int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
             for(int j=0; j < (2+i); j++) {  // add Orders for testing purpose
                 // Here, player0 has more orders than player1
-                player.issue_order(new Deploy(deployNumArmy, Integer.toString( (2*i)+ (j%2))));
+            	l_player.issue_order(new Deploy(l_deployNumArmy, Integer.toString( (2*i)+ (j%2))));
             }
-            players.add(player);
+            l_players.add(l_player);
         }
-        d_state = new GameState(players);
+        d_state = new GameState(l_players);
         HashMap<String, Integer> boardBefore = new HashMap<String, Integer>();
         boardBefore.put("0", 0); boardBefore.put("1", 0); boardBefore.put("2", 0); boardBefore.put("3", 0);
         d_state.setGameBoard(boardBefore);
-        d_state.setReinforcements(reinforcements);
+        d_state.setReinforcements(l_reinforcements);
     }
     
     
@@ -56,11 +55,11 @@ public class ExecuteOrdersPhaseTest {
     @Test public void testRoundRobinExecution() {
         System.out.println("Testing RoundRobinExecution method");
         System.out.println("Game Board before: " + d_state.getGameBoard());
-        executeOrdersPhase.roundRobinExecution(d_state, d_gMap);
-        HashMap<String, Integer> boardAfter = new HashMap<String, Integer>();
-        boardAfter.put("0", 5); boardAfter.put("1", 0); boardAfter.put("2", 5); boardAfter.put("3", 0);
+        d_executeOrdersPhase.roundRobinExecution(d_state, d_gMap);
+        HashMap<String, Integer> l_boardAfter = new HashMap<String, Integer>();
+        l_boardAfter.put("0", 5); l_boardAfter.put("1", 0); l_boardAfter.put("2", 5); l_boardAfter.put("3", 0);
         System.out.println("Game Board After: " + d_state.getGameBoard());
-        assertEquals(d_state.getGameBoard(), boardAfter);
+        assertEquals(d_state.getGameBoard(), l_boardAfter);
         System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
     }
     
@@ -70,8 +69,8 @@ public class ExecuteOrdersPhaseTest {
      */
     @Test public void testGetNumAllOrders() {
         System.out.println("Testing getNumAllOrders method");
-        int totNumOrders = executeOrdersPhase.getNumAllOrders(d_state);
-        assertEquals(totNumOrders, 5);
+        int l_totNumOrders = d_executeOrdersPhase.getNumAllOrders(d_state);
+        assertEquals(l_totNumOrders, 5);
         System.out.println("Testing ExecuteOrdersPhase.getNumAllOrders() method PASSED!");
     }
 
@@ -82,20 +81,20 @@ public class ExecuteOrdersPhaseTest {
     @Test public void testExecuteOrdersPhase() {
         System.out.println("Testing ExecuteOrdersPhase method");
         System.out.println("Game Board before: " + d_state.getGameBoard());
-        executeOrdersPhase.run(d_state, d_gMap);
+        d_executeOrdersPhase.run(d_state, d_gMap);
         // expected state of the game board after successful execution of all orders
-        HashMap<String, Integer> boardAfter = new HashMap<String, Integer>();
-        boardAfter.put("0", 5); boardAfter.put("1", 5); boardAfter.put("2", 10); boardAfter.put("3", 5);
+        HashMap<String, Integer> l_boardAfter = new HashMap<String, Integer>();
+        l_boardAfter.put("0", 5); l_boardAfter.put("1", 5); l_boardAfter.put("2", 10); l_boardAfter.put("3", 5);
         System.out.println("Game Board After: " + d_state.getGameBoard());
-        assertEquals(d_state.getGameBoard(), boardAfter);
-        int totNumOrders = 0;
+        assertEquals(d_state.getGameBoard(), l_boardAfter);
+        int l_totNumOrders = 0;
         for(int i = 0; i < d_state.getPlayers().size(); i++) {
         		// print out a list of orders per player after the execute orders phase
-            Player player = d_state.getPlayers().get(i);
-            System.out.println("Player " + player.getPlayerName() + " orders left: " + player.getListOrders());
-            totNumOrders = totNumOrders + player.getListOrders().size();
+            Player l_player = d_state.getPlayers().get(i);
+            System.out.println("Player " + l_player.getPlayerName() + " orders left: " + l_player.getListOrders());
+            l_totNumOrders = l_totNumOrders + l_player.getListOrders().size();
         }
-        assertEquals(totNumOrders, 0);
+        assertEquals(l_totNumOrders, 0);
         System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
     }
 }
