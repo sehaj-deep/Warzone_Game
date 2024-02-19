@@ -5,7 +5,7 @@ package game;
  */
 public class Deploy implements Order {
 	private int d_numArmy;  // number of armies to be deployed
-	private int d_countryId;  // id of country where armies will be deployed to
+	private String d_countryId;  // name of country where armies will be deployed to
 	private String d_orderName = "Deploy";  // name of the order type
 	
 	/**
@@ -14,15 +14,33 @@ public class Deploy implements Order {
 	 * @param p_numArmy is a number of armies for deployment
 	 * @param p_countryId is the country where armies will be placed
 	 */
-	Deploy(int p_numArmy, int p_countryId) {
+	public Deploy(int p_numArmy, String p_countryId) {
 		d_numArmy = p_numArmy;
 		d_countryId = p_countryId;
 	}
-	
+
+	/** getter function to access d_numArmy
+	 *
+	 * @return number of army specified in the deploy command
+	 */
+	public int getNumArmy() {
+		return d_numArmy;
+	}
+
+	/** getter function to access d_countryId
+	 *
+	 * @return country name of the destination of deployed army in this order
+	 */
+	public String getCountryName() {
+		return d_countryId;
+	}
+
 	/**
 	 * Validate whether the given deploy order is legal according to the rules of the game
+	 * if valid, the number of reinforcement available for the given player will be reduced by the d_numArmy
 	 * 
 	 * @param p_state is the game state for the requesting player at the current moment
+	 * @param p_playerId the id of player gave this deploy order
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
@@ -42,16 +60,33 @@ public class Deploy implements Order {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Execute this deployment order 
+	 * reduce the number of reinforcement available for the given player by the d_numArmy
+	 * This helps validation of succeeding deploy orders
+	 *
+	 * @param p_state is the game state for the requesting player at the current moment
+	 * @param p_playerId the id of player gave this deploy order
+	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public void execute() {
-		/*
-		p_state.getReinforcements().set(p_playerId) = p_state.getReinforcements().get(p_playerId) - d_num_army
-		 */
-		System.out.println("IMPLEMENT EXECUTION");
+	public void changeGameState(GameState p_state, int p_playerId) {
+		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
+		//reinforcementAvailable = reinforcementAvailable - d_numArmy;
+		//System.out.println("In method: " + reinforcementAvailable);
+		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
+	}
+
+	/** Execute this deployment order
+	 * i.e., move some reinforcement armies to the destination country
+	 *
+	 * @param p_state is the game state at the current moment
+	 * @param p_playerId the id of player gave this deploy order
+	 */
+	@Override
+	public void execute(GameState p_state, int p_playerId) {
+		int currNumArmy = p_state.getGameBoard().get(d_countryId);
+		p_state.getGameBoard().put(d_countryId, currNumArmy + d_numArmy);
 	}
 	
 	/**

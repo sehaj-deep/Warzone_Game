@@ -1,0 +1,17 @@
+[files]
+
+[continents]
+Continent1 3
+Continent2 4
+
+[countries]
+1 Country1 1
+2 Country2 1
+3 Country3 2
+4 Country4 2
+
+[borders]
+1 2 3
+2 3
+3 1 4
+4 3

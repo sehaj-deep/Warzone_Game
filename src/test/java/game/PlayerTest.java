@@ -7,7 +7,7 @@ import org.junit.Before;
 /**
  * This class is designed to do unit test of features in Player class
  */
-public class TestPlayer {
+public class PlayerTest {
 	static Player d_player;
 	
 	/**
@@ -26,13 +26,13 @@ public class TestPlayer {
 	@Test public void testIssueOrder() {
 		System.out.println("Testing issue_order method of Player class");
 		System.out.println("Initial list of orders: " + d_player.getListOrders());
-		Deploy deployOrder = new Deploy(4, 3);  // player issued an order
+		Deploy deployOrder = new Deploy(4, "korea");  // player issued an order
 		
 		System.out.println("Order1 from the player");
 		d_player.issue_order(deployOrder);
 		assertEquals(d_player.getListOrders().size(), 1);
 		
-		deployOrder = new Deploy(3, 4);  // player issued an order
+		deployOrder = new Deploy(3, "usa");  // player issued an order
 		System.out.println("Order2 from the player");
 		d_player.issue_order(deployOrder);
 		assertEquals(d_player.getListOrders().size(), 2);
@@ -47,10 +47,10 @@ public class TestPlayer {
 	 */
 	@Test public void testNextOrder() {
 		System.out.println("Testing next_order method of Player class");
-		Deploy deployOrder = new Deploy(4, 3);  // player issued an order
+		Deploy deployOrder = new Deploy(4, "korea");  // player issued an order
 		deployOrder.addOrderID(Integer.toString(1));
 		d_player.issue_order(deployOrder);
-		deployOrder = new Deploy(3, 4);  // player issued an order
+		deployOrder = new Deploy(3, "usa");  // player issued an order
 		deployOrder.addOrderID(Integer.toString(2));
 		d_player.issue_order(deployOrder);
 		System.out.println("Initial list of orders: " + d_player.getListOrders());

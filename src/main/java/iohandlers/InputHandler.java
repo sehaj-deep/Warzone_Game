@@ -1,5 +1,7 @@
 package iohandlers;
 
+import java.util.regex.Pattern;
+import game.GameState;
 import map.MapEditor;
 import utils.Common;
 
@@ -8,18 +10,40 @@ import utils.Common;
  */
 public class InputHandler {
 
-	// FIXME: make all functions as non static for this.
+	private MapEditor d_mapEditor = null;
+	private GameState d_gameState = null;
 
-	private static MapEditor d_mapEditor = null;
-
+	/**
+	 * Parameterized Constructor For MapEditor Phase
+	 * 
+	 * @param p_mapEditor the object of MapEditor
+	 */
 	public InputHandler(MapEditor p_mapEditor) {
 		d_mapEditor = p_mapEditor;
 	}
 
 	/**
+	 * Parameterized Constructor For GameState Phase
+	 * 
+	 * @param p_mapEditor the object of MapEditor
+	 * @param p_gameState the object of GameState
+	 */
+	public InputHandler(MapEditor p_mapEditor, GameState p_gameState) {
+		d_mapEditor = p_mapEditor;
+		d_gameState = p_gameState;
+	}
+
+	/**
+	 * Default constructor
+	 */
+	public InputHandler() {
+
+	}
+
+	/**
 	 * Parses user input commands.
 	 */
-	public static void parseUserCommand(String p_userInput) {
+	public void parseUserCommand(String p_userInput) {
 
 		String[] l_tokens = p_userInput.split("\\s+");
 		String l_command = l_tokens[0].toLowerCase();
@@ -56,6 +80,9 @@ public class InputHandler {
 		case "loadmap":
 			parseLoadMapCommand(l_tokens);
 			break;
+		case "deploy":
+			parseDeployCommand(l_tokens);
+			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -66,7 +93,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseEditContinentCommand(String[] p_tokens) {
+	private void parseEditContinentCommand(String[] p_tokens) {
 		if (p_tokens.length < 3) {
 			System.out.println(
 					"Invalid command. Syntax: editcontinent -add continentId continentvalue -remove continentId");
@@ -128,7 +155,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseEditCountryCommand(String[] p_tokens) {
+	private void parseEditCountryCommand(String[] p_tokens) {
 		if (p_tokens.length < 2) {
 			System.out.println("Invalid command. Syntax: editcountry -add countryId continentId -remove countryId");
 			return;
@@ -188,7 +215,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseEditNeighborCommand(String[] p_tokens) {
+	private void parseEditNeighborCommand(String[] p_tokens) {
 		if (p_tokens.length < 2) {
 			System.out.println(
 					"Invalid command. Syntax: editneighbor -add countryID neighborcountryId -remove countryId neighborcountryId");
@@ -255,7 +282,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseShowMapCommand(String[] p_tokens) {
+	private void parseShowMapCommand(String[] p_tokens) {
 		// TODO
 		// if(currentPhase == MAP_EDITING_PHASE){
 		d_mapEditor.showMap();
@@ -269,7 +296,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseSaveMapCommand(String[] p_tokens) {
+	private void parseSaveMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
 		} else {
@@ -286,7 +313,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseEditMapCommand(String[] p_tokens) {
+	private void parseEditMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: editmap filename");
 		} else {
@@ -301,7 +328,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseValidateMapCommand(String[] p_tokens) {
+	private void parseValidateMapCommand(String[] p_tokens) {
 		d_mapEditor.validateMap();
 	}
 
@@ -310,7 +337,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseGamePlayerCommand(String[] p_tokens) {
+	private void parseGamePlayerCommand(String[] p_tokens) {
 		if (p_tokens.length < 3) {
 			System.out.println("Invalid command. Syntax: gameplayer -add playername -remove playername");
 			return;
@@ -354,7 +381,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseAssignCountriesCommand(String[] p_tokens) {
+	private void parseAssignCountriesCommand(String[] p_tokens) {
 		// TODO
 		// MapEditor.assignCountries();
 	}
@@ -364,7 +391,7 @@ public class InputHandler {
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
-	private static void parseLoadMapCommand(String[] p_tokens) {
+	private void parseLoadMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
@@ -372,5 +399,30 @@ public class InputHandler {
 			// TODO
 			// MapEditor.loadMap(filename);
 		}
+	}
+	
+	/** Parse the Deploy command from the user command in terminal
+	 *  Store the user input tokens in the game state so that Phase classes can access the inputs
+	 * 
+	 * @param p_tokens an array of tokens given in the user input command
+	 */
+	private void parseDeployCommand(String[] p_tokens) {
+		Pattern numericRegex = Pattern.compile("\\d+");
+		if (p_tokens.length != 3) {
+			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
+			return;
+		}
+		if (!numericRegex.matcher(p_tokens[2]).matches()) {
+			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
+			return;
+		}
+    /*
+    if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
+       System.out.println("Invalid command for Deploy order." +
+             "Country name must be the name of existing country in the map");
+       return;
+    }
+     */
+		d_gameState.setOrderInput(p_tokens);
 	}
 }
