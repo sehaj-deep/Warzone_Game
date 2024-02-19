@@ -3,6 +3,7 @@ package iohandlers;
 import java.util.regex.Pattern;
 import game.GameState;
 import map.MapEditor;
+import phases.StarterPhase;
 import utils.Common;
 
 /**
@@ -345,6 +346,7 @@ public class InputHandler {
 
 		String l_option = "";
 		String l_playerName = "";
+		StarterPhase l_startPhase = new StarterPhase();
 
 		for (int i = 1; i < p_tokens.length; i++) {
 			if (p_tokens[i].startsWith("-")) {
@@ -356,7 +358,7 @@ public class InputHandler {
 						if (!p_tokens[i + 1].startsWith("-")) {
 							l_playerName = p_tokens[++i];
 							// TODO
-							// GameEngine.addPlayer(playerName);
+							l_startPhase.addPlayer(l_playerName, d_gameState);
 						}
 					}
 					break;
@@ -365,7 +367,7 @@ public class InputHandler {
 						if (!p_tokens[i + 1].startsWith("-")) {
 							l_playerName = p_tokens[++i];
 							// TODO
-							// GameEngine.removePlayer(playerName);
+							l_startPhase.removePlayer(l_playerName, d_gameState);
 						}
 					}
 					break;
@@ -383,7 +385,8 @@ public class InputHandler {
 	 */
 	private void parseAssignCountriesCommand(String[] p_tokens) {
 		// TODO
-		// MapEditor.assignCountries();
+		StarterPhase l_startPhase = new StarterPhase();
+		l_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
 	}
 
 	/**

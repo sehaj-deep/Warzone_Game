@@ -10,8 +10,7 @@ public class GameState {
 
     // list of available reinforcements for all players. Order same as d_players
     private List<Integer> d_reinforcements;
-    //private GameMap d_gMap;  // OOP representation of map
-    private HashMap<String, Integer> d_board;  // key: country name. val: num army in the country
+    private HashMap<String, Integer> d_board;  // key: country name. value: number of army in the country
     private String[] d_orderInput;  // a list of tokens given in the user input command to issue an order
 
     /** Parameterized Constructor
@@ -68,14 +67,14 @@ public class GameState {
 
     /** getter function to access the game board for the current game
      *
-     * @return current game board as hashmap (key: country id, val: number of armies)
+     * @return current game board as hash map (key: country id, value: number of armies)
      */
     public HashMap<String, Integer> getGameBoard() {
         return d_board;
     }
 
     /** setter function
-     * to assign new hashmap for the game board capturing the current state of the game
+     * to assign new hash map for the game board capturing the current state of the game
      *
      * @param p_board a new game board that captures the current state of the game
      */
