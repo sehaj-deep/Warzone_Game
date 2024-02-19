@@ -43,19 +43,6 @@ public class ReinforcementTest{
 
         player.setOwnership(new HashSet<>(Arrays.asList("Country5", "Country6")));
         reinforcements.calculateReinforcementArmies();
-        assertEquals(5, reinforcements.getReinforcementArmies()); // Expecting 5 bonus armies + basic 3
-            // // Test Case 4: More Than 3 Countries Owned
-        // // Test for 4 or more countries owned
-        // player.setOwnership(new HashSet<>(Arrays.asList("Country1", "Country2", "Country3", "Country4")));
-        // reinforcements.calculateReinforcementArmies();
-        // assertTrue(reinforcements.getReinforcementArmies() >= 4);
-
-        // Test Case 5: Continent Bonus
-        // Simulate owning a continent
-        // Add your simulation here
-
-        // Test Case 6: Partial Continent Ownership
-        // Simulate owning some but not all countries in a continent
-        // Add your simulation here
+        assertEquals(5, reinforcements.getReinforcementArmies());
     }
 }
