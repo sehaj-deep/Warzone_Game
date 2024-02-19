@@ -8,16 +8,25 @@ import org.junit.Test;
 
 import constants.GameConstants;
 
+/**
+ * To test MapEditor class
+ */
 public class MapEditorTest {
 
 	private MapEditor d_mapEditor;
 	private String d_fileName;
 
+	/**
+	 * set up the tests
+	 */
 	@Before
 	public void setUp() {
 		d_mapEditor = new MapEditor();
 	}
 
+	/**
+	 * test a connected graph
+	 */
 	@Test
 	public void testValidateMapConnectedGraph() {
 		// Create a MapEditor instance with a disconnected graph map
@@ -26,6 +35,9 @@ public class MapEditorTest {
 		assertTrue(d_mapEditor.validateMap());
 	}
 
+	/**
+	 * test a disconnected graph
+	 */
 	@Test
 	public void testValidateMapDisconnectedGraph() {
 		// Create a MapEditor instance with a disconnected graph map
@@ -34,6 +46,9 @@ public class MapEditorTest {
 		assertFalse(d_mapEditor.validateMap());
 	}
 
+	/**
+	 * test a disconnected empty subgraph
+	 */
 	@Test
 	public void testValidateMapContinentWithNoCountries() {
 		// Create a MapEditor instance with a continent having no countries
@@ -42,6 +57,9 @@ public class MapEditorTest {
 		assertFalse(d_mapEditor.validateMap());
 	}
 
+	/**
+	 * test a disconnected subgraph
+	 */
 	@Test
 	public void testValidateMapDisconnectedContinentGraph() {
 		// Create a MapEditor instance with a continent containing a disconnected

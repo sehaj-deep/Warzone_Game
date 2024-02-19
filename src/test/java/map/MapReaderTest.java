@@ -11,17 +11,26 @@ import org.junit.Test;
 import constants.GameConstants;
 import models.Country;
 
+/**
+ * To test MapReader class
+ */
 public class MapReaderTest {
 
 	private MapEditor d_mapEditor;
 	private String d_fileName;
 
+	/**
+	 * To set up the test class
+	 */
 	@Before
 	public void setUp() {
 		d_mapEditor = new MapEditor();
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test.map";
 	}
 
+	/**
+	 * To test read file method for valid file
+	 */
 	@Test
 	public void testReadMap() {
 		MapReader.readMap(d_mapEditor, d_fileName, false);
@@ -68,6 +77,9 @@ public class MapReaderTest {
 		assertEquals(0, emptyEditor.getD_countries().size());
 	}
 
+	/**
+	 * To test read file method for empty file
+	 */
 	@Test
 	public void testReadMapWithEmptyFile() {
 		String emptyFile = "empty_map.txt";
@@ -77,6 +89,9 @@ public class MapReaderTest {
 		assertEquals(0, emptyEditor.getD_countries().size());
 	}
 
+	/**
+	 * To test read file method for invalid file
+	 */
 	@Test
 	public void testReadMapWithInvalidData() {
 		String invalidFile = "invalid_map.txt";

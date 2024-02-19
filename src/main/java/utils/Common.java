@@ -2,6 +2,9 @@ package utils;
 
 import constants.GameConstants;
 
+/**
+ * Class to have common functionalities
+ */
 public class Common {
 
 	/**

@@ -9,8 +9,11 @@ import game.Player;
 import iohandlers.InputHandler;
 import map.MapEditor;
 
+/**
+ * Represents the phase where players issue orders in the game.
+ */
 public class IssueOrdersPhase {
-	private boolean d_isDeployDone; //// indicate whether deployment is finished
+	private boolean d_isDeployDone; // indicate whether deployment is finished
 
 	// private InputHandler inputHandler;
 	Scanner d_scanner;

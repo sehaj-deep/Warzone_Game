@@ -25,6 +25,11 @@ public class GameEngine {
 																						// army in
 	private static GameState d_state = new GameState(d_players); // the country
 
+	/**
+	 * Main method to start the game engine
+	 * 
+	 * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 
 		Scanner l_scanner = new Scanner(System.in);
@@ -52,7 +57,6 @@ public class GameEngine {
 				break;
 			}
 		}
-//		l_scanner.nextLine();
 
 		// Map editing phase
 		if (l_editMapPhase) {
@@ -125,16 +129,11 @@ public class GameEngine {
 
 				l_inputHandlerGame.parseUserCommand(l_userInput);
 
-				// if (l_userInput.equals("assigncountries") && d_state.getPlayers().size() > 0)
-				// {
-				// l_playingGame = false;
-				// }
 			}
 			System.out.println("Game Started");
 			l_playingGame = true;
-			// game playing phases: reinforcmeent, issue order, execute order phases
+			// game playing phases: reinforcement, issue order, execute order phases
 
-			// game playing phases: reinforcmeent, issue order, execute order phases
 			while (l_playingGame) {
 				System.out.print("Type 'done' to finish, showmap, or enter anything to proceed to issue order: ");
 				l_userInput = l_scanner.nextLine().trim();

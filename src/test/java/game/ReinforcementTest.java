@@ -12,8 +12,14 @@ import map.MapEditor;
 import models.Continent;
 import models.Country;
 
+/**
+ * Test Reinforcement Armies
+ */
 public class ReinforcementTest {
 
+	/**
+	 * Test method to verify calculation of reinforcement armies
+	 */
 	@Test
 	public void testCalculateReinforcementArmies() {
 		// Setup
@@ -26,19 +32,16 @@ public class ReinforcementTest {
 		reinforcements.calculateReinforcementArmies();
 		assertEquals(3, reinforcements.getReinforcementArmies());
 
-		// Test Case 2: Fewer Than 3 Countries Owned
 		// Test for 0, 1, and 2 countries owned
 		player.setOwnership(new HashSet<>(Arrays.asList("Country1")));
 		reinforcements.calculateReinforcementArmies();
 		assertEquals(3, reinforcements.getReinforcementArmies());
 
-		// Test Case 3: Exactly 3 Countries Owned
 		// Test for 3 countries owned
 		player.setOwnership(new HashSet<>(Arrays.asList("Country1", "Country2", "Country3")));
 		reinforcements.calculateReinforcementArmies();
 		assertTrue(reinforcements.getReinforcementArmies() >= 3);
 
-		// Test Case 5: Continent Bonus - Single Continent
 		// Simulate owning a continent with bonus armies
 		Continent continent1 = new Continent(0, "Continent1", 5);
 		continent1.addD_countries(new Country(1, "Country5"));
@@ -49,8 +52,4 @@ public class ReinforcementTest {
 		reinforcements.calculateReinforcementArmies();
 		assertEquals(3, reinforcements.getReinforcementArmies()); // Expecting 5 bonus armies + basic 3
 	}
-        player.setOwnership(new HashSet<>(Arrays.asList("Country5", "Country6")));
-        reinforcements.calculateReinforcementArmies();
-        assertEquals(5, reinforcements.getReinforcementArmies());
-    }
 }
