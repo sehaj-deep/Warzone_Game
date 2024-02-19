@@ -286,12 +286,11 @@ public class InputHandler {
 	 * @param p_tokens Command tokens.
 	 */
 	private void parseShowMapCommand(String[] p_tokens) {
-		// TODO
-		// if(currentPhase == MAP_EDITING_PHASE){
-		d_mapEditor.showMap();
-		// } else {
-		// GameEngine.showMap();
-		// }
+		if (d_gameState == null) {
+			d_mapEditor.showMap();
+		} else {
+			d_mapEditor.showmap(d_gameState);
+		}
 	}
 
 	/**
@@ -381,7 +380,7 @@ public class InputHandler {
 	private void parseAssignCountriesCommand(String[] p_tokens) {
 		// TODO
 		StarterPhase l_startPhase = new StarterPhase();
-		l_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
+		d_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
 	}
 
 	/**

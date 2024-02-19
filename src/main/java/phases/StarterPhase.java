@@ -139,5 +139,6 @@ public class StarterPhase {
 	public void assignCountriesToPlayer(GameState p_state, MapEditor p_gMap) {
 		Set<String> l_mapCountries = p_gMap.getD_countries().keySet();
 		shuffleAndDistributeCountries(p_state, l_mapCountries);
+		System.out.println("Assign Countries Completed");
 	}
 }

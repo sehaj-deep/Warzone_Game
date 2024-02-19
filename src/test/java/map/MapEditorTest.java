@@ -42,13 +42,13 @@ public class MapEditorTest {
 		assertFalse(d_mapEditor.validateMap());
 	}
 
-//	@Test
-//	public void testValidateMapDisconnectedContinentGraph() {
-//		// Create a MapEditor instance with a continent containing a disconnected
-//		// subgraph
-//		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
-//		MapReader.readMap(d_mapEditor, d_fileName, false);
-//		assertFalse(d_mapEditor.validateMap());
-//	}
+	@Test
+	public void testValidateMapDisconnectedContinentGraph() {
+		// Create a MapEditor instance with a continent containing a disconnected
+		// subgraph
+		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
+		MapReader.readMap(d_mapEditor, d_fileName, false);
+		assertFalse(d_mapEditor.validateMap());
+	}
 
 }

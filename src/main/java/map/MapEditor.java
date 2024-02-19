@@ -573,6 +573,9 @@ public class MapEditor {
 
 		// to get the list of players
 		List<Player> l_allPlayers = p_gameState.getPlayers();
+		if (l_allPlayers.size() == 0) {
+			return;
+		}
 
 		HashMap<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
 
@@ -583,9 +586,9 @@ public class MapEditor {
 
 			for (String l_singleCountry : l_countriesOwned) {
 				int l_numOfArmies = l_countriesArmies.get(l_singleCountry);
-				System.out.println("[" + l_singleCountry + ", " + l_numOfArmies + "] ");
+				System.out.print("[" + l_singleCountry + ", " + l_numOfArmies + "] ");
 			}
+			System.out.println();
 		}
-		System.out.println();
 	}
 }

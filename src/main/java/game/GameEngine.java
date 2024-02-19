@@ -90,7 +90,7 @@ public class GameEngine {
 		// Game playing phase
 		if (l_gamePhase) {
 			InputHandler l_inputHandlerGame = new InputHandler(d_mapEditor, d_state);
-			IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
+
 			ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
 			ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
 			System.out.println("You are now in the game playing phase.");
@@ -113,17 +113,17 @@ public class GameEngine {
 			// startup phase
 			while (l_playingGame) {
 				System.out.print("Enter setup command (type 'assigncountries' to play): ");
+				l_userInput = l_scanner.nextLine().trim();
 				if (l_userInput.equals("assigncountries")) {
 					if (d_state.getPlayers().size() <= 1) {
 						System.out.println("Require At least 2 players to play a game");
 						continue;
 					}
+					System.out.println("end start phase");
 					l_playingGame = false;
 				}
-				l_userInput = l_scanner.nextLine().trim();
 
 				l_inputHandlerGame.parseUserCommand(l_userInput);
-				System.out.println(d_state.getPlayers());
 
 				// if (l_userInput.equals("assigncountries") && d_state.getPlayers().size() > 0)
 				// {
@@ -136,15 +136,20 @@ public class GameEngine {
 
 			// game playing phases: reinforcmeent, issue order, execute order phases
 			while (l_playingGame) {
-				System.out.print("Enter game command (type 'done' to finish): ");
+				System.out.print("Type 'done' to finish, showmap, or enter anything to proceed to issue order: ");
 				l_userInput = l_scanner.nextLine().trim();
 
 				if (l_userInput.equalsIgnoreCase("done")) {
 					l_playingGame = false;
+					System.out.println("Game Ended");
+					break;
 				}
-
+				if (l_userInput.equals("showmap")) {
+					l_inputHandlerGame.parseUserCommand(l_userInput);
+				}
+				d_state.setReinforcements(new ArrayList<>());
 				l_reinforcementPhase.execute(d_state, d_mapEditor); // reinforcement phase
-
+				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
 				l_issueOrderPhase.run(d_state, d_mapEditor); // issue order phase
 				l_executeOrdersPhase.run(d_state, d_mapEditor); // execute order phase
 			}
