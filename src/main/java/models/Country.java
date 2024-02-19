@@ -2,6 +2,9 @@ package models;
 
 import java.util.HashSet;
 
+/**
+ * Country class represents a country in the game map.
+ */
 public class Country {
 
 	/**
@@ -52,8 +55,16 @@ public class Country {
 		return d_neighbors;
 	}
 
+	/**
+	 * Adds a neighboring country to the set of neighbors.
+	 *
+	 * @param name The neighboring country to add.
+	 */
 	public void addNeighbors(Country name) {
-		// TODO: handle the case if already present, throw an exception
+		if (d_neighbors.contains(name)) {
+			throw new IllegalArgumentException("Neighbor already exists.");
+		}
+
 		d_neighbors.add(name);
 	}
 

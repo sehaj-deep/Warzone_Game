@@ -45,7 +45,6 @@ public class MapReader {
 
 		String l_singleLine = l_scanner.nextLine();
 
-		// TODO: check where is empty line considered.
 		// to skip names of files
 		while (!l_singleLine.equals("[continents]") && l_scanner.hasNextLine()) {
 			l_singleLine = l_scanner.nextLine();

@@ -51,7 +51,6 @@ public class InputHandler {
 		String[] l_tokens = p_userInput.split("\\s+");
 		String l_command = l_tokens[0].toLowerCase();
 
-		// FIXME Replace exception with custom exception
 		switch (l_command) {
 		case "editcontinent":
 			parseEditContinentCommand(l_tokens);
@@ -303,8 +302,6 @@ public class InputHandler {
 			System.out.println("Invalid command. Syntax: savemap filename");
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
-			// TODO: Implement logic to save the map with the specified filename
-			// d_mapEditor.saveMap(filename);
 			d_mapEditor.saveMap(d_mapEditor, l_filename);
 
 		}
@@ -413,11 +410,6 @@ public class InputHandler {
 			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
 			return;
 		}
-		/*
-		 * if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
-		 * System.out.println("Invalid command for Deploy order." +
-		 * "Country name must be the name of existing country in the map"); return; }
-		 */
 		d_gameState.setOrderInput(p_tokens);
 	}
 }
