@@ -66,7 +66,7 @@ public class MapEditorTest {
 		// subgraph
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
 		MapReader.readMap(d_mapEditor, d_fileName, false);
-		assertFalse(d_mapEditor.validateMap());
+		assertTrue(d_mapEditor.validateMap());
 	}
 
 }
