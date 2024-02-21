@@ -17,6 +17,8 @@ public class MapReader {
 	 *
 	 * @param p_mapEditor The MapEditor instance to populate.
 	 * @param p_fileName  The name of the file containing the map data.
+	 * @param p_createNew true if file does not exist and we want to create a new
+	 *                    one
 	 */
 	public static void readMap(MapEditor p_mapEditor, String p_fileName, boolean p_createNew) {
 
@@ -45,7 +47,6 @@ public class MapReader {
 
 		String l_singleLine = l_scanner.nextLine();
 
-		// TODO: check where is empty line considered.
 		// to skip names of files
 		while (!l_singleLine.equals("[continents]") && l_scanner.hasNextLine()) {
 			l_singleLine = l_scanner.nextLine();
