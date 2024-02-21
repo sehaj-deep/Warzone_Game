@@ -397,32 +397,63 @@ public class MapEditor {
 	 * @return true if the map's continents form a connected graph, otherwise false
 	 */
 	public boolean validateMap() {
-		boolean l_isMapConnectedGraph = traverseMapGraph();
-		boolean l_isContinentConnectedGraph = false;
-
-		if (!l_isMapConnectedGraph) {
+		// Check if the map is a connected graph
+		boolean isMapConnectedGraph = traverseMapGraph();
+		if (!isMapConnectedGraph) {
 			System.out.println("Map is not a connected graph.");
 			return false;
 		}
 
-		for (HashMap.Entry<String, Continent> l_continentEntry : d_continents.entrySet()) {
+		// Validate each continent
+		for (HashMap.Entry<String, Continent> continentEntry : d_continents.entrySet()) {
+			Continent continent = continentEntry.getValue();
 
-			if (l_continentEntry.getValue().getD_countries().isEmpty()) {
-				System.out.println(l_continentEntry.getValue().getD_continentName()
-						+ " is invalid: It does not have any countries.");
+			// Check if the continent has countries
+			if (continent.getD_countries().isEmpty()) {
+				System.out.println(continent.getD_continentName() + " is invalid: It does not have any countries.");
 				return false;
 			}
 
-			l_isContinentConnectedGraph = traverseContinentGraph(l_continentEntry.getValue());
+			// Check if the continent is a connected graph
+			boolean isContinentConnectedGraph = traverseContinentGraph(continent);
+			if (!isContinentConnectedGraph) {
+				System.out.println(continent.getD_continentName() + " is not a connected graph.");
+				return false;
+			}
 
-			if (!l_isContinentConnectedGraph) {
-				System.out.println(l_continentEntry.getValue().getD_continentName() + " is not a connected graph.");
+			// Check if countries belong to only one continent
+			if (!validateCountriesInContinent(continent)) {
 				return false;
 			}
 		}
 
+		// If all checks pass, the map is valid
 		System.out.println("The map is valid.");
-		return l_isMapConnectedGraph && l_isContinentConnectedGraph;
+		return true;
+	}
+
+	/**
+	 * Validates that each country in the provided continent is only present in that
+	 * continent.
+	 * 
+	 * @param continent The continent whose countries need to be validated.
+	 * @return {@code true} if all countries in the continent belong to only that
+	 *         continent, {@code false} otherwise.
+	 */
+	private boolean validateCountriesInContinent(Continent continent) {
+		HashMap<String, String> countryContinentMap = new HashMap<>();
+
+		for (Country country : continent.getD_countries()) {
+			String countryName = country.getD_name();
+			if (countryContinentMap.containsKey(countryName)) {
+				System.out.println("Country " + countryName + " is already present in continent "
+						+ countryContinentMap.get(countryName) + ", can't be in two continents.");
+				return false;
+			} else {
+				countryContinentMap.put(countryName, continent.getD_continentName());
+			}
+		}
+		return true;
 	}
 
 	/**

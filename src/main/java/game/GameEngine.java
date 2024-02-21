@@ -99,6 +99,7 @@ public class GameEngine {
 			ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
 			System.out.println("You are now in the game playing phase.");
 			while (true) {
+				// Loadmap. To ensure that the user loads the map before playing the game
 				System.out.println("Please load a map where you want to play a game");
 				l_userInput = l_scanner.nextLine().trim();
 				l_inputHandlerGame.parseUserCommand(l_userInput);
@@ -107,14 +108,14 @@ public class GameEngine {
 				}
 				System.out.println("Map is not loaded. Please load a map before playing a game");
 			}
-			initalizeBoard();
+			initalizeBoard(); // initialize the game board
 			d_state.setGameBoard(d_board);
 
 			System.out.println("Available commands: showmap, gameplayer, assigncountries, loadmap");
 
 			boolean l_playingGame = true;
 
-			// startup phase
+			// startup phase: add, remove, and assigncountries
 			while (l_playingGame) {
 				System.out.print("Enter setup command (type 'assigncountries' to play): ");
 				l_userInput = l_scanner.nextLine().trim();

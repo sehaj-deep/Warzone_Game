@@ -36,10 +36,14 @@ public class IssueOrdersPhase {
 	 * @param p_state   the current game state
 	 */
 	public void getOrderCommand(MapEditor p_gameMap, GameState p_state) {
-		System.out.print("Enter order command: ");
-		String l_userInput = d_scanner.nextLine().trim();
-		InputHandler l_inputHandler = new InputHandler(p_gameMap, p_state);
-		l_inputHandler.parseUserCommand(l_userInput);
+		String l_userInput = "showmap";
+		while (l_userInput.equalsIgnoreCase("showmap")) {
+			System.out.print("Enter order command: ");
+			l_userInput = d_scanner.nextLine().trim();
+			InputHandler l_inputHandler = new InputHandler(p_gameMap, p_state);
+			l_inputHandler.parseUserCommand(l_userInput);
+		}
+
 	}
 
 	/**
