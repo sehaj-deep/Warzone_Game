@@ -60,8 +60,9 @@ public class StarterPhase {
 
 	/**
 	 * Removes a player from the player list.
-	 *
+	 * 
 	 * @param p_playerName The name of the player to remove.
+	 * @param p_state      The current state of the game
 	 */
 	public void removePlayer(String p_playerName, GameState p_state) {
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
@@ -110,9 +111,9 @@ public class StarterPhase {
 
 	/**
 	 * Randomly shuffle countries and distribute one by one to a player
-	 *
-	 * @param p_state   the current game state
-	 * @param countries all countries available to assign to the players
+	 * 
+	 * @param p_state     the current game state
+	 * @param p_countries all countries available to assign to the players
 	 */
 	public void shuffleAndDistributeCountries(GameState p_state, Set<String> p_countries) {
 		List<String> l_countriesList = new ArrayList<>(p_countries); // cast set to list

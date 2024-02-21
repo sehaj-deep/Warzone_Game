@@ -18,7 +18,7 @@ public class ReinforcePhase {
 	/**
 	 * Executes the reinforcement phase of the game.
 	 *
-	 * @param p_state     The current game state.
+	 * @param p_state     The current state of the game.
 	 * @param p_mapEditor The map editor representing the game map.
 	 */
 	public void execute(GameState p_state, MapEditor p_mapEditor) {

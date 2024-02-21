@@ -21,6 +21,7 @@ public interface Order {
 	 *                      country, player, etc
 	 * @param p_playerId    is the id of the player who gave this order
 	 * @param p_isExecution true if in execution phase. false else
+	 * @return true if the order is valid
 	 */
 	public boolean isValid(GameState p_state, int p_playerId, boolean p_isExecution);
 

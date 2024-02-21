@@ -74,7 +74,6 @@ public class Deploy implements Order {
 	 * @param p_state    is the game state for the requesting player at the current
 	 *                   moment
 	 * @param p_playerId the id of player gave this deploy order
-	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {

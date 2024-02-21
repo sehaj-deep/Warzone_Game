@@ -39,6 +39,7 @@ public class Country {
 	}
 
 	/**
+	 * Parameterized constructor
 	 * 
 	 * @param d_id   the id of the country
 	 * @param d_name the name of the country
@@ -49,7 +50,7 @@ public class Country {
 	}
 
 	/**
-	 * return the list of all neighbors corresponding
+	 * @return the list of all neighbors corresponding
 	 */
 	public HashSet<Country> getNeighbors() {
 		return d_neighbors;

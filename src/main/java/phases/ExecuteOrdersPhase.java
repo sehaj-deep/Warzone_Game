@@ -12,6 +12,10 @@ import map.MapEditor;
  * Executes orders of players in the game in a round-robin fashion for one time.
  */
 public class ExecuteOrdersPhase {
+
+	/**
+	 * Default constructor of Execute Orders Phase
+	 */
 	public ExecuteOrdersPhase() {
 
 	}

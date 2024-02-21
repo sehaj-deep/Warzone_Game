@@ -45,6 +45,8 @@ public class InputHandler {
 
 	/**
 	 * Parses user input commands.
+	 * 
+	 * @param p_userInput Command written by user
 	 */
 	public void parseUserCommand(String p_userInput) {
 

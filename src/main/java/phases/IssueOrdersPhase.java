@@ -49,6 +49,7 @@ public class IssueOrdersPhase {
 	/**
 	 * create an object of order that is given by a player
 	 * 
+	 * @param p_state The state of the game
 	 * @return an Order class object represents the order issued by the user
 	 */
 	public Order createInputOrder(GameState p_state) {
