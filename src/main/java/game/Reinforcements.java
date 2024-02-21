@@ -21,11 +21,9 @@ public class Reinforcements {
 	/**
 	 * Constructor for Reinforcements class.
 	 * 
-	 * @param MapEditor The game map object.
-	 * @param player    The player instance.
+	 * @param p_MapEditor The game map object.
+	 * @param p_player    The player instance.
 	 */
-	// @param playerCountriesMap The map of player names and their assigned
-	// countries.
 	public Reinforcements(MapEditor p_MapEditor, Player p_player) {
 		d_mapEditor = p_MapEditor;
 		this.d_player = p_player;
