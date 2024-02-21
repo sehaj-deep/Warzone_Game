@@ -52,7 +52,7 @@ public class Continent {
 	/**
 	 * set continent ID
 	 * 
-	 * @param d_continentID The serial number of continent
+	 * @param p_continentID The serial number of continent
 	 */
 	public void setD_continentID(int p_continentID) {
 		this.d_continentID = p_continentID;

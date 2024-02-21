@@ -21,7 +21,6 @@ public class Player {
 	 * @param p_playerName To uniquely identify the player
 	 */
 	public Player(String p_playerName) {
-		// d_playerId = p_playerId;
 		d_playerName = p_playerName;
 		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<String>();

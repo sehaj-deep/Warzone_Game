@@ -34,8 +34,9 @@ public class StarterPhase {
 
 	/**
 	 * Adds a player to the player list and assigns countries.
-	 *
+	 * 
 	 * @param p_playerName The name of the player to add.
+	 * @param p_state      The state of the game
 	 */
 	public void addPlayer(String p_playerName, GameState p_state) {
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
