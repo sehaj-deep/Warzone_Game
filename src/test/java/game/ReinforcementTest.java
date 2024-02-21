@@ -50,6 +50,6 @@ public class ReinforcementTest {
 
 		player.setOwnership(new HashSet<>(Arrays.asList("Country5", "Country6")));
 		reinforcements.calculateReinforcementArmies();
-		assertEquals(3, reinforcements.getReinforcementArmies()); // Expecting 5 bonus armies + basic 3
+		assertEquals(3, reinforcements.getReinforcementArmies());
 	}
 }
