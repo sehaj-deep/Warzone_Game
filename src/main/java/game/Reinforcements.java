@@ -20,9 +20,8 @@ public class Reinforcements {
 
 	/**
 	 * Constructor for Reinforcements class.
-	 * 
 	 * @param p_MapEditor The game map object.
-	 * @param p_player    The player instance.
+	 * @param p_player The player instance.
 	 */
 	public Reinforcements(MapEditor p_MapEditor, Player p_player) {
 		d_mapEditor = p_MapEditor;
