@@ -8,7 +8,6 @@ import java.util.Set;
 
 import models.Continent;
 import models.Country;
-import utils.Common;
 
 /**
  * MapWriter class writes map data to a file.
@@ -36,7 +35,7 @@ public class MapWriter {
 		PrintWriter l_printWriter = null;
 
 		try {
-			l_printWriter = new PrintWriter(new FileOutputStream(Common.getMapPath(mapName)));
+			l_printWriter = new PrintWriter(new FileOutputStream(mapName));
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
 		}
