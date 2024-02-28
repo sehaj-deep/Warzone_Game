@@ -3,8 +3,11 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Continent class represents a continent in the game map.
+ */
 public class Continent {
-	
+
 	/**
 	 * continent ID.
 	 */
@@ -19,7 +22,7 @@ public class Continent {
 	 * continent value.
 	 */
 	private int d_continentBonusArmies;
-	
+
 	/**
 	 * All the countries in a continent
 	 */
@@ -28,9 +31,9 @@ public class Continent {
 	/**
 	 * constructor of continent class
 	 * 
-	 * @param p_continentID
-	 * @param p_continentName
-	 * @param p_continentBonusArmies
+	 * @param p_continentID          The serial number of continent
+	 * @param p_continentName        The name of the continent
+	 * @param p_continentBonusArmies Number of bonus armies
 	 */
 	public Continent(int p_continentID, String p_continentName, int p_continentBonusArmies) {
 		this.d_continentID = p_continentID;
@@ -40,7 +43,7 @@ public class Continent {
 
 	/**
 	 * 
-	 * @return continent Id
+	 * @return continent Id The serial number of continent
 	 */
 	public int getD_continentID() {
 		return d_continentID;
@@ -48,23 +51,26 @@ public class Continent {
 
 	/**
 	 * set continent ID
-	 * @param d_continentID
+	 * 
+	 * @param p_continentID The serial number of continent
 	 */
 	public void setD_continentID(int p_continentID) {
 		this.d_continentID = p_continentID;
 	}
 
 	/**
+	 * Return a particular Continent Object
 	 * 
-	 * @return continent Name
+	 * @return continent Name The name of the continent
 	 */
 	public String getD_continentName() {
 		return d_continentName;
 	}
 
 	/**
+	 * Set a particular continent
 	 * 
-	 * @param p_continentName
+	 * @param p_continentName The name of the continent
 	 */
 	public void setD_continentName(String p_continentName) {
 		this.d_continentName = p_continentName;
@@ -72,22 +78,23 @@ public class Continent {
 
 	/**
 	 * 
-	 * @return continent Value
+	 * @return Bonus Armies The number of armies associated with a continent
 	 */
 	public int getD_continentBonusArmies() {
 		return d_continentBonusArmies;
 	}
 
 	/**
+	 * Set bonus armies for a continent
 	 * 
-	 * @param p_continentValue
+	 * @param p_continentValue The number of Bonus armies
 	 */
 	public void setD_continentBonusArmies(int p_continentValue) {
 		this.d_continentBonusArmies = p_continentValue;
 	}
-	
-	
+
 	/**
+	 * Get all countries
 	 * 
 	 * @return the set of countries corresponding to a continent
 	 */
@@ -96,17 +103,16 @@ public class Continent {
 	}
 
 	/**
+	 * Add a country to the HashMap
 	 * 
 	 * @param country Country in a continent
 	 */
 	public void addD_countries(Country country) {
-		if(!this.getD_countries().contains(country)) {
+		if (!this.getD_countries().contains(country)) {
 			this.d_countries.add(country);
-		}
-		else {
-			//TODO: throw a validation exception
+		} else {
+			System.out.println(this.getD_continentName() + " already contains " + country.getD_name());
 		}
 	}
-
 
 }

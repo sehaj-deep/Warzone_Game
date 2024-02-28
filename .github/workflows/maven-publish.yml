@@ -44,6 +44,16 @@ jobs:
     - name: test with Maven
       run: mvn install surefire:test package --file pom.xml
 
+    - name: Build with Maven
+      run: mvn -B clean package javadoc:javadoc --file pom.xml
+  
+    - name: Test with Maven
+      run: mvn install surefire:test --file pom.xml
+    - name: Publish Javadoc
+      run: |
+        mvn site --file pom.xml
+        echo "Javadoc has been generated and can be found in the 'target/site/apidocs/' directory."
+
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn clean install deploy -s $GITHUB_WORKSPACE/settings.xml
     #   env:

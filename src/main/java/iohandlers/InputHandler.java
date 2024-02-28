@@ -1,6 +1,7 @@
 package iohandlers;
 
 import java.util.regex.Pattern;
+
 import game.GameState;
 import map.MapEditor;
 import phases.StarterPhase;
@@ -13,6 +14,7 @@ public class InputHandler {
 
 	private MapEditor d_mapEditor = null;
 	private GameState d_gameState = null;
+	StarterPhase d_startPhase = new StarterPhase();
 
 	/**
 	 * Parameterized Constructor For MapEditor Phase
@@ -43,13 +45,14 @@ public class InputHandler {
 
 	/**
 	 * Parses user input commands.
+	 * 
+	 * @param p_userInput Command written by user
 	 */
 	public void parseUserCommand(String p_userInput) {
 
 		String[] l_tokens = p_userInput.split("\\s+");
 		String l_command = l_tokens[0].toLowerCase();
 
-		// FIXME Replace exception with custom exception
 		switch (l_command) {
 		case "editcontinent":
 			parseEditContinentCommand(l_tokens);
@@ -284,12 +287,11 @@ public class InputHandler {
 	 * @param p_tokens Command tokens.
 	 */
 	private void parseShowMapCommand(String[] p_tokens) {
-		// TODO
-		// if(currentPhase == MAP_EDITING_PHASE){
-		d_mapEditor.showMap();
-		// } else {
-		// GameEngine.showMap();
-		// }
+		if (d_gameState == null) {
+			d_mapEditor.showMap();
+		} else {
+			d_mapEditor.showmap(d_gameState);
+		}
 	}
 
 	/**
@@ -301,9 +303,7 @@ public class InputHandler {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
 		} else {
-			String l_filename = p_tokens[1];
-			// TODO: Implement logic to save the map with the specified filename
-			// d_mapEditor.saveMap(filename);
+			String l_filename = Common.getMapPath(p_tokens[1]);
 			d_mapEditor.saveMap(d_mapEditor, l_filename);
 
 		}
@@ -346,7 +346,6 @@ public class InputHandler {
 
 		String l_option = "";
 		String l_playerName = "";
-		StarterPhase l_startPhase = new StarterPhase();
 
 		for (int i = 1; i < p_tokens.length; i++) {
 			if (p_tokens[i].startsWith("-")) {
@@ -354,21 +353,15 @@ public class InputHandler {
 			} else {
 				switch (l_option) {
 				case "-add":
-					if (i + 1 < p_tokens.length) {
-						if (!p_tokens[i + 1].startsWith("-")) {
-							l_playerName = p_tokens[++i];
-							// TODO
-							l_startPhase.addPlayer(l_playerName, d_gameState);
-						}
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_startPhase.addPlayer(l_playerName, d_gameState);
 					}
 					break;
 				case "-remove":
-					if (i + 1 < p_tokens.length) {
-						if (!p_tokens[i + 1].startsWith("-")) {
-							l_playerName = p_tokens[++i];
-							// TODO
-							l_startPhase.removePlayer(l_playerName, d_gameState);
-						}
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_startPhase.removePlayer(l_playerName, d_gameState);
 					}
 					break;
 				default:
@@ -386,7 +379,7 @@ public class InputHandler {
 	private void parseAssignCountriesCommand(String[] p_tokens) {
 		// TODO
 		StarterPhase l_startPhase = new StarterPhase();
-		l_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
+		d_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
 	}
 
 	/**
@@ -398,14 +391,14 @@ public class InputHandler {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
-			String l_filename = p_tokens[1];
-			// TODO
-			// MapEditor.loadMap(filename);
+			String l_filename = Common.getMapPath(p_tokens[1]);
+			d_mapEditor.loadMap(d_mapEditor, l_filename);
 		}
 	}
-	
-	/** Parse the Deploy command from the user command in terminal
-	 *  Store the user input tokens in the game state so that Phase classes can access the inputs
+
+	/**
+	 * Parse the Deploy command from the user command in terminal Store the user
+	 * input tokens in the game state so that Phase classes can access the inputs
 	 * 
 	 * @param p_tokens an array of tokens given in the user input command
 	 */
@@ -419,13 +412,6 @@ public class InputHandler {
 			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
 			return;
 		}
-    /*
-    if (!d_gameMap.getCountries().containsKey(p_tokens[1])) {
-       System.out.println("Invalid command for Deploy order." +
-             "Country name must be the name of existing country in the map");
-       return;
-    }
-     */
 		d_gameState.setOrderInput(p_tokens);
 	}
 }

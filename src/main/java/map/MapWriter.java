@@ -8,22 +8,34 @@ import java.util.Set;
 
 import models.Continent;
 import models.Country;
-import utils.Common;
 
+/**
+ * MapWriter class writes map data to a file.
+ */
 public class MapWriter {
 
 	static MapEditor d_mapEditor = null;
 
+	/**
+	 * Constructs a MapWriter with the specified MapEditor instance.
+	 *
+	 * @param p_mapEditor The MapEditor instance to associate with this MapWriter.
+	 */
 	public MapWriter(MapEditor p_mapEditor) {
 		this.d_mapEditor = p_mapEditor;
 	}
 
+	/**
+	 * Writes map data to a file with the given map name.
+	 *
+	 * @param mapName The name of the map file to write.
+	 */
 	public void fileWrite(String mapName) {
 
 		PrintWriter l_printWriter = null;
 
 		try {
-			l_printWriter = new PrintWriter(new FileOutputStream(Common.getMapPath(mapName)));
+			l_printWriter = new PrintWriter(new FileOutputStream(mapName));
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
 		}
