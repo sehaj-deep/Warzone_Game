@@ -15,15 +15,24 @@ public interface Order {
 	public void execute(GameState p_state, int p_playerId);
 
 	/**
-	 * check the validity of the order
+	 * check the validity of the order for Issue Order Phase
 	 *
 	 * @param p_state       is the current game state storing how many armies in
 	 *                      country, player, etc
 	 * @param p_playerId    is the id of the player who gave this order
-	 * @param p_isExecution true if in execution phase. false else
 	 * @return true if the order is valid
 	 */
-	public boolean isValid(GameState p_state, int p_playerId, boolean p_isExecution);
+	public boolean isValidIssue(GameState p_state, int p_playerId);
+	
+	/**
+	 * check the validity of the order for Execute Order Phase
+	 *
+	 * @param p_state       is the current game state storing how many armies in
+	 *                      country, player, etc
+	 * @param p_playerId    is the id of the player who gave this order
+	 * @return true if the order is valid
+	 */
+	public boolean isValidExecute(GameState p_state, int p_playerId);
 
 	/**
 	 * change the game state to accommodate the given order This method does not

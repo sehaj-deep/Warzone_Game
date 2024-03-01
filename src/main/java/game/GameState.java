@@ -1,8 +1,9 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * GameState class This class captures the current state of the game and store
@@ -13,7 +14,7 @@ public class GameState {
 
 	// list of available reinforcements for all players. Order same as d_players
 	private List<Integer> d_reinforcements;
-	private HashMap<String, Integer> d_board; // key: country name. value: number of army in the country
+	private Map<String, Integer> d_board; // key: country name. value: number of army in the country
 	private String[] d_orderInput; // a list of tokens given in the user input command to issue an order
 
 	/**
@@ -62,7 +63,7 @@ public class GameState {
 	 * @return current game board as hash map (key: country id, value: number of
 	 *         armies)
 	 */
-	public HashMap<String, Integer> getGameBoard() {
+	public Map<String, Integer> getGameBoard() {
 		return d_board;
 	}
 
@@ -72,7 +73,7 @@ public class GameState {
 	 *
 	 * @param p_board a new game board that captures the current state of the game
 	 */
-	public void setGameBoard(HashMap<String, Integer> p_board) {
+	public void setGameBoard(Map<String, Integer> p_board) {
 		d_board = p_board;
 	}
 

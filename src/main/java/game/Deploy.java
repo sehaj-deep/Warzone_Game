@@ -1,5 +1,7 @@
 package game;
 
+import utils.ValidationException;
+
 /**
  * Implementation of Deploy order command from Order class
  */
@@ -42,26 +44,63 @@ public class Deploy implements Order {
 	 * the game if valid, the number of reinforcement available for the given player
 	 * will be reduced by the d_numArmy
 	 * 
-	 * @param p_state       is the game state for the requesting player at the
-	 *                      current moment
-	 * @param p_playerId    the id of player gave this deploy order
-	 * @param p_isExecution true if in execution phase. false else
+	 * @param p_state    is the game state for the requesting player at the current
+	 *                   moment
+	 * @param p_playerId the id of player gave this deploy order
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public boolean isValid(GameState p_state, int p_playerId, boolean p_isExecution) {
-		// p_remaining_amry is number of armies in available for deployment in the
-		// remaining reinforcements
-		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
-			// country where army to be deployed is not owned by the player issued the order
+	public boolean isValidIssue(GameState p_state, int p_playerId) {
+		String l_errMessage = "";
+		try {
+			if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
+				// country where army to be deployed is not owned by the player issued the order
+				l_errMessage = "Country where army to be deployed is not owned by the player issued the order";
+				throw new ValidationException();
+			}
+			if (d_numArmy < 0) {
+				// can't pass negative number for number of armies for deployment
+				l_errMessage = "Can't pass negative number for number of armies for deployment";
+				throw new ValidationException();
+			}
+			if (d_numArmy > p_state.getReinforcements().get(p_playerId)) {
+				// deploying more armies than the player has
+				l_errMessage = "Can't deploy more armies than the reinforcement armies available to the player";
+				throw new ValidationException();
+			}
+		}
+		catch (ValidationException e) {
+			System.out.println(l_errMessage);
 			return false;
 		}
-		if (d_numArmy < 0) {
-			// can't pass negative number for number of armies for deployment
-			return false;
+		return true;
+	}
+
+	/**
+	 * Validate whether the given deploy order is legal for execution
+	 * 
+	 * @param p_state    is the game state for the requesting player at the current
+	 *                   moment
+	 * @param p_playerId the id of player gave this deploy order
+	 * @return true if the order is valid. false if not a valid move
+	 */
+	@Override
+	public boolean isValidExecute(GameState p_state, int p_playerId) {
+		String l_errMessage = "";
+		try {
+			if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
+				// country where army to be deployed is not owned by the player issued the order
+				l_errMessage = "Country where army to be deployed is not owned by the player issued the order";
+				throw new ValidationException();
+			}
+			if (d_numArmy < 0) {
+				// can't pass negative number for number of armies for deployment
+				l_errMessage = "Can't pass negative number for number of armies for deployment";
+				throw new ValidationException();
+			}
 		}
-		if (d_numArmy > p_state.getReinforcements().get(p_playerId) && !p_isExecution) {
-			// deploying more armies than the player has
+		catch (ValidationException e) {
+			System.out.println(l_errMessage);
 			return false;
 		}
 		return true;
@@ -78,8 +117,6 @@ public class Deploy implements Order {
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
 		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
-		// reinforcementAvailable = reinforcementAvailable - d_numArmy;
-		// System.out.println("In method: " + reinforcementAvailable);
 		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
 	}
 
