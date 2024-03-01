@@ -136,7 +136,8 @@ public class MapEditor {
 	 */
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
 		if (this.getD_continents().containsKey(p_continentName)) {
-			System.out.println("The continent " + p_continentName + " has already been added");
+			// System.out.println("The continent " + p_continentName + " has already been
+			// added");
 			return;
 		}
 		Continent l_continent = new Continent(p_continentId, p_continentName, p_bonusArmies);
