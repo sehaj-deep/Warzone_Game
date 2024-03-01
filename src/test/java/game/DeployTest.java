@@ -100,7 +100,7 @@ public class DeployTest {
 		d_deployOrder.execute(d_state, d_plyrId);
 		System.out.println("Game board after execution:\n" + d_state.getGameBoard());
 		int l_num_army = d_state.getGameBoard().get("korea");
-		assertEquals(l_num_army, 12);
+		assertEquals(12, l_num_army);
 		System.out.println("Testing deploy.execute method PASSED!");
 	}
 
@@ -117,7 +117,7 @@ public class DeployTest {
 		d_deployOrder.changeGameState(d_state, d_plyrId);
 		System.out.println("Reinforcement Available players after change: " + d_state.getReinforcements());
 		int l_modifiedReinforcement = d_state.getReinforcements().get(d_plyrId);
-		assertEquals(l_modifiedReinforcement, 4);
+		assertEquals(4, l_modifiedReinforcement);
 		System.out.println("Testing deploy.changeGameState method PASSED!");
 	}
 }

@@ -38,13 +38,13 @@ public class GameStateTest {
 		List<Integer> l_reinforcements = new ArrayList<>();
 		d_gameState.setReinforcements(l_reinforcements);
 		List<Integer> l_stateReinforcements = d_gameState.getReinforcements(); 
-		assertEquals(l_stateReinforcements.size(), 0);
+		assertEquals(0, l_stateReinforcements.size());
 		
 		// Test getter for reinforcements
 		System.out.println("Test getter function for reinforcements in GameState");
 		l_stateReinforcements = d_gameState.getReinforcements();
 		l_stateReinforcements.add(1);
-		assertEquals(l_stateReinforcements.size(), 1);
+		assertEquals(1, l_stateReinforcements.size());
 	}
 
 	
@@ -62,12 +62,12 @@ public class GameStateTest {
 		System.out.println("Test setter function for game board in GameState");
 		d_gameState.setGameBoard(l_board);
 		Map<String, Integer> l_stateBoard = d_gameState.getGameBoard();
-		assertEquals(l_stateBoard.size(), 1);
+		assertEquals(1, l_stateBoard.size());
 		
 		// Test if modifying the data member after accessing with getter function updates the data member correctly
 		System.out.println("Test getter function for game board in GameState");
 		l_stateBoard = d_gameState.getGameBoard();
 		l_stateBoard.put("b", 0);
-		assertEquals(l_stateBoard.size(), 2);
+		assertEquals(2, l_stateBoard.size());
 	}
 }

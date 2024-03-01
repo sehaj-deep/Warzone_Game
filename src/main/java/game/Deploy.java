@@ -49,22 +49,23 @@ public class Deploy implements Order {
 	 */
 	@Override
 	public boolean isValidIssue(GameState p_state, int p_playerId) {
+		boolean l_validity = true;
 		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
 			// country where army to be deployed is not owned by the player issued the order
 			System.out.println("Country where army to be deployed is not owned by the player issued the order");
-			return false;
+			l_validity = false;
 		}
 		if (d_numArmy < 0) {
 			// can't pass negative number for number of armies for deployment
 			System.out.println("Can't pass negative number for number of armies for deployment");
-			return false;
+			l_validity = false;
 		}
 		if (d_numArmy > p_state.getReinforcements().get(p_playerId)) {
 			// deploying more armies than the player has
 			System.out.println("Can't deploy more armies than the reinforcement armies available to the player");
-			return false;
+			l_validity = false;
 		}
-		return true;
+		return l_validity;
 	}
 	
 	/**
@@ -77,17 +78,18 @@ public class Deploy implements Order {
 	 */
 	@Override
 	public boolean isValidExecute(GameState p_state, int p_playerId) {
+		boolean l_validity = true;
 		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
 			// country where army to be deployed is not owned by the player issued the order
 			System.out.println("Country where army to be deployed is not owned by the player issued the order");
-			return false;
+			l_validity = false;
 		}
 		if (d_numArmy < 0) {
 			// can't pass negative number for number of armies for deployment
 			System.out.println("Can't pass negative number for number of armies for deployment");
-			return false;
+			l_validity = false;
 		}
-		return true;
+		return l_validity;
 	}
 	
 
@@ -102,8 +104,6 @@ public class Deploy implements Order {
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
 		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
-		// reinforcementAvailable = reinforcementAvailable - d_numArmy;
-		// System.out.println("In method: " + reinforcementAvailable);
 		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
 	}
 
