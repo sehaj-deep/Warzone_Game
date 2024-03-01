@@ -45,27 +45,51 @@ public class Deploy implements Order {
 	 * @param p_state       is the game state for the requesting player at the
 	 *                      current moment
 	 * @param p_playerId    the id of player gave this deploy order
-	 * @param p_isExecution true if in execution phase. false else
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public boolean isValid(GameState p_state, int p_playerId, boolean p_isExecution) {
-		// p_remaining_amry is number of armies in available for deployment in the
-		// remaining reinforcements
+	public boolean isValidIssue(GameState p_state, int p_playerId) {
 		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
 			// country where army to be deployed is not owned by the player issued the order
+			System.out.println("Country where army to be deployed is not owned by the player issued the order");
 			return false;
 		}
 		if (d_numArmy < 0) {
 			// can't pass negative number for number of armies for deployment
+			System.out.println("Can't pass negative number for number of armies for deployment");
 			return false;
 		}
-		if (d_numArmy > p_state.getReinforcements().get(p_playerId) && !p_isExecution) {
+		if (d_numArmy > p_state.getReinforcements().get(p_playerId)) {
 			// deploying more armies than the player has
+			System.out.println("Can't deploy more armies than the reinforcement armies available to the player");
 			return false;
 		}
 		return true;
 	}
+	
+	/**
+	 * Validate whether the given deploy order is legal for execution
+	 * 
+	 * @param p_state       is the game state for the requesting player at the
+	 *                      current moment
+	 * @param p_playerId    the id of player gave this deploy order
+	 * @return true if the order is valid. false if not a valid move
+	 */
+	@Override
+	public boolean isValidExecute(GameState p_state, int p_playerId) {
+		if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
+			// country where army to be deployed is not owned by the player issued the order
+			System.out.println("Country where army to be deployed is not owned by the player issued the order");
+			return false;
+		}
+		if (d_numArmy < 0) {
+			// can't pass negative number for number of armies for deployment
+			System.out.println("Can't pass negative number for number of armies for deployment");
+			return false;
+		}
+		return true;
+	}
+	
 
 	/**
 	 * reduce the number of reinforcement available for the given player by the

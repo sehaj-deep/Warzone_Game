@@ -41,12 +41,12 @@ public class DeployTest {
 	}
 
 	/**
-	 * test isValid method of Deploy class test one valid case where expecting
+	 * test isValid methods of Deploy class test one valid case where expecting
 	 * output true from isValid test three invalid cases where expecting output
 	 * false from isValid
 	 */
 	@Test
-	public void testIsValid() {
+	public void testIsValidIssue() {
 		System.out.println("Testing isValid method of Deploy class");
 
 		// own countries 3, 7, and 9, and 8 armies available for the player
@@ -55,25 +55,33 @@ public class DeployTest {
 		d_players.get(0).setOwnership(l_ownedCountries);
 		d_reinforcements = Collections.singletonList(8);
 		d_state.setReinforcements(d_reinforcements);
-		assertTrue(d_deployOrder.isValid(d_state, d_plyrId, false));
+		assertTrue(d_deployOrder.isValidIssue(d_state, d_plyrId));
 
 		// Invalid case 1: country not occupied by the player
 		System.out.println("Testing invalid deployment: deploy to country not owned");
 		Set<String> l_ownedCountries2 = new HashSet<>(Arrays.asList("usa", "italy"));
 		d_players.get(0).setOwnership(l_ownedCountries2);
-		assertFalse(d_deployOrder.isValid(d_state, d_plyrId, false));
+		assertFalse(d_deployOrder.isValidIssue(d_state, d_plyrId));
 
 		// Invalid case 2: negative number of armies for deploy
 		System.out.println("Testing invalid deployment: negative number of armies for deply");
 		d_players.get(0).setOwnership(l_ownedCountries);
-		assertFalse(new Deploy(-1, "korea").isValid(d_state, d_plyrId, false));
+		assertFalse(new Deploy(-1, "korea").isValidIssue(d_state, d_plyrId));
 
 		// Invalid case 3: more armies to be deployed than the armies available for the
 		// player
 		System.out.println("Testing invalid deployment: deploying more armies than availabe for the player");
 		d_reinforcements = Collections.singletonList(1);
 		d_state.setReinforcements(d_reinforcements);
-		assertFalse(d_deployOrder.isValid(d_state, d_plyrId, false));
+		assertFalse(d_deployOrder.isValidIssue(d_state, d_plyrId));
+		
+		// Invalid case 4: same case as 4 but checking validity in execution order phase
+		// i.e., validity must be true because execution of deploy implies that number of armies for deploy < reinforcements
+		System.out.println("Testing invalid deployment: deploying more armies than availabe for the player");
+		d_reinforcements = Collections.singletonList(1);
+		d_state.setReinforcements(d_reinforcements);
+		assertTrue(d_deployOrder.isValidExecute(d_state, d_plyrId));
+		
 
 		System.out.println("Testing deploy.isValid method PASSED!");
 	}

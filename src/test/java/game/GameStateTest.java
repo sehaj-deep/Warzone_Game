@@ -3,6 +3,7 @@ package game;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,12 +37,12 @@ public class GameStateTest {
 		System.out.println("Test setter function for reinforcements in GameState");
 		List<Integer> l_reinforcements = new ArrayList<>();
 		d_gameState.setReinforcements(l_reinforcements);
-		List<Integer> l_stateReinforcements =d_gameState.getReinforcements(); 
+		List<Integer> l_stateReinforcements = d_gameState.getReinforcements(); 
 		assertEquals(l_stateReinforcements.size(), 0);
 		
 		// Test getter for reinforcements
 		System.out.println("Test getter function for reinforcements in GameState");
-		l_stateReinforcements =d_gameState.getReinforcements();
+		l_stateReinforcements = d_gameState.getReinforcements();
 		l_stateReinforcements.add(1);
 		assertEquals(l_stateReinforcements.size(), 1);
 	}
@@ -60,7 +61,7 @@ public class GameStateTest {
 		// Test if setter has performed correctly
 		System.out.println("Test setter function for game board in GameState");
 		d_gameState.setGameBoard(l_board);
-		HashMap<String, Integer> l_stateBoard = d_gameState.getGameBoard();
+		Map<String, Integer> l_stateBoard = d_gameState.getGameBoard();
 		assertEquals(l_stateBoard.size(), 1);
 		
 		// Test if modifying the data member after accessing with getter function updates the data member correctly
