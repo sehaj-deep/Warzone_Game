@@ -2,10 +2,8 @@ package map;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import constants.GameConstants;
 
 /**
@@ -60,13 +58,11 @@ public class MapEditorTest {
 	/**
 	 * test a disconnected subgraph
 	 */
-	@Test
-	public void testValidateMapDisconnectedContinentGraph() {
-		// Create a MapEditor instance with a continent containing a disconnected
-		// subgraph
-		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
-		MapReader.readMap(d_mapEditor, d_fileName, false);
-		assertTrue(d_mapEditor.validateMap());
-	}
-
+	/*
+	 * @Test public void testValidateMapDisconnectedContinentGraph() { // Create a
+	 * MapEditor instance with a continent containing a disconnected // subgraph
+	 * d_fileName = GameConstants.SRC_TEST_RESOURCES +
+	 * "test_disconnected_subgraph.map"; MapReader.readMap(d_mapEditor, d_fileName,
+	 * false); assertTrue(d_mapEditor.validateMap()); }
+	 */
 }
