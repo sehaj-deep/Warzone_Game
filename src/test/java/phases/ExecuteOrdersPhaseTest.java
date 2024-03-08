@@ -79,7 +79,7 @@ public class ExecuteOrdersPhaseTest {
 		l_boardAfter.put("2", 5);
 		l_boardAfter.put("3", 0);
 		System.out.println("Game Board After: " + d_state.getGameBoard());
-		assertEquals(d_state.getGameBoard(), l_boardAfter);
+		assertEquals(l_boardAfter, d_state.getGameBoard());
 		System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
 	}
 
@@ -91,7 +91,7 @@ public class ExecuteOrdersPhaseTest {
 	public void testGetNumAllOrders() {
 		System.out.println("Testing getNumAllOrders method");
 		int l_totNumOrders = d_executeOrdersPhase.getNumAllOrders(d_state);
-		assertEquals(l_totNumOrders, 5);
+		assertEquals(5, l_totNumOrders);
 		System.out.println("Testing ExecuteOrdersPhase.getNumAllOrders() method PASSED!");
 	}
 
@@ -110,7 +110,7 @@ public class ExecuteOrdersPhaseTest {
 		l_boardAfter.put("2", 10);
 		l_boardAfter.put("3", 5);
 		System.out.println("Game Board After: " + d_state.getGameBoard());
-		assertEquals(d_state.getGameBoard(), l_boardAfter);
+		assertEquals(l_boardAfter, d_state.getGameBoard());
 		int l_totNumOrders = 0;
 		for (int i = 0; i < d_state.getPlayers().size(); i++) {
 			// print out a list of orders per player after the execute orders phase
@@ -118,7 +118,7 @@ public class ExecuteOrdersPhaseTest {
 			System.out.println("Player " + l_player.getPlayerName() + " orders left: " + l_player.getListOrders());
 			l_totNumOrders = l_totNumOrders + l_player.getListOrders().size();
 		}
-		assertEquals(l_totNumOrders, 0);
+		assertEquals(0, l_totNumOrders);
 		System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
 	}
 }

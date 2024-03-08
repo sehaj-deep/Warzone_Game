@@ -3,6 +3,7 @@ package map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import game.GameState;
@@ -136,7 +137,8 @@ public class MapEditor {
 	 */
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
 		if (this.getD_continents().containsKey(p_continentName)) {
-			System.out.println("The continent " + p_continentName + " has already been added");
+			// System.out.println("The continent " + p_continentName + " has already been
+			// added");
 			return;
 		}
 		Continent l_continent = new Continent(p_continentId, p_continentName, p_bonusArmies);
@@ -620,7 +622,7 @@ public class MapEditor {
 			return;
 		}
 
-		HashMap<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
+		Map<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
 
 		for (Player l_currPlayer : l_allPlayers) {
 			System.out.print(l_currPlayer.getPlayerName() + ": ");

@@ -30,12 +30,12 @@ public class PlayerTest {
 		
 		System.out.println("Order1 from the player");
 		d_player.issue_order(l_deployOrder);
-		assertEquals(d_player.getListOrders().size(), 1);
+		assertEquals(1, d_player.getListOrders().size());
 		
 		l_deployOrder = new Deploy(3, "usa");  // player issued an order
 		System.out.println("Order2 from the player");
 		d_player.issue_order(l_deployOrder);
-		assertEquals(d_player.getListOrders().size(), 2);
+		assertEquals(2, d_player.getListOrders().size());
 		
 		System.out.println("Testing issue_order method PASSED!\n");
 	}
@@ -56,7 +56,7 @@ public class PlayerTest {
 		System.out.println("Initial list of orders: " + d_player.getListOrders());
 		Order nextOrder = d_player.next_order();
 		System.out.println("Next Order for execution: " + nextOrder);
-		assertEquals(d_player.getListOrders().size(), 1);
+		assertEquals(1, d_player.getListOrders().size());
 		
 		System.out.println("Testing next_order method PASSED!\n");
 	}

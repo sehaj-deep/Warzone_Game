@@ -108,7 +108,7 @@ public class IssueOrdersPhase {
 					System.out.println("Countries owned by the current player: " + l_plyr.getOwnership());
 					getOrderCommand(p_gMap, p_state);
 					l_newOrder = createInputOrder(p_state);
-					if (l_newOrder.isValid(p_state, i, false)) {
+					if (l_newOrder.isValidIssue(p_state, i)) {
 						// change the game state to help validation of subsequent orders
 						l_newOrder.changeGameState(p_state, i);
 						break;

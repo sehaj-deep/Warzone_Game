@@ -38,7 +38,7 @@ public class ExecuteOrdersPhase {
 				continue;
 			}
 			Order l_order = l_player.next_order(); // get the next order from player's orders list
-			if (l_order.isValid(p_state, i, true)) {
+			if (l_order.isValidExecute(p_state, i)) {
 				// order is valid in the current state, so execute it
 				l_order.execute(p_state, i);
 			} else { // order can't be executed, so update error log and return it
