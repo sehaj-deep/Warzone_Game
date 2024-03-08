@@ -31,18 +31,22 @@ public class MapReader {
 			}
 			if (!l_file.exists() && p_createNew) {
 				try {
-					l_file.createNewFile();
-					System.out.println("New file created.");
-					return;
+					boolean l_status = l_file.createNewFile();
+					if (l_status) {
+						System.out.println("New file created.");
+					} else {
+						throw new FileNotFoundException("File creation failed");
+					}
+
 				} catch (IOException e) {
-					System.out.println("File creation failed");
+					System.out.println(e.getMessage());
+					return;
 				}
 			}
 			l_scanner = new Scanner(new FileInputStream(l_file));
 		} catch (FileNotFoundException e) {
 			System.err.println("Error opening the file");
-			l_scanner.close();
-			System.exit(0);
+			return;
 		}
 
 		String l_singleLine = l_scanner.nextLine();

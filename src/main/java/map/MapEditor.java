@@ -61,7 +61,7 @@ public class MapEditor {
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
 	 */
-	public Continent getD_Continents(String p_continentName) {
+	public Continent getD_continents(String p_continentName) {
 		return d_continents.get(p_continentName);
 	}
 
@@ -230,10 +230,10 @@ public class MapEditor {
 			this.getD_countries().put(p_countryName, l_country);
 
 			// To add a country to its continent
-			Continent l_continent = this.getD_Continents(p_continent);
+			Continent l_continent = this.getD_continents(p_continent);
 			l_continent.getD_countries().add(l_country);
 			System.out.println("The country " + this.getD_countries().get(p_countryName).getD_name()
-					+ " has been added into the continent " + this.getD_Continents(p_continent).getD_continentName());
+					+ " has been added into the continent " + this.getD_continents(p_continent).getD_continentName());
 		} else {
 			System.out.println("Country " + this.getD_countries().get(p_countryName).getD_name() + " already exists");
 		}
@@ -574,6 +574,7 @@ public class MapEditor {
 			}
 		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
+			return;
 		}
 
 		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
@@ -586,7 +587,7 @@ public class MapEditor {
 	 *
 	 * @param p_gameState The current state of the game.
 	 */
-	public void showmap(GameState p_gameState) {
+	public void showMap(GameState p_gameState) {
 
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");

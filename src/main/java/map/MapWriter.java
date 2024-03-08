@@ -38,6 +38,7 @@ public class MapWriter {
 			l_printWriter = new PrintWriter(new FileOutputStream(mapName));
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
+			return;
 		}
 
 		// to start writing the file

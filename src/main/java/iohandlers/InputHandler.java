@@ -290,7 +290,7 @@ public class InputHandler {
 		if (d_gameState == null) {
 			d_mapEditor.showMap();
 		} else {
-			d_mapEditor.showmap(d_gameState);
+			d_mapEditor.showMap(d_gameState);
 		}
 	}
 
