@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import game.GameState;
 import game.Player;
 import models.Continent;
@@ -61,7 +62,7 @@ public class MapEditor {
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
 	 */
-	public Continent getD_Continents(String p_continentName) {
+	public Continent getD_continents(String p_continentName) {
 		return d_continents.get(p_continentName);
 	}
 
@@ -187,8 +188,7 @@ public class MapEditor {
 			d_continents.remove(l_remContinentName);
 
 			System.out.println("The continent " + p_continentName + " has been removed successfully.");
-		}
-		else {
+		} else {
 			System.out.println("The continent " + p_continentName + " does not exist.");
 		}
 
@@ -232,12 +232,11 @@ public class MapEditor {
 			this.getD_countries().put(p_countryName, l_country);
 
 			// To add a country to its continent
-			Continent l_continent = this.getD_Continents(p_continent);
+			Continent l_continent = this.getD_continents(p_continent);
 			l_continent.getD_countries().add(l_country);
 			System.out.println("The country " + this.getD_countries().get(p_countryName).getD_name()
-					+ " has been added into the continent " + this.getD_Continents(p_continent).getD_continentName());
-		}
-		else {
+					+ " has been added into the continent " + this.getD_continents(p_continent).getD_continentName());
+		} else {
 			System.out.println("Country " + this.getD_countries().get(p_countryName).getD_name() + " already exists");
 		}
 	}
@@ -281,8 +280,7 @@ public class MapEditor {
 			this.getD_countries().remove(p_countryName);
 			System.out.println("The country " + p_countryName + " has been removed successfully.");
 
-		}
-		else {
+		} else {
 			System.out.println("The country " + p_countryName + " does not exist.");
 		}
 	}
@@ -304,17 +302,14 @@ public class MapEditor {
 				if (!this.getD_countries().get(p_country).getNeighbors().contains(l_neighbor)) {
 					l_country.addNeighbors(l_neighbor);
 					System.out.println("The country " + p_neighbor + " has been added as the neighbor of " + p_country);
+				} else {
+					System.err.println("The neighbor " + l_neighbor.getD_name()
+							+ " was already added as the neighbor of " + l_country.getD_name());
 				}
-				else {
-					System.err.println("The neighbor " + l_neighbor.getD_name() + " was already added as the neighbor of "
-							+ l_country.getD_name());
-				}
-			}
-			else {
+			} else {
 				System.out.println("Either the country or the neighbor does not exist.");
 			}
-		}
-		else {
+		} else {
 			System.out.println("The country " + p_country + " cannot be it's own neighbor.");
 		}
 
@@ -334,13 +329,11 @@ public class MapEditor {
 
 			if (!l_country.getNeighbors().contains(l_neighbor)) {
 				l_country.addNeighbors(l_neighbor);
-			}
-			else {
+			} else {
 				System.err.println("The neighbor " + l_neighbor.getD_name() + " was already added as the neighbor of "
 						+ l_country.getD_name());
 			}
-		}
-		else {
+		} else {
 			System.out.println("The country " + p_country + " already has " + p_neighbor + " as its neighbor.");
 		}
 	}
@@ -360,13 +353,11 @@ public class MapEditor {
 			if (l_country.getNeighbors().contains(l_neighbor)) {
 				l_country.getNeighbors().remove(l_neighbor);
 				System.out.println("The country: " + p_neighbor + " has been removed as the neighbor of " + p_country);
+			} else {
+				System.err.println("The neighbor " + l_neighbor.getD_name() + " was not present as the neighbor of "
+						+ l_country.getD_name());
 			}
-			else {
-				System.err.println(
-						"The neighbor " + l_neighbor.getD_name() + " was not present as the neighbor of " + l_country.getD_name());
-			}
-		}
-		else {
+		} else {
 			System.out.println("Either/Both " + p_country + " or " + p_neighbor + " does not exist.");
 		}
 	}
@@ -460,8 +451,7 @@ public class MapEditor {
 				System.out.println("Country " + countryName + " is already present in continent "
 						+ countryContinentMap.get(countryName) + ", can't be in two continents.");
 				return false;
-			}
-			else {
+			} else {
 				countryContinentMap.put(countryName, continent.getD_continentName());
 			}
 		}
@@ -524,7 +514,8 @@ public class MapEditor {
 	 * @param p_country          The starting country for the traversal.
 	 * @param p_visitedCountries Set to store visited countries during traversal.
 	 */
-	private void depthFirstSearchForContinent(Country p_country, Continent p_continent, Set<Country> p_visitedCountries) {
+	private void depthFirstSearchForContinent(Country p_country, Continent p_continent,
+			Set<Country> p_visitedCountries) {
 		p_visitedCountries.add(p_country);
 
 		Set<Country> l_neighboringCountries = p_country.getNeighbors();
@@ -564,8 +555,7 @@ public class MapEditor {
 			if (!l_isValidated) {
 				throw new ValidationException("Unable to load map: The map is invalid.");
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
 		}
 
@@ -584,9 +574,9 @@ public class MapEditor {
 			if (!l_isValidated) {
 				throw new ValidationException("Unable to save map: The map is invalid.");
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
+			return;
 		}
 
 		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
@@ -599,7 +589,7 @@ public class MapEditor {
 	 *
 	 * @param p_gameState The current state of the game.
 	 */
-	public void showmap(GameState p_gameState) {
+	public void showMap(GameState p_gameState) {
 
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");

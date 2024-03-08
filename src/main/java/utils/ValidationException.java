@@ -24,6 +24,7 @@ public class ValidationException extends Exception {
 	/**
 	 * Method to display the message
 	 */
+	@Override
 	public String getMessage() {
 		return super.getMessage();
 	}

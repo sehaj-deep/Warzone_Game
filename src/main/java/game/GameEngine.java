@@ -162,7 +162,6 @@ public class GameEngine {
 	 * Initialize the hash map representation of game board based on the map used in
 	 * the current game update d_board where key: country name, and value: number of
 	 * army positioned in the country
-	 * 
 	 *
 	 */
 	public static void initalizeBoard() {
