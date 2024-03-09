@@ -11,12 +11,17 @@ import map.MapEditor;
 import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
 import phases.ReinforcePhase;
+import utils.LogEntryBuffer;
+import utils.LogFileWriter;
 
 /**
  * GameEngine Class This Class runs a game by integrating all the functions and
  * classes needed for Warzone
  */
 public class GameEngine {
+	private static LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+	private static LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
+
 	private static MapEditor d_mapEditor = new MapEditor();
 	private static InputHandler d_inputHandler = new InputHandler(d_mapEditor);
 
@@ -48,9 +53,11 @@ public class GameEngine {
 			switch (choice) {
 			case "1":
 				l_editMapPhase = true;
+				d_logEntryBuffer.setD_currentPhase("Map Editing Phase");
 				break;
 			case "2":
 				l_gamePhase = true;
+				d_logEntryBuffer.setD_currentPhase("Game Phase");
 				break;
 			default:
 				System.out.println("Invalid choice. Please try again.");
@@ -94,10 +101,8 @@ public class GameEngine {
 		// Game playing phase
 		if (l_gamePhase) {
 			InputHandler l_inputHandlerGame = new InputHandler(d_mapEditor, d_state);
-
-			ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
-			ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
 			System.out.println("You are now in the game playing phase.");
+
 			while (true) {
 				// Loadmap. To ensure that the user loads the map before playing the game
 				System.out.println("Please load a map where you want to play a game");
@@ -108,6 +113,7 @@ public class GameEngine {
 				}
 				System.out.println("Map is not loaded. Please load a map before playing a game");
 			}
+
 			initalizeBoard(); // initialize the game board
 			d_state.setGameBoard(d_board);
 
@@ -142,16 +148,26 @@ public class GameEngine {
 				if (l_userInput.equalsIgnoreCase("done")) {
 					l_playingGame = false;
 					System.out.println("Game Ended");
+					d_logEntryBuffer.setD_currentPhase("The game has ended.");
 					break;
 				}
+
 				if (l_userInput.equals("showmap")) {
 					l_inputHandlerGame.parseUserCommand(l_userInput);
 				}
+
+				d_logEntryBuffer.setD_currentPhase("Reinforcement Phase");
+				ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
 				d_state.setReinforcements(new ArrayList<>());
-				l_reinforcementPhase.execute(d_state, d_mapEditor); // reinforcement phase
+				l_reinforcementPhase.execute(d_state, d_mapEditor);
+
+				d_logEntryBuffer.setD_currentPhase("Issue Order Phase");
 				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
-				l_issueOrderPhase.run(d_state, d_mapEditor); // issue order phase
-				l_executeOrdersPhase.run(d_state, d_mapEditor); // execute order phase
+				l_issueOrderPhase.run(d_state, d_mapEditor);
+
+				d_logEntryBuffer.setD_currentPhase("Execute Order Phase");
+				ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
+				l_executeOrdersPhase.run(d_state, d_mapEditor);
 			}
 		}
 

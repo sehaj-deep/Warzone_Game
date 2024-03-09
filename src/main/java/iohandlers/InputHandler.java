@@ -6,15 +6,19 @@ import game.GameState;
 import map.MapEditor;
 import phases.StarterPhase;
 import utils.Common;
+import utils.LogEntryBuffer;
+import utils.LogFileWriter;
 
 /**
  * InputHandler class is responsible for handling user input commands.
  */
 public class InputHandler {
-
 	private MapEditor d_mapEditor = null;
 	private GameState d_gameState = null;
-	StarterPhase d_startPhase = new StarterPhase();
+	private StarterPhase d_startPhase = new StarterPhase();
+
+	private LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
 	/**
 	 * Parameterized Constructor For MapEditor Phase
@@ -125,6 +129,8 @@ public class InputHandler {
 
 								try {
 									d_mapEditor.addContinent(l_continentName, Integer.parseInt(l_continentValue));
+									d_logEntryBuffer
+											.setD_effectOfAction("Continent " + l_continentName + " was added.");
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -137,6 +143,7 @@ public class InputHandler {
 
 							try {
 								d_mapEditor.removeContinent(l_continentName);
+								d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
 							} catch (Exception e) {
 								System.out.println(e.getMessage());
 							}
@@ -186,6 +193,7 @@ public class InputHandler {
 
 								try {
 									d_mapEditor.addCountry(l_countryId, l_continentId);
+									d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was added.");
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -198,6 +206,7 @@ public class InputHandler {
 
 							try {
 								d_mapEditor.removeCountry(l_countryId);
+								d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was removed.");
 							} catch (Exception e) {
 								System.out.println(e.getMessage());
 							}
@@ -247,6 +256,8 @@ public class InputHandler {
 
 								try {
 									d_mapEditor.addNeighbor(l_countryId, l_neighborCountryId);
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was added as a neighbor to " + l_countryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -264,6 +275,8 @@ public class InputHandler {
 
 								try {
 									d_mapEditor.removeNeighbor(l_countryId, l_neighborCountryId);
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was removed as a neighbor of " + l_countryId);
 								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
@@ -289,8 +302,10 @@ public class InputHandler {
 	private void parseShowMapCommand(String[] p_tokens) {
 		if (d_gameState == null) {
 			d_mapEditor.showMap();
+			d_logEntryBuffer.setD_effectOfAction("The map was shown.");
 		} else {
 			d_mapEditor.showMap(d_gameState);
+			d_logEntryBuffer.setD_effectOfAction("The map was shown.");
 		}
 	}
 
@@ -305,7 +320,7 @@ public class InputHandler {
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
 			d_mapEditor.saveMap(d_mapEditor, l_filename);
-
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " file was saved.");
 		}
 	}
 
@@ -320,6 +335,7 @@ public class InputHandler {
 		} else {
 			String l_filename = p_tokens[1];
 			d_mapEditor.editMap(d_mapEditor, Common.getMapPath(l_filename));
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " file was edited.");
 		}
 
 	}
@@ -331,6 +347,7 @@ public class InputHandler {
 	 */
 	private void parseValidateMapCommand(String[] p_tokens) {
 		d_mapEditor.validateMap();
+		d_logEntryBuffer.setD_effectOfAction("The map was validated.");
 	}
 
 	/**
@@ -356,12 +373,14 @@ public class InputHandler {
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
 						d_startPhase.addPlayer(l_playerName, d_gameState);
+						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was added as a player.");
 					}
 					break;
 				case "-remove":
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
 						d_startPhase.removePlayer(l_playerName, d_gameState);
+						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was removed from players.");
 					}
 					break;
 				default:
@@ -380,6 +399,7 @@ public class InputHandler {
 		// TODO
 		StarterPhase l_startPhase = new StarterPhase();
 		d_startPhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
+		d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
 	}
 
 	/**
@@ -393,6 +413,7 @@ public class InputHandler {
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
 			d_mapEditor.loadMap(d_mapEditor, l_filename);
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
 	}
 
@@ -412,6 +433,8 @@ public class InputHandler {
 			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
 			return;
 		}
+
 		d_gameState.setOrderInput(p_tokens);
+		d_logEntryBuffer.setD_effectOfAction("");
 	}
 }

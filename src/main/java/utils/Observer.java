@@ -1,7 +1,5 @@
 package utils;
 
 public interface Observer {
-
-	public void update(String p_message);
-
+	public void update(Observable p_observable);
 }
