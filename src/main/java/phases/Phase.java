@@ -10,16 +10,28 @@ public abstract class Phase {
 	}
 
 	// general behavior
-	abstract public void loadMap();
+	abstract public void loadMap(String p_filename);
 
 	abstract public void showMap();
 
 	// edit map state behavior
-	abstract public void addCountry();
+	abstract public void editMap(String p_filename);
 
-	abstract public void removeCountry();
+	abstract public void addContinent(String p_continentName, int p_bonusArmies);
 
-	abstract public void saveMap();
+	abstract public void removeContinent(String p_continentName);
+
+	abstract public void addCountry(String p_countryName, String p_continent);
+
+	abstract public void removeCountry(String p_countryName);
+
+	abstract public void addNeighbor(String p_country, String p_neighbor);
+
+	abstract public void removeNeighbor(String p_country, String p_neighbor);
+
+	abstract public void validateMap();
+
+	abstract public void saveMap(String p_filename);
 
 	// play state behavior
 	// game setup state behavior

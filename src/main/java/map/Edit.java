@@ -37,4 +37,9 @@ public abstract class Edit extends Phase {
 		printInvalidCommandMessage();
 	}
 
+	@Override
+	public void validateMap() {
+		// TODO: implement validate Map here
+	}
+
 }
