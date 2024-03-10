@@ -10,6 +10,7 @@ public class Preload extends Edit {
 
 	@Override
 	public void loadMap() {
+
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
 
