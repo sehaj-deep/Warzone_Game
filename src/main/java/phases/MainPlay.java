@@ -1,6 +1,12 @@
 package phases;
 
+import game.GameEngineNew;
+
 public abstract class MainPlay extends Play {
+
+	public MainPlay(GameEngineNew p_gameEngine) {
+		super(p_gameEngine);
+	}
 
 	public void loadMap() {
 		this.printInvalidCommandMessage();

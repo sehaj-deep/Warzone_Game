@@ -1,9 +1,13 @@
 package phases;
 
-import game.GameEngine;
+import game.GameEngineNew;
 
 public abstract class Phase {
-	protected GameEngine d_gameEngine;
+	protected GameEngineNew d_gameEngine;
+
+	public Phase(GameEngineNew p_gameEngine) {
+		this.d_gameEngine = p_gameEngine;
+	}
 
 	// general behavior
 	abstract public void loadMap();

@@ -1,12 +1,16 @@
 package map;
 
+import game.GameEngineNew;
+
 public class Preload extends Edit {
+
+	public Preload(GameEngineNew p_gameEngine) {
+		super(p_gameEngine);
+	}
 
 	@Override
 	public void loadMap() {
-		// FIXME:
-//		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
-
+		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
 
 	@Override
@@ -26,8 +30,6 @@ public class Preload extends Edit {
 
 	@Override
 	public void next() {
-		System.out.println("must load map");
-
+		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
-
 }
