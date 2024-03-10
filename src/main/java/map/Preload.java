@@ -16,9 +16,6 @@ public class Preload extends Edit {
 		super(p_gameEngine);
 	}
 
-	// FIXME: create a default constructor to call methods of this class. May sure
-	// that updations occur on the same instance.
-
 	@Override
 	public void loadMap(String p_fileName) {
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
@@ -111,19 +108,19 @@ public class Preload extends Edit {
 		while (!l_singleLine.equals("[countries]") && l_scanner.hasNextLine()) {
 			l_continentId++;
 			l_singleLine = l_scanner.nextLine();
-			readContinents(l_singleLine, l_continentId);
+			this.readContinents(l_singleLine, l_continentId);
 		}
 
 		// To fetch
 		while (!l_singleLine.equals("[borders]") && l_scanner.hasNextLine()) {
 			l_singleLine = l_scanner.nextLine();
-			readCountries(l_singleLine);
+			this.readCountries(l_singleLine);
 		}
 
 		// To map country neighbors
 		while (l_scanner.hasNextLine()) {
 			l_singleLine = l_scanner.nextLine();
-			readCountryNeighbors(l_singleLine);
+			this.readCountryNeighbors(l_singleLine);
 		}
 
 		l_scanner.close();
@@ -136,10 +133,10 @@ public class Preload extends Edit {
 	 * @param p_singleLine  The line containing continent data.
 	 * @param p_continentId The identifier for the continent being read.
 	 */
-	public static void readContinents(String p_singleLine, int p_continentId) {
+	public void readContinents(String p_singleLine, int p_continentId) {
 		String[] l_continentArr = p_singleLine.split("\\s");
 		if (l_continentArr.length >= 2)
-			addContinent(p_continentId, l_continentArr[0], Integer.parseInt(l_continentArr[1]));
+			this.addContinent(p_continentId, l_continentArr[0], Integer.parseInt(l_continentArr[1]));
 	}
 
 	/**
@@ -148,10 +145,10 @@ public class Preload extends Edit {
 	 * @param p_mapEditor  The MapEditor instance to which countries are added.
 	 * @param p_singleLine The line containing country data.
 	 */
-	public static void readCountries(String p_singleLine) {
+	public void readCountries(String p_singleLine) {
 		String[] l_countriesArr = p_singleLine.split("\\s");
 		if (l_countriesArr.length >= 3)
-			p_mapEditor.addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1],
+			this.addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1],
 					Integer.parseInt(l_countriesArr[2]));
 	}
 
@@ -162,12 +159,12 @@ public class Preload extends Edit {
 	 *                     added.
 	 * @param p_singleLine The line containing country neighbor data.
 	 */
-	public static void readCountryNeighbors(String p_singleLine) {
+	public void readCountryNeighbors(String p_singleLine) {
 
 		String[] l_neighborsArr = p_singleLine.split("\\s+");
 
 		for (int i = 1; i < l_neighborsArr.length; i++) {
-			addNeighbor(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
+			this.addNeighbor(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
 		}
 	}
 

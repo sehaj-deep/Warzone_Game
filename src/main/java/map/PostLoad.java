@@ -188,8 +188,7 @@ public class PostLoad extends Edit {
 			return;
 		}
 
-		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
-		l_mapWriter.fileWrite(p_filename);
+		this.fileWrite(p_filename);
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
 
 		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));

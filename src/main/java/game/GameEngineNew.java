@@ -39,6 +39,24 @@ public class GameEngineNew {
 	protected String d_mapName;
 
 	/**
+	 * To change the phase
+	 * 
+	 * @param p_phase The phase to be set
+	 */
+	public void setPhase(Phase p_phase) {
+		d_gamePhase = p_phase;
+	}
+
+	/**
+	 * To get the current phase
+	 * 
+	 * @return The current Phase
+	 */
+	public Phase getPhase() {
+		return d_gamePhase;
+	}
+
+	/**
 	 * 
 	 * @return the list of continents
 	 */
@@ -122,10 +140,6 @@ public class GameEngineNew {
 	 */
 	public void setD_mapName(String d_mapName) {
 		this.d_mapName = d_mapName;
-	}
-
-	public void setPhase(Phase p_phase) {
-		d_gamePhase = p_phase;
 	}
 
 	public void start() {
