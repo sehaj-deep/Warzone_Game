@@ -9,7 +9,7 @@ public class PlaySetup extends Play {
 	}
 
 	@Override
-	public void loadMap() {
+	public void loadMap(String p_filename) {
 		// TODO call respective methods
 
 	}
@@ -27,13 +27,49 @@ public class PlaySetup extends Play {
 	}
 
 	@Override
-	public void addCountry() {
+	public void addCountry(String p_countryName, String p_continent) {
 		// TODO invalid
 	}
 
 	@Override
-	public void removeCountry() {
+	public void removeCountry(String p_continentName) {
 		// TODO invalid
+
+	}
+
+	@Override
+	public void addNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addContinent(String p_continentName, int p_bonusArmies) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeContinent(String p_continentName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void saveMap(String p_filename) {
+		// TODO Auto-generated method stub
 
 	}
 
