@@ -1,8 +1,11 @@
-package phases;
+package map;
+
+import phases.Phase;
 
 public abstract class Edit extends Phase {
 	public void showMap() {
 		System.out.println("edited map is displayed");
+		// TODO:either call showmap function or bring it's implementation here
 	}
 
 	public void setPlayers() {
