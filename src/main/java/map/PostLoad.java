@@ -1,5 +1,8 @@
 package map;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +11,7 @@ import game.GameEngineNew;
 import models.Continent;
 import models.Country;
 import phases.PlaySetup;
+import utils.ValidationException;
 
 public class PostLoad extends Edit {
 
@@ -173,9 +177,93 @@ public class PostLoad extends Edit {
 
 	@Override
 	public void saveMap(String p_filename) {
-		System.out.println("map has been saved");
+
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to save map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+			return;
+		}
+
+		MapWriter l_mapWriter = new MapWriter(p_mapEditor);
+		l_mapWriter.fileWrite(p_filename);
+		System.out.println("The map has been saved successfully into the file: " + p_filename);
 
 		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));
+	}
+
+	/**
+	 * Writes map data to a file with the given map name.
+	 *
+	 * @param mapName The name of the map file to write.
+	 */
+	public void fileWrite(String mapName) {
+
+		PrintWriter l_printWriter = null;
+
+		try {
+			l_printWriter = new PrintWriter(new FileOutputStream(mapName));
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
+
+		// to start writing the file
+		l_printWriter.println("[files]");
+		l_printWriter.println();
+
+		// to write continents
+		l_printWriter.println("[continents]");
+
+		for (int i = 1; i <= d_gameEngine.getD_continentId().size(); i++) {
+			Continent l_currContinent = d_gameEngine.getD_continentId(i);
+			l_printWriter
+					.println(l_currContinent.getD_continentName() + " " + l_currContinent.getD_continentBonusArmies());
+		}
+
+		l_printWriter.println();
+
+		// to print all the countries to the map
+		l_printWriter.println("[countries]");
+
+		// to go inside each continent to know which countries are present inside each
+		// continent
+		for (int i = 1; i <= d_gameEngine.getD_continentId().size(); i++) {
+			Continent l_currContinent = d_gameEngine.getD_continentId().get(i);
+			int l_currContinentID = l_currContinent.getD_continentID();
+			Set<Country> l_allCountries = l_currContinent.getD_countries();
+
+			for (Country l_country : l_allCountries) {
+				int l_countryId = l_country.getD_id();
+				String l_countryName = l_country.getD_name();
+
+				l_printWriter.println(l_countryId + " " + l_countryName + " " + "" + l_currContinentID);
+			}
+		}
+
+		l_printWriter.println();
+
+		// to print the neighbors of all countries
+
+		l_printWriter.println("[borders]");
+
+		// to go inside each country and get the list of neighbors
+
+		for (int i = 1; i <= d_gameEngine.getD_countriesId().size(); i++) {
+			Country l_currCountry = d_gameEngine.getD_countriesId().get(i);
+			HashSet<Country> l_neighbors = l_currCountry.getNeighbors();
+			l_printWriter.print(i + " ");
+			for (Country l_currNeighbor : l_neighbors) {
+				l_printWriter.print(l_currNeighbor.getD_id() + " ");
+//				l_currNeighbor.getD_id();
+			}
+			l_printWriter.println();
+		}
+		// to close the printwriter
+		l_printWriter.close();
 	}
 
 }
