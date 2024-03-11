@@ -2,6 +2,7 @@ package phases;
 
 import game.GameEngineNew;
 import game.GameState;
+import map.MapEditor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public abstract class Phase {
 
 	abstract public void removePlayers(String p_playerName);
 
-	abstract public void assignCountries();
+	abstract public void assignCountries(GameState p_state, MapEditor p_gMap);
 
 	// reinforcement state behavior
 	abstract public void reinforce();

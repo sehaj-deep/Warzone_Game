@@ -5,7 +5,7 @@ import game.GameState;
 import game.Player;
 import map.MapEditor;
 
-import java.util.Calendar;
+import java.util.*;
 
 
 public class PlaySetup extends Play {
@@ -53,14 +53,46 @@ public class PlaySetup extends Play {
 			}
 			throw new IllegalArgumentException("Player " + p_playerName + " not found");
 		}
-		int playerIdx = d_playerNameList.indexOf(p_playerName);
+
 		d_playerNameList.remove(p_playerName);
 
 		System.out.println("Player: " + p_playerName + " successfully removed");
 	}
 
 	@Override
-	public void assignCountries() {
+	public void assignCountries(GameState p_state, MapEditor p_gMap) {
+		Set<String> p_countries = p_gMap.getD_countries().keySet();
+
+		// check if countries is valid
+		int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
+		int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
+
+		for (int i = 1; i < p_state.getPlayers().size(); i++) {
+			Player l_player = p_state.getPlayers().get(i);
+			int l_numCountriesOwned = l_player.getOwnership().size();
+			if (l_numCountriesOwned < l_minSize) {
+				l_minSize = l_numCountriesOwned;
+			}
+			if (l_numCountriesOwned > l_maxSize) {
+				l_maxSize = l_numCountriesOwned;
+			}
+		}
+
+		boolean isValid = (l_maxSize - l_minSize) <= 1;
+
+		List<String> l_countriesList = new ArrayList<>(p_countries);
+
+		// Shuffle the list of available countries
+		Collections.shuffle(l_countriesList);
+
+		for (int i = 0; i < l_countriesList.size(); i++) {
+			// Add assigned country to player's countries (d_ownership)
+			int l_idx = i % (p_state.getPlayers().size());
+			Player l_player = p_state.getPlayers().get(l_idx);
+			l_player.conquerCountry(l_countriesList.get(i));
+		}
+
+		System.out.println("Assign Countries Completed");
 	}
 
 	@Override
