@@ -2,7 +2,10 @@ package phases;
 
 import game.GameEngineNew;
 import game.GameState;
+import game.Player;
 import map.MapEditor;
+
+import java.util.Calendar;
 
 
 public class PlaySetup extends Play {
@@ -18,28 +21,46 @@ public class PlaySetup extends Play {
 	}
 
 	@Override
-	public void setPlayers() {
-		// TODO call respective methods
+	public void addPlayers(String p_playerName) {
+		if (p_playerName == null || p_playerName.trim().isEmpty()) {
+			throw new IllegalArgumentException("Player name cannot be empty");
+		}
+
+		if (!p_playerName.matches("[a-zA-Z0-9]+")) {
+			throw new IllegalArgumentException("Invalid characters are not allowed");
+		}
+
+		if (PlaySetup.d_playerNameList.contains(p_playerName)) {
+			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
+		}
+
+		PlaySetup.d_playerNameList.add(p_playerName);
+
+		System.out.println("Player: " + p_playerName + " successfully added ");
 
 	}
 
-	private StarterPhaseState currentPhase;
-	GameState GameState;
-	String playerName;
-
 	@Override
-	public void addPlayers() {
-		currentPhase.addPlayer(playerName, GameState);
-	}
+	public void removePlayers(String p_playerName) {
+		if (p_playerName == null || p_playerName.trim().isEmpty()) {
+			throw new IllegalArgumentException("Player name cannot be empty");
+		}
 
-	@Override
-	public void removePlayers() {
-		currentPhase.removePlayer(playerName, GameState);
+		if (!d_playerNameList.contains(p_playerName)) {
+			System.out.println(d_playerNameList.size());
+			for (String p : d_playerNameList) {
+				System.out.println(p);
+			}
+			throw new IllegalArgumentException("Player " + p_playerName + " not found");
+		}
+		int playerIdx = d_playerNameList.indexOf(p_playerName);
+		d_playerNameList.remove(p_playerName);
+
+		System.out.println("Player: " + p_playerName + " successfully removed");
 	}
 
 	@Override
 	public void assignCountries() {
-		currentPhase.assignCountriesToPlayer(GameState, new MapEditor());
 	}
 
 	@Override
