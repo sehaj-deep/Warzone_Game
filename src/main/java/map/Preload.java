@@ -64,6 +64,16 @@ public class Preload extends Edit {
 	}
 
 	@Override
+	public void addPlayers() {
+		printInvalidCommandMessage();
+	}
+
+	@Override
+	public void removePlayers() {
+        printInvalidCommandMessage();
+	}
+
+	@Override
 	public void next() {
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}

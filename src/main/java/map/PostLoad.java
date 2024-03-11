@@ -194,6 +194,16 @@ public class PostLoad extends Edit {
 		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));
 	}
 
+	@Override
+	public void addPlayers() {
+		printInvalidCommandMessage();
+	}
+
+	@Override
+	public void removePlayers() {
+        printInvalidCommandMessage();
+	}
+
 	/**
 	 * Writes map data to a file with the given map name.
 	 *
