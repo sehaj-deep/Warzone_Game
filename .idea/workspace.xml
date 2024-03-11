@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="092c27fe-02cc-4150-96dd-12d53dd83de9" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/src/main/java/phases/StarterPhaseState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/StarterPhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/StarterPhase.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="c6c99ac0-a3c5-4d4b-93d2-5a87a2b33154" name="Changes" comment="" />
+>>>>>>> origin/build_two_NB
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -58,6 +63,46 @@
       <option name="presentableId" value="Default" />
       <updated>1709251830249</updated>
     </task>
+=======
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.TestDeploy.executor": "Run",
+    "JUnit.TestStarterPhase.executor": "Run",
+    "JUnit.TestStarterPhase.removePlayerSuccessful.executor": "Debug",
+    "TestNG.TestStarterPhase.executor": "Run",
+    "last_opened_file_path": "/Users/nitinbirdi/Desktop/work/assignments/warzone project/Warzone_Game",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="TestStarterPhase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.TestStarterPhase" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestStarterPhase" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+>>>>>>> origin/build_two_NB
     <servers />
   </component>
 </project>
