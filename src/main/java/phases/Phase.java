@@ -51,7 +51,7 @@ public abstract class Phase {
 
 	abstract public void removePlayers(String p_playerName);
 
-	abstract public void assignCountries(GameEngineNew p_gMap);
+	abstract public void assignCountries();
 
 	// reinforcement state behavior
 	abstract public void reinforce();

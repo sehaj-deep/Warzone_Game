@@ -83,8 +83,10 @@ public class PlaySetup extends Play {
         System.out.println("Player: " + p_playerName + " successfully removed");
     }
 
+    GameEngineNew p_gMap;
     @Override
-    public void assignCountries(GameEngineNew p_gMap) {
+    public void assignCountries() {
+
         Set<String> p_countries = p_gMap.getD_countries().keySet();
 
         // check if countries is valid
@@ -137,47 +139,47 @@ public class PlaySetup extends Play {
 
     @Override
     public void loadMap(String p_filename) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void editMap(String p_filename) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void addContinent(String p_continentName, int p_bonusArmies) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void removeContinent(String p_continentName) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void addCountry(String p_countryName, String p_continent) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void removeCountry(String p_countryName) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void addNeighbor(String p_country, String p_neighbor) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void removeNeighbor(String p_country, String p_neighbor) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
     public void saveMap(String p_filename) {
-
+        this.printInvalidCommandMessage();
     }
 
     @Override
