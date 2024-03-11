@@ -1,7 +1,6 @@
 package phases;
 
 import game.GameEngineNew;
-import game.GameState;
 import game.Player;
 import map.MapEditor;
 
@@ -9,120 +8,152 @@ import java.util.*;
 
 
 public class PlaySetup extends Play {
+    public PlaySetup(GameEngineNew p_gameEngine) {
+        super(p_gameEngine);
+    }
 
-	public PlaySetup(GameEngineNew p_gameEngine) {
-		super(p_gameEngine);
-	}
+    private List<Player> d_players; // list of all players in the game
 
-	@Override
-	public void loadMap() {
-		// TODO call respective methods
-	}
+    // list of available reinforcements for all players. Order same as d_players
+    public List<Integer> d_reinforcements;
+    public Map<String, Integer> d_board; // key: country name. value: number of army in the country
+    public String[] d_orderInput; // a list of tokens given in the user input command to issue an or
 
-	@Override
-	public void addPlayers(String p_playerName) {
-		if (p_playerName == null || p_playerName.trim().isEmpty()) {
-			throw new IllegalArgumentException("Player name cannot be empty");
-		}
+    /**
+     * Parameterized Constructor
+     *
+     * @param p_players is a list of players playing the game
+     */
+    public void GameState(List<Player> p_players) {
+        d_players = p_players;
+        d_reinforcements = new ArrayList<>();
+        d_board = new HashMap<String, Integer>();
+    }
 
-		if (!p_playerName.matches("[a-zA-Z0-9]+")) {
-			throw new IllegalArgumentException("Invalid characters are not allowed");
-		}
+    /**
+     * getter function for a list of players playing the game
+     *
+     * @return d_players a list of players playing the game
+     */
+    public List<Player> getPlayers() {
+        return d_players;
+    }
 
-		if (PlaySetup.d_playerNameList.contains(p_playerName)) {
-			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
-		}
+    @Override
+    public void loadMap() {
+        // TODO call respective methods
+    }
 
-		PlaySetup.d_playerNameList.add(p_playerName);
+    @Override
+    public void addPlayers(String p_playerName) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
 
-		System.out.println("Player: " + p_playerName + " successfully added ");
+        if (!p_playerName.matches("[a-zA-Z0-9]+")) {
+            throw new IllegalArgumentException("Invalid characters are not allowed");
+        }
 
-	}
+        if (PlaySetup.d_playerNameList.contains(p_playerName)) {
+            throw new IllegalArgumentException("Player " + p_playerName + " already exists");
+        }
 
-	@Override
-	public void removePlayers(String p_playerName) {
-		if (p_playerName == null || p_playerName.trim().isEmpty()) {
-			throw new IllegalArgumentException("Player name cannot be empty");
-		}
+        PlaySetup.d_playerNameList.add(p_playerName);
 
-		if (!d_playerNameList.contains(p_playerName)) {
-			System.out.println(d_playerNameList.size());
-			for (String p : d_playerNameList) {
-				System.out.println(p);
-			}
-			throw new IllegalArgumentException("Player " + p_playerName + " not found");
-		}
+        Player l_player = new Player(p_playerName);
+        getPlayers().add(l_player);
 
-		d_playerNameList.remove(p_playerName);
+        System.out.println("Player: " + p_playerName + " successfully added ");
 
-		System.out.println("Player: " + p_playerName + " successfully removed");
-	}
+    }
 
-	@Override
-	public void assignCountries(GameState p_state, MapEditor p_gMap) {
-		Set<String> p_countries = p_gMap.getD_countries().keySet();
+    @Override
+    public void removePlayers(String p_playerName) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
 
-		// check if countries is valid
-		int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
-		int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
+        if (!d_playerNameList.contains(p_playerName)) {
+            System.out.println(d_playerNameList.size());
+            for (String p : d_playerNameList) {
+                System.out.println(p);
+            }
+            throw new IllegalArgumentException("Player " + p_playerName + " not found");
+        }
 
-		for (int i = 1; i < p_state.getPlayers().size(); i++) {
-			Player l_player = p_state.getPlayers().get(i);
-			int l_numCountriesOwned = l_player.getOwnership().size();
-			if (l_numCountriesOwned < l_minSize) {
-				l_minSize = l_numCountriesOwned;
-			}
-			if (l_numCountriesOwned > l_maxSize) {
-				l_maxSize = l_numCountriesOwned;
-			}
-		}
+        d_playerNameList.remove(p_playerName);
 
-		boolean isValid = (l_maxSize - l_minSize) <= 1;
+        Player l_player = new Player(p_playerName);
+        getPlayers().remove(l_player);
 
-		List<String> l_countriesList = new ArrayList<>(p_countries);
+        System.out.println("Player: " + p_playerName + " successfully removed");
+    }
 
-		// Shuffle the list of available countries
-		Collections.shuffle(l_countriesList);
+    @Override
+    public void assignCountries(MapEditor p_gMap) {
+        Set<String> p_countries = p_gMap.getD_countries().keySet();
 
-		for (int i = 0; i < l_countriesList.size(); i++) {
-			// Add assigned country to player's countries (d_ownership)
-			int l_idx = i % (p_state.getPlayers().size());
-			Player l_player = p_state.getPlayers().get(l_idx);
-			l_player.conquerCountry(l_countriesList.get(i));
-		}
+        // check if countries is valid
+        int l_minSize = getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
+        int l_maxSize = getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
 
-		System.out.println("Assign Countries Completed");
-	}
+        for (int i = 1; i < getPlayers().size(); i++) {
+            Player l_player = getPlayers().get(i);
+            int l_numCountriesOwned = l_player.getOwnership().size();
+            if (l_numCountriesOwned < l_minSize) {
+                l_minSize = l_numCountriesOwned;
+            }
+            if (l_numCountriesOwned > l_maxSize) {
+                l_maxSize = l_numCountriesOwned;
+            }
+        }
 
-	@Override
-	public void addCountry() {
-		this.printInvalidCommandMessage();
-	}
+        boolean isValid = (l_maxSize - l_minSize) <= 1;
 
-	@Override
-	public void removeCountry() {
-		this.printInvalidCommandMessage();
-	}
+        List<String> l_countriesList = new ArrayList<>(p_countries);
 
-	@Override
-	public void reinforce() {
-		this.printInvalidCommandMessage();
-	}
+        // Shuffle the list of available countries
+        Collections.shuffle(l_countriesList);
 
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-	}
+        for (int i = 0; i < l_countriesList.size(); i++) {
+            // Add assigned country to player's countries (d_ownership)
+            int l_idx = i % (getPlayers().size());
+            Player l_player = getPlayers().get(l_idx);
+            l_player.conquerCountry(l_countriesList.get(i));
+        }
 
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
-	}
+        System.out.println("Assign Countries Completed");
+    }
 
-	@Override
-	public void next() {
-		// TODO Uncomment when reinforcement phase is implemented
-		// d_gameEngine.setPhase(new PostLoad(d_gameEngine));
-	}
+    @Override
+    public void addCountry() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void removeCountry() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void reinforce() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void attack() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void fortify() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void next() {
+        // TODO Uncomment when reinforcement phase is implemented
+        // d_gameEngine.setPhase(new PostLoad(d_gameEngine));
+    }
 
 }
