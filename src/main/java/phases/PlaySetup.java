@@ -25,6 +25,18 @@ public class PlaySetup extends Play {
 
 	private StarterPhaseState currentPhase;
 	GameState GameState;
+	String playerName;
+
+	@Override
+	public void addPlayers() {
+		currentPhase.addPlayer(playerName, GameState);
+	}
+
+	@Override
+	public void removePlayers() {
+		currentPhase.removePlayer(playerName, GameState);
+	}
+
 	@Override
 	public void assignCountries() {
 		currentPhase.assignCountriesToPlayer(GameState, new MapEditor());

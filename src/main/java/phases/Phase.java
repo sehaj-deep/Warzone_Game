@@ -25,6 +25,10 @@ public abstract class Phase {
 	// game setup state behavior
 	abstract public void setPlayers();
 
+	abstract public void addPlayers();
+
+	abstract public void removePlayers();
+
 	abstract public void assignCountries();
 
 	// reinforcement state behavior
