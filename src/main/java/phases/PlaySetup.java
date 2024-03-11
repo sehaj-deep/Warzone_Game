@@ -32,31 +32,27 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void addCountry() {
-		// TODO invalid
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void removeCountry() {
-		// TODO invalid
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void reinforce() {
-		// TODO invalid
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void attack() {
-		// TODO invalid
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void fortify() {
-		// TODO invalid
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
