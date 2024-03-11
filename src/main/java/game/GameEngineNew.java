@@ -40,11 +40,7 @@ public class GameEngineNew {
 
 	/**
 	 * To change the phase
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @param p_phase The phase to be set
 	 */
 	public void setPhase(Phase p_phase) {
@@ -53,11 +49,7 @@ public class GameEngineNew {
 
 	/**
 	 * To get the current phase
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @return The current Phase
 	 */
 	public Phase getPhase() {
@@ -65,11 +57,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @return the list of continents
 	 */
 	public HashMap<String, Continent> getD_continents() {
@@ -77,11 +65,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
 	 */
@@ -94,11 +78,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @return the list of continents mapped to corresponding ID
 	 */
 	public HashMap<Integer, Continent> getD_continentId() {
@@ -106,11 +86,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @param p_continentId The Id of the continent
 	 * @return return the Object of the continent corresponding to an Id.
 	 */
@@ -142,11 +118,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @return the name of the country corresponding to the id.
 	 */
 	public HashMap<Integer, Country> getD_countriesId() {
@@ -154,11 +126,7 @@ public class GameEngineNew {
 	}
 
 	/**
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @return name of the map
 	 */
 	public String getD_mapName() {
@@ -167,11 +135,7 @@ public class GameEngineNew {
 
 	/**
 	 * set the name of the map
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> 5cdb1d37989f2d13901eddc213bc587606fbd64d
 	 * @param d_mapName Name of the map file
 	 */
 	public void setD_mapName(String d_mapName) {
