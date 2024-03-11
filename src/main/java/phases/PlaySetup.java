@@ -39,11 +39,6 @@ public class PlaySetup extends Play {
     }
 
     @Override
-    public void loadMap() {
-        // TODO call respective methods
-    }
-
-    @Override
     public void addPlayers(String p_playerName) {
         if (p_playerName == null || p_playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
@@ -124,15 +119,6 @@ public class PlaySetup extends Play {
         System.out.println("Assign Countries Completed");
     }
 
-    @Override
-    public void addCountry() {
-        this.printInvalidCommandMessage();
-    }
-
-    @Override
-    public void removeCountry() {
-        this.printInvalidCommandMessage();
-    }
 
     @Override
     public void reinforce() {
@@ -147,6 +133,51 @@ public class PlaySetup extends Play {
     @Override
     public void fortify() {
         this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void loadMap(String p_filename) {
+
+    }
+
+    @Override
+    public void editMap(String p_filename) {
+
+    }
+
+    @Override
+    public void addContinent(String p_continentName, int p_bonusArmies) {
+
+    }
+
+    @Override
+    public void removeContinent(String p_continentName) {
+
+    }
+
+    @Override
+    public void addCountry(String p_countryName, String p_continent) {
+
+    }
+
+    @Override
+    public void removeCountry(String p_countryName) {
+
+    }
+
+    @Override
+    public void addNeighbor(String p_country, String p_neighbor) {
+
+    }
+
+    @Override
+    public void removeNeighbor(String p_country, String p_neighbor) {
+
+    }
+
+    @Override
+    public void saveMap(String p_filename) {
+
     }
 
     @Override
