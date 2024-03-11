@@ -40,7 +40,7 @@ public class GameEngineNew {
 
 	/**
 	 * To change the phase
-	 *
+	 * 
 	 * @param p_phase The phase to be set
 	 */
 	public void setPhase(Phase p_phase) {
@@ -49,7 +49,7 @@ public class GameEngineNew {
 
 	/**
 	 * To get the current phase
-	 *
+	 * 
 	 * @return The current Phase
 	 */
 	public Phase getPhase() {
@@ -57,7 +57,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return the list of continents
 	 */
 	public HashMap<String, Continent> getD_continents() {
@@ -65,7 +65,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
 	 */
@@ -78,7 +78,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return the list of continents mapped to corresponding ID
 	 */
 	public HashMap<Integer, Continent> getD_continentId() {
@@ -86,7 +86,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param p_continentId The Id of the continent
 	 * @return return the Object of the continent corresponding to an Id.
 	 */
@@ -118,7 +118,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return the name of the country corresponding to the id.
 	 */
 	public HashMap<Integer, Country> getD_countriesId() {
@@ -126,7 +126,7 @@ public class GameEngineNew {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return name of the map
 	 */
 	public String getD_mapName() {
@@ -135,7 +135,7 @@ public class GameEngineNew {
 
 	/**
 	 * set the name of the map
-	 *
+	 * 
 	 * @param d_mapName Name of the map file
 	 */
 	public void setD_mapName(String d_mapName) {
@@ -150,16 +150,16 @@ public class GameEngineNew {
 			String choice = l_scanner.nextLine();
 
 			switch (choice) {
-				case "1":
-					setPhase(new Preload(this));
+			case "1":
+				setPhase(new Preload(this));
 
-					break;
-				case "2":
-					setPhase(new PlaySetup(this));
-					break;
-				default:
-					System.out.println("Invalid choice. Please try again.");
-					break;
+				break;
+			case "2":
+				setPhase(new PlaySetup(this));
+				break;
+			default:
+				System.out.println("Invalid choice. Please try again.");
+				break;
 			}
 		}
 	}
