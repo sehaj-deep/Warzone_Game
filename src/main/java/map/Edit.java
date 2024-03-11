@@ -8,11 +8,6 @@ public abstract class Edit extends Phase {
 		super(p_gameEngine);
 	}
 
-	public void showMap() {
-		System.out.println("edited map is displayed");
-		// TODO: either call showmap function or bring it's implementation here
-	}
-
 	public void setPlayers() {
 		printInvalidCommandMessage();
 	}
