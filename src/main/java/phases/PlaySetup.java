@@ -2,7 +2,6 @@ package phases;
 
 import game.GameEngineNew;
 import game.Player;
-import map.MapEditor;
 
 import java.util.*;
 
@@ -90,7 +89,7 @@ public class PlaySetup extends Play {
     }
 
     @Override
-    public void assignCountries(MapEditor p_gMap) {
+    public void assignCountries(GameEngineNew p_gMap) {
         Set<String> p_countries = p_gMap.getD_countries().keySet();
 
         // check if countries is valid
