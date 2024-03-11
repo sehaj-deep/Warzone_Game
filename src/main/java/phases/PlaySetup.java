@@ -38,8 +38,9 @@ public class PlaySetup extends Play {
         return d_players;
     }
 
+    String p_playerName; // assume
     @Override
-    public void addPlayers(String p_playerName) {
+    public void addPlayers() {
         if (p_playerName == null || p_playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
@@ -62,7 +63,7 @@ public class PlaySetup extends Play {
     }
 
     @Override
-    public void removePlayers(String p_playerName) {
+    public void removePlayers() {
         if (p_playerName == null || p_playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }

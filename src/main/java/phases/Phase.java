@@ -47,9 +47,9 @@ public abstract class Phase {
 	// play state behavior
 	// game setup state behavior
 
-	abstract public void addPlayers(String p_playerName);
+	abstract public void addPlayers();
 
-	abstract public void removePlayers(String p_playerName);
+	abstract public void removePlayers();
 
 	abstract public void assignCountries();
 
