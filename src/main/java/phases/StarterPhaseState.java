@@ -4,11 +4,11 @@ import game.GameState;
 import map.MapEditor;
 
 public interface StarterPhaseState {
-    void addPlayer(String playerName, GameState state);
+    void addPlayer(String p_playerName, GameState p_state);
 
-    void removePlayer(String playerName, GameState state);
+    void removePlayer(String p_playerName, GameState p_state);
 
-    boolean isAssignCountriesValid(GameState state);
+    boolean isAssignCountriesValid(GameState p_state);
 
-    void assignCountriesToPlayer(GameState state, MapEditor map);
+    void assignCountriesToPlayer(GameState p_state, MapEditor p_map);
 }

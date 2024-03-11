@@ -32,6 +32,7 @@ public class StarterPhase implements StarterPhaseState {
 	 * @param p_playerName The name of the player to add.
 	 * @param p_state      The state of the game
 	 */
+	@Override
 	public void addPlayer(String p_playerName, GameState p_state) {
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
 			throw new IllegalArgumentException("Player name cannot be empty");
@@ -59,6 +60,7 @@ public class StarterPhase implements StarterPhaseState {
 	 * @param p_playerName The name of the player to remove.
 	 * @param p_state      The current state of the game
 	 */
+	@Override
 	public void removePlayer(String p_playerName, GameState p_state) {
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
 			throw new IllegalArgumentException("Player name cannot be empty");
@@ -87,6 +89,7 @@ public class StarterPhase implements StarterPhaseState {
 	 * @param p_state current game state
 	 * @return true if valid. false if invalid
 	 */
+    @Override
 	public boolean isAssignCountriesValid(GameState p_state) {
 		int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
 		int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
@@ -130,6 +133,7 @@ public class StarterPhase implements StarterPhaseState {
 	 * @param p_state the current game state
 	 * @param p_gMap  the map used in this game
 	 */
+	@Override
 	public void assignCountriesToPlayer(GameState p_state, MapEditor p_gMap) {
 		Set<String> l_mapCountries = p_gMap.getD_countries().keySet();
 		shuffleAndDistributeCountries(p_state, l_mapCountries);

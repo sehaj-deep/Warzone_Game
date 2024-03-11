@@ -1,6 +1,9 @@
 package phases;
 
 import game.GameEngineNew;
+import game.GameState;
+import map.MapEditor;
+
 
 public class PlaySetup extends Play {
 
@@ -20,10 +23,11 @@ public class PlaySetup extends Play {
 
 	}
 
+	private StarterPhaseState currentPhase;
+	GameState GameState;
 	@Override
 	public void assignCountries() {
-		// TODO call respective methods
-
+		currentPhase.assignCountriesToPlayer(GameState, new MapEditor());
 	}
 
 	@Override
