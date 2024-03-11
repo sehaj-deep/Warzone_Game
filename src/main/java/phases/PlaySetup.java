@@ -17,7 +17,6 @@ public class PlaySetup extends Play {
 	@Override
 	public void loadMap() {
 		// TODO call respective methods
-
 	}
 
 	@Override

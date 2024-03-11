@@ -2,10 +2,13 @@ package phases;
 
 import game.GameEngineNew;
 import game.GameState;
+import game.Player;
 import map.MapEditor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Phase {
 	protected GameEngineNew d_gameEngine;
