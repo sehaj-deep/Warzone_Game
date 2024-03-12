@@ -202,6 +202,8 @@ public abstract class Phase {
 		}
 	}
 
+	// TODO: Move this showMap to edit.java phase and implement the game play show
+	// map in play.java
 	/**
 	 * Displays the map along with Player and armies to ease the playing of game.
 	 */

@@ -7,9 +7,10 @@ public abstract class Play extends Phase {
 		super(p_gameEngine);
 	}
 
-	public void showMap() {
-		System.out.println("map is being displayed");
-	}
+	// TODO: implement showmap of Game Play phase
+//	public void showMap() {
+//		System.out.println("map is being displayed");
+//	}
 
 	public void editCountry() {
 		printInvalidCommandMessage();
