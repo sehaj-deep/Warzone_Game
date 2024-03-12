@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import game.Deploy;
-import game.GameEngine;
+import game.GameEngineNew;
 import game.GameState;
 import game.Player;
 import map.MapEditor;
@@ -22,7 +22,7 @@ public class ExecuteOrdersPhaseTest {
 	private static GameState d_state;
 	private static MapEditor d_gMap;
 	ExecuteOrdersPhase d_executeOrdersPhase;
-	private GameEngine d_gameEngine;
+	private GameEngineNew d_gameEngine;
 
 	/**
 	 * This is the common setup for all test cases and will be run before each test
@@ -30,7 +30,7 @@ public class ExecuteOrdersPhaseTest {
 	 */
 	@Before
 	public void before() {
-		d_gameEngine = new GameEngine();
+		d_gameEngine = new GameEngineNew();
 		d_executeOrdersPhase = new ExecuteOrdersPhase(d_gameEngine);
 		System.out.println("Setting up a game state to test ExecuteOrderPhase");
 		List<Integer> l_reinforcements = new ArrayList<>(Arrays.asList(10, 15)); // set up reinforcement pool

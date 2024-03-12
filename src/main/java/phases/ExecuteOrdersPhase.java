@@ -2,7 +2,7 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
-import game.GameEngine;
+import game.GameEngineNew;
 import game.GameState;
 import game.Order;
 import game.Player;
@@ -18,7 +18,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * 
 	 * @param p_gameEngine a context object for ExecuteOrders phase
 	 */
-	public ExecuteOrdersPhase(GameEngine p_gameEngine) {
+	public ExecuteOrdersPhase(GameEngineNew p_gameEngine) {
 		super(p_gameEngine);
 	}
 
@@ -93,5 +93,77 @@ public class ExecuteOrdersPhase extends MainPlay {
 			l_totNumOrders = getNumAllOrders(p_state);
 		}
 		System.out.println("All Orders Executed in the Execute Orders Phase");
+	}
+
+	@Override
+	public void loadMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addContinent(String p_continentName, int p_bonusArmies) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeContinent(String p_continentName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addCountry(String p_countryName, String p_continent) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeCountry(String p_countryName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void saveMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void reinforce() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void fortify() {
+		// TODO Auto-generated method stub
+
 	}
 }
