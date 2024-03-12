@@ -73,6 +73,13 @@ public class GameEngineNew {
 		return d_continents.get(p_continentName);
 	}
 
+	/**
+	 * Removes a continent based on the provided continent name.
+	 *
+	 * @param p_continentName The name of the continent to be removed.
+	 * @return The removed continent object, or null if the continent with the
+	 *         specified name doesn't exist.
+	 */
 	public Continent removeD_continent(String p_continentName) {
 		return d_continents.remove(p_continentName);
 	}
@@ -94,6 +101,13 @@ public class GameEngineNew {
 		return d_continentId.get(p_continentId);
 	}
 
+	/**
+	 * Removes a continent based on the provided continent ID.
+	 *
+	 * @param p_continentId The ID of the continent to be removed.
+	 * @return The removed continent object, or null if the continent with the
+	 *         specified ID doesn't exist.
+	 */
 	public Continent removeD_continentID(int p_continentId) {
 		return d_continentId.remove(p_continentId);
 	}
