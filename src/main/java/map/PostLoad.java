@@ -195,12 +195,12 @@ public class PostLoad extends Edit {
 	}
 
 	@Override
-	public void addPlayers() {
+	public void addPlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
 
 	@Override
-	public void removePlayers() {
+	public void removePlayers(String p_playerName) {
         printInvalidCommandMessage();
 	}
 
