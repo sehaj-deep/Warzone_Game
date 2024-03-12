@@ -5,12 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-
 import iohandlers.InputHandler;
 import map.MapEditor;
-import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
-import phases.ReinforcePhase;
+import phases.Phase;
 import utils.LogEntryBuffer;
 import utils.LogFileWriter;
 
@@ -27,8 +25,15 @@ public class GameEngine {
 
 	private static List<Player> d_players = new ArrayList<>(); // list of players playing the game
 	private static HashMap<String, Integer> d_board = new HashMap<String, Integer>(); // key: country name. val: num
-																						// army in
+	// army in
 	private static GameState d_state = new GameState(d_players); // the country
+	private Phase d_currPhase;
+
+	/**
+	 * Unparameterized Constructor of GameEngine
+	 */
+	public GameEngine() {
+	}
 
 	/**
 	 * Main method to start the game engine
@@ -36,7 +41,6 @@ public class GameEngine {
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
-
 		Scanner l_scanner = new Scanner(System.in);
 
 		boolean l_editMapPhase = false;
@@ -74,15 +78,14 @@ public class GameEngine {
 			l_userInput = l_scanner.nextLine();
 
 			while (!l_userInput.startsWith("editmap")) {
-				System.out.println(
-						"Invalid Command entered. You need to give the name of file using \"editmap filename\" command.");
+				System.out
+						.println("Invalid Command entered. You need to give the name of file using \"editmap filename\" command.");
 				l_userInput = l_scanner.nextLine();
 			}
 
 			d_inputHandler.parseUserCommand(l_userInput);
 
-			System.out.println(
-					"Available commands: editcontinent, editcountry, editneighbor, showmap, savemap, validatemap");
+			System.out.println("Available commands: editcontinent, editcountry, editneighbor, showmap, savemap, validatemap");
 
 			boolean l_editingMap = true;
 
@@ -92,7 +95,8 @@ public class GameEngine {
 
 				if (l_userInput.equalsIgnoreCase("done")) {
 					l_editingMap = false;
-				} else {
+				}
+				else {
 					d_inputHandler.parseUserCommand(l_userInput);
 				}
 			}
@@ -157,17 +161,17 @@ public class GameEngine {
 				}
 
 				d_logEntryBuffer.setD_currentPhase("Reinforcement Phase");
-				ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
+				// ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
 				d_state.setReinforcements(new ArrayList<>());
-				l_reinforcementPhase.execute(d_state, d_mapEditor);
+				// l_reinforcementPhase.execute(d_state, d_mapEditor);
 
 				d_logEntryBuffer.setD_currentPhase("Issue Order Phase");
 				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
 				l_issueOrderPhase.run(d_state, d_mapEditor);
 
 				d_logEntryBuffer.setD_currentPhase("Execute Order Phase");
-				ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
-				l_executeOrdersPhase.run(d_state, d_mapEditor);
+				// ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
+				// l_executeOrdersPhase.run(d_state, d_mapEditor);
 			}
 		}
 
