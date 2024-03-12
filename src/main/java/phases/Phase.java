@@ -14,5 +14,8 @@ public abstract class Phase {
 		d_gameEngine = p_gameEngine;
 	}
 
+	/**
+	 * move to the next state(phase)
+	 */
 	abstract public void next();
 }

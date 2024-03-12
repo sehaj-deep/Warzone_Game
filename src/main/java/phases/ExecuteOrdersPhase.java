@@ -22,8 +22,11 @@ public class ExecuteOrdersPhase extends MainPlay {
 		super(p_gameEngine);
 	}
 
+	/**
+	 * move to the next state(phase)
+	 */
 	public void next() {
-		d_gameEngine.setPhase(new ReinforcePhase());
+		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
 	}
 
 	/**
