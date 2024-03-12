@@ -18,8 +18,6 @@ public abstract class Phase {
 		this.d_gameEngine = p_gameEngine;
 	}
 
-	public static final List<String> d_playerNameList = new ArrayList<>();
-
 	// general behavior
 	abstract public void loadMap(String p_filename);
 
@@ -47,9 +45,9 @@ public abstract class Phase {
 	// play state behavior
 	// game setup state behavior
 
-	abstract public void addPlayers();
+	abstract public void addPlayers(String p_playerName);
 
-	abstract public void removePlayers();
+	abstract public void removePlayers(String p_playerName);
 
 	abstract public void assignCountries();
 
