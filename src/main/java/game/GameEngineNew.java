@@ -35,28 +35,15 @@ public class GameEngineNew {
 	 */
 	protected HashMap<Integer, Country> d_countriesId = new HashMap<>();
 
-	/**
-	 * The list of the player name
-	 */
-	protected List<String> d_playerNameList = new ArrayList<>();
+	protected List<Player> d_players; // list of all players in the game
 
 	/**
-	 * to get the value of player names
+	 * getter function for a list of players playing the game
 	 *
-	 * @return return the value of player name
+	 * @return d_players a list of players playing the game
 	 */
-	public List<String> getD_playerNameList() {
-		return d_playerNameList;
-	}
-
-	/**
-	 * to assign the name of the players
-	 *
-	 * @param p_playerNameList to assign the name of the players
-	 */
-	public void setD_playerNameList(String p_playerNameList, Boolean p_operation) {
-		if (p_operation) this.d_playerNameList.add(p_playerNameList);
-		else this.d_playerNameList.remove(p_playerNameList);
+	public List<Player> getD_players() {
+		return d_players;
 	}
 
 	/**

@@ -11,18 +11,7 @@ public class PlaySetup extends Play {
         super(p_gameEngine);
     }
 
-    GameEngineNew gameEngineNew;
-
-    private List<Player> d_players; // list of all players in the game
-
-    /**
-     * getter function for a list of players playing the game
-     *
-     * @return d_players a list of players playing the game
-     */
-    public List<Player> getPlayers() {
-        return d_players;
-    }
+    private final List<String> d_playerNameList = new ArrayList<>();
 
     /**
      * Adds a player to the player list.
@@ -39,14 +28,14 @@ public class PlaySetup extends Play {
             throw new IllegalArgumentException("Invalid characters are not allowed");
         }
 
-        if (gameEngineNew.getD_playerNameList().contains(p_playerName)) {
+        if (d_playerNameList.contains(p_playerName)) {
             throw new IllegalArgumentException("Player " + p_playerName + " already exists");
         }
 
-        gameEngineNew.setD_playerNameList(p_playerName, true);
+        d_playerNameList.add(p_playerName);
 
         Player l_player = new Player(p_playerName);
-        getPlayers().add(l_player);
+        d_gameEngine.getD_players().add(l_player);
 
         System.out.println("Player: " + p_playerName + " successfully added ");
 
@@ -63,18 +52,20 @@ public class PlaySetup extends Play {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
 
-        if (!gameEngineNew.getD_playerNameList().contains(p_playerName)) {
-            System.out.println(gameEngineNew.getD_playerNameList().size());
-            for (String p : gameEngineNew.getD_playerNameList()) {
+        if (!d_playerNameList.contains(p_playerName)) {
+            System.out.println(d_playerNameList.size());
+            for (String p : d_playerNameList) {
                 System.out.println(p);
             }
             throw new IllegalArgumentException("Player " + p_playerName + " not found");
         }
 
-        gameEngineNew.setD_playerNameList(p_playerName, false);
+        d_playerNameList.remove(p_playerName);
+
+        d_playerNameList.add(p_playerName);
 
         Player l_player = new Player(p_playerName);
-        getPlayers().remove(l_player);
+        d_gameEngine.getD_players().remove(l_player);
 
         System.out.println("Player: " + p_playerName + " successfully removed");
     }
@@ -85,14 +76,14 @@ public class PlaySetup extends Play {
     @Override
     public void assignCountries() {
 
-        Set<String> p_countries = gameEngineNew.getD_countries().keySet();
+        Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 
         // check if countries is valid
-        int l_minSize = getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
-        int l_maxSize = getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
+        int l_minSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // min of number of player's owned countries
+        int l_maxSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // max of number of player's owned countries
 
-        for (int i = 1; i < getPlayers().size(); i++) {
-            Player l_player = getPlayers().get(i);
+        for (int i = 1; i < d_gameEngine.getD_players().size(); i++) {
+            Player l_player = d_gameEngine.getD_players().get(i);
             int l_numCountriesOwned = l_player.getOwnership().size();
             if (l_numCountriesOwned < l_minSize) {
                 l_minSize = l_numCountriesOwned;
@@ -111,8 +102,8 @@ public class PlaySetup extends Play {
 
         for (int i = 0; i < l_countriesList.size(); i++) {
             // Add assigned country to player's countries (d_ownership)
-            int l_idx = i % (getPlayers().size());
-            Player l_player = getPlayers().get(l_idx);
+            int l_idx = i % (d_gameEngine.getD_players().size());
+            Player l_player = d_gameEngine.getD_players().get(l_idx);
             l_player.conquerCountry(l_countriesList.get(i));
         }
 

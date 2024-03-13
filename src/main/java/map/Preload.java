@@ -70,7 +70,7 @@ public class Preload extends Edit {
 
 	@Override
 	public void removePlayers(String p_playerName) {
-        printInvalidCommandMessage();
+		printInvalidCommandMessage();
 	}
 
 	@Override
