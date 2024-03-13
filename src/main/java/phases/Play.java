@@ -28,4 +28,11 @@ public abstract class Play extends Phase {
 		// TODO
 		// d_gameEngine.setPhase(new End(d_gameEngine)));
 	}
+	public void addPlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
+	public void removePlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
 }

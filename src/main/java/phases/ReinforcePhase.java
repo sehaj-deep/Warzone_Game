@@ -103,16 +103,6 @@ public class ReinforcePhase extends MainPlay {
 	}
 
 	@Override
-	public void addPlayers(String p_playerName) {
-
-	}
-
-	@Override
-	public void removePlayers(String p_playerName) {
-
-	}
-
-	@Override
 	public void reinforce() {
 		// TODO Auto-generated method stub
 

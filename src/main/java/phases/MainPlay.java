@@ -35,3 +35,4 @@ public abstract class MainPlay extends Play {
 	 */
 	abstract public void run(GameState p_state, MapEditor p_gMap);
 }
+
