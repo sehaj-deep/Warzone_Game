@@ -39,12 +39,8 @@ public class ExecuteOrdersPhaseTest {
 		List<Player> l_players = new ArrayList<>();
 		for (int i = 0; i < 2; i++) {
 			Player l_player = new Player(Integer.toString(i));
-			l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1)))); // provide
-			// countries
-			// owned
-			// by
-			// this
-			// player
+			// provide countries owned by this player
+			l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1))));
 			System.out.println("Player" + i + " has countries: " + l_player.getOwnership());
 			int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
 			for (int j = 0; j < (2 + i); j++) { // add Orders for testing purpose
