@@ -1,17 +1,15 @@
 package phases;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.Deploy;
+import game.GameEngineNew;
 import game.GameState;
 import game.Player;
 import map.MapEditor;
@@ -24,6 +22,7 @@ public class ExecuteOrdersPhaseTest {
 	private static GameState d_state;
 	private static MapEditor d_gMap;
 	ExecuteOrdersPhase d_executeOrdersPhase;
+	private GameEngineNew d_gameEngine;
 
 	/**
 	 * This is the common setup for all test cases and will be run before each test
@@ -31,7 +30,8 @@ public class ExecuteOrdersPhaseTest {
 	 */
 	@Before
 	public void before() {
-		d_executeOrdersPhase = new ExecuteOrdersPhase();
+		d_gameEngine = new GameEngineNew();
+		d_executeOrdersPhase = new ExecuteOrdersPhase(d_gameEngine);
 		System.out.println("Setting up a game state to test ExecuteOrderPhase");
 		List<Integer> l_reinforcements = new ArrayList<>(Arrays.asList(10, 15)); // set up reinforcement pool
 		System.out.println("Reinforcements available to Player0 and Player1: " + l_reinforcements);
@@ -39,13 +39,8 @@ public class ExecuteOrdersPhaseTest {
 		List<Player> l_players = new ArrayList<>();
 		for (int i = 0; i < 2; i++) {
 			Player l_player = new Player(Integer.toString(i));
-			l_player.setOwnership(
-					new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1)))); // provide
-																												// countries
-																												// owned
-																												// by
-																												// this
-																												// player
+			// provide countries owned by this player
+			l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1))));
 			System.out.println("Player" + i + " has countries: " + l_player.getOwnership());
 			int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
 			for (int j = 0; j < (2 + i); j++) { // add Orders for testing purpose

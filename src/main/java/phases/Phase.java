@@ -3,7 +3,6 @@ package phases;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
 import game.GameEngineNew;
 import models.Continent;
 import models.Country;
@@ -11,6 +10,11 @@ import models.Country;
 public abstract class Phase {
 	protected GameEngineNew d_gameEngine;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param p_gameEngine a context object for phase
+	 */
 	public Phase(GameEngineNew p_gameEngine) {
 		this.d_gameEngine = p_gameEngine;
 	}
@@ -57,7 +61,9 @@ public abstract class Phase {
 	// end state behavior
 	abstract public void endGame();
 
-	// go to next phase
+	/**
+	 * move to the next state(phase)
+	 */
 	abstract public void next();
 
 	// methods common to all states
@@ -126,7 +132,8 @@ public abstract class Phase {
 				System.out.println("Country " + countryName + " is already present in continent "
 						+ countryContinentMap.get(countryName) + ", can't be in two continents.");
 				return false;
-			} else {
+			}
+			else {
 				countryContinentMap.put(countryName, continent.getD_continentName());
 			}
 		}
@@ -189,8 +196,7 @@ public abstract class Phase {
 	 * @param p_country          The starting country for the traversal.
 	 * @param p_visitedCountries Set to store visited countries during traversal.
 	 */
-	private void depthFirstSearchForContinent(Country p_country, Continent p_continent,
-			Set<Country> p_visitedCountries) {
+	private void depthFirstSearchForContinent(Country p_country, Continent p_continent, Set<Country> p_visitedCountries) {
 		p_visitedCountries.add(p_country);
 
 		Set<Country> l_neighboringCountries = p_country.getNeighbors();
