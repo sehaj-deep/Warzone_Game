@@ -2,7 +2,7 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import game.GameEngineNew;
 import game.GameState;
 import game.Order;
 import game.Player;
@@ -11,13 +11,22 @@ import map.MapEditor;
 /**
  * Executes orders of players in the game in a round-robin fashion for one time.
  */
-public class ExecuteOrdersPhase {
+public class ExecuteOrdersPhase extends MainPlay {
 
 	/**
-	 * Default constructor of Execute Orders Phase
+	 * constructor of Execute Orders Phase
+	 * 
+	 * @param p_gameEngine a context object for ExecuteOrders phase
 	 */
-	public ExecuteOrdersPhase() {
+	public ExecuteOrdersPhase(GameEngineNew p_gameEngine) {
+		super(p_gameEngine);
+	}
 
+	/**
+	 * move to the next state(phase)
+	 */
+	public void next() {
+		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
 	}
 
 	/**
@@ -41,7 +50,8 @@ public class ExecuteOrdersPhase {
 			if (l_order.isValidExecute(p_state, i)) {
 				// order is valid in the current state, so execute it
 				l_order.execute(p_state, i);
-			} else { // order can't be executed, so update error log and return it
+			}
+			else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
 				return l_errorLog;
@@ -83,5 +93,77 @@ public class ExecuteOrdersPhase {
 			l_totNumOrders = getNumAllOrders(p_state);
 		}
 		System.out.println("All Orders Executed in the Execute Orders Phase");
+	}
+
+	@Override
+	public void loadMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void editMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addContinent(String p_continentName, int p_bonusArmies) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeContinent(String p_continentName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addCountry(String p_countryName, String p_continent) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeCountry(String p_countryName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeNeighbor(String p_country, String p_neighbor) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void saveMap(String p_filename) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void reinforce() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void attack() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void fortify() {
+		// TODO Auto-generated method stub
+
 	}
 }
