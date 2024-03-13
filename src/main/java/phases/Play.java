@@ -3,6 +3,11 @@ package phases;
 import game.GameEngineNew;
 
 public abstract class Play extends Phase {
+	/**
+	 * Constructor
+	 * 
+	 * @param p_gameEngine a context object for Play phase
+	 */
 	public Play(GameEngineNew p_gameEngine) {
 		super(p_gameEngine);
 	}
