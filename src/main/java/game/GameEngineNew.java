@@ -189,15 +189,25 @@ public class GameEngineNew {
 			}
 
 			String command;
-			do {
-				// TODO: If time permits, every time we set a new phase
-				// we should sysout the valid commands to the user
-				// (do this in every Phases' constructor?)
-				System.out.println("Enter a command: ");
-				command = l_scanner.nextLine();
+			// remove this
+			int i = 0;
+			while (true) { // to iterate over main game - find end condition
+				// FIXME
+				if (i == 5) {
+					break;
+				}
+				// d_currentPhase.reinforce() - before issue orders
+//				d_curentPhase.next();
+				do {
+					// TODO: If time permits, every time we set a new phase
+					// we should sysout the valid commands to the user
+					// (do this in every Phases' constructor?)
+					System.out.println("Enter a command: ");
+					command = l_scanner.nextLine();
+					parseUserCommand(command);
+				} while (command.toLowerCase() != "done");
+			}
 
-				parseUserCommand(command);
-			} while (command.toLowerCase() != "done");
 		}
 	}
 
