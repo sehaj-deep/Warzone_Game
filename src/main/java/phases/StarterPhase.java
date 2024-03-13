@@ -21,7 +21,7 @@ public class StarterPhase {
 	}
 
 	// List to store player names
-	public final List<String> d_playerNameList = new ArrayList<>();
+	private final List<String> d_playerNameList = new ArrayList<>();
 
 	/**
 	 * get this player's name
@@ -34,7 +34,7 @@ public class StarterPhase {
 
 	/**
 	 * Adds a player to the player list and assigns countries.
-	 *
+	 * 
 	 * @param p_playerName The name of the player to add.
 	 * @param p_state      The state of the game
 	 */
@@ -61,7 +61,7 @@ public class StarterPhase {
 
 	/**
 	 * Removes a player from the player list.
-	 *
+	 * 
 	 * @param p_playerName The name of the player to remove.
 	 * @param p_state      The current state of the game
 	 */
@@ -112,7 +112,7 @@ public class StarterPhase {
 
 	/**
 	 * Randomly shuffle countries and distribute one by one to a player
-	 *
+	 * 
 	 * @param p_state     the current game state
 	 * @param p_countries all countries available to assign to the players
 	 */
