@@ -32,4 +32,12 @@ public abstract class Edit extends Phase {
 		printInvalidCommandMessage();
 	}
 
+	public void addPlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
+	public void removePlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
 }
