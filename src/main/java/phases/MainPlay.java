@@ -27,6 +27,14 @@ public abstract class MainPlay extends Play {
 		this.printInvalidCommandMessage();
 	}
 
+	public void addPlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
+	public void removePlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
 	/**
 	 * Execute the state-specific behavior of this phase
 	 * 
@@ -35,3 +43,4 @@ public abstract class MainPlay extends Play {
 	 */
 	abstract public void run(GameState p_state, MapEditor p_gMap);
 }
+

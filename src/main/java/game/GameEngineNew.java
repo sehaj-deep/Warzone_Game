@@ -1,6 +1,8 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import map.Preload;
@@ -32,6 +34,17 @@ public class GameEngineNew {
 	 * To map countries id with country name
 	 */
 	protected HashMap<Integer, Country> d_countriesId = new HashMap<>();
+
+	protected List<Player> d_players; // list of all players in the game
+
+	/**
+	 * getter function for a list of players playing the game
+	 *
+	 * @return d_players a list of players playing the game
+	 */
+	public List<Player> getD_players() {
+		return d_players;
+	}
 
 	/**
 	 * The name of the map.

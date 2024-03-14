@@ -1,100 +1,182 @@
 package phases;
 
 import game.GameEngineNew;
+import game.Player;
+
+import java.util.*;
+
 
 public class PlaySetup extends Play {
+    public PlaySetup(GameEngineNew p_gameEngine) {
+        super(p_gameEngine);
+    }
 
-	public PlaySetup(GameEngineNew p_gameEngine) {
-		super(p_gameEngine);
-	}
+    private final List<String> d_playerNameList = new ArrayList<>();
 
-	@Override
-	public void loadMap(String p_filename) {
-		// TODO call respective methods
 
-	}
 
-	@Override
-	public void setPlayers() {
-		// TODO call respective methods
+    /**
+     * Adds a player to the player list.
+     *
+     * @param p_playerName The name of the player to add.
+     */
+    @Override
+    public void addPlayers( String p_playerName) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
 
-	}
+        if (!p_playerName.matches("[a-zA-Z0-9]+")) {
+            throw new IllegalArgumentException("Invalid characters are not allowed");
+        }
 
-	@Override
-	public void assignCountries() {
-		// TODO call respective methods
+        if (d_playerNameList.contains(p_playerName)) {
+            throw new IllegalArgumentException("Player " + p_playerName + " already exists");
+        }
 
-	}
+        d_playerNameList.add(p_playerName);
 
-	@Override
-	public void addCountry(String p_countryName, String p_continent) {
-		// TODO invalid
-	}
+        Player l_player = new Player(p_playerName);
+        d_gameEngine.getD_players().add(l_player);
 
-	@Override
-	public void removeCountry(String p_continentName) {
-		// TODO invalid
+        System.out.println("Player: " + p_playerName + " successfully added ");
 
-	}
+    }
 
-	@Override
-	public void addNeighbor(String p_country, String p_neighbor) {
-		// TODO Auto-generated method stub
+    /**
+     * Removes a player from the player list.
+     *
+     * @param p_playerName The name of the player to remove.
+     */
+    @Override
+    public void removePlayers(String p_playerName) {
+        if (p_playerName == null || p_playerName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Player name cannot be empty");
+        }
 
-	}
+        if (!d_playerNameList.contains(p_playerName)) {
+            System.out.println(d_playerNameList.size());
+            for (String p : d_playerNameList) {
+                System.out.println(p);
+            }
+            throw new IllegalArgumentException("Player " + p_playerName + " not found");
+        }
 
-	@Override
-	public void removeNeighbor(String p_country, String p_neighbor) {
-		// TODO Auto-generated method stub
+        d_playerNameList.remove(p_playerName);
 
-	}
+        d_playerNameList.add(p_playerName);
 
-	@Override
-	public void editMap(String p_filename) {
-		// TODO Auto-generated method stub
+        Player l_player = new Player(p_playerName);
+        d_gameEngine.getD_players().remove(l_player);
 
-	}
+        System.out.println("Player: " + p_playerName + " successfully removed");
+    }
 
-	@Override
-	public void addContinent(String p_continentName, int p_bonusArmies) {
-		// TODO Auto-generated method stub
+    /**
+     * Assigns countries to the specified player.
+     */
+    @Override
+    public void assignCountries() {
 
-	}
+        Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 
-	@Override
-	public void removeContinent(String p_continentName) {
-		// TODO Auto-generated method stub
+        // check if countries is valid
+        int l_minSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // min of number of player's owned countries
+        int l_maxSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // max of number of player's owned countries
 
-	}
+        for (int i = 1; i < d_gameEngine.getD_players().size(); i++) {
+            Player l_player = d_gameEngine.getD_players().get(i);
+            int l_numCountriesOwned = l_player.getOwnership().size();
+            if (l_numCountriesOwned < l_minSize) {
+                l_minSize = l_numCountriesOwned;
+            }
+            if (l_numCountriesOwned > l_maxSize) {
+                l_maxSize = l_numCountriesOwned;
+            }
+        }
 
-	@Override
-	public void saveMap(String p_filename) {
-		// TODO Auto-generated method stub
+        boolean isValid = (l_maxSize - l_minSize) <= 1;
 
-	}
+        List<String> l_countriesList = new ArrayList<>(p_countries);
 
-	@Override
-	public void reinforce() {
-		// TODO invalid
+        // Shuffle the list of available countries
+        Collections.shuffle(l_countriesList);
 
-	}
+        for (int i = 0; i < l_countriesList.size(); i++) {
+            // Add assigned country to player's countries (d_ownership)
+            int l_idx = i % (d_gameEngine.getD_players().size());
+            Player l_player = d_gameEngine.getD_players().get(l_idx);
+            l_player.conquerCountry(l_countriesList.get(i));
+        }
 
-	@Override
-	public void attack() {
-		// TODO invalid
+        System.out.println("Assign Countries Completed");
+    }
 
-	}
 
-	@Override
-	public void fortify() {
-		// TODO invalid
+    @Override
+    public void reinforce() {
+        this.printInvalidCommandMessage();
+    }
 
-	}
+    @Override
+    public void attack() {
+        this.printInvalidCommandMessage();
+    }
 
-	@Override
-	public void next() {
-		// TODO Uncomment when reinforcement phase is implemented
-		// d_gameEngine.setPhase(new PostLoad(d_gameEngine));
-	}
+    @Override
+    public void fortify() {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void loadMap(String p_filename) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void editMap(String p_filename) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void addContinent(String p_continentName, int p_bonusArmies) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void removeContinent(String p_continentName) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void addCountry(String p_countryName, String p_continent) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void removeCountry(String p_countryName) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void addNeighbor(String p_country, String p_neighbor) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void removeNeighbor(String p_country, String p_neighbor) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void saveMap(String p_filename) {
+        this.printInvalidCommandMessage();
+    }
+
+    @Override
+    public void next() {
+        // TODO Uncomment when reinforcement phase is implemented
+        // d_gameEngine.setPhase(new PostLoad(d_gameEngine));
+    }
 
 }
