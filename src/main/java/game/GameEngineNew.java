@@ -44,8 +44,6 @@ public class GameEngineNew {
 	 */
 	protected HashMap<Integer, Country> d_countriesId = new HashMap<>();
 
-	protected List<Player> d_players; // list of all players in the game
-
 	/**
 	 * getter function for a list of players playing the game
 	 *
