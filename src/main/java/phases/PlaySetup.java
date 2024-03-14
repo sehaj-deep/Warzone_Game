@@ -1,6 +1,7 @@
 package phases;
 
 import game.GameEngineNew;
+import game.GameState;
 import game.Player;
 
 import java.util.*;
@@ -12,8 +13,6 @@ public class PlaySetup extends Play {
     }
 
     private final List<String> d_playerNameList = new ArrayList<>();
-
-
 
     /**
      * Adds a player to the player list.
@@ -73,19 +72,18 @@ public class PlaySetup extends Play {
     }
 
     /**
-     * Assigns countries to the specified player.
+     * Checks validity of assigned countries if a player has 2 or more countries
+     * assigned than another player has, then this is invalid
+     *
+     * @param p_state current game state
+     * @return true if valid. false if invalid
      */
-    @Override
-    public void assignCountries() {
+    public boolean isAssignCountriesValid(GameState p_state) {
+        int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
+        int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
 
-        Set<String> p_countries = d_gameEngine.getD_countries().keySet();
-
-        // check if countries is valid
-        int l_minSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // min of number of player's owned countries
-        int l_maxSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // max of number of player's owned countries
-
-        for (int i = 1; i < d_gameEngine.getD_players().size(); i++) {
-            Player l_player = d_gameEngine.getD_players().get(i);
+        for (int i = 1; i < p_state.getPlayers().size(); i++) {
+            Player l_player = p_state.getPlayers().get(i);
             int l_numCountriesOwned = l_player.getOwnership().size();
             if (l_numCountriesOwned < l_minSize) {
                 l_minSize = l_numCountriesOwned;
@@ -94,8 +92,16 @@ public class PlaySetup extends Play {
                 l_maxSize = l_numCountriesOwned;
             }
         }
+        return (l_maxSize - l_minSize) <= 1;
+    }
 
-        boolean isValid = (l_maxSize - l_minSize) <= 1;
+    /**
+     * Assigns countries to the specified player.
+     */
+    @Override
+    public void assignCountries() {
+
+        Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 
         List<String> l_countriesList = new ArrayList<>(p_countries);
 

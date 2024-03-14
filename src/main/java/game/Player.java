@@ -11,8 +11,8 @@ import java.util.Set;
  */
 
 public class Player {
-	private String d_playerName; // player name
-	private Queue<Order> d_listOrders; // list of orders issued by the player
+	private final String d_playerName; // player name
+	private final Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
 
 	/**
@@ -23,7 +23,7 @@ public class Player {
 	public Player(String p_playerName) {
 		d_playerName = p_playerName;
 		d_listOrders = new LinkedList<>();
-		d_ownership = new HashSet<String>();
+		d_ownership = new HashSet<>();
 	}
 
 	/**
