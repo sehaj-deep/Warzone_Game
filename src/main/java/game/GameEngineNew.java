@@ -196,16 +196,34 @@ public class GameEngineNew {
 				if (i == 5) {
 					break;
 				}
+
+				// TODO:create a boolean List to indicate that you are finished - initialise as
+				// well
+				// orders.
 				// d_currentPhase.reinforce() - before issue orders
 //				d_curentPhase.next();
-				do {
-					// TODO: If time permits, every time we set a new phase
-					// we should sysout the valid commands to the user
-					// (do this in every Phases' constructor?)
+				do { // for issue orders phase
+						// TODO: If time permits, every time we set a new phase
+						// we should sysout the valid commands to the user
+						// (do this in every Phases' constructor?)
+
+					// TODO: loop over each player leaving those who do not have valid orders
+
+					for (Player p : d_players) {
+						String userInput = l_scanner.nextLine();
+						parseUserCommand(userInput);
+
+						// continue if not valid - keep a boolean list to maintain this
+
+					}
 					System.out.println("Enter a command: ");
 					command = l_scanner.nextLine();
 					parseUserCommand(command);
 				} while (command.toLowerCase() != "done");
+//				d_curentPhase.next();	//to reach execute phase
+//				d_curentPhase.execute();
+//				d_curentPhase.next();	// for reinforcement
+
 			}
 
 		}
@@ -595,7 +613,7 @@ public class GameEngineNew {
 
 		// TODO Add/Modify this method in the appropriate phase classes
 		// NOTE: This method might need to be refactored
-		// d_gamePhase.setOrderInput(p_tokens);
+//		d_gamePhase.setOrderInput(p_tokens);	//pass it to issue orders phase
 		d_logEntryBuffer.setD_effectOfAction("");
 	}
 }
