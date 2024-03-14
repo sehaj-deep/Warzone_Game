@@ -1,5 +1,6 @@
 package game;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,6 +15,7 @@ public class Player {
 	private String d_playerName; // player name
 	private Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
+	private HashMap<String, Integer> d_listOfCards;
 
 	/**
 	 * Parameterized constructor for the player
@@ -24,6 +26,11 @@ public class Player {
 		d_playerName = p_playerName;
 		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<String>();
+		d_listOfCards = new HashMap<>();
+		d_listOfCards.put("bomb", 0);
+		d_listOfCards.put("blockade", 0);
+		d_listOfCards.put("airlift", 0);
+		d_listOfCards.put("diplomacy", 0);
 	}
 
 	/**
@@ -88,4 +95,24 @@ public class Player {
 	public Order next_order() {
 		return d_listOrders.poll();
 	}
+
+	/**
+	 * To get the count of a particular card that the player holds
+	 * 
+	 * @param p_cardName The name of the card
+	 * @return The count of the card
+	 */
+	public int getCardCount(String p_cardName) {
+		return d_listOfCards.get(p_cardName);
+	}
+
+	/**
+	 * To increment the value of the card by 1
+	 * 
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void increaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
+	}
+
 }
