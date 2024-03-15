@@ -33,8 +33,10 @@ public class Diplomacy implements Order {
     public boolean isValidIssue(GameState p_state, int p_playerId) {
         Player playerName = new Player(d_issuingPlayer);
 
+        p_state.getPlayers().
+
         // if the player doesn't have the card
-        if(playerName.getCardCount("diplomacy") < 1) {
+        if(playerName.getCardCount("Diplomacy") < 1) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
@@ -67,7 +69,7 @@ public class Diplomacy implements Order {
 
         l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
         l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
-        l_issuingPlayer.getD_listOfCards().remove("diplomacy");
+        l_issuingPlayer.getD_listOfCards().remove("Diplomacy");
 
         System.out.println(d_issuingPlayer + " is negotiated with " + d_targetPlayer);
     }
@@ -76,7 +78,7 @@ public class Diplomacy implements Order {
      * return the current order state
      */
     public String currentOrder() {
-        return "diplomacy";
+        return "Diplomacy";
     }
 
 
