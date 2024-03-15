@@ -59,10 +59,19 @@ public class IssueOrdersPhase extends MainPlay {
         // logic for creating an order based on input token
         switch (orderType.toLowerCase()) {
             case "deploy":
-                if (p_tokens.length >= 3) {
-                    int numArmy = Integer.parseInt(p_tokens[2]);
+                if (p_tokens.length == 3) {
                     String countryName = p_tokens[1];
-                    newOrder = new Deploy(numArmy, countryName);
+                    Player currentPlayer = p_state.getPlayers().get(p_playerId);
+                    if (currentPlayer.getOwnership().contains(countryName)) { // Check if player owns the country
+                        try {
+                            int numArmy = Integer.parseInt(p_tokens[2]);
+                            newOrder = new Deploy(numArmy, countryName);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid number format for number of armies.");
+                        }
+                    } else {
+                        System.out.println("Country where army to be deployed is not owned by the player issued the order");
+                    }
                 } else {
                     System.out.println("Invalid deploy command format.");
                 }

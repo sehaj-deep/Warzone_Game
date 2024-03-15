@@ -53,4 +53,79 @@ public class IssueOrdersPhaseTest {
         assertArrayEquals(expectedTokens, tokens);
     }
 
+    /**
+     * Tests the createAndValidateOrder method with invalid deploy order format.
+     */
+    @Test
+    public void testCreateAndValidateOrder_InvalidDeployOrderFormat() {
+        GameState gameState = new GameState(new ArrayList<>());
+        MapEditor mapEditor = new MapEditor();
+        Player player = new Player("Player1");
+        gameState.getPlayers().add(player);
+        gameState.getReinforcements().add(10);
+
+        // Invalid format: Missing number of armies
+        String[] tokens = {"deploy", "countryName"};
+        Order order = issueOrdersPhase.createAndValidateOrder(tokens, gameState, 0);
+
+        assertNull(order);
+    }
+
+    /**
+     * Tests the createAndValidateOrder method with invalid deploy order format.
+     */
+    @Test
+    public void testCreateAndValidateOrder_InvalidDeployOrderNumberFormat() {
+        GameState gameState = new GameState(new ArrayList<>());
+        MapEditor mapEditor = new MapEditor();
+        Player player = new Player("Player1");
+        gameState.getPlayers().add(player);
+        gameState.getReinforcements().add(10);
+
+        // Invalid number format for armies
+        String[] tokens = {"deploy", "countryName", "invalidNumber"};
+        Order order = issueOrdersPhase.createAndValidateOrder(tokens, gameState, 0);
+
+        assertNull(order);
+    }
+
+    /**
+     * Tests the createAndValidateOrder method with invalid order type.
+     */
+    @Test
+    public void testCreateAndValidateOrder_InvalidOrderType() {
+        GameState gameState = new GameState(new ArrayList<>());
+        MapEditor mapEditor = new MapEditor();
+        Player player = new Player("Player1");
+        gameState.getPlayers().add(player);
+        gameState.getReinforcements().add(10);
+
+        // Invalid order type
+        String[] tokens = {"invalidOrderType", "countryName", "10"};
+        Order order = issueOrdersPhase.createAndValidateOrder(tokens, gameState, 0);
+
+        assertNull(order);
+    }
+
+    /**
+     * Tests the createAndValidateOrder method with valid deploy order.
+     */
+    @Test
+    public void testCreateAndValidateOrder_ValidDeployOrder() {
+        GameState gameState = new GameState(new ArrayList<>());
+        MapEditor mapEditor = new MapEditor();
+        Player player = new Player("Player1");
+        player.conquerCountry("countryName"); // Adding the country to the player's ownership
+        gameState.getPlayers().add(player);
+        gameState.getReinforcements().add(10);
+
+        String[] tokens = {"deploy", "countryName", "5"};
+        Order order = issueOrdersPhase.createAndValidateOrder(tokens, gameState, 0);
+
+        assertNotNull(order);
+        assertTrue(order instanceof Deploy);
+        assertEquals(5, ((Deploy) order).getNumArmy());
+        assertEquals("countryName", ((Deploy) order).getCountryName());
+    }
+
 }
