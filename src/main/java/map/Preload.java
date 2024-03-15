@@ -17,7 +17,7 @@ public class Preload extends Edit {
 	}
 
 	@Override
-	public void loadMap(String p_fileName) {
+	public void next() {
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
 
@@ -26,6 +26,13 @@ public class Preload extends Edit {
 		readMap(p_filename, true);
 		String[] l_path = p_filename.split("/");
 		System.out.println("You are now editing " + l_path[l_path.length - 1]);
+
+		next();
+	}
+
+	@Override
+	public void loadMap(String p_fileName) {
+		printInvalidCommandMessage();
 	}
 
 	@Override
@@ -61,11 +68,6 @@ public class Preload extends Edit {
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();
-	}
-
-	@Override
-	public void next() {
-		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
 
 	public void readMap(String p_filename, boolean p_createNew) {
@@ -164,6 +166,7 @@ public class Preload extends Edit {
 		}
 	}
 
+	// FIXME: User should not be able to do this in preload
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
 		if (d_gameEngine.getD_continents().containsKey(p_continentName)) {
 			// System.out.println("The continent " + p_continentName + " has already been
@@ -176,6 +179,7 @@ public class Preload extends Edit {
 		d_gameEngine.getD_continentId().put(p_continentId, l_continent);
 	}
 
+	// FIXME: User should not be able to do this in preload
 	public void addCountry(int p_countryId, String p_countryName, int p_continentId) {
 
 		if (d_gameEngine.getD_countries().containsKey(p_countryName)) {
@@ -191,6 +195,7 @@ public class Preload extends Edit {
 		l_continent.getD_countries().add(l_country);
 	}
 
+	// FIXME: User should not be able to do this in preload
 	public void addNeighbor(int p_country, int p_neighbor) {
 		if (d_gameEngine.getD_countriesId().containsKey(p_country)
 				&& d_gameEngine.getD_countriesId().containsKey(p_neighbor)) {

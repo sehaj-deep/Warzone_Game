@@ -32,7 +32,7 @@ public class GameEngine {
 	 * 
 	 * @param args command line arguments
 	 */
-	public static void main(String[] args) {
+	public static void main1(String[] args) {
 
 		Scanner l_scanner = new Scanner(System.in);
 

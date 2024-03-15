@@ -20,13 +20,14 @@ public class PostLoad extends Edit {
 	}
 
 	@Override
-	public void loadMap(String p_fileName) {
-		System.out.println("map has been loaded");
+	public void next() {
+		// System.out.println("must save map");
+		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));
 	}
 
 	@Override
-	public void next() {
-		System.out.println("must save map");
+	public void loadMap(String p_fileName) {
+		System.out.println("map has been loaded");
 	}
 
 	@Override
@@ -191,7 +192,7 @@ public class PostLoad extends Edit {
 		this.fileWrite(p_filename);
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
 
-		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));
+		next();
 	}
 
 	/**

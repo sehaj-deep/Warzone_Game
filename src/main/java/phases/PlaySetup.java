@@ -12,15 +12,15 @@ public class PlaySetup extends Play {
         super(p_gameEngine);
     }
 
-    private final List<String> d_playerNameList = new ArrayList<>();
-
     /**
      * Adds a player to the player list.
      *
      * @param p_playerName The name of the player to add.
      */
     @Override
-    public void addPlayers( String p_playerName) {
+    public void addPlayers(String p_playerName) {
+        Player l_playerName = new Player(p_playerName);
+
         if (p_playerName == null || p_playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
@@ -29,14 +29,11 @@ public class PlaySetup extends Play {
             throw new IllegalArgumentException("Invalid characters are not allowed");
         }
 
-        if (d_playerNameList.contains(p_playerName)) {
+        if (d_gameEngine.getD_players().contains(l_playerName)) {
             throw new IllegalArgumentException("Player " + p_playerName + " already exists");
         }
 
-        d_playerNameList.add(p_playerName);
-
-        Player l_player = new Player(p_playerName);
-        d_gameEngine.getD_players().add(l_player);
+        d_gameEngine.getD_players().add(l_playerName);
 
         System.out.println("Player: " + p_playerName + " successfully added ");
 
@@ -49,21 +46,16 @@ public class PlaySetup extends Play {
      */
     @Override
     public void removePlayers(String p_playerName) {
+        Player l_playerName = new Player(p_playerName);
+
         if (p_playerName == null || p_playerName.trim().isEmpty()) {
             throw new IllegalArgumentException("Player name cannot be empty");
         }
 
-        if (!d_playerNameList.contains(p_playerName)) {
-            System.out.println(d_playerNameList.size());
-            for (String p : d_playerNameList) {
-                System.out.println(p);
-            }
+        if (!d_gameEngine.getD_players().contains(l_playerName)) {
             throw new IllegalArgumentException("Player " + p_playerName + " not found");
         }
 
-        d_playerNameList.remove(p_playerName);
-
-        d_playerNameList.add(p_playerName);
 
         Player l_player = new Player(p_playerName);
         d_gameEngine.getD_players().remove(l_player);

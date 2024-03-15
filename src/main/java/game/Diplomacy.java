@@ -1,6 +1,6 @@
 package game;
 
-public class Diplomacy {
+public class Diplomacy{
     // Player class
     Player player;
 
@@ -26,14 +26,14 @@ public class Diplomacy {
      *
      * @return the boolean value true if the command is valid else false
      */
-    public boolean checkValidity() {
+    public boolean isValidIssue() {
         Player playerName = new Player(d_issuingPlayer);
 
         // if the player doesn't have the card
-//        if(!playerName.getAvailableCard().contains("diplomacy")) {
-//            System.err.println("Diplomacy card is not available to use");
-//            return false;
-//        }
+        if(playerName.getCardCount("diplomacy") < 1) {
+            System.err.println("Diplomacy card is not available to use");
+            return false;
+        }
 
         // if the player is inputting null name
         if (d_targetPlayer == null || d_targetPlayer.trim().isEmpty()) {
@@ -51,28 +51,26 @@ public class Diplomacy {
     }
 
     /**
-     * The class return the boolean value true if target player is ready for negotiate else false
-     *
-     * @return the boolean value true if target player is ready for negotiate else false
-     */
-    public boolean checkIfTargetPlayerIsReady() {
-        if (checkValidity()) {
-//            if (d_targetPlayer.isReadyToNegotiate()) {
-//                return true;
-//            } else {
-//                System.err.println(d_issuingPlayer + " do not want to negotiate");
-//                return false;
-//            }
-        }
-        return true;
-    }
-
-    /**
      * Execute execution order if the commands are valid
      */
     public void executeNegotiation() {
-        if (checkIfTargetPlayerIsReady()){
+
+        if (isValidIssue()){
+            Player l_issuingPlayer = new Player(d_issuingPlayer);
+            Player l_targetPlayer = new Player(d_issuingPlayer);
+
+            l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
+            l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
+            l_issuingPlayer.getD_listOfCards().remove("diplomacy");
+
             System.out.println(d_issuingPlayer + " is negotiated with " + d_targetPlayer);
         }
+    }
+
+    /**
+     * return the current order state
+     */
+    public String currentOrder() {
+        return "diplomacy";
     }
 }

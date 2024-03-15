@@ -1,9 +1,6 @@
 package game;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Player Class this class stores information and the state of the game about a
@@ -11,9 +8,11 @@ import java.util.Set;
  */
 
 public class Player {
-	private final String d_playerName; // player name
-	private final Queue<Order> d_listOrders; // list of orders issued by the player
+	private String d_playerName; // player name
+	private Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
+	private HashMap<String, Integer> d_listOfCards;
+	List<Player> d_negotiatedWith = new ArrayList<Player>();
 
 	/**
 	 * Parameterized constructor for the player
@@ -23,7 +22,12 @@ public class Player {
 	public Player(String p_playerName) {
 		d_playerName = p_playerName;
 		d_listOrders = new LinkedList<>();
-		d_ownership = new HashSet<>();
+		d_ownership = new HashSet<String>();
+		d_listOfCards = new HashMap<>();
+		d_listOfCards.put("bomb", 0);
+		d_listOfCards.put("blockade", 0);
+		d_listOfCards.put("airlift", 0);
+		d_listOfCards.put("diplomacy", 0);
 	}
 
 	/**
@@ -88,4 +92,65 @@ public class Player {
 	public Order next_order() {
 		return d_listOrders.poll();
 	}
+
+	/**
+	 * add the name of the player who made deal not to attack
+	 *
+	 * @param p_negotiatedPlayer add the name of player who made negotiation
+	 */
+	public void addNegotiatedPlayer(Player p_negotiatedPlayer ) {
+		this.d_negotiatedWith.add(p_negotiatedPlayer);
+	}
+
+	/**
+	 * This class check if a player made a deal with another player then the attack is not allowed
+	 *
+	 * @param p_targetCountryName accept the country name which player want to attack
+	 * @return the boolean value true if attack is allowed
+	 */
+	public boolean checkAttackAllowed(String p_targetCountryName) {
+
+		for (Player player: d_negotiatedWith) {
+			if(player.d_ownership.contains(p_targetCountryName)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Reset the negotiation
+	 */
+	public void resetTheNegotiation() {
+		d_negotiatedWith.clear();
+	}
+
+	/**
+	 * To get the count of a particular card that the player holds
+	 *
+	 * @param p_cardName The name of the card
+	 * @return The count of the card
+	 */
+	public int getCardCount(String p_cardName) {
+		return d_listOfCards.get(p_cardName);
+	}
+
+	/**
+	 * get the list of the card owned by player
+	 *
+	 * @return the card owned by player
+	 */
+	public HashMap<String, Integer> getD_listOfCards() {
+		return d_listOfCards;
+	}
+
+	/**
+	 * To increment the value of the card by 1
+	 *
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void increaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
+	}
+
 }
