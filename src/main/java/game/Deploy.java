@@ -5,10 +5,9 @@ import utils.ValidationException;
 /**
  * Implementation of Deploy order command from Order class
  */
-public class Deploy implements Order {
+public class Deploy extends Order {
 	private int d_numArmy; // number of armies to be deployed
 	private String d_countryId; // name of country where armies will be deployed to
-	private String d_orderName = "Deploy"; // name of the order type
 
 	/**
 	 * Parameterized Constructor of Deploy class
@@ -16,7 +15,8 @@ public class Deploy implements Order {
 	 * @param p_numArmy   is a number of armies for deployment
 	 * @param p_countryId is the country where armies will be placed
 	 */
-	public Deploy(int p_numArmy, String p_countryId) {
+	public Deploy(int p_numArmy, String p_countryId, GameEngineNew p_gameEngineNew) {
+		super(p_gameEngineNew, "Deploy");
 		d_numArmy = p_numArmy;
 		d_countryId = p_countryId;
 	}
@@ -68,11 +68,12 @@ public class Deploy implements Order {
 				l_errMessage = "Can't deploy more armies than the reinforcement armies available to the player";
 				throw new ValidationException();
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}
+		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
+		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
 		return true;
 	}
 
@@ -98,8 +99,7 @@ public class Deploy implements Order {
 				l_errMessage = "Can't pass negative number for number of armies for deployment";
 				throw new ValidationException();
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}
@@ -139,18 +139,7 @@ public class Deploy implements Order {
 	 * 
 	 * @param p_id is the distinguishable order id
 	 */
-	@Override
 	public void addOrderID(String p_id) {
 		d_orderName = d_orderName + p_id;
-	}
-
-	/**
-	 * String format of the Deployment class for print statement
-	 * 
-	 * @return order name which is "Deploy"
-	 */
-	@Override
-	public String toString() {
-		return d_orderName;
 	}
 }
