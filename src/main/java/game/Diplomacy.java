@@ -1,6 +1,6 @@
 package game;
 
-public class Diplomacy{
+public class Diplomacy implements Order {
     // Player class
     Player player;
 
@@ -24,9 +24,13 @@ public class Diplomacy{
     /**
      * This class return boolean value after checking if the command is valid
      *
+     * @param p_state       is the current game state storing how many armies in
+     *                      country, player, etc
+     * @param p_playerId    is the id of the player who gave this order
      * @return the boolean value true if the command is valid else false
      */
-    public boolean isValidIssue() {
+    @Override
+    public boolean isValidIssue(GameState p_state, int p_playerId) {
         Player playerName = new Player(d_issuingPlayer);
 
         // if the player doesn't have the card
@@ -52,19 +56,20 @@ public class Diplomacy{
 
     /**
      * Execute execution order if the commands are valid
+     *
+     * @param p_state    is the game state at the current moment
+     * @param p_playerId the id of player gave this order
      */
-    public void executeNegotiation() {
+    @Override
+    public void execute(GameState p_state, int p_playerId) {
+        Player l_issuingPlayer = new Player(d_issuingPlayer);
+        Player l_targetPlayer = new Player(d_issuingPlayer);
 
-        if (isValidIssue()){
-            Player l_issuingPlayer = new Player(d_issuingPlayer);
-            Player l_targetPlayer = new Player(d_issuingPlayer);
+        l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
+        l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
+        l_issuingPlayer.getD_listOfCards().remove("diplomacy");
 
-            l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
-            l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
-            l_issuingPlayer.getD_listOfCards().remove("diplomacy");
-
-            System.out.println(d_issuingPlayer + " is negotiated with " + d_targetPlayer);
-        }
+        System.out.println(d_issuingPlayer + " is negotiated with " + d_targetPlayer);
     }
 
     /**
@@ -72,5 +77,24 @@ public class Diplomacy{
      */
     public String currentOrder() {
         return "diplomacy";
+    }
+
+
+    @Override
+    public boolean isValidExecute(GameState p_state, int p_playerId) {
+        return false;
+    }
+
+    @Override
+    public void changeGameState(GameState p_state, int p_playerId) {
+    }
+
+    @Override
+    public void addOrderID(String p_id) {
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 }
