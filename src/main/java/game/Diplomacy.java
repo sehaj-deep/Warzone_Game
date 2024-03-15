@@ -4,20 +4,15 @@ public class Diplomacy implements Order {
     // Player class
     Player player;
 
-    // Let assume player name for time being
-    String d_issuingPlayer;
-
-    // Let assume target player name for time being
+    // Target player name
     String d_targetPlayer;
 
     /**
      * Constructor for Diplomacy class
      *
-     * @param d_issuingPlayer name of the player who is using the card
      * @param d_targetPlayer  name of the opponent player
      */
-    public Diplomacy(String d_issuingPlayer, String d_targetPlayer) {
-        this.d_issuingPlayer = d_issuingPlayer;
+    public Diplomacy(String d_targetPlayer) {
         this.d_targetPlayer = d_targetPlayer;
     }
 
@@ -31,12 +26,11 @@ public class Diplomacy implements Order {
      */
     @Override
     public boolean isValidIssue(GameState p_state, int p_playerId) {
-        Player playerName = new Player(d_issuingPlayer);
 
-        p_state.getPlayers().
+        Player d_issuingPlayer = p_state.getPlayers().get(p_playerId);
 
         // if the player doesn't have the card
-        if(playerName.getCardCount("Diplomacy") < 1) {
+        if(d_issuingPlayer.getCardCount("Diplomacy") < 1) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
@@ -48,7 +42,7 @@ public class Diplomacy implements Order {
         }
 
         // if the opponent player doesn't exist
-        if (!player.getPlayerName().contains(d_targetPlayer)) {
+        if (!player.getPlayerName().contains(d_targetPlayer.trim())) {
             System.err.println("Player " + d_targetPlayer + " doesn't exist");
             return false;
         }
@@ -64,14 +58,14 @@ public class Diplomacy implements Order {
      */
     @Override
     public void execute(GameState p_state, int p_playerId) {
-        Player l_issuingPlayer = new Player(d_issuingPlayer);
-        Player l_targetPlayer = new Player(d_issuingPlayer);
+        Player l_issuingPlayer = p_state.getPlayers().get(p_playerId);
+        Player l_targetPlayer = new Player(d_targetPlayer);
 
         l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
         l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
         l_issuingPlayer.getD_listOfCards().remove("Diplomacy");
 
-        System.out.println(d_issuingPlayer + " is negotiated with " + d_targetPlayer);
+        System.out.println(l_issuingPlayer.getPlayerName() + " is negotiated with " + d_targetPlayer);
     }
 
     /**
