@@ -115,4 +115,13 @@ public class Player {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
 	}
 
+	/**
+	 * To decrement the number of cards by 1
+	 * 
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void decreaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
+	}
+
 }
