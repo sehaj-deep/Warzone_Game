@@ -23,6 +23,7 @@ public class GameEngineNew {
 	private static List<Player> d_players = new ArrayList<>();
 
 	protected Phase d_gamePhase;
+	protected HashMap<String, Boolean> validOrders = new HashMap<>();
 
 	/**
 	 * A hashmap to store the continents
@@ -176,6 +177,28 @@ public class GameEngineNew {
 	public void setD_mapName(String d_mapName) {
 		this.d_mapName = d_mapName;
 	}
+
+	
+	
+	/**
+     * Sets the validity of an order issued by a player.
+     *
+     * @param player The player issuing the order.
+     * @param valid  The validity of the order (true for valid, false for invalid).
+     */
+    public void setOrderValidity(Player player, boolean valid) {
+        validOrders.put(player.getPlayerName(), valid);
+    }
+
+    /**
+     * Gets the validity of an order issued by a player.
+     *
+     * @param player The player whose order validity is to be checked.
+     * @return The validity of the order (true for valid, false for invalid).
+     */
+    public boolean getOrderValidity(Player player) {
+        return validOrders.getOrDefault(player.getPlayerName(), false);
+    }
 
 	public void start() {
 		try (Scanner l_scanner = new Scanner(System.in)) {

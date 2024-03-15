@@ -159,7 +159,8 @@ public class GameEngine {
 				// l_reinforcementPhase.execute(d_state, d_mapEditor);
 
 				d_logEntryBuffer.setD_currentPhase("Issue Order Phase");
-				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
+				GameEngineNew gameEngine = new GameEngineNew();
+				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase(gameEngine);
 				l_issueOrderPhase.run(d_state, d_mapEditor);
 
 				d_logEntryBuffer.setD_currentPhase("Execute Order Phase");
