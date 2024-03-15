@@ -4,15 +4,7 @@ package game;
  * abstract interface of Order class to represent player's orders All order
  * types will inherit from Order class
  */
-public abstract class Order {
-
-	GameEngineNew d_gameEngine;
-	String d_orderName;
-
-	public Order(GameEngineNew p_gameEngineNew, String p_orderName) {
-		this.d_orderName = p_orderName;
-		this.d_gameEngine = p_gameEngineNew;
-	}
+public interface Order {
 
 	/**
 	 * execute the order
@@ -20,27 +12,27 @@ public abstract class Order {
 	 * @param p_state    is the game state at the current moment
 	 * @param p_playerId the id of player gave this order
 	 */
-	public abstract void execute(GameState p_state, int p_playerId);
+	public void execute(GameState p_state, int p_playerId);
 
 	/**
 	 * check the validity of the order for Issue Order Phase
 	 *
-	 * @param p_state    is the current game state storing how many armies in
-	 *                   country, player, etc
-	 * @param p_playerId is the id of the player who gave this order
+	 * @param p_state       is the current game state storing how many armies in
+	 *                      country, player, etc
+	 * @param p_playerId    is the id of the player who gave this order
 	 * @return true if the order is valid
 	 */
-	public abstract boolean isValidIssue(GameState p_state, int p_playerId);
-
+	public boolean isValidIssue(GameState p_state, int p_playerId);
+	
 	/**
 	 * check the validity of the order for Execute Order Phase
 	 *
-	 * @param p_state    is the current game state storing how many armies in
-	 *                   country, player, etc
-	 * @param p_playerId is the id of the player who gave this order
+	 * @param p_state       is the current game state storing how many armies in
+	 *                      country, player, etc
+	 * @param p_playerId    is the id of the player who gave this order
 	 * @return true if the order is valid
 	 */
-	public abstract boolean isValidExecute(GameState p_state, int p_playerId);
+	public boolean isValidExecute(GameState p_state, int p_playerId);
 
 	/**
 	 * change the game state to accommodate the given order This method does not
@@ -50,12 +42,18 @@ public abstract class Order {
 	 *                   country, player, etc
 	 * @param p_playerId is the id of the player who gave this order
 	 */
-	public abstract void changeGameState(GameState p_state, int p_playerId);
+	public void changeGameState(GameState p_state, int p_playerId);
+
+	/**
+	 * add order ID to order name (mainly for debugging purpose) to help
+	 * differentiate this order from the orders from the same type
+	 *
+	 * @param p_id is the order id
+	 */
+	public void addOrderID(String p_id);
 
 	/**
 	 * string representation of Order class auto invoked in print statement
 	 */
-	public String toString() {
-		return this.d_orderName;
-	}
+	public String toString();
 }
