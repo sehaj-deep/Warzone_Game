@@ -27,10 +27,10 @@ public class Player {
 		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<String>();
 		d_listOfCards = new HashMap<>();
-		d_listOfCards.put("bomb", 0);
-		d_listOfCards.put("blockade", 0);
-		d_listOfCards.put("airlift", 0);
-		d_listOfCards.put("diplomacy", 0);
+		d_listOfCards.put("Bomb", 0);
+		d_listOfCards.put("Blockade", 0);
+		d_listOfCards.put("Airlift", 0);
+		d_listOfCards.put("Diplomacy", 0);
 	}
 
 	/**

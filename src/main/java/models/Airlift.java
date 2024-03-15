@@ -24,15 +24,19 @@ public class Airlift extends Order {
 	 */
 	private String d_targetCountry;
 
+	/**
+	 * Parameterized constructor of Airlift class
+	 * 
+	 * @param p_sourceCountry The country to lift armies from.
+	 * @param p_targetCountry The country to drop armies into
+	 * @param p_numArmies     The number of armies to airlift
+	 * @param p_gameEngineNew The instance of Game Engine Class
+	 */
 	public Airlift(String p_sourceCountry, String p_targetCountry, int p_numArmies, GameEngineNew p_gameEngineNew) {
 		super(p_gameEngineNew, "Airlift");
 		this.d_sourceCountry = p_sourceCountry;
 		this.d_targetCountry = p_targetCountry;
 		this.d_numArmies = p_numArmies;
-	}
-
-	public void addOrderID(String p_id) {
-
 	}
 
 	@Override
@@ -45,7 +49,6 @@ public class Airlift extends Order {
 		// decrement the number of airlift cards
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
 		l_currentPlayer.decreaseCardCount(this.d_orderName);
-
 	}
 
 	@Override
@@ -83,8 +86,7 @@ public class Airlift extends Order {
 
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 }
