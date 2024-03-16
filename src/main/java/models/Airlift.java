@@ -68,7 +68,7 @@ public class Airlift extends Order {
 		}
 		Map<String, Integer> l_gameBoard = p_state.getGameBoard();
 		int l_sourceArmies = l_gameBoard.get(d_sourceCountry);
-		if (l_sourceArmies <= d_numArmies) {
+		if (l_sourceArmies < d_numArmies) {
 			return false;
 		}
 
@@ -81,7 +81,7 @@ public class Airlift extends Order {
 		if (l_currentPlayer.getCardCount(this.d_orderName) <= 0) {
 			return false;
 		}
-		return isValidExecute(p_state, p_playerId);
+		return isValidIssue(p_state, p_playerId);
 	}
 
 	@Override
