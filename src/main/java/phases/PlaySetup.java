@@ -134,6 +134,8 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void loadMap(String p_filename) {
+
+		readMap(p_filename, true);
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {
@@ -141,10 +143,8 @@ public class PlaySetup extends Play {
 			}
 		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
+
 		}
-
-		readMap(p_filename, true);
-
 		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 

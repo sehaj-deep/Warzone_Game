@@ -212,7 +212,16 @@ public class GameEngineNew {
 			}
 
 			String l_command = "";
+
+			while (this.getPhase().getClass().equals(new PlaySetup(this).getClass())) {
+				System.out.println("Enter a command: ");
+				l_command = l_scanner.nextLine();
+				parseUserCommand(l_command);
+			}
+
+			l_command = "";
 			do {
+
 				if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
 					ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
 
@@ -557,16 +566,14 @@ public class GameEngineNew {
 				case "-add":
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
-						// TODO Add/Modify this method in the appropriate phase classes
-						// d_gamePhase.addPlayer(l_playerName, d_gameState);
+						d_gamePhase.addPlayers(l_playerName);
 						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was added as a player.");
 					}
 					break;
 				case "-remove":
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
-						// TODO Add/Modify this method in the appropriate phase classes
-						// d_gamePhase.removePlayer(l_playerName, d_gameState);
+						d_gamePhase.removePlayers(l_playerName);
 						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was removed from players.");
 					}
 					break;
@@ -583,8 +590,7 @@ public class GameEngineNew {
 	 * @param p_tokens Command tokens.
 	 */
 	private void parseAssignCountriesCommand(String[] p_tokens) {
-		// TODO Add/Modify this method in the appropriate phase classes
-		// d_gamePhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
+		d_gamePhase.assignCountries();
 		d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
 	}
 
@@ -598,8 +604,6 @@ public class GameEngineNew {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
-			// TODO Add/Modify this method in the appropriate phase classes
-			// d_gamePhase.loadMap(d_mapEditor, l_filename);
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
