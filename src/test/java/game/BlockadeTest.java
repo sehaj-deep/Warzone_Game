@@ -1,3 +1,5 @@
+package game;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -76,6 +78,7 @@ public class BlockadeTest {
 		List<Integer> reinforcements = Collections.singletonList(10);
 		d_gameState.setReinforcements(reinforcements);
 		d_blockadeOrder.changeGameState(d_gameState, d_playerId);
-		assertEquals(9, d_gameState.getReinforcements().get(d_playerId).intValue()); // One reinforcement should be deducted
+		assertEquals(9, d_gameState.getReinforcements().get(d_playerId).intValue()); // One reinforcement should be
+																						// deducted
 	}
 }
