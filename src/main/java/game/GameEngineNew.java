@@ -599,6 +599,7 @@ public class GameEngineNew {
 			String l_filename = Common.getMapPath(p_tokens[1]);
 			// TODO Add/Modify this method in the appropriate phase classes
 			// d_gamePhase.loadMap(d_mapEditor, l_filename);
+			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
 	}
