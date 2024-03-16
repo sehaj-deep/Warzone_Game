@@ -1,4 +1,4 @@
-package map;
+package phases;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,8 +8,9 @@ import org.junit.Test;
 
 import constants.GameConstants;
 import game.GameEngineNew;
+import map.Preload;
 
-public class EditTest {
+public class PhaseTest {
 
 	private GameEngineNew d_gameEngine;
 	private Preload d_preload;
@@ -66,4 +67,5 @@ public class EditTest {
 		d_preload.readMap(d_fileName, false);
 		assertFalse(d_preload.validateMap());
 	}
+
 }

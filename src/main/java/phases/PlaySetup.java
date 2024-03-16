@@ -7,6 +7,7 @@ import java.util.Set;
 
 import game.GameEngineNew;
 import game.Player;
+import utils.ValidationException;
 
 public class PlaySetup extends Play {
 	public PlaySetup(GameEngineNew p_gameEngine) {
@@ -133,7 +134,18 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void loadMap(String p_filename) {
-		this.printInvalidCommandMessage();
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to load map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+		}
+
+		readMap(p_filename, true);
+
+		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 
 	@Override
