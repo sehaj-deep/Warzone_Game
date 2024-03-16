@@ -1,9 +1,12 @@
 package phases;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import game.GameEngineNew;
+import game.Player;
 import models.Continent;
 import models.Country;
 
@@ -46,24 +49,25 @@ public abstract class Play extends Phase {
 
 		// to get the list of players
 		// FIXME: Find how to get list of players
-//		List<Player> l_allPlayers = d_gameEngine.getD_players();
-//		if (l_allPlayers.size() == 0) {
-//			return;
-//		}
+		List<Player> l_allPlayers = d_gameEngine.getD_players();
+		if (l_allPlayers.size() == 0) {
+			return;
+		}
 //
 //		// FIXME: Find how to get list of armies for each country
 //		Map<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
-//
-//		for (Player l_currPlayer : l_allPlayers) {
-//			System.out.print(l_currPlayer.getPlayerName() + ": ");
-//
-//			Set<String> l_countriesOwned = l_currPlayer.getOwnership();
-//
-//			for (String l_singleCountry : l_countriesOwned) {
-//				int l_numOfArmies = l_countriesArmies.get(l_singleCountry);
-//				System.out.print("[" + l_singleCountry + ", " + l_numOfArmies + "] ");
-//			}
-//			System.out.println();
+		Map<String, Integer> l_countriesArmies = d_gameEngine.getGameState().getGameBoard();
+		for (Player l_currPlayer : l_allPlayers) {
+			System.out.print(l_currPlayer.getPlayerName() + ": ");
+
+			Set<String> l_countriesOwned = l_currPlayer.getOwnership();
+
+			for (String l_singleCountry : l_countriesOwned) {
+				int l_numOfArmies = l_countriesArmies.get(l_singleCountry);
+				System.out.print("[" + l_singleCountry + ", " + l_numOfArmies + "] ");
+			}
+			System.out.println();
+		}
 	}
 
 	public void editCountry() {
