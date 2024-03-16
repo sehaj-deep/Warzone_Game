@@ -3,14 +3,12 @@ package game;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,6 +24,7 @@ public class DeployTest {
 	static List<Integer> d_reinforcements;
 	static int d_plyrId = 0;
 	static GameState d_state;
+	GameEngineNew d_gameEngine;
 
 	/**
 	 * This is the common setup for all test cases and will be run before each test
@@ -33,7 +32,8 @@ public class DeployTest {
 	@Before
 	public void before() {
 		System.out.println("Testing Deploy class Setup: 4 armies to country Korea");
-		d_deployOrder = new Deploy(4, "korea");
+		d_gameEngine = new GameEngineNew();
+		d_deployOrder = new Deploy(4, "korea", d_gameEngine);
 		d_players = new ArrayList<>();
 		d_reinforcements = new ArrayList<>();
 		d_players.add(new Player("0"));
@@ -66,7 +66,7 @@ public class DeployTest {
 		// Invalid case 2: negative number of armies for deploy
 		System.out.println("Testing invalid deployment: negative number of armies for deply");
 		d_players.get(0).setOwnership(l_ownedCountries);
-		assertFalse(new Deploy(-1, "korea").isValidIssue(d_state, d_plyrId));
+		assertFalse(new Deploy(-1, "korea", d_gameEngine).isValidIssue(d_state, d_plyrId));
 
 		// Invalid case 3: more armies to be deployed than the armies available for the
 		// player
@@ -74,14 +74,14 @@ public class DeployTest {
 		d_reinforcements = Collections.singletonList(1);
 		d_state.setReinforcements(d_reinforcements);
 		assertFalse(d_deployOrder.isValidIssue(d_state, d_plyrId));
-		
+
 		// Invalid case 4: same case as 4 but checking validity in execution order phase
-		// i.e., validity must be true because execution of deploy implies that number of armies for deploy < reinforcements
+		// i.e., validity must be true because execution of deploy implies that number
+		// of armies for deploy < reinforcements
 		System.out.println("Testing invalid deployment: deploying more armies than availabe for the player");
 		d_reinforcements = Collections.singletonList(1);
 		d_state.setReinforcements(d_reinforcements);
 		assertTrue(d_deployOrder.isValidExecute(d_state, d_plyrId));
-		
 
 		System.out.println("Testing deploy.isValid method PASSED!");
 	}

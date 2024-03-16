@@ -45,7 +45,7 @@ public class ExecuteOrdersPhaseTest {
 			int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
 			for (int j = 0; j < (2 + i); j++) { // add Orders for testing purpose
 				// Here, player0 has more orders than player1
-				l_player.issue_order(new Deploy(l_deployNumArmy, Integer.toString((2 * i) + (j % 2))));
+				l_player.issue_order(new Deploy(l_deployNumArmy, Integer.toString((2 * i) + (j % 2)), d_gameEngine));
 			}
 			l_players.add(l_player);
 		}

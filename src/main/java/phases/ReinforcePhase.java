@@ -43,12 +43,6 @@ public class ReinforcePhase extends MainPlay {
 	}
 
 	@Override
-	public void run(GameState p_state, MapEditor p_gMap) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void loadMap(String p_filename) {
 		// TODO Auto-generated method stub
 
@@ -116,6 +110,12 @@ public class ReinforcePhase extends MainPlay {
 
 	@Override
 	public void fortify() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void run(GameState p_state, MapEditor p_gMap) {
 		// TODO Auto-generated method stub
 
 	}
