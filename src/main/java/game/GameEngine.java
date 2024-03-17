@@ -635,6 +635,22 @@ public class GameEngine {
 	}
 
 	/**
+	 * This class check if a player made a deal with another player then the attack is not allowed
+	 *
+	 * @param p_targetCountryName accept the country name which player want to attack
+	 * @return the boolean value true if attack is allowed
+	 */
+	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
+		for (Player p: player.getD_negotiatedWith()) {
+			if(p.getOwnership().contains(p_targetCountryName)) {
+				System.err.println("The negotiated player cannot be attacked for this turn");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Parse the Deploy command from the user command in terminal Store the user
 	 * input tokens in the game state so that Phase classes can access the inputs
 	 * 
