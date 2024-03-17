@@ -6,13 +6,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
+import game.Advance;
 import game.Deploy;
 import game.GameEngineNew;
 import game.GameState;
 import game.Player;
 import map.MapEditor;
+import models.Country;
 
 /**
  * This class tests executeOrderPhase class in JUnit testing
@@ -49,6 +52,7 @@ public class ExecuteOrdersPhaseTest {
 			}
 			l_players.add(l_player);
 		}
+		d_gameEngine.setD_players(l_players);
 		d_state = new GameState(l_players);
 		HashMap<String, Integer> boardBefore = new HashMap<String, Integer>();
 		boardBefore.put("0", 0);
@@ -91,13 +95,13 @@ public class ExecuteOrdersPhaseTest {
 	}
 
 	/**
-	 * Test the whole phase in ExecuteOrdersPhase
+	 * Test the whole phase in ExecuteOrdersPhase for deploy scenario
 	 */
 	@Test
-	public void testExecuteOrdersPhase() {
+	public void testExecuteOrdersPhaseDeploy() {
 		System.out.println("Testing ExecuteOrdersPhase method");
 		System.out.println("Game Board before: " + d_state.getGameBoard());
-		d_executeOrdersPhase.run(d_state, d_gMap);
+		d_executeOrdersPhase.execute(d_state, d_gMap);
 		// expected state of the game board after successful execution of all orders
 		HashMap<String, Integer> l_boardAfter = new HashMap<String, Integer>();
 		l_boardAfter.put("0", 5);
@@ -115,5 +119,122 @@ public class ExecuteOrdersPhaseTest {
 		}
 		assertEquals(0, l_totNumOrders);
 		System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
+	}
+
+	/**
+	 * Test giveCard method check whether a player's total number of card increased
+	 * if the player conquered at least one country
+	 */
+	@Test
+	public void testGiveCard() {
+		System.out.println("Testing ExecuteOrdersPhase giveCard method");
+
+		// Case: first player no conquer, and second player one conquer successful
+		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
+		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+			l_countConquestPerPlayer.add(i);
+		}
+		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
+		d_executeOrdersPhase.giveCard();
+		List<Player> l_players = d_gameEngine.getD_players();
+		int l_numCards;
+		l_numCards = l_players.get(0).getCardCount("bomb") + l_players.get(0).getCardCount("blockade")
+				+ l_players.get(0).getCardCount("airlift") + l_players.get(0).getCardCount("diplomacy");
+		assertEquals(0, l_numCards);
+		l_numCards = l_players.get(1).getCardCount("bomb") + l_players.get(1).getCardCount("blockade")
+				+ l_players.get(1).getCardCount("airlift") + l_players.get(1).getCardCount("diplomacy");
+		assertEquals(1, l_numCards);
+		System.out.println("Testing ExecuteOrdersPhase.giveCard methods PASSSED");
+	}
+
+	/**
+	 * Test attack method of ExecuteOrdersPhase check whether player who conquered
+	 * one country has incremented value in d_countConquestPerPlayer in
+	 * ExecuteOrdersPhase
+	 */
+	@Test
+	public void testAttack() {
+		System.out.println("Testing ExecuteOrdersPhase attack method");
+		// advance order setup
+		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("usa"));
+		List<Player> l_players = d_gameEngine.getD_players();
+
+		Player l_player = new Player("2");
+		l_player.setOwnership(l_ownedCountries);
+		Country l_country1, l_country2;
+		l_country1 = new Country(1, "usa");
+		l_country2 = new Country(2, "japan");
+		l_country1.addNeighbors(l_country2);
+		l_players.get(0).conquerCountry("japan");
+
+		HashMap<String, Country> l_countries = d_gameEngine.getD_countries();
+		l_countries.put("usa", l_country1);
+		l_countries.put("japan", l_country2);
+
+		d_state.getGameBoard().put("usa", 12);
+		d_state.getGameBoard().put("italy", 4);
+		d_state.getGameBoard().put("japan", 1);
+
+		Advance l_advanceOrder = new Advance(9, "usa", "japan", d_gameEngine);
+		l_player.issue_order(l_advanceOrder);
+		d_gameEngine.getD_players().add(l_player);
+
+		System.out.println("Testing ExecuteOrdersPhase attack in attack method");
+		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
+		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+			l_countConquestPerPlayer.add(0);
+		}
+		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
+		l_advanceOrder.isValidExecute(d_state, 2);
+		d_executeOrdersPhase.attack(d_state, 2, l_advanceOrder);
+		int l_count = d_executeOrdersPhase.getCountConquestPerPlayer().get(2);
+		assertEquals(1, l_count);
+
+		System.out.println("Testing ExecuteOrdersPhase.attack methods PASSSED");
+	}
+
+	/**
+	 * Test attack method of ExecuteOrdersPhase inside the roundRobin method. Check
+	 * whether player who conquered one country has incremented value in
+	 * d_countConquestPerPlayer in ExecuteOrdersPhase
+	 */
+	@Test
+	public void testRoundRobinAttack() {
+		System.out.println("Testing ExecuteOrdersPhase attack method inside rounRobin method");
+		// advance order setup
+		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("usa"));
+		List<Player> l_players = d_gameEngine.getD_players();
+
+		Player l_player = new Player("2");
+		l_player.setOwnership(l_ownedCountries);
+		Country l_country1, l_country2;
+		l_country1 = new Country(1, "usa");
+		l_country2 = new Country(2, "japan");
+		l_country1.addNeighbors(l_country2);
+		l_players.get(0).conquerCountry("japan");
+
+		HashMap<String, Country> l_countries = d_gameEngine.getD_countries();
+		l_countries.put("usa", l_country1);
+		l_countries.put("japan", l_country2);
+
+		d_state.getGameBoard().put("usa", 12);
+		d_state.getGameBoard().put("italy", 4);
+		d_state.getGameBoard().put("japan", 1);
+
+		Advance l_advanceOrder = new Advance(9, "usa", "japan", d_gameEngine);
+		l_player.issue_order(l_advanceOrder);
+		d_gameEngine.getD_players().add(l_player);
+
+		System.out.println("Testing: ExecuteOrdersPhase attack in roundrobin");
+		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
+		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+			l_countConquestPerPlayer.add(0);
+		}
+		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
+		d_executeOrdersPhase.roundRobinExecution(d_state, d_gMap);
+		int l_count = d_executeOrdersPhase.getCountConquestPerPlayer().get(2);
+		assertEquals(1, l_count);
+
+		System.out.println("Testing ExecuteOrdersPhase.attack inside rounRobin method PASSSED");
 	}
 }

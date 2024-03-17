@@ -9,6 +9,7 @@ public abstract class Order {
 	protected GameEngineNew d_gameEngine;
 	protected String d_orderName;
 	private boolean d_isAttack;
+	protected String d_targetCountry;
 
 	public Order(GameEngineNew p_gameEngineNew, String p_orderName) {
 		this.d_orderName = p_orderName;
@@ -23,6 +24,15 @@ public abstract class Order {
 	 */
 	public boolean getIsAttack() {
 		return this.d_isAttack;
+	}
+
+	/**
+	 * access d_targetCountry data variable
+	 * 
+	 * @return target country name
+	 */
+	public String getTargetCountry() {
+		return d_targetCountry;
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class ReinforcePhase extends MainPlay {
 	 * @param p_state     The current state of the game.
 	 * @param p_mapEditor The map editor representing the game map.
 	 */
-	public void execute(GameState p_state, MapEditor p_mapEditor) {
+	public void reinforce(GameState p_state, MapEditor p_mapEditor) {
 		for (Player p_player : p_state.getPlayers()) {
 			Reinforcements l_reinforcements = new Reinforcements(p_mapEditor, p_player);
 			l_reinforcements.calculateReinforcementArmies();
@@ -97,12 +97,6 @@ public class ReinforcePhase extends MainPlay {
 	}
 
 	@Override
-	public void reinforce() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
 
@@ -115,7 +109,7 @@ public class ReinforcePhase extends MainPlay {
 	}
 
 	@Override
-	public void run(GameState p_state, MapEditor p_gMap) {
+	public void reinforce() {
 		// TODO Auto-generated method stub
 
 	}
