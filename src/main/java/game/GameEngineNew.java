@@ -625,4 +625,20 @@ public class GameEngineNew {
 //		d_gamePhase.setOrderInput(p_tokens);	//pass it to issue orders phase
 		d_logEntryBuffer.setD_effectOfAction("");
 	}
+
+	/**
+	 * This class check if a player made a deal with another player then the attack is not allowed
+	 *
+	 * @param p_targetCountryName accept the country name which player want to attack
+	 * @return the boolean value true if attack is allowed
+	 */
+	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
+		for (Player p: player.d_negotiatedWith) {
+			if(p.getOwnership().contains(p_targetCountryName)) {
+				System.err.println("The negotiated player cannot be attacked for this turn");
+				return false;
+			}
+		}
+		return true;
+	}
 }

@@ -108,22 +108,6 @@ public class Player {
 	}
 
 	/**
-	 * This class check if a player made a deal with another player then the attack is not allowed
-	 *
-	 * @param p_targetCountryName accept the country name which player want to attack
-	 * @return the boolean value true if attack is allowed
-	 */
-	public boolean checkAttackAllowed(String p_targetCountryName) {
-
-		for (Player player: d_negotiatedWith) {
-			if(player.d_ownership.contains(p_targetCountryName)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * Reset the negotiation
 	 */
 	public void resetTheNegotiation() {

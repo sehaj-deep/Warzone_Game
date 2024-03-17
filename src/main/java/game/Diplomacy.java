@@ -10,7 +10,7 @@ public class Diplomacy implements Order {
     /**
      * Constructor for Diplomacy class
      *
-     * @param d_targetPlayer  name of the opponent player
+     * @param d_targetPlayer name of the opponent player
      */
     public Diplomacy(String d_targetPlayer) {
         this.d_targetPlayer = d_targetPlayer;
@@ -19,30 +19,32 @@ public class Diplomacy implements Order {
     /**
      * This class return boolean value after checking if the command is valid
      *
-     * @param p_state       is the current game state storing how many armies in
-     *                      country, player, etc
-     * @param p_playerId    is the id of the player who gave this order
+     * @param p_state    is the current game state storing how many armies in
+     *                   country, player, etc
+     * @param p_playerId is the id of the player who gave this order
      * @return the boolean value true if the command is valid else false
      */
     @Override
     public boolean isValidIssue(GameState p_state, int p_playerId) {
 
-        Player d_issuingPlayer = p_state.getPlayers().get(p_playerId);
+        Player issuingPlayer = p_state.getPlayers().get(p_playerId);
 
-        // if the player doesn't have the card
-        if(d_issuingPlayer.getCardCount("Diplomacy") < 1) {
+        // Check if the player has the Diplomacy card
+        if (issuingPlayer.getCardCount("Diplomacy") < 1) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
 
-        // if the player is inputting null name
+        // Check if the target player name is empty
         if (d_targetPlayer == null || d_targetPlayer.trim().isEmpty()) {
             System.err.println("Target player name cannot be empty");
             return false;
         }
 
-        // if the opponent player doesn't exist
-        if (!player.getPlayerName().contains(d_targetPlayer.trim())) {
+        // Check if the target player exists
+        boolean playerExists = p_state.getPlayers().stream()
+                .anyMatch(player -> player.getPlayerName().equals(d_targetPlayer.trim()));
+        if (!playerExists) {
             System.err.println("Player " + d_targetPlayer + " doesn't exist");
             return false;
         }
@@ -69,20 +71,38 @@ public class Diplomacy implements Order {
     }
 
     /**
+     * This class check if a player made a deal with another player then the attack is not allowed
+     *
+     * @return the boolean value true if attack is allowed
+     */
+    @Override
+    public boolean isValidExecute(GameState p_state, int p_playerId) {
+
+        // if the player is inputting null name
+        if (d_targetPlayer == null || d_targetPlayer.trim().isEmpty()) {
+            System.err.println("Target player name cannot be empty");
+            return false;
+        }
+
+        // if the opponent player doesn't exist
+        if (!player.getPlayerName().contains(d_targetPlayer.trim())) {
+            System.err.println("Player " + d_targetPlayer + " doesn't exist");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * return the current order state
      */
     public String currentOrder() {
         return "Diplomacy";
     }
 
-
-    @Override
-    public boolean isValidExecute(GameState p_state, int p_playerId) {
-        return false;
-    }
-
     @Override
     public void changeGameState(GameState p_state, int p_playerId) {
+
     }
 
     @Override
