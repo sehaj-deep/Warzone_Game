@@ -12,7 +12,15 @@ import utils.ValidationException;
  * 
  */
 public class Advance extends Order {
+
+	/**
+     * The number of armies for advancement.
+     */
 	private int d_numArmy;
+
+	/**
+     * The country where armies will be moving from.
+     */
 	private String d_sourceCountry;
 
 	/**
