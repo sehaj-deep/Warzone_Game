@@ -11,15 +11,13 @@ import java.util.*;
  * Setup phase of the game where players are added and countries are assigned.
  */
 public class PlaySetup extends Play {
-<<<<<<< HEAD
-=======
+
 	/**
 	 * 
      * Constructs a PlaySetup object with the specified game engine.
      * 
      * @param p_gameEngine the game engine
      */
->>>>>>> fc269780d4d3d6a7549c914ad0b8d70a9815123b
 
 	public PlaySetup(GameEngine p_gameEngine) {
 		super(p_gameEngine);
