@@ -10,10 +10,10 @@ import utils.ValidationException;
  * territory becomes neutral. Inherits from the Order class.
  */
 public class Blockade extends Order {
-	
+
 	/**
-     * The ID of the country to be blockaded.
-     */
+	 * The ID of the country to be blockaded.
+	 */
 	private String d_countryId;
 
 	/**
@@ -70,6 +70,11 @@ public class Blockade extends Order {
 	public boolean isValidIssue(GameState p_state, int p_playerId) {
 		String l_errMessage = "";
 		try {
+			if (!p_state.getGameBoard().containsKey(d_countryId)) {
+				l_errMessage = "Blockade can't be issued on non-existent country";
+				throw new ValidationException();
+			}
+
 			if (p_state.getGameBoard().get(d_countryId) <= 0) {
 				l_errMessage = "Blockade can't be issued on country without any army units";
 				throw new ValidationException();
