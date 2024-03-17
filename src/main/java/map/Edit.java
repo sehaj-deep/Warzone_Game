@@ -22,6 +22,9 @@ public abstract class Edit extends Phase {
 		super(p_gameEngine);
 	}
 
+	/**
+     * Sets the players for the edit phase.
+     */
 	public void setPlayers() {
 		printInvalidCommandMessage();
 	}

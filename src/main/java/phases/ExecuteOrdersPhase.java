@@ -82,11 +82,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 
 	/**
 	 * run execute orders phase for the current round in the game
-	 * 
-	 * @param p_state current state of the game
-	 * @param p_gMap  data representing the map used in the game
 	 */
-
 	public void executeAllOrders() {
 		d_countConquestPerPlayer = new ArrayList<>(); // count how many successful conquer by player
 		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {

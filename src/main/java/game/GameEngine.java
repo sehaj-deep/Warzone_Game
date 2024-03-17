@@ -29,8 +29,8 @@ public class GameEngine {
 	private static List<Player> d_players = new ArrayList<>();
 	private GameState d_gameState = new GameState(d_players);
 	private Map<Player, Boolean> d_validOrder = new HashMap<>();
-
-	protected Phase d_gamePhase;
+	
+	protected Phase d_gamePhase; //The current phase of the game 
 
 	/**
 	 * A hashmap to store the continents
