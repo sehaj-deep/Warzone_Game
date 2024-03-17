@@ -139,16 +139,16 @@ public class ExecuteOrdersPhase extends MainPlay {
 				String l_cardName;
 				switch (l_randNum) {
 				case 1:
-					l_cardName = "bomb";
+					l_cardName = "Bomb";
 					break;
 				case 2:
-					l_cardName = "blockade";
+					l_cardName = "Blockade";
 					break;
 				case 3:
-					l_cardName = "airlift";
+					l_cardName = "Airlift";
 					break;
 				default:
-					l_cardName = "diplomacy";
+					l_cardName = "Diplomacy";
 					break;
 				}
 				l_players.get(i).increaseCardCount(l_cardName);
