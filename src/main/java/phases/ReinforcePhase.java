@@ -30,9 +30,6 @@ public class ReinforcePhase extends MainPlay {
 
 	/**
 	 * Executes the reinforcement phase of the game.
-	 * 
-	 * @param p_state     The current state of the game.
-	 * @param p_mapEditor The map editor representing the game map.
 	 */
 	public void calculateReinforcements() {
 		for (Player p_player : d_gameEngine.getGameState().getPlayers()) {
@@ -44,6 +41,12 @@ public class ReinforcePhase extends MainPlay {
 		this.next();
 	}
 
+	/**
+     * Calculates the number of reinforcement armies for a player.
+     * 
+     * @param p_player The player for whom reinforcement armies are calculated.
+     * @return The number of reinforcement armies.
+     */
 	public int calculateReinforcementArmies(Player p_player) {
 		int d_reinforcementArmies = p_player.getOwnership().size() / 3; // Basic calculation based on territories owned
 

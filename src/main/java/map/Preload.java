@@ -2,17 +2,34 @@ package map;
 
 import game.GameEngine;
 
+/**
+ * Represents the preload phase in the map editing process.
+ */
 public class Preload extends Edit {
 
+	/**
+     * Constructor for the Preload phase.
+     * 
+     * @param p_gameEngine A context object for the Preload phase.
+     */
 	public Preload(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
+	/**
+     * Moves to the next phase.
+     * Sets the phase to PostLoad.
+     */
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new PostLoad(d_gameEngine));
 	}
 
+	/**
+     * Edits the map, Reads the map file, displays the filename, and moves to the next phase.
+     * 
+     * @param p_filename The filename of the map to be edited.
+     */
 	@Override
 	public void editMap(String p_filename) {
 		readMap(p_filename, false);

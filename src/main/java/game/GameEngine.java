@@ -16,6 +16,10 @@ import utils.Common;
 import utils.LogEntryBuffer;
 import utils.LogFileWriter;
 
+/**
+ * GameEngine Class This Class runs the game by integrating all the functions and
+ * classes needed for Warzone
+ */
 public class GameEngine {
 
 	private LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
@@ -23,8 +27,8 @@ public class GameEngine {
 
 	private GameState d_gameState = new GameState();
 	private Map<Player, Boolean> d_validOrder = new HashMap<>();
-
-	protected Phase d_gamePhase;
+	
+	protected Phase d_gamePhase; //The current phase of the game 
 
 	/**
 	 * A hashmap to store the continents
@@ -146,6 +150,7 @@ public class GameEngine {
 	}
 
 	/**
+	 * Mapping of country ids to corresponding Country objects.
 	 * 
 	 * @return the name of the country corresponding to the id.
 	 */
@@ -154,6 +159,7 @@ public class GameEngine {
 	}
 
 	/**
+	 *  Gets the name of the map.
 	 * 
 	 * @return name of the map
 	 */
@@ -162,9 +168,9 @@ public class GameEngine {
 	}
 
 	/**
-	 * The g
+	 * Gets the current game state.
 	 * 
-	 * @return
+	 * @return The current game state.
 	 */
 	public GameState getGameState() {
 		return d_gameState;
@@ -179,6 +185,9 @@ public class GameEngine {
 		this.d_mapName = d_mapName;
 	}
 
+	/**
+     * Starts the game engine and manages the game phases.
+     */
 	public void start() {
 		try (Scanner l_scanner = new Scanner(System.in)) {
 			System.out.println("1. Edit Map");
@@ -239,6 +248,11 @@ public class GameEngine {
 		}
 	}
 
+	/**
+     * Parses the user command input and use it to appropriate methods based on the command type.
+     *
+     * @param p_userInput The user input command to be parsed.
+     */
 	public void parseUserCommand(String p_userInput) {
 
 		String[] l_tokens = p_userInput.split("\\s+");
@@ -595,6 +609,22 @@ public class GameEngine {
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
+	}
+
+	/**
+	 * This class check if a player made a deal with another player then the attack is not allowed
+	 *
+	 * @param p_targetCountryName accept the country name which player want to attack
+	 * @return the boolean value true if attack is allowed
+	 */
+	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
+		for (Player p: player.getD_negotiatedWith()) {
+			if(p.getOwnership().contains(p_targetCountryName)) {
+				System.err.println("The negotiated player cannot be attacked for this turn");
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**

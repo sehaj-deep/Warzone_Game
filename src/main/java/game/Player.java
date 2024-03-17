@@ -1,8 +1,10 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class Player {
 	private Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
 	private HashMap<String, Integer> d_listOfCards;
+	private final List<Player> d_negotiatedWith = new ArrayList<>();
 
 	/**
 	 * Parameterized constructor for the player
@@ -235,6 +238,31 @@ public class Player {
 	 */
 	public void decreaseCardCount(String p_cardName) {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
+	}
+
+	/**
+	 * add the name of the player who made deal not to attack
+	 *
+	 * @param p_negotiatedPlayer add the name of player who made negotiation
+	 */
+	public void addNegotiatedPlayer(Player p_negotiatedPlayer) {
+		this.d_negotiatedWith.add(p_negotiatedPlayer);
+	}
+
+	/**
+	 * Getter for d_negotiate
+	 *
+	 * @return the name of the player whom player has negotiated with
+	 */
+	public List<Player> getD_negotiatedWith() {
+		return this.d_negotiatedWith;
+	}
+
+	/**
+	 * Reset the negotiation
+	 */
+	public void resetTheNegotiation() {
+		d_negotiatedWith.clear();
 	}
 
 }

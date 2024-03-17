@@ -2,19 +2,30 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import game.GameEngine;
+import game.GameState;
 import game.Player;
 import utils.ValidationException;
 
+/**
+ * Setup phase of the game where players are added and countries are assigned.
+ */
 public class PlaySetup extends Play {
+
+	/**
+	 * 
+	 * Constructs a PlaySetup object with the specified game engine.
+	 * 
+	 * @param p_gameEngine the game engine
+	 */
+
 	public PlaySetup(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
-
-	private final List<String> d_playerNameList = new ArrayList<>();
 
 	/**
 	 * Adds a player to the player list.
@@ -23,6 +34,8 @@ public class PlaySetup extends Play {
 	 */
 	@Override
 	public void addPlayers(String p_playerName) {
+		Player l_playerName = new Player(p_playerName);
+
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
 			throw new IllegalArgumentException("Player name cannot be empty");
 		}
@@ -31,11 +44,9 @@ public class PlaySetup extends Play {
 			throw new IllegalArgumentException("Invalid characters are not allowed");
 		}
 
-		if (d_playerNameList.contains(p_playerName)) {
+		if (d_gameEngine.getGameState().getPlayers().contains(l_playerName)) {
 			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
 		}
-
-		d_playerNameList.add(p_playerName);
 
 		Player l_player = new Player(p_playerName);
 		d_gameEngine.getGameState().getPlayers().add(l_player);
@@ -50,46 +61,48 @@ public class PlaySetup extends Play {
 	 */
 	@Override
 	public void removePlayers(String p_playerName) {
+
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
 			throw new IllegalArgumentException("Player name cannot be empty");
 		}
 
-		if (!d_playerNameList.contains(p_playerName)) {
-			System.out.println(d_playerNameList.size());
-			for (String p : d_playerNameList) {
-				System.out.println(p);
+		List<Player> players = d_gameEngine.getGameState().getPlayers();
+		boolean playerRemoved = false;
+
+		Iterator<Player> iterator = players.iterator();
+		while (iterator.hasNext()) {
+			Player player = iterator.next();
+			if (player.getPlayerName().equals(p_playerName)) {
+				iterator.remove();
+				playerRemoved = true;
+				break; // Assuming each player has a unique name, so we can break after finding the
+						// player
 			}
-			throw new IllegalArgumentException("Player " + p_playerName + " not found");
 		}
 
-		d_playerNameList.remove(p_playerName);
-
-		d_playerNameList.add(p_playerName);
+		if (!playerRemoved) {
+			throw new IllegalArgumentException(p_playerName + " not found in list of players");
+		}
 
 		Player l_player = new Player(p_playerName);
 		d_gameEngine.getGameState().getPlayers().remove(l_player);
 
-		System.out.println("Player: " + p_playerName + " successfully removed");
+		System.out.println(p_playerName + " successfully removed as a player");
 	}
 
 	/**
-	 * Assigns countries to the specified player.
+	 * Checks validity of assigned countries if a player has 2 or more countries
+	 * assigned than another player has, then this is invalid
+	 *
+	 * @param p_state current game state
+	 * @return true if valid. false if invalid
 	 */
-	@Override
-	public void assignCountries() {
+	public boolean isAssignCountriesValid(GameState p_state) {
+		int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
+		int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
 
-		Set<String> p_countries = d_gameEngine.getD_countries().keySet();
-
-		// check if countries is valid
-		int l_minSize = d_gameEngine.getGameState().getPlayers().get(0).getOwnership().size(); // min of number of
-																								// player's owned
-		// countries
-		int l_maxSize = d_gameEngine.getGameState().getPlayers().get(0).getOwnership().size(); // max of number of
-																								// player's owned
-		// countries
-
-		for (int i = 1; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
-			Player l_player = d_gameEngine.getGameState().getPlayers().get(i);
+		for (int i = 1; i < p_state.getPlayers().size(); i++) {
+			Player l_player = p_state.getPlayers().get(i);
 			int l_numCountriesOwned = l_player.getOwnership().size();
 			if (l_numCountriesOwned < l_minSize) {
 				l_minSize = l_numCountriesOwned;
@@ -98,9 +111,20 @@ public class PlaySetup extends Play {
 				l_maxSize = l_numCountriesOwned;
 			}
 		}
+		return (l_maxSize - l_minSize) >= 1;
+	}
 
-		boolean isValid = (l_maxSize - l_minSize) <= 1;
+	/**
+	 * Assigns countries to the specified player.
+	 */
+	@Override
+	public void assignCountries() {
 
+		if (!isAssignCountriesValid(d_gameEngine.getGameState())) {
+			return;
+		}
+
+		Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 		List<String> l_countriesList = new ArrayList<>(p_countries);
 
 		// Shuffle the list of available countries
@@ -124,6 +148,7 @@ public class PlaySetup extends Play {
 		System.out.println("Assign Countries Completed");
 
 		initalizeBoard();
+		showMap();
 
 		this.next();
 	}
@@ -145,7 +170,6 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void loadMap(String p_filename) {
-
 		readMap(p_filename, true);
 		try {
 			boolean l_isValidated = validateMap();
