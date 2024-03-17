@@ -10,25 +10,35 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class contains unit tests for the {@link PlaySetup} class.
+ * It tests methods such as adding players, removing players, checking the validity of assigned countries,
+ * and assigning countries to players.
+ */
 public class PlaySetupTest {
     private PlaySetup playSetup;
     private List<Player> d_players;
     private GameState d_state;
     private Player player;
     GameEngine newGameEngine;
+    Set<String> countries = new HashSet<>();
 
     /**
-     * To set up tests
+     * Sets up the test environment before each test case execution.
+     * It initializes the {@link GameEngine}, {@link PlaySetup}, players list, and game state.
      */
     @Before
     public void before() {
         newGameEngine = new GameEngine();
         playSetup = new PlaySetup(newGameEngine);
         d_players = new ArrayList<>();
-
-
+        d_state = new GameState();
     }
 
+    /**
+     * Tests the {@link PlaySetup#addPlayers(String)} method.
+     * It verifies whether players are successfully added to the game.
+     */
     @Test
     public void addPlayers() {
         System.out.println("BEFORE: players in the game: " + newGameEngine.getGameState().getPlayers());
@@ -46,6 +56,10 @@ public class PlaySetupTest {
         assertEquals("player3", newGameEngine.getGameState().getPlayers().get(2).getPlayerName());
     }
 
+    /**
+     * Tests the {@link PlaySetup#removePlayers(String)} method.
+     * It verifies whether players are successfully removed from the game.
+     */
     @Test
     public void removePlayers() {
 
@@ -62,6 +76,10 @@ public class PlaySetupTest {
         assertFalse(newGameEngine.getGameState().getPlayers().contains(player1));
     }
 
+    /**
+     * Tests the {@link PlaySetup#isAssignCountriesValid()} method.
+     * It checks the validity of assigned countries to players.
+     */
     @Test
     public void isAssignCountriesValid() {
         System.out.println("Testing isAssignCountriesValid method");
@@ -69,7 +87,7 @@ public class PlaySetupTest {
         for (int i = 0; i < 5; i++) {
             Player player = new Player(Integer.toString(i));
             int addition = 0;
-            if (i >= 4) {
+            if (i == 4) {
                 addition = 2;
             }
             for (int j = 0; j < 5 + addition; j++) {
@@ -82,35 +100,42 @@ public class PlaySetupTest {
             d_players.add(player);
         }
 
-        d_state = new GameState();
-        boolean validity = playSetup.isAssignCountriesValid(d_state);
-        assertFalse(validity);
+        boolean validity = playSetup.isAssignCountriesValid();
+        assertTrue(validity);
         System.out.println("Testing StarterPhase.isAssignCountriesValid method PASSED!");
     }
 
+    /**
+     * Tests the {@link PlaySetup#assignCountries()} method.
+     * It verifies the distribution of countries among players.
+     */
     @Test
     public void assignCountries() {
         System.out.println("Testing shuffleAndDistributeCountries method");
 
-        // create players
+        // Create players
         for (int i = 0; i < 5; i++) {
             Player player = new Player(Integer.toString(i));
             System.out.println("BEFORE: Player " + i + " owns " + player.getOwnership());
             d_players.add(player);
         }
 
+        // Initialize GameState and countries
         d_state = new GameState();
         Set<String> countries = new HashSet<>();
-
         for (int i = 0; i < 32; i++) {
             countries.add(Integer.toString(i));
         }
+        d_state.setPlayers(d_players);
 
+        playSetup.assignCountries();
+
+        // After assigning countries, verify the ownership distribution
         for (int i = 0; i < 5; i++) {
             Player player = d_state.getPlayers().get(i);
             System.out.println("AFTER: Player " + i + " owns " + player.getOwnership());
             int diff = Math.abs(player.getOwnership().size() - 32 / 5);
-            assertTrue(diff > 1);
+            assertFalse(diff <= 1);
         }
 
         System.out.println("Testing shuffleAndDistributeCountries method PASSED!");

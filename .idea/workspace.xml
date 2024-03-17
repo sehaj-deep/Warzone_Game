@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="819db189-7781-4265-823f-3bdf0384f25a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Diplomacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Diplomacy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/PlaySetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/PlaySetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java" afterDir="false" />
@@ -32,25 +35,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.DiplomacyTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DiplomacyTest.testExecute.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DiplomacyTest.testIsValidExecute.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DiplomacyTest.testIsValidIssue.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlaySetupTest.addPlayers.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlaySetupTest.assignCountries.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlaySetupTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PlaySetupTest.removePlayers.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;build__two__NB&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/nitinbirdi/Desktop/work/assignments/warzone project/build 2/Warzone_Game&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.DiplomacyTest.executor": "Run",
+    "JUnit.DiplomacyTest.testExecute.executor": "Run",
+    "JUnit.DiplomacyTest.testIsValidExecute.executor": "Run",
+    "JUnit.DiplomacyTest.testIsValidIssue.executor": "Run",
+    "JUnit.PlaySetupTest.addPlayers.executor": "Run",
+    "JUnit.PlaySetupTest.assignCountries.executor": "Run",
+    "JUnit.PlaySetupTest.executor": "Run",
+    "JUnit.PlaySetupTest.isAssignCountriesValid.executor": "Run",
+    "JUnit.PlaySetupTest.removePlayers.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit3",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "git-widget-placeholder": "build__two__NB",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/nitinbirdi/Desktop/work/assignments/warzone project/build 2/Warzone_Game"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="junit.framework.TestCase" />
@@ -74,38 +78,6 @@
       <option name="PACKAGE_NAME" value="models" />
       <option name="MAIN_CLASS_NAME" value="models.DiplomacyTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiplomacyTest.testIsValidExecute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="models.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="models" />
-      <option name="MAIN_CLASS_NAME" value="models.DiplomacyTest" />
-      <option name="METHOD_NAME" value="testIsValidExecute" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DiplomacyTest.testIsValidIssue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="models.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="models" />
-      <option name="MAIN_CLASS_NAME" value="models.DiplomacyTest" />
-      <option name="METHOD_NAME" value="testIsValidIssue" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -141,13 +113,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PlaySetupTest.assignCountries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="METHOD_NAME" value="assignCountries" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaySetupTest.isAssignCountriesValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="METHOD_NAME" value="isAssignCountriesValid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.PlaySetupTest" />
+        <item itemvalue="JUnit.PlaySetupTest.isAssignCountriesValid" />
+        <item itemvalue="JUnit.PlaySetupTest.assignCountries" />
         <item itemvalue="JUnit.PlaySetupTest.addPlayers" />
         <item itemvalue="JUnit.DiplomacyTest" />
-        <item itemvalue="JUnit.DiplomacyTest.testIsValidIssue" />
-        <item itemvalue="JUnit.DiplomacyTest.testIsValidExecute" />
       </list>
     </recent_temporary>
   </component>
@@ -175,32 +179,43 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
-          <line>50</line>
+          <line>49</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
-          <line>80</line>
+          <line>79</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
-          <line>52</line>
+          <line>51</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/phases/PlaySetup.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/phases/PlaySetup.java</url>
+          <line>99</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java</url>
-          <line>32</line>
-          <properties class="phases.PlaySetupTest" method="addPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="12" />
+          <line>137</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
-          <line>51</line>
-          <properties class="models.DiplomacyTest" method="testIsValidIssue">
+          <line>50</line>
+          <properties class="models.DiplomacyTest">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

@@ -19,7 +19,7 @@ public class PlaySetup extends Play {
 	/**
 	 * 
 	 * Constructs a PlaySetup object with the specified game engine.
-	 * 
+	 *
 	 * @param p_gameEngine the game engine
 	 */
 
@@ -94,15 +94,14 @@ public class PlaySetup extends Play {
 	 * Checks validity of assigned countries if a player has 2 or more countries
 	 * assigned than another player has, then this is invalid
 	 *
-	 * @param p_state current game state
 	 * @return true if valid. false if invalid
 	 */
-	public boolean isAssignCountriesValid(GameState p_state) {
-		int l_minSize = p_state.getPlayers().get(0).getOwnership().size(); // min of number of player's owned countries
-		int l_maxSize = p_state.getPlayers().get(0).getOwnership().size(); // max of number of player's owned countries
+	public boolean isAssignCountriesValid() {
+		int l_minSize = Integer.MAX_VALUE;// min of number of player's owned countries
+		int l_maxSize = Integer.MIN_VALUE; // max of number of player's owned countries
 
-		for (int i = 1; i < p_state.getPlayers().size(); i++) {
-			Player l_player = p_state.getPlayers().get(i);
+		for (int i = 1; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
+			Player l_player = d_gameEngine.getGameState().getPlayers().get(i);
 			int l_numCountriesOwned = l_player.getOwnership().size();
 			if (l_numCountriesOwned < l_minSize) {
 				l_minSize = l_numCountriesOwned;
@@ -120,7 +119,7 @@ public class PlaySetup extends Play {
 	@Override
 	public void assignCountries() {
 
-		if (!isAssignCountriesValid(d_gameEngine.getGameState())) {
+		if (!isAssignCountriesValid()) {
 			return;
 		}
 
@@ -153,21 +152,35 @@ public class PlaySetup extends Play {
 		this.next();
 	}
 
+	/**
+	 * Reinforce is invalid in playSetup
+	 */
 	@Override
 	public void reinforce() {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * Attack is invalid in playSetup
+	 */
 	@Override
 	public void attack() {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * fortify is invalid in playSetup
+	 */
 	@Override
 	public void fortify() {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * Loads map from a file.
+	 *
+	 * @param p_filename the name of the file
+	 */
 	@Override
 	public void loadMap(String p_filename) {
 		readMap(p_filename, true);
@@ -183,46 +196,74 @@ public class PlaySetup extends Play {
 		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 
+	/**
+	 * editMap is invalid in playSetup
+	 */
 	@Override
 	public void editMap(String p_filename) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * addContinent is invalid in playSetup
+	 */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * removeContinent is invalid in playSetup
+	 */
 	@Override
 	public void removeContinent(String p_continentName) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * addCountry is invalid in playSetup
+	 */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * removeCountry is invalid in playSetup
+	 */
 	@Override
 	public void removeCountry(String p_countryName) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * addNeighbor is invalid in playSetup
+	 */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * removeNeighbor is invalid in playSetup
+	 */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * saveMap is invalid in playSetup
+	 */
 	@Override
 	public void saveMap(String p_filename) {
 		this.printInvalidCommandMessage();
 	}
 
+	/**
+	 * Transition to the next phase of the game.
+	 * In PlaySetup, transitions to the Reinforce phase.
+	 */
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));

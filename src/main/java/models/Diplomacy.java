@@ -7,7 +7,7 @@ import game.Player;
 
 public class Diplomacy extends Order {
     // Player class
-    Player player;
+    Player d_player;
 
     // Target player name
     String d_targetPlayer;
@@ -15,11 +15,12 @@ public class Diplomacy extends Order {
     /**
      * Constructor for Diplomacy class
      *
-     * @param d_targetPlayer name of the opponent player
+     * @param p_newGameEngine the engine of the game
+     * @param p_targetPlayer name of the opponent player
      */
-    public Diplomacy(String d_targetPlayer, GameEngine newGameEngine) {
-        super(newGameEngine, "Diplomacy");
-        this.d_targetPlayer = d_targetPlayer;
+    public Diplomacy(String p_targetPlayer, GameEngine p_newGameEngine) {
+        super(p_newGameEngine, "Diplomacy");
+        this.d_targetPlayer = p_targetPlayer;
     }
 
     /**
@@ -33,10 +34,10 @@ public class Diplomacy extends Order {
     @Override
     public boolean isValidIssue(GameState p_state, int p_playerId) {
 
-        Player issuingPlayer = p_state.getPlayers().get(p_playerId);
+        Player l_issuingPlayer = p_state.getPlayers().get(p_playerId);
 
         // Check if the player has the Diplomacy card
-        if (!(issuingPlayer.getCardCount("Diplomacy") >= 1)) {
+        if (!(l_issuingPlayer.getCardCount("Diplomacy") >= 1)) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
@@ -100,7 +101,7 @@ public class Diplomacy extends Order {
         }
 
         // if the opponent player doesn't exist
-        if (!player.getPlayerName().contains(d_targetPlayer.trim())) {
+        if (!d_player.getPlayerName().contains(d_targetPlayer.trim())) {
             System.err.println("Player " + d_targetPlayer + " doesn't exist");
             return false;
         }
