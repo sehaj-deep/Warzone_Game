@@ -24,9 +24,9 @@ public abstract class Play extends Phase {
 		super(p_gameEngine);
 	}
 
-    /**
-     * Displays the map in text format, showing countries and their neighbors.
-     */
+	/**
+	 * Displays the map in text format, showing countries and their neighbors.
+	 */
 	@Override
 	public void showMap() {
 		System.out.println("The following is the text format of the map");
@@ -56,7 +56,7 @@ public abstract class Play extends Phase {
 
 		// to get the list of players
 		// FIXME: Find how to get list of players
-		List<Player> l_allPlayers = d_gameEngine.getD_players();
+		List<Player> l_allPlayers = d_gameEngine.getGameState().getPlayers();
 		if (l_allPlayers.size() == 0) {
 			return;
 		}
@@ -78,22 +78,34 @@ public abstract class Play extends Phase {
 	}
 
 	/**
-     * Placeholder method for editing a country.
-     */
+	 * Initialize the hash map representation of game board based on the map used in
+	 * the current game update d_board where key: country name, and value: number of
+	 * army positioned in the country
+	 *
+	 */
+	public void initalizeBoard() {
+		Set<String> l_mapCountries = d_gameEngine.getD_countries().keySet();
+		for (String countryName : l_mapCountries)
+			d_gameEngine.getGameState().getGameBoard().put(countryName, 0);
+	}
+
+	/**
+	 * Placeholder method for editing a country.
+	 */
 	public void editCountry() {
 		printInvalidCommandMessage();
 	}
 
-    /**
-     * Placeholder method for saving the map.
-     */
+	/**
+	 * Placeholder method for saving the map.
+	 */
 	public void saveMap() {
 		printInvalidCommandMessage();
 	}
 
-    /**
-     * Placeholder method for ending the game.
-     */
+	/**
+	 * Placeholder method for ending the game.
+	 */
 	public void endGame() {
 		// TODO
 		// d_gameEngine.setPhase(new End(d_gameEngine)));

@@ -1,12 +1,15 @@
 package phases;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import game.GameEngine;
 import game.GameState;
 import game.Player;
 import utils.ValidationException;
-
-import java.util.*;
-
 
 /**
  * Setup phase of the game where players are added and countries are assigned.
@@ -15,10 +18,10 @@ public class PlaySetup extends Play {
 
 	/**
 	 * 
-     * Constructs a PlaySetup object with the specified game engine.
-     * 
-     * @param p_gameEngine the game engine
-     */
+	 * Constructs a PlaySetup object with the specified game engine.
+	 * 
+	 * @param p_gameEngine the game engine
+	 */
 
 	public PlaySetup(GameEngine p_gameEngine) {
 		super(p_gameEngine);
@@ -41,14 +44,14 @@ public class PlaySetup extends Play {
 			throw new IllegalArgumentException("Invalid characters are not allowed");
 		}
 
-		if (d_gameEngine.getD_players().contains(l_playerName)) {
+		if (d_gameEngine.getGameState().getPlayers().contains(l_playerName)) {
 			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
 		}
 
-		d_gameEngine.getD_players().add(l_playerName);
+		Player l_player = new Player(p_playerName);
+		d_gameEngine.getGameState().getPlayers().add(l_player);
 
-		System.out.println("Player: " + p_playerName + " successfully added ");
-
+		System.out.println(p_playerName + " successfully added as a player");
 	}
 
 	/**
@@ -63,7 +66,7 @@ public class PlaySetup extends Play {
 			throw new IllegalArgumentException("Player name cannot be empty");
 		}
 
-		List<Player> players = d_gameEngine.getD_players();
+		List<Player> players = d_gameEngine.getGameState().getPlayers();
 		boolean playerRemoved = false;
 
 		Iterator<Player> iterator = players.iterator();
@@ -72,18 +75,19 @@ public class PlaySetup extends Play {
 			if (player.getPlayerName().equals(p_playerName)) {
 				iterator.remove();
 				playerRemoved = true;
-				break; // Assuming each player has a unique name, so we can break after finding the player
+				break; // Assuming each player has a unique name, so we can break after finding the
+						// player
 			}
 		}
 
 		if (!playerRemoved) {
-			throw new IllegalArgumentException("Player " + p_playerName + " not found");
+			throw new IllegalArgumentException(p_playerName + " not found in list of players");
 		}
 
-		Player l_playerName = new Player(p_playerName);
-		d_gameEngine.getD_players().remove(l_playerName);
+		Player l_player = new Player(p_playerName);
+		d_gameEngine.getGameState().getPlayers().remove(l_player);
 
-		System.out.println("Player: " + p_playerName + " successfully removed");
+		System.out.println(p_playerName + " successfully removed as a player");
 	}
 
 	/**
@@ -107,7 +111,7 @@ public class PlaySetup extends Play {
 				l_maxSize = l_numCountriesOwned;
 			}
 		}
-		return (l_maxSize - l_minSize) <= 1;
+		return (l_maxSize - l_minSize) >= 1;
 	}
 
 	/**
@@ -116,8 +120,11 @@ public class PlaySetup extends Play {
 	@Override
 	public void assignCountries() {
 
-		Set<String> p_countries = d_gameEngine.getD_countries().keySet();
+		if (!isAssignCountriesValid(d_gameEngine.getGameState())) {
+			return;
+		}
 
+		Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 		List<String> l_countriesList = new ArrayList<>(p_countries);
 
 		// Shuffle the list of available countries
@@ -125,17 +132,26 @@ public class PlaySetup extends Play {
 
 		for (int i = 0; i < l_countriesList.size(); i++) {
 			// Add assigned country to player's countries (d_ownership)
-			int l_idx = i % (d_gameEngine.getD_players().size());
-			Player l_player = d_gameEngine.getD_players().get(l_idx);
+			int l_idx = i % (d_gameEngine.getGameState().getPlayers().size());
+			Player l_player = d_gameEngine.getGameState().getPlayers().get(l_idx);
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
+		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
+//			System.out.println(l_player.getOwnership().
+			System.out.println("Player --------");
+			Set<String> temp = l_player.getOwnership();
+			for (String s : temp) {
+				System.out.println(s + ",");
+			}
+		}
 		System.out.println("Assign Countries Completed");
 
+		initalizeBoard();
 		showMap();
+
 		this.next();
 	}
-
 
 	@Override
 	public void reinforce() {

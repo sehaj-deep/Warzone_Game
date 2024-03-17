@@ -3,6 +3,7 @@ package phases;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import game.GameEngine;
 import game.GameState;
 import game.Order;
@@ -51,12 +52,10 @@ public class ExecuteOrdersPhase extends MainPlay {
 				// order is valid in the current state, so execute it
 				if (l_order.getIsAttack()) {
 					attack(p_state, i, l_order);
-				}
-				else {
+				} else {
 					l_order.execute(p_state, i);
 				}
-			}
-			else { // order can't be executed, so update error log and return it
+			} else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
 				return l_errorLog;
@@ -85,7 +84,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 */
 	public void executeAllOrders() {
 		d_countConquestPerPlayer = new ArrayList<>(); // count how many successful conquer by player
-		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+		for (int i = 0; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
 			d_countConquestPerPlayer.add(0);
 		}
 		int l_totNumOrders = getNumAllOrders(d_gameEngine.getGameState());
@@ -101,6 +100,13 @@ public class ExecuteOrdersPhase extends MainPlay {
 		giveCard(); // give cards to players
 		System.out.println("All Orders Executed in the Execute Orders Phase");
 
+		// check if there is a winner
+		if (d_gameEngine.getGameState().getPlayers().size() == 1) {
+			System.out.println("Player " + d_gameEngine.getGameState().getPlayers().get(0) + " has won the game");
+
+			// TODO log program exit
+			System.exit(0);
+		}
 		this.next();
 	}
 
@@ -112,7 +118,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * @param p_order    the player's attack order
 	 */
 	public void attack(GameState p_state, int p_playerId, Order p_order) {
-		List<Player> l_players = d_gameEngine.getD_players();
+		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
 		String l_targetCountry = p_order.getTargetCountry();
 		p_order.execute(p_state, p_playerId);
 		if (l_players.get(p_playerId).getOwnership().contains(l_targetCountry)) {
@@ -126,8 +132,8 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * phase and do it for all players
 	 */
 	public void giveCard() {
-		List<Player> l_players = d_gameEngine.getD_players();
-		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
+		for (int i = 0; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
 			if (d_countConquestPerPlayer.get(i) > 0) {
 				Random random = new Random();
 				int l_randNum = random.nextInt(4 - 1 + 1) + 1;
