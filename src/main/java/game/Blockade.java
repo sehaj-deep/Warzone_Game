@@ -55,6 +55,8 @@ public class Blockade extends Order {
 				break;
 			}
 		}
+
+		System.out.println("Blockade executed: " + d_countryId + " is now neutral and army unites have tripled.");
 	}
 
 	/**

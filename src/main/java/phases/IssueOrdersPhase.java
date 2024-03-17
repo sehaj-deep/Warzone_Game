@@ -13,41 +13,59 @@ import game.Player;
 public class IssueOrdersPhase extends MainPlay {
 
 	/**
-     * the Constructor for IssueOrdersPhase.
-     *
-     * @param p_gameEngine The instance of the game engine.
-     */
+	 * the Constructor for IssueOrdersPhase.
+	 *
+	 * @param p_gameEngine The instance of the game engine.
+	 */
 	public IssueOrdersPhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 
 	}
 
+	public boolean anyCommandLeft(Map<Player, Boolean> p_hasCommands) {
+		for (boolean l_hasCommand : p_hasCommands.values()) {
+			if (l_hasCommand) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
-     * Method to allow players to issue orders during this phase.
-     *
-     * @param p_scanner Scanner object for user input.
-     */
+	 * Method to allow players to issue orders during this phase.
+	 *
+	 * @param p_scanner Scanner object for user input.
+	 */
 	public void issueOrders(Scanner p_scanner) {
 		Map<Player, Boolean> l_hasCommands = new HashMap<>();
-		for (Player l_player : d_gameEngine.getD_players()) {
+		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
 			l_hasCommands.put(l_player, true);
 		}
 
-		for (Player l_player : d_gameEngine.getD_players()) {
-			if (!l_hasCommands.get(l_player)) {
-				continue;
-			}
+		while (anyCommandLeft(l_hasCommands)) {
+			for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
 
-			String l_orderCommand;
-			System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
-			l_orderCommand = p_scanner.nextLine();
+				if (!l_hasCommands.get(l_player)) {
+					continue;
+				}
 
-			if (l_orderCommand.toLowerCase().equals("none")) {
-				l_hasCommands.put(l_player, false);
-			} else if (l_orderCommand.toLowerCase().equals("showmap")) {
-				showMap();
-			} else {
-				l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+				String l_orderCommand;
+				boolean l_isCommandValid = false;
+
+				do {
+					System.out
+							.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+					l_orderCommand = p_scanner.nextLine();
+
+					if (l_orderCommand.toLowerCase().equals("none")) {
+						l_hasCommands.put(l_player, false);
+						break;
+					} else if (l_orderCommand.toLowerCase().equals("showmap")) {
+						showMap();
+					} else {
+						l_isCommandValid = l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+					}
+				} while (!l_isCommandValid);
 			}
 		}
 		this.next();
@@ -126,8 +144,8 @@ public class IssueOrdersPhase extends MainPlay {
 	}
 
 	/**
-     * Moves the game to the next phase after the issuing orders phase.
-     */
+	 * Moves the game to the next phase after the issuing orders phase.
+	 */
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ExecuteOrdersPhase(d_gameEngine));
