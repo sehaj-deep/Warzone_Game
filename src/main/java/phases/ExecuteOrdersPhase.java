@@ -62,7 +62,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 			} else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
-				return l_errorLog;
+				continue;
 			}
 		}
 		return l_errorLog;
@@ -111,6 +111,10 @@ public class ExecuteOrdersPhase extends MainPlay {
 			// TODO log program exit
 			System.exit(0);
 		}
+
+		for (Player p_singlePlayer : d_gameEngine.getGameState().getPlayers()) {
+			p_singlePlayer.resetTheNegotiation();
+		}
 		this.next();
 	}
 
@@ -124,11 +128,20 @@ public class ExecuteOrdersPhase extends MainPlay {
 	public void attack(GameState p_state, int p_playerId, Order p_order) {
 		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
 		String l_targetCountry = p_order.getTargetCountry();
-		p_order.execute(p_state, p_playerId);
-		if (l_players.get(p_playerId).getOwnership().contains(l_targetCountry)) {
-			int l_count = d_countConquestPerPlayer.get(p_playerId);
-			d_countConquestPerPlayer.set(p_playerId, l_count + 1);
+		Player l_negotiatedPlayer = null;
+		for (Player l_singlePlayer : l_players) {
+			if (l_singlePlayer.getOwnership().contains(l_targetCountry)) {
+				l_negotiatedPlayer = l_singlePlayer;
+			}
 		}
+		if (!l_players.get(p_playerId).getD_negotiatedWith().contains(l_negotiatedPlayer)) {
+			p_order.execute(p_state, p_playerId);
+			if (l_players.get(p_playerId).getOwnership().contains(l_targetCountry)) {
+				int l_count = d_countConquestPerPlayer.get(p_playerId);
+				d_countConquestPerPlayer.set(p_playerId, l_count + 1);
+			}
+		}
+
 	}
 
 	/**
@@ -145,18 +158,23 @@ public class ExecuteOrdersPhase extends MainPlay {
 				switch (l_randNum) {
 				case 1:
 					l_cardName = "Bomb";
+					System.out.println("You have been assigned Bomb Card.");
 					break;
 				case 2:
 					l_cardName = "Blockade";
+					System.out.println("You have been assigned Blockade Card.");
 					break;
 				case 3:
 					l_cardName = "Airlift";
+					System.out.println("You have been assigned Airlift Card.");
 					break;
 				default:
 					l_cardName = "Diplomacy";
+					System.out.println("You have been assigned Diplomacy Card.");
 					break;
 				}
 				l_players.get(i).increaseCardCount(l_cardName);
+				l_players.get(i).displayCards();
 			}
 		}
 	}

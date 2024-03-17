@@ -42,12 +42,13 @@ public class Airlift extends Order {
 		this.d_numArmies = p_numArmies;
 	}
 
-    /**
-     * Executes the Airlift order by moving armies from source country to target country.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     */
+	/**
+	 * Executes the Airlift order by moving armies from source country to target
+	 * country.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 */
 	@Override
 	public void execute(GameState p_state, int p_playerId) {
 		Map<String, Integer> l_gameBoard = p_state.getGameBoard();
@@ -58,15 +59,18 @@ public class Airlift extends Order {
 		// decrement the number of airlift cards
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
 		l_currentPlayer.decreaseCardCount(this.d_orderName);
+
+		System.out.println(
+				"Airlift executed:" + d_numArmies + "armies moved from " + d_sourceCountry + " to " + d_targetCountry);
 	}
 
 	/**
-     * checks if player can issue the Airlift order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player issuing the order.
-     * @return True if the order is valid to issue, otherwise false.
-     */
+	 * checks if player can issue the Airlift order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player issuing the order.
+	 * @return True if the order is valid to issue, otherwise false.
+	 */
 	@Override
 	public boolean isValidIssue(GameState p_state, int p_playerId) {
 
@@ -90,14 +94,14 @@ public class Airlift extends Order {
 
 		return true;
 	}
-	
+
 	/**
-     * checks if player can execute the Airlift order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     * @return True if the order is valid to execute, otherwise false.
-     */
+	 * checks if player can execute the Airlift order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 * @return True if the order is valid to execute, otherwise false.
+	 */
 	@Override
 	public boolean isValidExecute(GameState p_state, int p_playerId) {
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
@@ -108,11 +112,11 @@ public class Airlift extends Order {
 	}
 
 	/**
-     * method to make the gamestate constant for airlift order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     */
+	 * method to make the gamestate constant for airlift order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 */
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
 		return;

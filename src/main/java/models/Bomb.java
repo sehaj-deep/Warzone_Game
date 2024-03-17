@@ -20,22 +20,24 @@ public class Bomb extends Order {
 	private String d_countryName;
 
 	/**
-     * Parameterized Constructor for Bomb class.
-     *
-     * @param p_countryName The name of the country where to drop the bomb.
-     * @param p_gameEngine The instance of Game Engine Class.
-     */
+	 * Parameterized Constructor for Bomb class.
+	 *
+	 * @param p_countryName The name of the country where to drop the bomb.
+	 * @param p_gameEngine  The instance of Game Engine Class.
+	 */
 	public Bomb(String p_countryName, GameEngine p_gameEngine) {
 		super(p_gameEngine, "Bomb");
 		this.d_countryName = p_countryName;
+		this.setIsAttack(true);
 	}
 
 	/**
-     * Executes the Bomb order by reducing the number of armies in the targeted country by half.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     */
+	 * Executes the Bomb order by reducing the number of armies in the targeted
+	 * country by half.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 */
 	@Override
 	public void execute(GameState p_state, int p_playerId) {
 		Map<String, Integer> l_gameBoard = p_state.getGameBoard();
@@ -45,15 +47,17 @@ public class Bomb extends Order {
 		// decrement the number of bomb cards
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
 		l_currentPlayer.decreaseCardCount(this.d_orderName);
+
+		System.out.println("Bomb executed: " + d_countryName + " has been bombed and it's armies reduced to half.");
 	}
 
 	/**
-     * checks if player can issue the Bomb order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player issuing the order.
-     * @return True if the order is valid to issue, otherwise false.
-     */
+	 * checks if player can issue the Bomb order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player issuing the order.
+	 * @return True if the order is valid to issue, otherwise false.
+	 */
 	@Override
 	public boolean isValidIssue(GameState p_state, int p_playerId) {
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
@@ -72,12 +76,12 @@ public class Bomb extends Order {
 	}
 
 	/**
-     * checks if player can execute the Bomb order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     * @return True if the order is valid to execute, otherwise false.
-     */
+	 * checks if player can execute the Bomb order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 * @return True if the order is valid to execute, otherwise false.
+	 */
 	@Override
 	public boolean isValidExecute(GameState p_state, int p_playerId) {
 		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
@@ -88,11 +92,11 @@ public class Bomb extends Order {
 	}
 
 	/**
-     * method to make the gamestate constant for Bomb order.
-     *
-     * @param p_state The current state of the game.
-     * @param p_playerId The ID of the player executing the order.
-     */
+	 * method to make the gamestate constant for Bomb order.
+	 *
+	 * @param p_state    The current state of the game.
+	 * @param p_playerId The ID of the player executing the order.
+	 */
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
 		return;

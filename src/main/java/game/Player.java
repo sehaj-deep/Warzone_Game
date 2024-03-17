@@ -10,6 +10,7 @@ import java.util.Set;
 
 import models.Airlift;
 import models.Bomb;
+import models.Diplomacy;
 
 /**
  * Player Class this class stores information and the state of the game about a
@@ -21,18 +22,18 @@ public class Player {
 	/**
 	 * player name
 	 */
-	private String d_playerName; 
+	private String d_playerName;
 
 	/**
 	 * list of orders issued by the player
 	 */
-	private Queue<Order> d_listOrders; 
+	private Queue<Order> d_listOrders;
 
 	/**
 	 * set of countries owned by the player
 	 */
-	private Set<String> d_ownership; 
-	
+	private Set<String> d_ownership;
+
 	/**
 	 * A mapping of card names to the count of those cards held by the player.
 	 */
@@ -149,8 +150,7 @@ public class Player {
 			break;
 		case "negotiate":
 			l_playerId = p_tokens[1];
-			// TODO when negotiate is completed
-			// l_commandValidity = issueNegotiateOrder(p_gameEngine, l_playerId);
+			l_isCommandValid = issueNegotiateOrder(p_gameEngine, l_playerId);
 			break;
 		case "blockade":
 			l_targetCountry = p_tokens[1];
@@ -161,6 +161,17 @@ public class Player {
 			l_isCommandValid = false;
 		}
 		return l_isCommandValid;
+	}
+
+	private boolean issueNegotiateOrder(GameEngine p_gameEngine, String l_playerId) {
+		Diplomacy l_negotiate = new Diplomacy(l_playerId, p_gameEngine);
+
+		if (l_negotiate.isValidIssue(p_gameEngine.getGameState(),
+				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+			d_listOrders.add(l_negotiate);
+			return true;
+		}
+		return false;
 	}
 
 	private boolean issueDeployOrder(GameEngine p_gameEngine, String l_targetCountry, int l_numberOfArmies) {
@@ -254,6 +265,15 @@ public class Player {
 	 */
 	public void decreaseCardCount(String p_cardName) {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
+	}
+
+	/**
+	 * To display the card count of each card
+	 */
+	public void displayCards() {
+		for (HashMap.Entry<String, Integer> l_cards : d_listOfCards.entrySet()) {
+			System.out.println("The count of the Card :" + l_cards.getKey() + " is:" + l_cards.getValue());
+		}
 	}
 
 	/**
