@@ -1,10 +1,10 @@
 package map;
 
-import game.GameEngineNew;
+import game.GameEngine;
 
 public class Preload extends Edit {
 
-	public Preload(GameEngineNew p_gameEngine) {
+	public Preload(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

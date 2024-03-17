@@ -10,7 +10,7 @@ import map.Preload;
 import models.Continent;
 import models.Country;
 import phases.ExecuteOrdersPhase;
-import phases.IssueOrdersPhaseNew;
+import phases.IssueOrdersPhase;
 import phases.Phase;
 import phases.PlaySetup;
 import phases.ReinforcePhase;
@@ -18,7 +18,7 @@ import utils.Common;
 import utils.LogEntryBuffer;
 import utils.LogFileWriter;
 
-public class GameEngineNew {
+public class GameEngine {
 
 	private LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
 	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
@@ -70,7 +70,7 @@ public class GameEngineNew {
 	 */
 	public void setPhase(Phase p_phase) {
 		d_gamePhase = p_phase;
-		d_logEntryBuffer.setD_currentPhase("Current phase is " + p_phase);
+		d_logEntryBuffer.setD_currentPhase("Current phase is " + p_phase.getClass());
 	}
 
 	/**
@@ -229,8 +229,8 @@ public class GameEngineNew {
 					continue;
 				}
 
-				if (this.getPhase().getClass().equals(new IssueOrdersPhaseNew(this).getClass())) {
-					IssueOrdersPhaseNew l_issueOrdersPhase = (IssueOrdersPhaseNew) this.getPhase();
+				if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
+					IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
 
 					l_issueOrdersPhase.issueOrders(l_scanner);
 					continue;

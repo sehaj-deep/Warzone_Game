@@ -2,7 +2,7 @@ package models;
 
 import java.util.Map;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.GameState;
 import game.Order;
 import game.Player;
@@ -32,7 +32,7 @@ public class Airlift extends Order {
 	 * @param p_numArmies     The number of armies to airlift
 	 * @param p_gameEngineNew The instance of Game Engine Class
 	 */
-	public Airlift(String p_sourceCountry, String p_targetCountry, int p_numArmies, GameEngineNew p_gameEngineNew) {
+	public Airlift(String p_sourceCountry, String p_targetCountry, int p_numArmies, GameEngine p_gameEngineNew) {
 		super(p_gameEngineNew, "Airlift");
 		this.d_sourceCountry = p_sourceCountry;
 		this.d_targetCountry = p_targetCountry;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.Player;
 import models.Continent;
 import models.Country;
@@ -16,7 +16,7 @@ public abstract class Play extends Phase {
 	 * 
 	 * @param p_gameEngine a context object for Play phase
 	 */
-	public Play(GameEngineNew p_gameEngine) {
+	public Play(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

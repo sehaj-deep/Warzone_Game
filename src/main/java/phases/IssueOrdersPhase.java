@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.Player;
 
-public class IssueOrdersPhaseNew extends MainPlay {
+public class IssueOrdersPhase extends MainPlay {
 
-	public IssueOrdersPhaseNew(GameEngineNew p_gameEngine) {
+	public IssueOrdersPhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 
 	}

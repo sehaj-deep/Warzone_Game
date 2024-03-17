@@ -86,7 +86,7 @@ public class Player {
 	 *
 	 * @param p_newOrder new order a player wants to take in the current round
 	 */
-	public void issue_order(String[] p_tokens, GameEngineNew p_gameEngine) {
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
 
 		String l_sourceCountry = "";
 		String l_targetCountry = "";

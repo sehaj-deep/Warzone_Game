@@ -18,7 +18,7 @@ public class Blockade extends Order {
 	 * @param p_countryId     The ID of the country to be blockaded.
 	 * @param p_gameEngineNew The game engine associated with the order.
 	 */
-	public Blockade(String p_countryId, GameEngineNew p_gameEngineNew) {
+	public Blockade(String p_countryId, GameEngine p_gameEngineNew) {
 		super(p_gameEngineNew, "Blockade");
 		d_countryId = p_countryId;
 	}
