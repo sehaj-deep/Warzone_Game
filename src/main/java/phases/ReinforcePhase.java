@@ -2,7 +2,6 @@ package phases;
 
 import java.util.HashMap;
 import java.util.Set;
-
 import game.GameEngine;
 import game.Player;
 import models.Continent;

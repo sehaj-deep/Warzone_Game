@@ -12,11 +12,11 @@ public class Deploy extends Order {
 	/**
 	 * Parameterized Constructor of Deploy class
 	 * 
-	 * @param p_numArmy   is a number of armies for deployment
-	 * @param p_countryId is the country where armies will be placed
+	 * @param p_numArmy       is a number of armies for deployment
+	 * @param p_countryId     is the country where armies will be placed
+	 * @param p_gameEngineNew the game engine of the game
 	 */
 	public Deploy(String p_countryId, int p_numArmy, GameEngine p_gameEngineNew) {
-
 		super(p_gameEngineNew, "Deploy");
 		d_numArmy = p_numArmy;
 		d_countryId = p_countryId;
@@ -57,20 +57,21 @@ public class Deploy extends Order {
 			if (!p_state.getPlayers().get(p_playerId).getOwnership().contains(d_countryId)) {
 				// country where army to be deployed is not owned by the player issued the order
 				l_errMessage = "Country where army to be deployed is not owned by the player issued the order";
-				throw new ValidationException();
+				throw new ValidationException(l_errMessage);
 			}
 			if (d_numArmy < 0) {
 				// can't pass negative number for number of armies for deployment
 				l_errMessage = "Can't pass negative number for number of armies for deployment";
-				throw new ValidationException();
+				throw new ValidationException(l_errMessage);
 			}
 			if (d_numArmy > p_state.getReinforcements().get(p_playerId)) {
 				// deploying more armies than the player has
 				l_errMessage = "Can't deploy more armies than the reinforcement armies available to the player";
-				throw new ValidationException();
+				throw new ValidationException(l_errMessage);
 			}
-		} catch (ValidationException e) {
-			System.out.println(l_errMessage);
+		}
+		catch (ValidationException e) {
+			System.out.println(e);
 			return false;
 		}
 		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
@@ -100,7 +101,8 @@ public class Deploy extends Order {
 				l_errMessage = "Can't pass negative number for number of armies for deployment";
 				throw new ValidationException();
 			}
-		} catch (ValidationException e) {
+		}
+		catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}
@@ -117,8 +119,8 @@ public class Deploy extends Order {
 	 */
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
-		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
-		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
+		int l_reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
+		p_state.getReinforcements().set(p_playerId, l_reinforcementAvailable - d_numArmy);
 	}
 
 	/**
@@ -130,8 +132,8 @@ public class Deploy extends Order {
 	 */
 	@Override
 	public void execute(GameState p_state, int p_playerId) {
-		int currNumArmy = p_state.getGameBoard().get(d_countryId);
-		p_state.getGameBoard().put(d_countryId, currNumArmy + d_numArmy);
+		int l_currNumArmy = p_state.getGameBoard().get(d_countryId);
+		p_state.getGameBoard().put(d_countryId, l_currNumArmy + d_numArmy);
 	}
 
 	/**

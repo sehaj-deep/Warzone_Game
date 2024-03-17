@@ -82,6 +82,16 @@ public class Player {
 	}
 
 	/**
+	 * remove a country from the player's owned countries
+	 *
+	 * @param p_country is the country name to be removed from player's owned
+	 *                  countries
+	 */
+	public void removeCountry(String p_country) {
+		d_ownership.remove(p_country);
+	}
+
+	/**
 	 * issue an order for this round
 	 *
 	 * @param p_newOrder new order a player wants to take in the current round

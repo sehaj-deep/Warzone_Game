@@ -2,7 +2,7 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 import game.GameEngine;
 import game.GameState;
 import game.Order;
@@ -12,6 +12,7 @@ import game.Player;
  * Executes orders of players in the game in a round-robin fashion for one time.
  */
 public class ExecuteOrdersPhase extends MainPlay {
+	private List<Integer> d_countConquestPerPlayer;
 
 	/**
 	 * constructor of Execute Orders Phase
@@ -49,8 +50,14 @@ public class ExecuteOrdersPhase extends MainPlay {
 			Order l_order = l_player.next_order(); // get the next order from player's orders list
 			if (l_order.isValidExecute(p_state, i)) {
 				// order is valid in the current state, so execute it
-				l_order.execute(p_state, i);
-			} else { // order can't be executed, so update error log and return it
+				if (l_order.getIsAttack()) {
+					attack(p_state, i, l_order);
+				}
+				else {
+					l_order.execute(p_state, i);
+				}
+			}
+			else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
 				return l_errorLog;
@@ -80,8 +87,12 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * @param p_state current state of the game
 	 * @param p_gMap  data representing the map used in the game
 	 */
-	public void executeAllOrders() {
 
+	public void executeAllOrders() {
+		d_countConquestPerPlayer = new ArrayList<>(); // count how many successful conquer by player
+		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+			d_countConquestPerPlayer.add(0);
+		}
 		int l_totNumOrders = getNumAllOrders(d_gameEngine.getGameState());
 		while (l_totNumOrders > 0) {
 			List<Integer> l_errorLog = roundRobinExecution(d_gameEngine.getGameState());
@@ -92,9 +103,75 @@ public class ExecuteOrdersPhase extends MainPlay {
 			}
 			l_totNumOrders = getNumAllOrders(d_gameEngine.getGameState());
 		}
+		giveCard(); // give cards to players
 		System.out.println("All Orders Executed in the Execute Orders Phase");
 
 		this.next();
+	}
+
+	/**
+	 * Check whether attack has been successful and conquered the target country
+	 * 
+	 * @param p_state    current state of the game
+	 * @param p_playerId the index of the player given the order in players' list
+	 * @param p_order    the player's attack order
+	 */
+	public void attack(GameState p_state, int p_playerId, Order p_order) {
+		List<Player> l_players = d_gameEngine.getD_players();
+		String l_targetCountry = p_order.getTargetCountry();
+		p_order.execute(p_state, p_playerId);
+		if (l_players.get(p_playerId).getOwnership().contains(l_targetCountry)) {
+			int l_count = d_countConquestPerPlayer.get(p_playerId);
+			d_countConquestPerPlayer.set(p_playerId, l_count + 1);
+		}
+	}
+
+	/**
+	 * Give a player a card if conquered at least one country in this execution
+	 * phase and do it for all players
+	 */
+	public void giveCard() {
+		List<Player> l_players = d_gameEngine.getD_players();
+		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
+			if (d_countConquestPerPlayer.get(i) > 0) {
+				Random random = new Random();
+				int l_randNum = random.nextInt(4 - 1 + 1) + 1;
+				String l_cardName;
+				switch (l_randNum) {
+				case 1:
+					l_cardName = "Bomb";
+					break;
+				case 2:
+					l_cardName = "Blockade";
+					break;
+				case 3:
+					l_cardName = "Airlift";
+					break;
+				default:
+					l_cardName = "Diplomacy";
+					break;
+				}
+				l_players.get(i).increaseCardCount(l_cardName);
+			}
+		}
+	}
+
+	/**
+	 * getter function for d_countConquestPerPlayer data variable
+	 * 
+	 * @return new list of number of conquers succeeded
+	 */
+	public List<Integer> getCountConquestPerPlayer() {
+		return d_countConquestPerPlayer;
+	}
+
+	/**
+	 * Update d_countConquestPerPlayer data variable used for ease of testing
+	 * 
+	 * @param p_countConquestPerPlayer a new list for d_countConquestPerPlayer
+	 */
+	public void setCountConquestPerPlayer(List<Integer> p_countConquestPerPlayer) {
+		d_countConquestPerPlayer = p_countConquestPerPlayer;
 	}
 
 	@Override
@@ -154,6 +231,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 	@Override
 	public void reinforce() {
 		// TODO Auto-generated method stub
+		this.printInvalidCommandMessage();
 
 	}
 
