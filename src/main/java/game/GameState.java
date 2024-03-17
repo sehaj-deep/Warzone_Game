@@ -20,7 +20,6 @@ public class GameState {
 	/**
 	 * Parameterized Constructor
 	 *
-	 * @param p_players is a list of players playing the game
 	 */
 	public GameState() {
 		d_players = new ArrayList<>();

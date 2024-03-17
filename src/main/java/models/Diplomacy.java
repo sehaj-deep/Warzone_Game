@@ -5,21 +5,29 @@ import game.GameState;
 import game.Order;
 import game.Player;
 
+/**
+ * Diplomacy order to check if a player use this card, they cannot attack each other
+ */
 public class Diplomacy extends Order {
-    // Player class
-    Player player;
+    /**
+     * Player class
+     */
+    Player d_player;
 
-    // Target player name
+    /**
+     * Target player name
+     */
     String d_targetPlayer;
 
     /**
      * Constructor for Diplomacy class
      *
-     * @param d_targetPlayer name of the opponent player
+     * @param p_newGameEngine the engine of the game
+     * @param p_targetPlayer  name of the opponent player
      */
-    public Diplomacy(String d_targetPlayer, GameEngine newGameEngine) {
-        super(newGameEngine, "Diplomacy");
-        this.d_targetPlayer = d_targetPlayer;
+    public Diplomacy(String p_targetPlayer, GameEngine p_newGameEngine) {
+        super(p_newGameEngine, "Diplomacy");
+        this.d_targetPlayer = p_targetPlayer;
     }
 
     /**
@@ -33,10 +41,10 @@ public class Diplomacy extends Order {
     @Override
     public boolean isValidIssue(GameState p_state, int p_playerId) {
 
-        Player issuingPlayer = p_state.getPlayers().get(p_playerId);
+        Player l_issuingPlayer = p_state.getPlayers().get(p_playerId);
 
         // Check if the player has the Diplomacy card
-        if (!(issuingPlayer.getCardCount("Diplomacy") >= 1)) {
+        if (!(l_issuingPlayer.getCardCount("Diplomacy") >= 1)) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
@@ -66,7 +74,9 @@ public class Diplomacy extends Order {
      */
     @Override
     public void execute(GameState p_state, int p_playerId) {
+        // The player who is issuing order
         Player l_issuingPlayer = p_state.getPlayers().get(p_playerId);
+        // The target player
         Player l_targetPlayer = null;
 
         // Find the target player in the list of players
@@ -100,7 +110,7 @@ public class Diplomacy extends Order {
         }
 
         // if the opponent player doesn't exist
-        if (!player.getPlayerName().contains(d_targetPlayer.trim())) {
+        if (!d_player.getPlayerName().contains(d_targetPlayer.trim())) {
             System.err.println("Player " + d_targetPlayer + " doesn't exist");
             return false;
         }
@@ -108,13 +118,14 @@ public class Diplomacy extends Order {
         return true;
     }
 
+    /**
+     * method to make the gamestate constant for Bomb order.
+     *
+     * @param p_state The current state of the game.
+     * @param p_playerId The ID of the player executing the order.
+     */
     @Override
     public void changeGameState(GameState p_state, int p_playerId) {
         return;
-    }
-
-    @Override
-    public String toString() {
-        return null;
     }
 }
