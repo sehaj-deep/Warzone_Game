@@ -20,7 +20,7 @@ public class Advance extends Order {
 	 * @param p_numArmy       a number of armies for advancement
 	 * @param p_sourceCountry the country where armies will be moving from
 	 * @param p_targetCountry the country where armies will be placed
-	 * @param p_gameEngineNew the game engine of the game
+	 * @param p_gameEngine    the game engine of the game
 	 */
 	public Advance(int p_numArmy, String p_sourceCountry, String p_targetCountry, GameEngine p_gameEngine) {
 		super(p_gameEngine, "Advance");
@@ -81,9 +81,11 @@ public class Advance extends Order {
 		// find the owner of the target country
 		List<Player> l_players = d_gameEngine.getD_players();
 		int l_prevOwnerId;
+		boolean isNeutralCountry = true;
 		for (l_prevOwnerId = 0; l_prevOwnerId < l_players.size(); l_prevOwnerId++) {
 			if (l_players.get(l_prevOwnerId).getOwnership().contains(d_targetCountry)) {
 				// found the owner
+				isNeutralCountry = false;
 				break;
 			}
 		}
@@ -114,8 +116,11 @@ public class Advance extends Order {
 		if (l_numArmyDefence == 0) { // conquer successful
 			// add the target country to owner countries of the player who gave the advance
 			d_gameEngine.getD_players().get(p_playerId).conquerCountry(d_targetCountry);
-			// remove the target country from the previous owner
-			d_gameEngine.getD_players().get(l_prevOwnerId).removeCountry(d_targetCountry);
+			if (!isNeutralCountry) {
+				// remove the target country from the previous owner as it is not neutral by
+				// blockade
+				d_gameEngine.getD_players().get(l_prevOwnerId).removeCountry(d_targetCountry);
+			}
 			p_state.getGameBoard().put(d_targetCountry, l_numArmyAttack);
 		}
 		else { // no conquer. previous owner still has the target country
