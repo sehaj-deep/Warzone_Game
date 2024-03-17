@@ -1,25 +1,26 @@
-package map;
+package phases;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import constants.GameConstants;
+import game.GameEngineNew;
+import map.Preload;
 
-/**
- * To test MapEditor class
- */
-public class MapEditorTest {
+public class PhaseTest {
 
-	private MapEditor d_mapEditor;
+	private GameEngineNew d_gameEngine;
+	private Preload d_preload;
 	private String d_fileName;
 
-	/**
-	 * set up the tests
-	 */
 	@Before
-	public void setUp() {
-		d_mapEditor = new MapEditor();
+	public void setup() {
+		d_gameEngine = new GameEngineNew();
+		d_preload = new Preload(d_gameEngine);
+		d_gameEngine.setPhase(d_preload);
 	}
 
 	/**
@@ -29,8 +30,8 @@ public class MapEditorTest {
 	public void testValidateMapConnectedGraph() {
 		// Create a MapEditor instance with a disconnected graph map
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test.map";
-		MapReader.readMap(d_mapEditor, d_fileName, false);
-		assertTrue(d_mapEditor.validateMap());
+		d_preload.readMap(d_fileName, false);
+		assertTrue(d_preload.validateMap());
 	}
 
 	/**
@@ -40,8 +41,8 @@ public class MapEditorTest {
 	public void testValidateMapDisconnectedGraph() {
 		// Create a MapEditor instance with a disconnected graph map
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_graph.map";
-		MapReader.readMap(d_mapEditor, d_fileName, false);
-		assertFalse(d_mapEditor.validateMap());
+		d_preload.readMap(d_fileName, false);
+		assertFalse(d_preload.validateMap());
 	}
 
 	/**
@@ -51,18 +52,20 @@ public class MapEditorTest {
 	public void testValidateMapContinentWithNoCountries() {
 		// Create a MapEditor instance with a continent having no countries
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_empty_continent.map";
-		MapReader.readMap(d_mapEditor, d_fileName, false);
-		assertFalse(d_mapEditor.validateMap());
+		d_preload.readMap(d_fileName, false);
+		assertFalse(d_preload.validateMap());
 	}
 
 	/**
 	 * test a disconnected subgraph
 	 */
-	/*
-	 * @Test public void testValidateMapDisconnectedContinentGraph() { // Create a
-	 * MapEditor instance with a continent containing a disconnected // subgraph
-	 * d_fileName = GameConstants.SRC_TEST_RESOURCES +
-	 * "test_disconnected_subgraph.map"; MapReader.readMap(d_mapEditor, d_fileName,
-	 * false); assertTrue(d_mapEditor.validateMap()); }
-	 */
+	@Test
+	public void testValidateMapDisconnectedContinentGraph() {
+		// Create a MapEditor instance with a continent containing a
+		// disconnectedsubgraph
+		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
+		d_preload.readMap(d_fileName, false);
+		assertFalse(d_preload.validateMap());
+	}
+
 }

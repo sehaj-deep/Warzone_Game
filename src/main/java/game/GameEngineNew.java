@@ -3,14 +3,17 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import map.Preload;
 import models.Continent;
 import models.Country;
+import phases.ExecuteOrdersPhase;
+import phases.IssueOrdersPhaseNew;
 import phases.Phase;
 import phases.PlaySetup;
+import phases.ReinforcePhase;
 import utils.Common;
 import utils.LogEntryBuffer;
 import utils.LogFileWriter;
@@ -21,6 +24,8 @@ public class GameEngineNew {
 	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
 	private static List<Player> d_players = new ArrayList<>();
+	private GameState d_gameState = new GameState(d_players);
+	private Map<Player, Boolean> d_validOrder = new HashMap<>();
 
 	protected Phase d_gamePhase;
 
@@ -65,7 +70,7 @@ public class GameEngineNew {
 	 */
 	public void setPhase(Phase p_phase) {
 		d_gamePhase = p_phase;
-		d_logEntryBuffer.setD_currentPhase("Continent " + p_phase + " was added.");
+		d_logEntryBuffer.setD_currentPhase("Current phase is " + p_phase);
 	}
 
 	/**
@@ -169,6 +174,15 @@ public class GameEngineNew {
 	}
 
 	/**
+	 * The g
+	 * 
+	 * @return
+	 */
+	public GameState getGameState() {
+		return d_gameState;
+	}
+
+	/**
 	 * Set the name of the map
 	 * 
 	 * @param d_mapName Name of the map file
@@ -197,44 +211,43 @@ public class GameEngineNew {
 				break;
 			}
 
-			String command;
-			// remove this
-			int i = 0;
-			while (true) { // to iterate over main game - find end condition
-				// FIXME
-				if (i == 5) {
-					break;
-				}
+			String l_command = "";
 
-				// TODO:create a boolean List to indicate that you are finished - initialise as
-				// well
-				// orders.
-				// d_currentPhase.reinforce() - before issue orders
-//				d_curentPhase.next();
-				do { // for issue orders phase
-						// TODO: If time permits, every time we set a new phase
-						// we should sysout the valid commands to the user
-						// (do this in every Phases' constructor?)
-
-					// TODO: loop over each player leaving those who do not have valid orders
-
-					for (Player p : d_players) {
-						String userInput = l_scanner.nextLine();
-						parseUserCommand(userInput);
-
-						// continue if not valid - keep a boolean list to maintain this
-
-					}
-					System.out.println("Enter a command: ");
-					command = l_scanner.nextLine();
-					parseUserCommand(command);
-				} while (command.toLowerCase() != "done");
-//				d_curentPhase.next();	//to reach execute phase
-//				d_curentPhase.execute();
-//				d_curentPhase.next();	// for reinforcement
-
+			while (this.getPhase().getClass().equals(new PlaySetup(this).getClass())) {
+				System.out.println("Enter a command: ");
+				l_command = l_scanner.nextLine();
+				parseUserCommand(l_command);
 			}
 
+			l_command = "";
+			do {
+
+				if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
+					ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
+
+					l_reinforcePhase.calculateReinforcements();
+					continue;
+				}
+
+				if (this.getPhase().getClass().equals(new IssueOrdersPhaseNew(this).getClass())) {
+					IssueOrdersPhaseNew l_issueOrdersPhase = (IssueOrdersPhaseNew) this.getPhase();
+
+					l_issueOrdersPhase.issueOrders(l_scanner);
+					continue;
+				}
+
+				if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
+					ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
+
+					l_executeOrdersPhase.executeAllOrders();
+					continue;
+				}
+
+				System.out.println("Enter a command: ");
+				l_command = l_scanner.nextLine();
+
+				parseUserCommand(l_command);
+			} while (l_command.toLowerCase() != "done");
 		}
 	}
 
@@ -273,9 +286,6 @@ public class GameEngineNew {
 			break;
 		case "loadmap":
 			parseLoadMapCommand(l_tokens);
-			break;
-		case "deploy":
-			parseDeployCommand(l_tokens);
 			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
@@ -556,16 +566,14 @@ public class GameEngineNew {
 				case "-add":
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
-						// TODO Add/Modify this method in the appropriate phase classes
-						// d_gamePhase.addPlayer(l_playerName, d_gameState);
+						d_gamePhase.addPlayers(l_playerName);
 						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was added as a player.");
 					}
 					break;
 				case "-remove":
 					if (!p_tokens[i].startsWith("-")) {
 						l_playerName = p_tokens[i];
-						// TODO Add/Modify this method in the appropriate phase classes
-						// d_gamePhase.removePlayer(l_playerName, d_gameState);
+						d_gamePhase.removePlayers(l_playerName);
 						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was removed from players.");
 					}
 					break;
@@ -582,8 +590,7 @@ public class GameEngineNew {
 	 * @param p_tokens Command tokens.
 	 */
 	private void parseAssignCountriesCommand(String[] p_tokens) {
-		// TODO Add/Modify this method in the appropriate phase classes
-		// d_gamePhase.assignCountriesToPlayer(d_gameState, d_mapEditor);
+		d_gamePhase.assignCountries();
 		d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
 	}
 
@@ -597,8 +604,7 @@ public class GameEngineNew {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
-			// TODO Add/Modify this method in the appropriate phase classes
-			// d_gamePhase.loadMap(d_mapEditor, l_filename);
+			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
 	}
@@ -609,20 +615,22 @@ public class GameEngineNew {
 	 * 
 	 * @param p_tokens an array of tokens given in the user input command
 	 */
-	private void parseDeployCommand(String[] p_tokens) {
-		Pattern numericRegex = Pattern.compile("\\d+");
-		if (p_tokens.length != 3) {
-			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
-			return;
-		}
-		if (!numericRegex.matcher(p_tokens[2]).matches()) {
-			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
-			return;
-		}
-
-		// TODO Add/Modify this method in the appropriate phase classes
-		// NOTE: This method might need to be refactored
-//		d_gamePhase.setOrderInput(p_tokens);	//pass it to issue orders phase
-		d_logEntryBuffer.setD_effectOfAction("");
-	}
+//	private void parseDeployCommand(String[] p_tokens) {
+//		Pattern numericRegex = Pattern.compile("\\d+");
+//		if (p_tokens.length != 3) {
+//			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
+//			return;
+//		}
+//		if (!numericRegex.matcher(p_tokens[2]).matches()) {
+//			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
+//			return;
+//		}
+//
+//		l_player.issue_order(p_tokens);
+//
+//		// TODO Add/Modify this method in the appropriate phase classes
+//		// NOTE: This method might need to be refactored
+//		d_gamePhase.setOrderInput(p_tokens); // pass it to issue orders phase
+//		d_logEntryBuffer.setD_effectOfAction("");
+//	}
 }
