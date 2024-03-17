@@ -38,6 +38,11 @@ public class GameState {
 		return d_players;
 	}
 
+	/**
+	 * Set the players in the players list
+	 * 
+	 * @param p_players List of Players
+	 */
 	public void setPlayers(List<Player> p_players) {
 		d_players = p_players;
 	}

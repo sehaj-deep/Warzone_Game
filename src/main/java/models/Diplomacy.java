@@ -16,9 +16,9 @@ public class Diplomacy extends Order {
 	 * @param p_newGameEngine the engine of the game
 	 * @param p_targetPlayer  name of the opponent player
 	 */
-	public Diplomacy(String d_targetPlayer, GameEngine newGameEngine) {
-		super(newGameEngine, "Diplomacy");
-		this.d_targetPlayer = d_targetPlayer;
+	public Diplomacy(String p_targetPlayer, GameEngine p_newGameEngine) {
+		super(p_newGameEngine, "Diplomacy");
+		this.d_targetPlayer = p_targetPlayer;
 	}
 
 	/**

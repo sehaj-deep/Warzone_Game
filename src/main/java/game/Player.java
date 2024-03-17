@@ -22,18 +22,18 @@ public class Player {
 	/**
 	 * player name
 	 */
-	private String d_playerName; 
+	private String d_playerName;
 
 	/**
 	 * list of orders issued by the player
 	 */
-	private Queue<Order> d_listOrders; 
+	private Queue<Order> d_listOrders;
 
 	/**
 	 * set of countries owned by the player
 	 */
-	private Set<String> d_ownership; 
-	
+	private Set<String> d_ownership;
+
 	/**
 	 * A mapping of card names to the count of those cards held by the player.
 	 */
@@ -267,6 +267,9 @@ public class Player {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
 	}
 
+	/**
+	 * To display the card count of each card
+	 */
 	public void displayCards() {
 		for (HashMap.Entry<String, Integer> l_cards : d_listOfCards.entrySet()) {
 			System.out.println("The count of the Card :" + l_cards.getKey() + " is:" + l_cards.getValue());
