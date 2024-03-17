@@ -32,21 +32,40 @@ public class ReinforcePhase extends MainPlay {
 	 * Executes the reinforcement phase of the game.
 	 */
 	public void calculateReinforcements() {
+
+		d_gameEngine.getGameState().getReinforcements().clear();
+
 		for (Player p_player : d_gameEngine.getGameState().getPlayers()) {
 			int l_reinforcements = calculateReinforcementArmies(p_player);
-			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
 
+			int l_indexOfPlayer = d_gameEngine.getGameState().getPlayers().indexOf(p_player);
+
+			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
 			System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
+
+//			if (d_gameEngine.getGameState().getReinforcements().size() == d_gameEngine.getGameState().getPlayers()
+//					.size()) {
+//				d_gameEngine.getGameState().getReinforcements().add(l_indexOfPlayer,
+//						l_reinforcements + d_gameEngine.getGameState().getReinforcements().get(l_indexOfPlayer));
+//				System.out.println(p_player.getPlayerName() + " has "
+//						+ (l_reinforcements
+//								+ (int) d_gameEngine.getGameState().getReinforcements().get(l_indexOfPlayer))
+//						+ " army units");
+//			} else {
+//				d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
+//				System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
+//			}
+
 		}
 		this.next();
 	}
 
 	/**
-     * Calculates the number of reinforcement armies for a player.
-     * 
-     * @param p_player The player for whom reinforcement armies are calculated.
-     * @return The number of reinforcement armies.
-     */
+	 * Calculates the number of reinforcement armies for a player.
+	 * 
+	 * @param p_player The player for whom reinforcement armies are calculated.
+	 * @return The number of reinforcement armies.
+	 */
 	public int calculateReinforcementArmies(Player p_player) {
 		int d_reinforcementArmies = p_player.getOwnership().size() / 3; // Basic calculation based on territories owned
 

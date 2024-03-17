@@ -55,6 +55,8 @@ public class Blockade extends Order {
 				break;
 			}
 		}
+		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
+		l_currentPlayer.decreaseCardCount(this.d_orderName);
 
 		System.out.println("Blockade executed: " + d_countryId + " is now neutral and army unites have tripled.");
 	}

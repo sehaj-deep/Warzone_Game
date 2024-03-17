@@ -14,6 +14,7 @@ public class GameState {
 
 	// list of available reinforcements for all players. Order same as d_players
 	private List<Integer> d_reinforcements;
+//	private Map<Player, Integer> d_reinforcementsNew;
 	private Map<String, Integer> d_board; // key: country name. value: number of army in the country
 	private String[] d_orderInput; // a list of tokens given in the user input command to issue an order
 
@@ -24,6 +25,7 @@ public class GameState {
 	public GameState() {
 		d_players = new ArrayList<>();
 		d_reinforcements = new ArrayList<>();
+//		d_reinforcementsNew = new HashMap<>();
 		d_board = new HashMap<String, Integer>();
 	}
 
@@ -38,7 +40,6 @@ public class GameState {
 
 	public void setPlayers(List<Player> p_players) {
 		d_players = p_players;
-		;
 	}
 
 	/**
