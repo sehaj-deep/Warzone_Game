@@ -1,9 +1,9 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * GameState class This class captures the current state of the game and store
@@ -22,8 +22,8 @@ public class GameState {
 	 *
 	 * @param p_players is a list of players playing the game
 	 */
-	public GameState(List<Player> p_players) {
-		d_players = p_players;
+	public GameState() {
+		d_players = new ArrayList<>();
 		d_reinforcements = new ArrayList<>();
 		d_board = new HashMap<String, Integer>();
 	}

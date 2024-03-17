@@ -2,6 +2,7 @@ package phases;
 
 import java.util.HashMap;
 import java.util.Set;
+
 import game.GameEngine;
 import game.Player;
 import models.Continent;
@@ -37,8 +38,9 @@ public class ReinforcePhase extends MainPlay {
 		for (Player p_player : d_gameEngine.getGameState().getPlayers()) {
 			int l_reinforcements = calculateReinforcementArmies(p_player);
 			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
-		}
 
+			System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
+		}
 		this.next();
 	}
 

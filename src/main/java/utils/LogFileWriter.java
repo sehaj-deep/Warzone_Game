@@ -26,9 +26,6 @@ public class LogFileWriter implements Observer {
 					new File(GameConstants.SRC_MAIN_RESOURCES + GameConstants.LOG_FILE), true);
 
 			l_printWriter = new PrintWriter(l_fileOutputStream);
-//			l_printWriter = new PrintWriter(
-//					new FileOutputStream(GameConstants.SRC_MAIN_RESOURCES + GameConstants.LOG_FILE), true);
-
 			l_printWriter.println(p_logEntryBuffer.getD_buffer());
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());

@@ -14,27 +14,45 @@ public class IssueOrdersPhase extends MainPlay {
 
 	}
 
+	public boolean anyCommandLeft(Map<Player, Boolean> p_hasCommands) {
+		for (boolean l_hasCommand : p_hasCommands.values()) {
+			if (l_hasCommand) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void issueOrders(Scanner p_scanner) {
 		Map<Player, Boolean> l_hasCommands = new HashMap<>();
-		for (Player l_player : d_gameEngine.getD_players()) {
+		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
 			l_hasCommands.put(l_player, true);
 		}
 
-		for (Player l_player : d_gameEngine.getD_players()) {
-			if (!l_hasCommands.get(l_player)) {
-				continue;
-			}
+		while (anyCommandLeft(l_hasCommands)) {
+			for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
 
-			String l_orderCommand;
-			System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
-			l_orderCommand = p_scanner.nextLine();
+				if (!l_hasCommands.get(l_player)) {
+					continue;
+				}
 
-			if (l_orderCommand.toLowerCase().equals("none")) {
-				l_hasCommands.put(l_player, false);
-			} else if (l_orderCommand.toLowerCase().equals("showmap")) {
-				showMap();
-			} else {
-				l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+				String l_orderCommand;
+				boolean l_isCommandValid = false;
+
+				do {
+					System.out
+							.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+					l_orderCommand = p_scanner.nextLine();
+
+					if (l_orderCommand.toLowerCase().equals("none")) {
+						l_hasCommands.put(l_player, false);
+						break;
+					} else if (l_orderCommand.toLowerCase().equals("showmap")) {
+						showMap();
+					} else {
+						l_isCommandValid = l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+					}
+				} while (!l_isCommandValid);
 			}
 		}
 		this.next();

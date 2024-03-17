@@ -49,7 +49,7 @@ public abstract class Play extends Phase {
 
 		// to get the list of players
 		// FIXME: Find how to get list of players
-		List<Player> l_allPlayers = d_gameEngine.getD_players();
+		List<Player> l_allPlayers = d_gameEngine.getGameState().getPlayers();
 		if (l_allPlayers.size() == 0) {
 			return;
 		}
@@ -68,6 +68,18 @@ public abstract class Play extends Phase {
 			}
 			System.out.println();
 		}
+	}
+
+	/**
+	 * Initialize the hash map representation of game board based on the map used in
+	 * the current game update d_board where key: country name, and value: number of
+	 * army positioned in the country
+	 *
+	 */
+	public void initalizeBoard() {
+		Set<String> l_mapCountries = d_gameEngine.getD_countries().keySet();
+		for (String countryName : l_mapCountries)
+			d_gameEngine.getGameState().getGameBoard().put(countryName, 0);
 	}
 
 	public void editCountry() {

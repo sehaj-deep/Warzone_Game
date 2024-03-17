@@ -38,10 +38,9 @@ public class PlaySetup extends Play {
 		d_playerNameList.add(p_playerName);
 
 		Player l_player = new Player(p_playerName);
-		d_gameEngine.getD_players().add(l_player);
+		d_gameEngine.getGameState().getPlayers().add(l_player);
 
-		System.out.println("Player: " + p_playerName + " successfully added ");
-
+		System.out.println(p_playerName + " successfully added as a player");
 	}
 
 	/**
@@ -68,7 +67,7 @@ public class PlaySetup extends Play {
 		d_playerNameList.add(p_playerName);
 
 		Player l_player = new Player(p_playerName);
-		d_gameEngine.getD_players().remove(l_player);
+		d_gameEngine.getGameState().getPlayers().remove(l_player);
 
 		System.out.println("Player: " + p_playerName + " successfully removed");
 	}
@@ -82,13 +81,15 @@ public class PlaySetup extends Play {
 		Set<String> p_countries = d_gameEngine.getD_countries().keySet();
 
 		// check if countries is valid
-		int l_minSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // min of number of player's owned
-																					// countries
-		int l_maxSize = d_gameEngine.getD_players().get(0).getOwnership().size(); // max of number of player's owned
-																					// countries
+		int l_minSize = d_gameEngine.getGameState().getPlayers().get(0).getOwnership().size(); // min of number of
+																								// player's owned
+		// countries
+		int l_maxSize = d_gameEngine.getGameState().getPlayers().get(0).getOwnership().size(); // max of number of
+																								// player's owned
+		// countries
 
-		for (int i = 1; i < d_gameEngine.getD_players().size(); i++) {
-			Player l_player = d_gameEngine.getD_players().get(i);
+		for (int i = 1; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
+			Player l_player = d_gameEngine.getGameState().getPlayers().get(i);
 			int l_numCountriesOwned = l_player.getOwnership().size();
 			if (l_numCountriesOwned < l_minSize) {
 				l_minSize = l_numCountriesOwned;
@@ -107,14 +108,22 @@ public class PlaySetup extends Play {
 
 		for (int i = 0; i < l_countriesList.size(); i++) {
 			// Add assigned country to player's countries (d_ownership)
-			int l_idx = i % (d_gameEngine.getD_players().size());
-			Player l_player = d_gameEngine.getD_players().get(l_idx);
+			int l_idx = i % (d_gameEngine.getGameState().getPlayers().size());
+			Player l_player = d_gameEngine.getGameState().getPlayers().get(l_idx);
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
+		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
+//			System.out.println(l_player.getOwnership().
+			System.out.println("Player --------");
+			Set<String> temp = l_player.getOwnership();
+			for (String s : temp) {
+				System.out.println(s + ",");
+			}
+		}
 		System.out.println("Assign Countries Completed");
 
-		showMap();
+		initalizeBoard();
 
 		this.next();
 	}
