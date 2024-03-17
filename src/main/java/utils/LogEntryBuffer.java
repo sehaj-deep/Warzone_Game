@@ -4,8 +4,19 @@ package utils;
  * A buffer for log entries with observable functionality.
  */
 public class LogEntryBuffer extends Observable {
+	/**
+     * The buffer to store log entries.
+     */
 	private StringBuilder d_buffer;
+
+	/**
+     * The current phase of the game.
+     */
 	private String d_currentPhase;
+
+	/**
+     * The effect of the action being performed.
+     */
 	private String d_effectOfAction;
 
 	/**

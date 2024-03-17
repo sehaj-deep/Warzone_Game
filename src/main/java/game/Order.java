@@ -5,11 +5,26 @@ package game;
  * types will inherit from Order class
  */
 public abstract class Order {
-	protected GameEngine d_gameEngine; //The game engine associated with the order
-	protected String d_orderName;  //The name of the order
+	
+	/**
+	 * The game engine associated with the order.
+	 */
+	protected GameEngine d_gameEngine;
 
-	private boolean d_isAttack; //Indicates whether the order is an attack move
-	protected String d_targetCountry; //The name of the target country for the order
+	/**
+	 * The name of the order
+	 */
+	protected String d_orderName;
+
+	/**
+	 * Indicates whether the order is an attack move
+	 */
+	private boolean d_isAttack; 
+
+	/**
+	 * The name of the target country for the order
+	 */
+	protected String d_targetCountry;
 
 	/**
      * Constructs a new Order object with the provided game engine and order name.
@@ -17,6 +32,7 @@ public abstract class Order {
      * @param p_gameEngineNew The game engine providing the context for the order.
      * @param p_orderName     The name of the order.
      */
+	
 	public Order(GameEngine p_gameEngineNew, String p_orderName) {
 		this.d_orderName = p_orderName;
 		this.d_gameEngine = p_gameEngineNew;

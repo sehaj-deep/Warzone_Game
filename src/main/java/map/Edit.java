@@ -29,34 +29,63 @@ public abstract class Edit extends Phase {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Assign the countries for the edit phase.
+     */
 	public void assignCountries() {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Reinforce method for the edit phase.
+     */
 	public void reinforce() {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Attack method for the edit phase.
+     */
 	public void attack() {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Fortify method for the edit phase.
+     */
 	public void fortify() {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * End the game in the edit phase.
+     */
 	public void endGame() {
 		printInvalidCommandMessage();
 	}
 
+    /**
+     * Adds players to the edit phase.
+     *
+     * @param p_playerName the name of the player to add
+     */
 	public void addPlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Removes players from the edit phase.
+     *
+     * @param p_playerName the name of the player to remove
+     */
 	public void removePlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Display the map in text format.
+     * The map consists of continents and their corresponding countries with neighbors.
+     */
 	public void showMap() {
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");

@@ -39,41 +39,85 @@ public class Preload extends Edit {
 		next();
 	}
 
+	/**
+     * Loads a map file.
+	 * 
+     * @param p_fileName The filename of the map to load.
+     */
 	@Override
 	public void loadMap(String p_fileName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Adds a continent to the map.
+     *
+     * @param p_continentName The name of the continent to add.
+     * @param p_bonusArmies   The bonus armies associated with the continent.
+     */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Removes a continent from the map.
+     *
+     * @param p_continentName The name of the continent to remove.
+     */
 	@Override
 	public void removeContinent(String p_continentName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Adds a country to the map.
+     *
+     * @param p_countryName The name of the country to add.
+     * @param p_continent   The continent to which the country belongs.
+     */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Removes a country from the map.
+     *
+     * @param p_countryName The name of the country to remove.
+     */
 	@Override
 	public void removeCountry(String p_countryName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Adds a neighbor to a country.
+     *
+     * @param p_country  The name of the country.
+     * @param p_neighbor The name of the neighbor country.
+     */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Removes a neighbor from a country.
+     *
+     * @param p_country  The name of the country.
+     * @param p_neighbor The name of the neighbor country to remove.
+     */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+     * Saves the map to a file.
+     *
+     * @param p_filename The filename to save the map to.
+     */
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();

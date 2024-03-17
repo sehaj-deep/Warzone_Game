@@ -6,8 +6,16 @@ import utils.ValidationException;
  * Implementation of Deploy order command from Order class
  */
 public class Deploy extends Order {
-	private int d_numArmy; // number of armies to be deployed
-	private String d_countryId; // name of country where armies will be deployed to
+
+	/**
+	 * number of armies to be deployed
+	 */
+	private int d_numArmy; 
+
+	/**
+	 * name of country where armies will be deployed to
+	 */
+	private String d_countryId;
 
 	/**
 	 * Parameterized Constructor of Deploy class

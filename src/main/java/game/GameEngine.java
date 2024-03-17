@@ -23,14 +23,35 @@ import utils.LogFileWriter;
  */
 public class GameEngine {
 
+	/**
+     * Buffer to store log entries.
+     */
 	private LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+
+	/**
+     * Object to write log entries to a file.
+     */
 	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
+	/**
+     * List of players in the game.
+     */
 	private static List<Player> d_players = new ArrayList<>();
+
+	/**
+     * Current state of the game.
+     */
 	private GameState d_gameState = new GameState(d_players);
+
+	/**
+     * Map to store the validity of orders for each player.
+     */
 	private Map<Player, Boolean> d_validOrder = new HashMap<>();
 	
-	protected Phase d_gamePhase; //The current phase of the game 
+	/**
+     * The current phase of the game.
+     */
+	protected Phase d_gamePhase;
 
 	/**
 	 * A hashmap to store the continents

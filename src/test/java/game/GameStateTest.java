@@ -13,6 +13,10 @@ import org.junit.Test;
  * This class is designed to do unit test of features in GameState class
  */
 public class GameStateTest {
+
+	/**
+	 * The GameState instance used for testing various features of the GameState class.
+	 */
 	GameState d_gameState;
 	
 	/**

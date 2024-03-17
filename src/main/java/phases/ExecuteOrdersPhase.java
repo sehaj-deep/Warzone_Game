@@ -12,6 +12,10 @@ import game.Player;
  * Executes orders of players in the game in a round-robin fashion for one time.
  */
 public class ExecuteOrdersPhase extends MainPlay {
+
+	/**
+     * List to store the number of successful conquests per player during the execution phase.
+     */
 	private List<Integer> d_countConquestPerPlayer;
 
 	/**

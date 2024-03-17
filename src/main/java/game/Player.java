@@ -15,9 +15,25 @@ import models.Bomb;
  */
 
 public class Player {
-	private String d_playerName; // player name
-	private Queue<Order> d_listOrders; // list of orders issued by the player
-	private Set<String> d_ownership; // set of countries owned by the player
+
+	/**
+	 * player name
+	 */
+	private String d_playerName; 
+
+	/**
+	 * list of orders issued by the player
+	 */
+	private Queue<Order> d_listOrders; 
+
+	/**
+	 * set of countries owned by the player
+	 */
+	private Set<String> d_ownership; 
+	
+	/**
+	 * A mapping of card names to the count of those cards held by the player.
+	 */
 	private HashMap<String, Integer> d_listOfCards;
 
 	/**

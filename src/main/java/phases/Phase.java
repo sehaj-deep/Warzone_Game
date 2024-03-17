@@ -18,7 +18,9 @@ import models.Country;
  */
 public abstract class Phase {
 
-	//The game engine associated with this phase.
+	/**
+	 * The game engine associated with this phase.
+	 */
 	protected GameEngine d_gameEngine;
 
 	/**
