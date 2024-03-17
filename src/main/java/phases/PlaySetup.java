@@ -111,7 +111,7 @@ public class PlaySetup extends Play {
 				l_maxSize = l_numCountriesOwned;
 			}
 		}
-		return (l_maxSize - l_minSize) >= 1;
+		return (l_maxSize - l_minSize) <= 1;
 	}
 
 	/**
