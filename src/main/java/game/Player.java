@@ -92,9 +92,10 @@ public class Player {
 	}
 
 	/**
-	 * issue an order for this round
+	 * Issues an order for this round.
 	 *
-	 * @param p_newOrder new order a player wants to take in the current round
+	 * @param p_tokens     The tokens containing the details of the order.
+	 * @param p_gameEngine The game engine managing the game state.
 	 */
 	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
 

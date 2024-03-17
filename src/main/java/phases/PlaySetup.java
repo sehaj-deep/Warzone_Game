@@ -9,7 +9,17 @@ import game.GameEngine;
 import game.Player;
 import utils.ValidationException;
 
+/**
+ * Setup phase of the game where players are added and countries are assigned.
+ */
 public class PlaySetup extends Play {
+	/**
+	 * 
+     * Constructs a PlaySetup object with the specified game engine.
+     * 
+     * @param p_gameEngine the game engine
+     */
+
 	public PlaySetup(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}

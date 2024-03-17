@@ -7,13 +7,26 @@ import java.util.Scanner;
 import game.GameEngine;
 import game.Player;
 
+/**
+ * Represents the phase where players issue orders during gameplay.
+ */
 public class IssueOrdersPhase extends MainPlay {
 
+	/**
+     * the Constructor for IssueOrdersPhase.
+     *
+     * @param p_gameEngine The instance of the game engine.
+     */
 	public IssueOrdersPhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 
 	}
 
+	/**
+     * Method to allow players to issue orders during this phase.
+     *
+     * @param p_scanner Scanner object for user input.
+     */
 	public void issueOrders(Scanner p_scanner) {
 		Map<Player, Boolean> l_hasCommands = new HashMap<>();
 		for (Player l_player : d_gameEngine.getD_players()) {
@@ -112,6 +125,9 @@ public class IssueOrdersPhase extends MainPlay {
 
 	}
 
+	/**
+     * Moves the game to the next phase after the issuing orders phase.
+     */
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ExecuteOrdersPhase(d_gameEngine));

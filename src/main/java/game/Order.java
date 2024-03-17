@@ -10,6 +10,12 @@ public abstract class Order {
 	private boolean d_isAttack;
 	protected String d_targetCountry;
 
+	/**
+     * Constructs a new Order object with the provided game engine and order name.
+     * 
+     * @param p_gameEngineNew The game engine providing the context for the order.
+     * @param p_orderName     The name of the order.
+     */
 	public Order(GameEngine p_gameEngineNew, String p_orderName) {
 		this.d_orderName = p_orderName;
 		this.d_gameEngine = p_gameEngineNew;

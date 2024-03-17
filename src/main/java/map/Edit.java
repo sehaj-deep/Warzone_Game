@@ -8,7 +8,16 @@ import models.Continent;
 import models.Country;
 import phases.Phase;
 
+/**
+ * Represents the edit phase of the game map.
+ */
 public abstract class Edit extends Phase {
+
+	/**
+     * Constructs a new Edit object.
+     * 
+     * @param p_gameEngine a context object for the edit phase
+     */
 	public Edit(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}

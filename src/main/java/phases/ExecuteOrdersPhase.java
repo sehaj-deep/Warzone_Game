@@ -34,7 +34,6 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * execute orders of players in the game in round-robin fashion for one time
 	 *
 	 * @param p_state current game state
-	 * @param p_gMap  the map that the players are using for the game
 	 * @return a list of two elements(if order can't be executed due to being
 	 *         invalid) or none(no invalid order) if invalid order exist in current
 	 *         loop of round-robin, then index0: player index, index1: 0(false)
