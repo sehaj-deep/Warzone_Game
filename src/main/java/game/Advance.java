@@ -22,8 +22,8 @@ public class Advance extends Order {
 	 * @param p_targetCountry the country where armies will be placed
 	 * @param p_gameEngineNew the game engine of the game
 	 */
-	public Advance(int p_numArmy, String p_sourceCountry, String p_targetCountry, GameEngineNew p_gameEngineNew) {
-		super(p_gameEngineNew, "Advance");
+	public Advance(int p_numArmy, String p_sourceCountry, String p_targetCountry, GameEngine p_gameEngine) {
+		super(p_gameEngine, "Advance");
 		d_targetCountry = p_targetCountry;
 		d_sourceCountry = p_sourceCountry;
 		d_numArmy = p_numArmy;

@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
+import models.Airlift;
+import models.Bomb;
+
 /**
  * Player Class this class stores information and the state of the game about a
  * player
@@ -27,10 +30,10 @@ public class Player {
 		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<String>();
 		d_listOfCards = new HashMap<>();
-		d_listOfCards.put("bomb", 0);
-		d_listOfCards.put("blockade", 0);
-		d_listOfCards.put("airlift", 0);
-		d_listOfCards.put("diplomacy", 0);
+		d_listOfCards.put("Bomb", 0);
+		d_listOfCards.put("Blockade", 0);
+		d_listOfCards.put("Airlift", 0);
+		d_listOfCards.put("Diplomacy", 0);
 	}
 
 	/**
@@ -93,8 +96,53 @@ public class Player {
 	 *
 	 * @param p_newOrder new order a player wants to take in the current round
 	 */
-	public void issue_order(Order p_newOrder) {
-		d_listOrders.add(p_newOrder);
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
+
+		String l_sourceCountry = "";
+		String l_targetCountry = "";
+		String l_playerId = "";
+		int l_numberOfArmies = 0;
+
+		switch (p_tokens[0]) {
+		case "deploy":
+			l_targetCountry = p_tokens[1];
+			l_numberOfArmies = Integer.parseInt(p_tokens[2]);
+
+			Deploy l_deploy = new Deploy(l_targetCountry, l_numberOfArmies, p_gameEngine);
+			if (l_deploy.isValidIssue(p_gameEngine.getGameState(), l_numberOfArmies)) {
+				d_listOrders.add(l_deploy);
+			}
+			break;
+		case "advance":
+			l_sourceCountry = p_tokens[1];
+			l_targetCountry = p_tokens[2];
+			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+
+			// FIXME validate the other commands like deploy
+			// d_listOrders.add(new Advance(l_sourceCountry, l_targetCountry,
+			// l_numberOfArmies, p_gameEngine));
+			break;
+		case "bomb":
+			l_targetCountry = p_tokens[1];
+			d_listOrders.add(new Bomb(l_targetCountry, p_gameEngine));
+			break;
+		case "airlift":
+			l_sourceCountry = p_tokens[1];
+			l_targetCountry = p_tokens[2];
+			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+			d_listOrders.add(new Airlift(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine));
+			break;
+		case "negotiate":
+			l_playerId = p_tokens[1];
+			// d_listOrders.add(new Negotiate(l_playerId, p_gameEngine));
+			break;
+		case "blockade":
+			l_targetCountry = p_tokens[1];
+			// d_listOrders.add(new Blockade(l_targetCountry, p_gameEngines));
+			break;
+		}
+
+		// d_listOrders.add(p_newOrder);
 	}
 
 	/**
@@ -123,6 +171,15 @@ public class Player {
 	 */
 	public void increaseCardCount(String p_cardName) {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
+	}
+
+	/**
+	 * To decrement the number of cards by 1
+	 * 
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void decreaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
 	}
 
 }

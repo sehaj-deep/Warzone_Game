@@ -1,6 +1,6 @@
 package phases;
 
-import game.GameEngineNew;
+import game.GameEngine;
 
 public abstract class MainPlay extends Play {
 
@@ -9,7 +9,7 @@ public abstract class MainPlay extends Play {
 	 * 
 	 * @param p_gameEngine a context object for MainPlay phase
 	 */
-	public MainPlay(GameEngineNew p_gameEngine) {
+	public MainPlay(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

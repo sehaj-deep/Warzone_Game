@@ -16,7 +16,7 @@ public class Deploy extends Order {
 	 * @param p_countryId     is the country where armies will be placed
 	 * @param p_gameEngineNew the game engine of the game
 	 */
-	public Deploy(int p_numArmy, String p_countryId, GameEngineNew p_gameEngineNew) {
+	public Deploy(String p_countryId, int p_numArmy, GameEngine p_gameEngineNew) {
 		super(p_gameEngineNew, "Deploy");
 		d_numArmy = p_numArmy;
 		d_countryId = p_countryId;
@@ -74,6 +74,8 @@ public class Deploy extends Order {
 			System.out.println(e);
 			return false;
 		}
+		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
+		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
 		return true;
 	}
 
