@@ -3,6 +3,7 @@ package phases;
 import game.GameEngine;
 import game.GameState;
 import game.Player;
+import utils.ValidationException;
 
 import java.util.*;
 
@@ -130,6 +131,9 @@ public class PlaySetup extends Play {
 		}
 
 		System.out.println("Assign Countries Completed");
+
+		showMap();
+		this.next();
 	}
 
 
@@ -150,7 +154,17 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void loadMap(String p_filename) {
-		this.printInvalidCommandMessage();
+		readMap(p_filename, true);
+		try {
+			boolean l_isValidated = validateMap();
+			if (!l_isValidated) {
+				throw new ValidationException("Unable to load map: The map is invalid.");
+			}
+		} catch (ValidationException e) {
+			System.out.print(e.getMessage());
+
+		}
+		System.out.println("The map " + p_filename + " has been loaded into the game.");
 	}
 
 	@Override
@@ -195,8 +209,7 @@ public class PlaySetup extends Play {
 
 	@Override
 	public void next() {
-		// TODO Uncomment when reinforcement phase is implemented
-		// d_gameEngine.setPhase(new PostLoad(d_gameEngine));
+		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
 	}
 
 }
