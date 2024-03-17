@@ -34,7 +34,6 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * execute orders of players in the game in round-robin fashion for one time
 	 *
 	 * @param p_state current game state
-	 * @param p_gMap  the map that the players are using for the game
 	 * @return a list of two elements(if order can't be executed due to being
 	 *         invalid) or none(no invalid order) if invalid order exist in current
 	 *         loop of round-robin, then index0: player index, index1: 0(false)
@@ -83,11 +82,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 
 	/**
 	 * run execute orders phase for the current round in the game
-	 * 
-	 * @param p_state current state of the game
-	 * @param p_gMap  data representing the map used in the game
 	 */
-
 	public void executeAllOrders() {
 		d_countConquestPerPlayer = new ArrayList<>(); // count how many successful conquer by player
 		for (int i = 0; i < d_gameEngine.getD_players().size(); i++) {
