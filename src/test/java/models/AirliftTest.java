@@ -10,21 +10,21 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.GameState;
 import game.Player;
 
 public class AirliftTest {
 
 	private Airlift d_AirliftOrder;
-	private GameEngineNew d_gameEngine;
+	private GameEngine d_gameEngine;
 	private GameState d_gameState;
 	private int d_playerId1;
 	private int d_playerId2;
 
 	@Before
 	public void setup() {
-		d_gameEngine = new GameEngineNew();
+		d_gameEngine = new GameEngine();
 		// add countries to the list
 		d_gameEngine.getD_countries().put("1", new Country(1, "1"));
 		d_gameEngine.getD_countries().put("2", new Country(2, "2"));

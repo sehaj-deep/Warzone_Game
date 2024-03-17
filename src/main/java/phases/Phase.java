@@ -9,19 +9,19 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import models.Continent;
 import models.Country;
 
 public abstract class Phase {
-	protected GameEngineNew d_gameEngine;
+	protected GameEngine d_gameEngine;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param p_gameEngine a context object for phase
 	 */
-	public Phase(GameEngineNew p_gameEngine) {
+	public Phase(GameEngine p_gameEngine) {
 		this.d_gameEngine = p_gameEngine;
 	}
 

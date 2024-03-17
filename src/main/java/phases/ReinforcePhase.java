@@ -3,7 +3,7 @@ package phases;
 import java.util.HashMap;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.Player;
 import models.Continent;
 import models.Country;
@@ -17,7 +17,7 @@ public class ReinforcePhase extends MainPlay {
 	 * 
 	 * @param p_gameEngine a context object for ExecuteOrders phase
 	 */
-	public ReinforcePhase(GameEngineNew p_gameEngine) {
+	public ReinforcePhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
@@ -25,7 +25,7 @@ public class ReinforcePhase extends MainPlay {
 	 * move to the next state(phase)
 	 */
 	public void next() {
-		d_gameEngine.setPhase(new IssueOrdersPhaseNew(d_gameEngine));
+		d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
 	}
 
 	/**

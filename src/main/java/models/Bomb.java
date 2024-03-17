@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.GameState;
 import game.Order;
 import game.Player;
@@ -16,7 +16,7 @@ public class Bomb extends Order {
 	 */
 	private String d_countryName;
 
-	public Bomb(String p_countryName, GameEngineNew p_gameEngine) {
+	public Bomb(String p_countryName, GameEngine p_gameEngine) {
 		super(p_gameEngine, "Bomb");
 		this.d_countryName = p_countryName;
 	}

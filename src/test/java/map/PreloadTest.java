@@ -9,18 +9,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import constants.GameConstants;
-import game.GameEngineNew;
+import game.GameEngine;
 import models.Country;
 
 public class PreloadTest {
 
-	private GameEngineNew d_gameEngine;
+	private GameEngine d_gameEngine;
 	private Preload d_preload;
 	private String d_fileName;
 
 	@Before
 	public void setup() {
-		d_gameEngine = new GameEngineNew();
+		d_gameEngine = new GameEngine();
 		d_preload = new Preload(d_gameEngine);
 		d_gameEngine.setPhase(d_preload);
 	}

@@ -15,7 +15,8 @@ public class Deploy extends Order {
 	 * @param p_numArmy   is a number of armies for deployment
 	 * @param p_countryId is the country where armies will be placed
 	 */
-	public Deploy(String p_countryId, int p_numArmy, GameEngineNew p_gameEngineNew) {
+	public Deploy(String p_countryId, int p_numArmy, GameEngine p_gameEngineNew) {
+
 		super(p_gameEngineNew, "Deploy");
 		d_numArmy = p_numArmy;
 		d_countryId = p_countryId;

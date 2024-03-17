@@ -3,13 +3,13 @@ package map;
 import java.util.HashMap;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import models.Continent;
 import models.Country;
 import phases.Phase;
 
 public abstract class Edit extends Phase {
-	public Edit(GameEngineNew p_gameEngine) {
+	public Edit(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

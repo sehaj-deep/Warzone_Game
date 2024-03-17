@@ -3,7 +3,7 @@ package phases;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.GameState;
 import game.Order;
 import game.Player;
@@ -18,7 +18,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 	 * 
 	 * @param p_gameEngine a context object for ExecuteOrders phase
 	 */
-	public ExecuteOrdersPhase(GameEngineNew p_gameEngine) {
+	public ExecuteOrdersPhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

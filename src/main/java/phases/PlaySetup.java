@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import game.Player;
 import utils.ValidationException;
 
 public class PlaySetup extends Play {
-	public PlaySetup(GameEngineNew p_gameEngine) {
+	public PlaySetup(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
@@ -113,6 +113,8 @@ public class PlaySetup extends Play {
 		}
 
 		System.out.println("Assign Countries Completed");
+
+		showMap();
 
 		this.next();
 	}
