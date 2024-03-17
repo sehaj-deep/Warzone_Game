@@ -26,11 +26,13 @@ public class IssueOrdersPhase extends MainPlay {
 			}
 
 			String l_orderCommand;
-			System.out.println(l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+			System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
 			l_orderCommand = p_scanner.nextLine();
 
 			if (l_orderCommand.toLowerCase().equals("none")) {
 				l_hasCommands.put(l_player, false);
+			} else if (l_orderCommand.toLowerCase().equals("showmap")) {
+				showMap();
 			} else {
 				l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
 			}

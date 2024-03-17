@@ -114,6 +114,8 @@ public class PlaySetup extends Play {
 
 		System.out.println("Assign Countries Completed");
 
+		showMap();
+
 		this.next();
 	}
 

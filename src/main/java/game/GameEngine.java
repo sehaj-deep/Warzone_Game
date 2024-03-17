@@ -214,7 +214,7 @@ public class GameEngine {
 			String l_command = "";
 
 			while (this.getPhase().getClass().equals(new PlaySetup(this).getClass())) {
-				System.out.println("Enter a command: ");
+				System.out.print("\n> Enter a command: ");
 				l_command = l_scanner.nextLine();
 				parseUserCommand(l_command);
 			}
