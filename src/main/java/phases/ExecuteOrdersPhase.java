@@ -179,60 +179,112 @@ public class ExecuteOrdersPhase extends MainPlay {
 		d_countConquestPerPlayer = p_countConquestPerPlayer;
 	}
 
+	/**
+     * Loads a map from a file.
+     *
+     * @param p_filename The filename of the map to be loaded.
+     */
 	@Override
 	public void loadMap(String p_filename) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Edits the loaded map.
+     *
+     * @param p_filename The filename of the map to be edited.
+     */
 	@Override
 	public void editMap(String p_filename) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Adds a continent to the map.
+     *
+     * @param p_continentName The name of the continent to be added.
+     * @param p_bonusArmies   The bonus armies for the continent.
+     */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Removes a continent with the specified name.
+     *
+     * @param p_continentName The name of the continent to be removed.
+     */
 	@Override
 	public void removeContinent(String p_continentName) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Adds a country with the specified name and continent.
+     *
+     * @param p_countryName The name of the country to be added.
+     * @param p_continent   The continent to which the country belongs.
+     */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Removes a country with the specified name.
+     *
+     * @param p_countryName The name of the country to be removed.
+     */
 	@Override
 	public void removeCountry(String p_countryName) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Adds a neighbor country to an existing country.
+     *
+     * @param p_country  The country to which the neighbor will be added.
+     * @param p_neighbor The name of the neighbor country to be added.
+     */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Removes a neighbor from the specified country.
+     *
+     * @param p_country  The country from which the neighbor will be removed.
+     * @param p_neighbor The name of the neighbor country to be removed.
+     */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Saves the current state of the map to a file.
+     *
+     * @param p_filename The filename to which the map will be saved.
+     */
 	@Override
 	public void saveMap(String p_filename) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Reinforces the army.
+     */
 	@Override
 	public void reinforce() {
 		// TODO Auto-generated method stub
@@ -240,12 +292,18 @@ public class ExecuteOrdersPhase extends MainPlay {
 
 	}
 
+	/**
+     * Executes attacks between players.
+     */
 	@Override
 	public void attack() {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+     * Fortifies the player's positions on the map.
+     */
 	@Override
 	public void fortify() {
 		// TODO Auto-generated method stub
