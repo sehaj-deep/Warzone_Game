@@ -15,7 +15,7 @@ public class Player {
 	private Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
 	private HashMap<String, Integer> d_listOfCards;
-	private List<Player> d_negotiatedWith = new ArrayList<Player>();
+	private final List<Player> d_negotiatedWith = new ArrayList<>();
 
 	/**
 	 * Parameterized constructor for the player
@@ -101,46 +101,84 @@ public class Player {
 		int l_numberOfArmies = 0;
 
 		switch (p_tokens[0]) {
-			case "deploy":
-				l_targetCountry = p_tokens[1];
-				l_numberOfArmies = Integer.parseInt(p_tokens[2]);
+		case "deploy":
+			l_targetCountry = p_tokens[1];
+			l_numberOfArmies = Integer.parseInt(p_tokens[2]);
 
-				Deploy l_deploy = new Deploy(l_targetCountry, l_numberOfArmies, p_gameEngine);
-				if (l_deploy.isValidIssue(p_gameEngine.getGameState(), l_numberOfArmies)) {
-					d_listOrders.add(l_deploy);
-				}
-				break;
-			case "advance":
-				l_sourceCountry = p_tokens[1];
-				l_targetCountry = p_tokens[2];
-				l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+			Deploy l_deploy = new Deploy(l_targetCountry, l_numberOfArmies, p_gameEngine);
+			if (l_deploy.isValidIssue(p_gameEngine.getGameState(), l_numberOfArmies)) {
+				d_listOrders.add(l_deploy);
+			}
+			break;
+		case "advance":
+			l_sourceCountry = p_tokens[1];
+			l_targetCountry = p_tokens[2];
+			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
 
-				// FIXME validate the other commands like deploy
-				// d_listOrders.add(new Advance(l_sourceCountry, l_targetCountry,
-				// l_numberOfArmies, p_gameEngine));
-				break;
-			case "bomb":
-				l_targetCountry = p_tokens[1];
-				d_listOrders.add(new Bomb(l_targetCountry, p_gameEngine));
-				break;
-			case "airlift":
-				l_sourceCountry = p_tokens[1];
-				l_targetCountry = p_tokens[2];
-				l_numberOfArmies = Integer.parseInt(p_tokens[3]);
-				d_listOrders.add(new Airlift(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine));
-				break;
-			case "negotiate":
-				l_playerId = p_tokens[1];
-				// d_listOrders.add(new Negotiate(l_playerId, p_gameEngine));
-				break;
-			case "blockade":
-				l_targetCountry = p_tokens[1];
-				// d_listOrders.add(new Blockade(l_targetCountry, p_gameEngines));
-				break;
+			// FIXME validate the other commands like deploy
+			// d_listOrders.add(new Advance(l_sourceCountry, l_targetCountry,
+			// l_numberOfArmies, p_gameEngine));
+			break;
+		case "bomb":
+			l_targetCountry = p_tokens[1];
+			d_listOrders.add(new Bomb(l_targetCountry, p_gameEngine));
+			break;
+		case "airlift":
+			l_sourceCountry = p_tokens[1];
+			l_targetCountry = p_tokens[2];
+			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+			d_listOrders.add(new Airlift(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine));
+			break;
+		case "negotiate":
+			l_playerId = p_tokens[1];
+			// d_listOrders.add(new Negotiate(l_playerId, p_gameEngine));
+			break;
+		case "blockade":
+			l_targetCountry = p_tokens[1];
+			// d_listOrders.add(new Blockade(l_targetCountry, p_gameEngines));
+			break;
 		}
 
 		// d_listOrders.add(p_newOrder);
 	}
+
+	/**
+	 * get next order in the order list of a player
+	 *
+	 * @return An order to be executed next
+	 */
+	public Order next_order() {
+		return d_listOrders.poll();
+	}
+
+	/**
+	 * To get the count of a particular card that the player holds
+	 * 
+	 * @param p_cardName The name of the card
+	 * @return The count of the card
+	 */
+	public int getCardCount(String p_cardName) {
+		return d_listOfCards.get(p_cardName);
+	}
+
+	/**
+	 * To increment the value of the card by 1
+	 * 
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void increaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
+	}
+
+	/**
+	 * To decrement the number of cards by 1
+	 * 
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void decreaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
+	}
+
 
 	/**
 	 * add the name of the player who made deal not to attack
@@ -164,44 +202,6 @@ public class Player {
 	 */
 	public void resetTheNegotiation() {
 		d_negotiatedWith.clear();
-	}
-
-
-	/**
-	 * get next order in the order list of a player
-	 *
-	 * @return An order to be executed next
-	 */
-	public Order next_order() {
-		return d_listOrders.poll();
-	}
-
-	/**
-	 * To get the count of a particular card that the player holds
-	 *
-	 * @param p_cardName The name of the card
-	 * @return The count of the card
-	 */
-	public int getCardCount(String p_cardName) {
-		return d_listOfCards.get(p_cardName);
-	}
-
-	/**
-	 * To increment the value of the card by 1
-	 *
-	 * @param p_cardName The name of the card whose value is to be changed
-	 */
-	public void increaseCardCount(String p_cardName) {
-		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
-	}
-
-	/**
-	 * To decrement the number of cards by 1
-	 *
-	 * @param p_cardName The name of the card whose value is to be changed
-	 */
-	public void decreaseCardCount(String p_cardName) {
-		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
 	}
 
 }

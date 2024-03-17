@@ -36,7 +36,7 @@ public class Diplomacy extends Order {
         Player issuingPlayer = p_state.getPlayers().get(p_playerId);
 
         // Check if the player has the Diplomacy card
-        if (issuingPlayer.getCardCount("Diplomacy") < 1) {
+        if (!(issuingPlayer.getCardCount("Diplomacy") >= 1)) {
             System.err.println("Diplomacy card is not available to use");
             return false;
         }
@@ -67,10 +67,19 @@ public class Diplomacy extends Order {
     @Override
     public void execute(GameState p_state, int p_playerId) {
         Player l_issuingPlayer = p_state.getPlayers().get(p_playerId);
-        Player l_targetPlayer = new Player(d_targetPlayer);
+        Player l_targetPlayer = null;
 
-        l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
+        // Find the target player in the list of players
+        for (Player player : p_state.getPlayers()) {
+            if (player.getPlayerName().equals(d_targetPlayer)) {
+                l_targetPlayer = player;
+                break;
+            }
+        }
+
         l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
+        assert l_targetPlayer != null;
+        l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
         l_issuingPlayer.decreaseCardCount("Diplomacy");
 
         System.out.println(l_issuingPlayer.getPlayerName() + " is negotiated with " + d_targetPlayer);
