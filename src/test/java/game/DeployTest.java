@@ -1,16 +1,15 @@
+//
 //package game;
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertTrue;
-//
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.Collections;
 //import java.util.HashSet;
 //import java.util.List;
 //import java.util.Set;
-//
 //import org.junit.Before;
 //import org.junit.Test;
 //
@@ -26,7 +25,7 @@
 //	static List<Integer> d_reinforcements;
 //	static int d_plyrId = 0;
 //	static GameState d_state;
-//	static GameEngineNew d_gameEngine;
+//	GameEngine d_gameEngine;
 //
 //	/**
 //	 * This is the common setup for all test cases and will be run before each test
@@ -34,9 +33,7 @@
 //	@Before
 //	public void before() {
 //		System.out.println("Testing Deploy class Setup: 4 armies to country Korea");
-////		d_deployOrder = new Deploy(4, "korea");
-//		// FIXME: Changed as per my understanding
-//		d_gameEngine = new GameEngineNew();
+//		d_gameEngine = new GameEngine();
 //		d_deployOrder = new Deploy("korea", 4, d_gameEngine);
 //		d_players = new ArrayList<>();
 //		d_reinforcements = new ArrayList<>();
@@ -70,7 +67,6 @@
 //		// Invalid case 2: negative number of armies for deploy
 //		System.out.println("Testing invalid deployment: negative number of armies for deply");
 //		d_players.get(0).setOwnership(l_ownedCountries);
-//		// FIXME: Changed as per my understanding (below line)
 //		assertFalse(new Deploy("korea", -1, d_gameEngine).isValidIssue(d_state, d_plyrId));
 //
 //		// Invalid case 3: more armies to be deployed than the armies available for the
