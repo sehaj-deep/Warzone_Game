@@ -130,8 +130,8 @@ public class Advance extends Order {
 
 	/**
 	 * Validate whether the given advance order is legal valid if source country
-	 * owned by the player and number of armies < number of armies in the source
-	 * country
+	 * owned by the player and number of armies less than number of armies in the
+	 * source country
 	 * 
 	 * 
 	 * @param p_state    is the game state for the requesting player at the current
