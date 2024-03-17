@@ -1,8 +1,6 @@
 package phases;
 
 import game.GameEngineNew;
-import game.GameState;
-import map.MapEditor;
 
 public abstract class MainPlay extends Play {
 
@@ -34,13 +32,4 @@ public abstract class MainPlay extends Play {
 	public void removePlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
-
-	/**
-	 * Execute the state-specific behavior of this phase
-	 * 
-	 * @param p_state Current state(situation) of the game at the moment
-	 * @param p_gMap  Game map on which the game is played
-	 */
-	abstract public void run(GameState p_state, MapEditor p_gMap);
 }
-

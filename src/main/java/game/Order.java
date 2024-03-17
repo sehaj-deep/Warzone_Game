@@ -5,9 +5,8 @@ package game;
  * types will inherit from Order class
  */
 public abstract class Order {
-
-	GameEngineNew d_gameEngine;
-	String d_orderName;
+	protected GameEngineNew d_gameEngine;
+	protected String d_orderName;
 
 	public Order(GameEngineNew p_gameEngineNew, String p_orderName) {
 		this.d_orderName = p_orderName;
