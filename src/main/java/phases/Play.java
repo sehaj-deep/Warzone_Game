@@ -10,9 +10,13 @@ import game.Player;
 import models.Continent;
 import models.Country;
 
+/**
+ * Represents the phase where the game is played.
+ */
 public abstract class Play extends Phase {
+
 	/**
-	 * Constructor
+	 * Constructs a new Play phase with the given game engine context.
 	 * 
 	 * @param p_gameEngine a context object for Play phase
 	 */
@@ -20,6 +24,9 @@ public abstract class Play extends Phase {
 		super(p_gameEngine);
 	}
 
+    /**
+     * Displays the map in text format, showing countries and their neighbors.
+     */
 	@Override
 	public void showMap() {
 		System.out.println("The following is the text format of the map");
@@ -70,14 +77,23 @@ public abstract class Play extends Phase {
 		}
 	}
 
+	/**
+     * Placeholder method for editing a country.
+     */
 	public void editCountry() {
 		printInvalidCommandMessage();
 	}
 
+    /**
+     * Placeholder method for saving the map.
+     */
 	public void saveMap() {
 		printInvalidCommandMessage();
 	}
 
+    /**
+     * Placeholder method for ending the game.
+     */
 	public void endGame() {
 		// TODO
 		// d_gameEngine.setPhase(new End(d_gameEngine)));
