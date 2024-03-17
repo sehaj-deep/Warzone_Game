@@ -59,7 +59,9 @@ public class AirliftTest {
 		l_players.get(1).getOwnership().add("5");
 
 		// call Bomb Order
-		d_gameState = new GameState(l_players);
+		d_gameState = new GameState();
+		d_gameState.setPlayers(l_players);
+
 		// to set gameBoard
 		d_gameState.getGameBoard().put("1", 0);
 		d_gameState.getGameBoard().put("2", 7);

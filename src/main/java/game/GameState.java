@@ -37,6 +37,11 @@ public class GameState {
 		return d_players;
 	}
 
+	public void setPlayers(List<Player> p_players) {
+		d_players = p_players;
+		;
+	}
+
 	/**
 	 * getter function to get the list of available reinforcements for all players
 	 *
