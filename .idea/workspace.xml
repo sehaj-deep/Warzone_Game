@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="819db189-7781-4265-823f-3bdf0384f25a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Diplomacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Diplomacy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/phases/PlaySetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/PlaySetup.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit3 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2dmswE2ORuhJnxfSRBB0MnVeTNa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.DiplomacyTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DiplomacyTest.testExecute.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DiplomacyTest.testIsValidExecute.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DiplomacyTest.testIsValidIssue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaySetupTest.addPlayers.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaySetupTest.assignCountries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaySetupTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaySetupTest.isAssignCountriesValid.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PlaySetupTest.removePlayers.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit3&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;build__two__NB&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nitinbirdi/Desktop/work/assignments/warzone project/build 2/Warzone_Game&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="models" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="game" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.PlaySetupTest">
+    <configuration name="DiplomacyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="models.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="models" />
+      <option name="MAIN_CLASS_NAME" value="models.DiplomacyTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaySetupTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaySetupTest.addPlayers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="METHOD_NAME" value="addPlayers" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaySetupTest.assignCountries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="METHOD_NAME" value="assignCountries" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PlaySetupTest.isAssignCountriesValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="phases.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="phases" />
+      <option name="MAIN_CLASS_NAME" value="phases.PlaySetupTest" />
+      <option name="METHOD_NAME" value="isAssignCountriesValid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.PlaySetupTest" />
+        <item itemvalue="JUnit.PlaySetupTest.assignCountries" />
+        <item itemvalue="JUnit.PlaySetupTest.isAssignCountriesValid" />
+        <item itemvalue="JUnit.PlaySetupTest.addPlayers" />
+        <item itemvalue="JUnit.DiplomacyTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-3183f394aec4-8ce719b4" />
+        <option value="jdk-17.0.9-jbr-17.0.9-3183f394aec4-631a3c05" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="819db189-7781-4265-823f-3bdf0384f25a" name="Changes" comment="" />
+      <created>1710624825093</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710624825093</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/phases/PlaySetup.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/phases/PlaySetup.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java</url>
+          <line>137</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/phases/PlaySetupTest.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/models/DiplomacyTest.java</url>
+          <line>50</line>
+          <properties class="models.DiplomacyTest">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="gameState" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
