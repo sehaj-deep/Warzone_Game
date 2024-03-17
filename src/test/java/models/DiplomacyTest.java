@@ -78,9 +78,6 @@ public class DiplomacyTest {
         diplomacy = new Diplomacy("Player2", newGameEngine);
         diplomacy.execute(gameState, 0);
 
-        System.out.println(player1.getD_negotiatedWith().size());
-        System.out.println(player2.getD_negotiatedWith().size());
-
         assertTrue(player1.getD_negotiatedWith().contains(player2)); // Assuming method to check negotiated players
         assertTrue(gameState.getPlayers().get(1).getD_negotiatedWith().contains(player1)); // Assuming method to check negotiated players
         assertNotEquals(1, player1.getCardCount("Diplomacy")); // Assuming method to check player's cards
