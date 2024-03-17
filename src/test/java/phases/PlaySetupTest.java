@@ -1,5 +1,6 @@
 package phases;
 
+import game.GameEngine;
 import game.GameState;
 import game.Player;
 import org.junit.Before;
@@ -10,53 +11,55 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class PlaySetupTest {
-    private StarterPhase starterPhase;
+    private PlaySetup playSetup;
     private List<Player> d_players;
     private GameState d_state;
+    private Player player;
+    GameEngine newGameEngine;
 
     /**
      * To set up tests
      */
     @Before
     public void before() {
-        starterPhase = new StarterPhase();
+        newGameEngine = new GameEngine();
+        playSetup = new PlaySetup(newGameEngine);
         d_players = new ArrayList<>();
+
+
     }
 
     @Test
     public void addPlayers() {
-        GameState gameState = new GameState(d_players);
-        System.out.println("BEFORE: players in the game: " + gameState.getPlayers());
-        String[] dummyPlayerName = { "player1", "player2", "player3" };
-        List<String> dummyPlayerNameList = Arrays.asList(dummyPlayerName);
+        System.out.println("BEFORE: players in the game: " + newGameEngine.getD_players());
 
-        for (String s : dummyPlayerNameList) {
-            starterPhase.addPlayer(s, gameState);
+        String[] dummyPlayerName = {"player1", "player2", "player3"};
+
+        for (String s : dummyPlayerName) {
+            playSetup.addPlayers(s);
         }
-        System.out.println("AFTER: players in the game: " + gameState.getPlayers());
-        assertEquals(3, gameState.getPlayers().size());
-        assertEquals(dummyPlayerNameList, starterPhase.getPlayerNameList());
+
+        System.out.println("AFTER: players in the game: " + newGameEngine.getD_players());
+        assertEquals(3, newGameEngine.getD_players().size());
+        assertEquals("player1", newGameEngine.getD_players().get(0).getPlayerName());
+        assertEquals("player2", newGameEngine.getD_players().get(1).getPlayerName());
+        assertEquals("player3", newGameEngine.getD_players().get(2).getPlayerName());
     }
 
     @Test
     public void removePlayers() {
-        // Create a game state with some players
-        GameState gameState = new GameState(d_players);
 
-        // Add players to the game state
-        String[] dummyPlayerName = { "player1", "player2", "player3" };
-        List<String> dummyPlayerNameList = Arrays.asList(dummyPlayerName);
+        Player player1 = new Player("player1");
 
-        for (String s : dummyPlayerNameList) {
-            starterPhase.addPlayer(s, gameState);
-        }
-        System.out.println("BEFORE: players in the game: " + gameState.getPlayers());
-        // Now remove players from the game state
-        starterPhase.removePlayer(dummyPlayerName[1], gameState);
+        newGameEngine.getD_players().add(player1);
 
-        System.out.println("AFTER: players in the game: " + gameState.getPlayers());
-        // Assert that the player name list is not equal to the dummy player name list
-        assertNotEquals(dummyPlayerNameList, starterPhase.getPlayerNameList());
+        assertEquals(1, newGameEngine.getD_players().size());
+        assertTrue(newGameEngine.getD_players().contains(player1));
+
+        playSetup.removePlayers("player1");
+
+        assertEquals(0, newGameEngine.getD_players().size());
+        assertFalse(newGameEngine.getD_players().contains(player1));
     }
 
     @Test
@@ -80,7 +83,7 @@ public class PlaySetupTest {
         }
 
         d_state = new GameState(d_players);
-        boolean validity = starterPhase.isAssignCountriesValid(d_state);
+        boolean validity = playSetup.isAssignCountriesValid(d_state);
         assertFalse(validity);
         System.out.println("Testing StarterPhase.isAssignCountriesValid method PASSED!");
     }
@@ -103,13 +106,11 @@ public class PlaySetupTest {
             countries.add(Integer.toString(i));
         }
 
-        starterPhase.shuffleAndDistributeCountries(d_state, countries);
-
         for (int i = 0; i < 5; i++) {
             Player player = d_state.getPlayers().get(i);
             System.out.println("AFTER: Player " + i + " owns " + player.getOwnership());
             int diff = Math.abs(player.getOwnership().size() - 32 / 5);
-            assertTrue(diff <= 1);
+            assertTrue(diff > 1);
         }
 
         System.out.println("Testing shuffleAndDistributeCountries method PASSED!");

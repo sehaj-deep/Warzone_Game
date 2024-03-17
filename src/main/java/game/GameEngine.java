@@ -3,45 +3,196 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-import iohandlers.InputHandler;
-import map.MapEditor;
+
+import map.Preload;
+import models.Continent;
+import models.Country;
+import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
+import phases.Phase;
+import phases.PlaySetup;
+import phases.ReinforcePhase;
+import utils.Common;
 import utils.LogEntryBuffer;
 import utils.LogFileWriter;
 
-/**
- * GameEngine Class This Class runs a game by integrating all the functions and
- * classes needed for Warzone
- */
 public class GameEngine {
-	private static LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
-	private static LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
-	private static MapEditor d_mapEditor = new MapEditor();
-	private static InputHandler d_inputHandler = new InputHandler(d_mapEditor);
+	private LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
-	private static List<Player> d_players = new ArrayList<>(); // list of players playing the game
-	private static HashMap<String, Integer> d_board = new HashMap<String, Integer>(); // key: country name. val: num
-	// army in
-	private static GameState d_state = new GameState(d_players); // the country
+	private static List<Player> d_players = new ArrayList<>();
+	private GameState d_gameState = new GameState(d_players);
+	private Map<Player, Boolean> d_validOrder = new HashMap<>();
+
+	protected Phase d_gamePhase;
 
 	/**
-	 * Main method to start the game engine
-	 * 
-	 * @param args command line arguments
+	 * A hashmap to store the continents
 	 */
-	public static void main1(String[] args) {
+	protected HashMap<String, Continent> d_continents = new HashMap<>();
 
-		Scanner l_scanner = new Scanner(System.in);
+	/**
+	 * To map continent id with continent name
+	 */
+	protected HashMap<Integer, Continent> d_continentId = new HashMap<>();
 
-		boolean l_editMapPhase = false;
-		boolean l_gamePhase = false;
-		String l_userInput = "";
+	/**
+	 * A hashmap to store the countries
+	 */
+	protected HashMap<String, Country> d_countries = new HashMap<>();
 
-		while (!l_editMapPhase && !l_gamePhase) {
-			System.out.println("Do you want to edit the map or start playing the game?");
+	/**
+	 * To map countries id with country name
+	 */
+	protected HashMap<Integer, Country> d_countriesId = new HashMap<>();
+
+	/**
+	 * getter function for a list of players playing the game
+	 *
+	 * @return d_players a list of players playing the game
+	 */
+	public List<Player> getD_players() {
+		return d_players;
+	}
+
+	/**
+	 * The name of the map.
+	 */
+	protected String d_mapName;
+
+	/**
+	 * To change the phase
+	 * 
+	 * @param p_phase The phase to be set
+	 */
+	public void setPhase(Phase p_phase) {
+		d_gamePhase = p_phase;
+		d_logEntryBuffer.setD_currentPhase("Current phase is " + p_phase.getClass());
+	}
+
+	/**
+	 * To get the current phase
+	 * 
+	 * @return The current Phase
+	 */
+	public Phase getPhase() {
+		return d_gamePhase;
+	}
+
+	/**
+	 * 
+	 * @return the list of continents
+	 */
+	public HashMap<String, Continent> getD_continents() {
+		return d_continents;
+	}
+
+	/**
+	 * 
+	 * @param p_continentName Unique name of the continent
+	 * @return the required continent mapped to continent ID
+	 */
+	public Continent getD_continents(String p_continentName) {
+		return d_continents.get(p_continentName);
+	}
+
+	/**
+	 * Removes a continent based on the provided continent name.
+	 *
+	 * @param p_continentName The name of the continent to be removed.
+	 * @return The removed continent object, or null if the continent with the
+	 *         specified name doesn't exist.
+	 */
+	public Continent removeD_continent(String p_continentName) {
+		return d_continents.remove(p_continentName);
+	}
+
+	/**
+	 * 
+	 * @return the list of continents mapped to corresponding ID
+	 */
+	public HashMap<Integer, Continent> getD_continentId() {
+		return d_continentId;
+	}
+
+	/**
+	 * 
+	 * @param p_continentId The Id of the continent
+	 * @return return the Object of the continent corresponding to an Id.
+	 */
+	public Continent getD_continentId(int p_continentId) {
+		return d_continentId.get(p_continentId);
+	}
+
+	/**
+	 * Removes a continent based on the provided continent ID.
+	 *
+	 * @param p_continentId The ID of the continent to be removed.
+	 * @return The removed continent object, or null if the continent with the
+	 *         specified ID doesn't exist.
+	 */
+	public Continent removeD_continentID(int p_continentId) {
+		return d_continentId.remove(p_continentId);
+	}
+
+	/**
+	 * Retrieves the hashmap containing the countries.
+	 *
+	 * @return The hashmap containing the countries.
+	 */
+	public HashMap<String, Country> getD_countries() {
+		return d_countries;
+	}
+
+	/**
+	 * Retrieves the country object with the specified country name.
+	 *
+	 * @param p_countryName The name of the country to retrieve.
+	 * @return The country object corresponding to the given country name.
+	 */
+	public Country getD_countries(String p_countryName) {
+		return d_countries.get(p_countryName);
+	}
+
+	/**
+	 * 
+	 * @return the name of the country corresponding to the id.
+	 */
+	public HashMap<Integer, Country> getD_countriesId() {
+		return d_countriesId;
+	}
+
+	/**
+	 * 
+	 * @return name of the map
+	 */
+	public String getD_mapName() {
+		return d_mapName;
+	}
+
+	/**
+	 * The g
+	 * 
+	 * @return
+	 */
+	public GameState getGameState() {
+		return d_gameState;
+	}
+
+	/**
+	 * Set the name of the map
+	 * 
+	 * @param d_mapName Name of the map file
+	 */
+	public void setD_mapName(String d_mapName) {
+		this.d_mapName = d_mapName;
+	}
+
+	public void start() {
+		try (Scanner l_scanner = new Scanner(System.in)) {
 			System.out.println("1. Edit Map");
 			System.out.println("2. Start Game");
 			System.out.print("Enter your choice: ");
@@ -49,137 +200,453 @@ public class GameEngine {
 
 			switch (choice) {
 			case "1":
-				l_editMapPhase = true;
-				d_logEntryBuffer.setD_currentPhase("Map Editing Phase");
+				setPhase(new Preload(this));
+
 				break;
 			case "2":
-				l_gamePhase = true;
-				d_logEntryBuffer.setD_currentPhase("Game Phase");
+				setPhase(new PlaySetup(this));
 				break;
 			default:
 				System.out.println("Invalid choice. Please try again.");
 				break;
 			}
+
+			String l_command = "";
+
+			while (this.getPhase().getClass().equals(new PlaySetup(this).getClass())) {
+				System.out.print("\n> Enter a command: ");
+				l_command = l_scanner.nextLine();
+				parseUserCommand(l_command);
+			}
+
+			l_command = "";
+			do {
+
+				if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
+					ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
+
+					l_reinforcePhase.calculateReinforcements();
+					continue;
+				}
+
+				if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
+					IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
+
+					l_issueOrdersPhase.issueOrders(l_scanner);
+					continue;
+				}
+
+				if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
+					ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
+
+					l_executeOrdersPhase.executeAllOrders();
+					continue;
+				}
+
+				System.out.println("Enter a command: ");
+				l_command = l_scanner.nextLine();
+
+				parseUserCommand(l_command);
+			} while (l_command.toLowerCase() != "done");
 		}
+	}
 
-		// Map editing phase
-		if (l_editMapPhase) {
-			System.out.println("You are now in the map editing phase.");
-			System.out.println("To edit the map or create a new map, use the following command:");
-			System.out.println("editmap filename");
+	public void parseUserCommand(String p_userInput) {
 
-			l_userInput = l_scanner.nextLine();
+		String[] l_tokens = p_userInput.split("\\s+");
+		String l_command = l_tokens[0].toLowerCase();
 
-			while (!l_userInput.startsWith("editmap")) {
-				System.out
-						.println("Invalid Command entered. You need to give the name of file using \"editmap filename\" command.");
-				l_userInput = l_scanner.nextLine();
-			}
-
-			d_inputHandler.parseUserCommand(l_userInput);
-
-			System.out.println("Available commands: editcontinent, editcountry, editneighbor, showmap, savemap, validatemap");
-
-			boolean l_editingMap = true;
-
-			while (l_editingMap) {
-				System.out.print("Enter map editing command (type 'done' to finish): ");
-				l_userInput = l_scanner.nextLine().trim();
-
-				if (l_userInput.equalsIgnoreCase("done")) {
-					l_editingMap = false;
-				}
-				else {
-					d_inputHandler.parseUserCommand(l_userInput);
-				}
-			}
+		switch (l_command) {
+		case "editcontinent":
+			parseEditContinentCommand(l_tokens);
+			break;
+		case "editcountry":
+			parseEditCountryCommand(l_tokens);
+			break;
+		case "editneighbor":
+			parseEditNeighborCommand(l_tokens);
+			break;
+		case "showmap":
+			parseShowMapCommand(l_tokens);
+			break;
+		case "savemap":
+			parseSaveMapCommand(l_tokens);
+			break;
+		case "editmap":
+			parseEditMapCommand(l_tokens);
+			break;
+		case "validatemap":
+			parseValidateMapCommand(l_tokens);
+			break;
+		case "gameplayer":
+			parseGamePlayerCommand(l_tokens);
+			break;
+		case "assigncountries":
+			parseAssignCountriesCommand(l_tokens);
+			break;
+		case "loadmap":
+			parseLoadMapCommand(l_tokens);
+			break;
+		default:
+			System.out.println("Invalid command. Please try again.");
 		}
-
-		// Game playing phase
-		if (l_gamePhase) {
-			InputHandler l_inputHandlerGame = new InputHandler(d_mapEditor, d_state);
-			System.out.println("You are now in the game playing phase.");
-
-			while (true) {
-				// Loadmap. To ensure that the user loads the map before playing the game
-				System.out.println("Please load a map where you want to play a game");
-				l_userInput = l_scanner.nextLine().trim();
-				l_inputHandlerGame.parseUserCommand(l_userInput);
-				if (d_mapEditor.getD_countries().size() > 0) {
-					break;
-				}
-				System.out.println("Map is not loaded. Please load a map before playing a game");
-			}
-
-			initalizeBoard(); // initialize the game board
-			d_state.setGameBoard(d_board);
-
-			System.out.println("Available commands: showmap, gameplayer, assigncountries, loadmap");
-
-			boolean l_playingGame = true;
-
-			// startup phase: add, remove, and assigncountries
-			while (l_playingGame) {
-				System.out.print("Enter setup command (type 'assigncountries' to play): ");
-				l_userInput = l_scanner.nextLine().trim();
-				if (l_userInput.equals("assigncountries")) {
-					if (d_state.getPlayers().size() <= 1) {
-						System.out.println("Require At least 2 players to play a game");
-						continue;
-					}
-					System.out.println("end start phase");
-					l_playingGame = false;
-				}
-
-				l_inputHandlerGame.parseUserCommand(l_userInput);
-
-			}
-			System.out.println("Game Started");
-			l_playingGame = true;
-			// game playing phases: reinforcement, issue order, execute order phases
-
-			while (l_playingGame) {
-				System.out.print("Type 'done' to finish, showmap, or enter anything to proceed to issue order: ");
-				l_userInput = l_scanner.nextLine().trim();
-
-				if (l_userInput.equalsIgnoreCase("done")) {
-					l_playingGame = false;
-					System.out.println("Game Ended");
-					d_logEntryBuffer.setD_currentPhase("The game has ended.");
-					break;
-				}
-
-				if (l_userInput.equals("showmap")) {
-					l_inputHandlerGame.parseUserCommand(l_userInput);
-				}
-
-				d_logEntryBuffer.setD_currentPhase("Reinforcement Phase");
-				// ReinforcePhase l_reinforcementPhase = new ReinforcePhase();
-				d_state.setReinforcements(new ArrayList<>());
-				// l_reinforcementPhase.execute(d_state, d_mapEditor);
-
-				d_logEntryBuffer.setD_currentPhase("Issue Order Phase");
-				IssueOrdersPhase l_issueOrderPhase = new IssueOrdersPhase();
-				l_issueOrderPhase.run(d_state, d_mapEditor);
-
-				d_logEntryBuffer.setD_currentPhase("Execute Order Phase");
-				// ExecuteOrdersPhase l_executeOrdersPhase = new ExecuteOrdersPhase();
-				// l_executeOrdersPhase.run(d_state, d_mapEditor);
-			}
-		}
-
-		l_scanner.close();
 	}
 
 	/**
-	 * Initialize the hash map representation of game board based on the map used in
-	 * the current game update d_board where key: country name, and value: number of
-	 * army positioned in the country
-	 *
+	 * Parses the 'editcontinent' command.
+	 * 
+	 * @param p_tokens Command tokens.
 	 */
-	public static void initalizeBoard() {
-		Set<String> l_mapCountries = d_mapEditor.getD_countries().keySet();
-		for (String countryName : l_mapCountries)
-			d_board.put(countryName, 0);
+	private void parseEditContinentCommand(String[] p_tokens) {
+		if (p_tokens.length < 3) {
+			System.out.println(
+					"Invalid command. Syntax: editcontinent -add continentId continentvalue -remove continentId");
+			return;
+		}
+
+		String l_option = "";
+		String l_continentName = "";
+		String l_continentValue = "";
+
+		for (int i = 1; i < p_tokens.length; i++) {
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						// Validation - there should be at least 2 tokens after add
+						if (i + 1 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_continentName = p_tokens[i];
+								l_continentValue = p_tokens[++i];
+
+								try {
+									d_gamePhase.addContinent(l_continentName, Integer.parseInt(l_continentValue));
+									d_logEntryBuffer
+											.setD_effectOfAction("Continent " + l_continentName + " was added.");
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						if (!p_tokens[i].startsWith("-")) {
+							l_continentName = p_tokens[i];
+
+							try {
+								d_gamePhase.removeContinent(l_continentName);
+								d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editcontinent command. Use -add or -remove.");
+					}
+				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
 	}
+
+	/**
+	 * Parses the 'editcountry' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseEditCountryCommand(String[] p_tokens) {
+		if (p_tokens.length < 2) {
+			System.out.println("Invalid command. Syntax: editcountry -add countryId continentId -remove countryId");
+			return;
+		}
+
+		String l_option = "";
+		String l_countryId = "";
+		String l_continentId = "";
+
+		for (int i = 1; i < p_tokens.length; i++) {
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						// Validation - there should be at least 2 tokens after add
+						if (i + 1 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
+								l_continentId = p_tokens[++i];
+
+								try {
+									d_gamePhase.addCountry(l_countryId, l_continentId);
+									d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was added.");
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						if (!p_tokens[i].startsWith("-")) {
+							l_countryId = p_tokens[i];
+
+							try {
+								d_gamePhase.removeCountry(l_countryId);
+								d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was removed.");
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editcountry command. Use -add or -remove.");
+					}
+				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Parses the 'editneighbor' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseEditNeighborCommand(String[] p_tokens) {
+		if (p_tokens.length < 2) {
+			System.out.println(
+					"Invalid command. Syntax: editneighbor -add countryID neighborcountryId -remove countryId neighborcountryId");
+			return;
+		}
+
+		String l_option = "";
+		String l_countryId = "";
+		String l_neighborCountryId = "";
+
+		for (int i = 1; i < p_tokens.length; i++) {
+			try {
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toLowerCase();
+				} else {
+					switch (l_option) {
+					case "-add":
+						// Validation - there should be at least 2 tokens after add
+						if (i + 1 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
+								l_neighborCountryId = p_tokens[++i];
+
+								try {
+									d_gamePhase.addNeighbor(l_countryId, l_neighborCountryId);
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was added as a neighbor to " + l_countryId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					case "-remove":
+						// Validation - there should be at least 2 tokens after add
+						if (i + 1 < p_tokens.length) {
+
+							// Validation - parameter should not start with "-"
+							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+								l_countryId = p_tokens[i];
+								l_neighborCountryId = p_tokens[++i];
+
+								try {
+									d_gamePhase.removeNeighbor(l_countryId, l_neighborCountryId);
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was removed as a neighbor of " + l_countryId);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for editneighbor command. Use -add or -remove.");
+					}
+				}
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Parses the 'showmap' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseShowMapCommand(String[] p_tokens) {
+		// TODO: Check two diff phases that use this
+		d_gamePhase.showMap();
+		d_logEntryBuffer.setD_effectOfAction("The map was shown.");
+	}
+
+	/**
+	 * Parses the 'savemap' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseSaveMapCommand(String[] p_tokens) {
+		if (p_tokens.length != 2) {
+			System.out.println("Invalid command. Syntax: savemap filename");
+		} else {
+			String l_filename = Common.getMapPath(p_tokens[1]);
+
+			d_gamePhase.saveMap(l_filename);
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " file was saved.");
+		}
+	}
+
+	/**
+	 * Parses the 'editmap' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseEditMapCommand(String[] p_tokens) {
+		if (p_tokens.length != 2) {
+			System.out.println("Invalid command. Syntax: editmap filename");
+		} else {
+			String l_filename = p_tokens[1];
+
+			d_gamePhase.editMap(Common.getMapPath(l_filename));
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " file was edited.");
+		}
+
+	}
+
+	/**
+	 * Parses the 'validatemap' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseValidateMapCommand(String[] p_tokens) {
+		d_gamePhase.validateMap();
+		d_logEntryBuffer.setD_effectOfAction("The map was validated.");
+	}
+
+	/**
+	 * Parses the 'gameplayer' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseGamePlayerCommand(String[] p_tokens) {
+		if (p_tokens.length < 3) {
+			System.out.println("Invalid command. Syntax: gameplayer -add playername -remove playername");
+			return;
+		}
+
+		String l_option = "";
+		String l_playerName = "";
+
+		for (int i = 1; i < p_tokens.length; i++) {
+			if (p_tokens[i].startsWith("-")) {
+				l_option = p_tokens[i].toLowerCase();
+			} else {
+				switch (l_option) {
+				case "-add":
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_gamePhase.addPlayers(l_playerName);
+						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was added as a player.");
+					}
+					break;
+				case "-remove":
+					if (!p_tokens[i].startsWith("-")) {
+						l_playerName = p_tokens[i];
+						d_gamePhase.removePlayers(l_playerName);
+						d_logEntryBuffer.setD_effectOfAction(l_playerName + " was removed from players.");
+					}
+					break;
+				default:
+					System.out.println("Invalid option for gameplayer command. Use -add or -remove.");
+				}
+			}
+		}
+	}
+
+	/**
+	 * Parses the 'assigncountries' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseAssignCountriesCommand(String[] p_tokens) {
+		d_gamePhase.assignCountries();
+		d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
+	}
+
+	/**
+	 * Parses the 'loadmap' command.
+	 * 
+	 * @param p_tokens Command tokens.
+	 */
+	private void parseLoadMapCommand(String[] p_tokens) {
+		if (p_tokens.length != 2) {
+			System.out.println("Invalid command. Syntax: loadmap filename");
+		} else {
+			String l_filename = Common.getMapPath(p_tokens[1]);
+			d_gamePhase.loadMap(l_filename);
+			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
+		}
+	}
+
+	/**
+	 * This class check if a player made a deal with another player then the attack is not allowed
+	 *
+	 * @param p_targetCountryName accept the country name which player want to attack
+	 * @return the boolean value true if attack is allowed
+	 */
+	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
+		for (Player p: player.getD_negotiatedWith()) {
+			if(p.getOwnership().contains(p_targetCountryName)) {
+				System.err.println("The negotiated player cannot be attacked for this turn");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Parse the Deploy command from the user command in terminal Store the user
+	 * input tokens in the game state so that Phase classes can access the inputs
+	 * 
+	 * @param p_tokens an array of tokens given in the user input command
+	 */
+//	private void parseDeployCommand(String[] p_tokens) {
+//		Pattern numericRegex = Pattern.compile("\\d+");
+//		if (p_tokens.length != 3) {
+//			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
+//			return;
+//		}
+//		if (!numericRegex.matcher(p_tokens[2]).matches()) {
+//			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
+//			return;
+//		}
+//
+//		l_player.issue_order(p_tokens);
+//
+//		// TODO Add/Modify this method in the appropriate phase classes
+//		// NOTE: This method might need to be refactored
+//		d_gamePhase.setOrderInput(p_tokens); // pass it to issue orders phase
+//		d_logEntryBuffer.setD_effectOfAction("");
+//	}
 }

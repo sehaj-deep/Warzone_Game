@@ -1,11 +1,9 @@
 package game;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
 import java.util.*;
+
+import models.Airlift;
+import models.Bomb;
 
 /**
  * Player Class this class stores information and the state of the game about a
@@ -17,7 +15,7 @@ public class Player {
 	private Queue<Order> d_listOrders; // list of orders issued by the player
 	private Set<String> d_ownership; // set of countries owned by the player
 	private HashMap<String, Integer> d_listOfCards;
-	List<Player> d_negotiatedWith = new ArrayList<Player>();
+	private List<Player> d_negotiatedWith = new ArrayList<Player>();
 
 	/**
 	 * Parameterized constructor for the player
@@ -29,10 +27,10 @@ public class Player {
 		d_listOrders = new LinkedList<>();
 		d_ownership = new HashSet<String>();
 		d_listOfCards = new HashMap<>();
-		d_listOfCards.put("bomb", 0);
-		d_listOfCards.put("blockade", 0);
-		d_listOfCards.put("airlift", 0);
-		d_listOfCards.put("diplomacy", 0);
+		d_listOfCards.put("Bomb", 0);
+		d_listOfCards.put("Blockade", 0);
+		d_listOfCards.put("Airlift", 0);
+		d_listOfCards.put("Diplomacy", 0);
 	}
 
 	/**
@@ -85,9 +83,79 @@ public class Player {
 	 *
 	 * @param p_newOrder new order a player wants to take in the current round
 	 */
-	public void issue_order(Order p_newOrder) {
-		d_listOrders.add(p_newOrder);
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
+
+		String l_sourceCountry = "";
+		String l_targetCountry = "";
+		String l_playerId = "";
+		int l_numberOfArmies = 0;
+
+		switch (p_tokens[0]) {
+			case "deploy":
+				l_targetCountry = p_tokens[1];
+				l_numberOfArmies = Integer.parseInt(p_tokens[2]);
+
+				Deploy l_deploy = new Deploy(l_targetCountry, l_numberOfArmies, p_gameEngine);
+				if (l_deploy.isValidIssue(p_gameEngine.getGameState(), l_numberOfArmies)) {
+					d_listOrders.add(l_deploy);
+				}
+				break;
+			case "advance":
+				l_sourceCountry = p_tokens[1];
+				l_targetCountry = p_tokens[2];
+				l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+
+				// FIXME validate the other commands like deploy
+				// d_listOrders.add(new Advance(l_sourceCountry, l_targetCountry,
+				// l_numberOfArmies, p_gameEngine));
+				break;
+			case "bomb":
+				l_targetCountry = p_tokens[1];
+				d_listOrders.add(new Bomb(l_targetCountry, p_gameEngine));
+				break;
+			case "airlift":
+				l_sourceCountry = p_tokens[1];
+				l_targetCountry = p_tokens[2];
+				l_numberOfArmies = Integer.parseInt(p_tokens[3]);
+				d_listOrders.add(new Airlift(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine));
+				break;
+			case "negotiate":
+				l_playerId = p_tokens[1];
+				// d_listOrders.add(new Negotiate(l_playerId, p_gameEngine));
+				break;
+			case "blockade":
+				l_targetCountry = p_tokens[1];
+				// d_listOrders.add(new Blockade(l_targetCountry, p_gameEngines));
+				break;
+		}
+
+		// d_listOrders.add(p_newOrder);
 	}
+
+	/**
+	 * add the name of the player who made deal not to attack
+	 *
+	 * @param p_negotiatedPlayer add the name of player who made negotiation
+	 */
+	public void addNegotiatedPlayer( Player p_negotiatedPlayer ) {
+		this.d_negotiatedWith.add(p_negotiatedPlayer);
+	}
+
+	/**
+	 * Getter for d_negotiate
+	 *
+	 * @return the name of the player whom player has negotiated with
+	 */
+	public List<Player> getD_negotiatedWith() {
+		return this.d_negotiatedWith;
+	}
+	/**
+	 * Reset the negotiation
+	 */
+	public void resetTheNegotiation() {
+		d_negotiatedWith.clear();
+	}
+
 
 	/**
 	 * get next order in the order list of a player
@@ -96,22 +164,6 @@ public class Player {
 	 */
 	public Order next_order() {
 		return d_listOrders.poll();
-	}
-
-	/**
-	 * add the name of the player who made deal not to attack
-	 *
-	 * @param p_negotiatedPlayer add the name of player who made negotiation
-	 */
-	public void addNegotiatedPlayer(Player p_negotiatedPlayer ) {
-		this.d_negotiatedWith.add(p_negotiatedPlayer);
-	}
-
-	/**
-	 * Reset the negotiation
-	 */
-	public void resetTheNegotiation() {
-		d_negotiatedWith.clear();
 	}
 
 	/**
@@ -125,21 +177,21 @@ public class Player {
 	}
 
 	/**
-	 * get the list of the card owned by player
-	 *
-	 * @return the card owned by player
-	 */
-	public HashMap<String, Integer> getD_listOfCards() {
-		return d_listOfCards;
-	}
-
-	/**
 	 * To increment the value of the card by 1
 	 *
 	 * @param p_cardName The name of the card whose value is to be changed
 	 */
 	public void increaseCardCount(String p_cardName) {
 		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) + 1);
+	}
+
+	/**
+	 * To decrement the number of cards by 1
+	 *
+	 * @param p_cardName The name of the card whose value is to be changed
+	 */
+	public void decreaseCardCount(String p_cardName) {
+		d_listOfCards.put(p_cardName, d_listOfCards.get(p_cardName) - 1);
 	}
 
 }

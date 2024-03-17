@@ -3,7 +3,7 @@ package game;
 public class GameDriver {
 
 	public static void main(String[] args) {
-		GameEngineNew l_gameEngine = new GameEngineNew();
+		GameEngine l_gameEngine = new GameEngine();
 		l_gameEngine.start();
 	}
 }

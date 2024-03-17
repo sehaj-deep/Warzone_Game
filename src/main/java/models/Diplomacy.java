@@ -1,6 +1,11 @@
-package game;
+package models;
 
-public class Diplomacy implements Order {
+import game.GameEngine;
+import game.GameState;
+import game.Order;
+import game.Player;
+
+public class Diplomacy extends Order {
     // Player class
     Player player;
 
@@ -12,7 +17,8 @@ public class Diplomacy implements Order {
      *
      * @param d_targetPlayer name of the opponent player
      */
-    public Diplomacy(String d_targetPlayer) {
+    public Diplomacy(String d_targetPlayer, GameEngine newGameEngine) {
+        super(newGameEngine, "Diplomacy");
         this.d_targetPlayer = d_targetPlayer;
     }
 
@@ -65,7 +71,7 @@ public class Diplomacy implements Order {
 
         l_targetPlayer.addNegotiatedPlayer(l_issuingPlayer);
         l_issuingPlayer.addNegotiatedPlayer(l_targetPlayer);
-        l_issuingPlayer.getD_listOfCards().remove("Diplomacy");
+        l_issuingPlayer.decreaseCardCount("Diplomacy");
 
         System.out.println(l_issuingPlayer.getPlayerName() + " is negotiated with " + d_targetPlayer);
     }
@@ -93,20 +99,9 @@ public class Diplomacy implements Order {
         return true;
     }
 
-    /**
-     * return the current order state
-     */
-    public String currentOrder() {
-        return "Diplomacy";
-    }
-
     @Override
     public void changeGameState(GameState p_state, int p_playerId) {
-
-    }
-
-    @Override
-    public void addOrderID(String p_id) {
+        return;
     }
 
     @Override

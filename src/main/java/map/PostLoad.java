@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import game.GameEngineNew;
+import game.GameEngine;
 import models.Continent;
 import models.Country;
 import phases.PlaySetup;
@@ -15,7 +15,7 @@ import utils.ValidationException;
 
 public class PostLoad extends Edit {
 
-	public PostLoad(GameEngineNew p_gameEngine) {
+	public PostLoad(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 

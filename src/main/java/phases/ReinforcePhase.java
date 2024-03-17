@@ -1,10 +1,12 @@
 package phases;
 
-import game.GameEngineNew;
-import game.GameState;
+import java.util.HashMap;
+import java.util.Set;
+
+import game.GameEngine;
 import game.Player;
-import game.Reinforcements;
-import map.MapEditor;
+import models.Continent;
+import models.Country;
 
 /**
  * Represents the reinforcement phase in the game.
@@ -15,7 +17,7 @@ public class ReinforcePhase extends MainPlay {
 	 * 
 	 * @param p_gameEngine a context object for ExecuteOrders phase
 	 */
-	public ReinforcePhase(GameEngineNew p_gameEngine) {
+	public ReinforcePhase(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
@@ -23,8 +25,7 @@ public class ReinforcePhase extends MainPlay {
 	 * move to the next state(phase)
 	 */
 	public void next() {
-		// TODO: issue orders phase
-		// d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
+		d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
 	}
 
 	/**
@@ -33,19 +34,37 @@ public class ReinforcePhase extends MainPlay {
 	 * @param p_state     The current state of the game.
 	 * @param p_mapEditor The map editor representing the game map.
 	 */
-	public void execute(GameState p_state, MapEditor p_mapEditor) {
-		for (Player p_player : p_state.getPlayers()) {
-			Reinforcements l_reinforcements = new Reinforcements(p_mapEditor, p_player);
-			l_reinforcements.calculateReinforcementArmies();
-			int reinforcementArmies = l_reinforcements.getReinforcementArmies();
-			p_state.getReinforcements().add(reinforcementArmies);
+	public void calculateReinforcements() {
+		for (Player p_player : d_gameEngine.getGameState().getPlayers()) {
+			int l_reinforcements = calculateReinforcementArmies(p_player);
+			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
 		}
+
+		this.next();
 	}
 
-	@Override
-	public void run(GameState p_state, MapEditor p_gMap) {
-		// TODO Auto-generated method stub
+	public int calculateReinforcementArmies(Player p_player) {
+		int d_reinforcementArmies = p_player.getOwnership().size() / 3; // Basic calculation based on territories owned
 
+		// Add bonus armies from continents owned
+		for (HashMap.Entry<String, Continent> l_continent : d_gameEngine.getD_continents().entrySet()) {
+
+			Set<Country> l_countries = l_continent.getValue().getD_countries();
+			boolean l_OwnsAllCountries = false;
+			// FIXME
+			for (Country country : l_countries) {
+				if (!p_player.getOwnership().contains(country.getD_name())) {
+					l_OwnsAllCountries = true;
+					break;
+				}
+			}
+			if (l_OwnsAllCountries) {
+				// Get the bonus armies for the continent from the map editor
+				int bonusArmies = l_continent.getValue().getD_continentBonusArmies();
+				d_reinforcementArmies += bonusArmies;
+			}
+		}
+		return d_reinforcementArmies;
 	}
 
 	@Override
@@ -119,5 +138,4 @@ public class ReinforcePhase extends MainPlay {
 		// TODO Auto-generated method stub
 
 	}
-
 }
