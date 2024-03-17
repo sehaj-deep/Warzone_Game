@@ -12,12 +12,29 @@ import constants.GameConstants;
 import game.GameEngine;
 import models.Country;
 
+/**
+ * This class contains unit tests for the Preload class, which is responsible for reading and initializing game map data from map files.
+ */
 public class PreloadTest {
 
+	/**
+     * The game engine used for testing.
+     */
 	private GameEngine d_gameEngine;
+
+	/**
+     * The Preload object under test.
+     */
 	private Preload d_preload;
+
+	/**
+     * The name of the file to be used for testing.
+     */
 	private String d_fileName;
 
+	/**
+     * Setup method to initialize objects before each test case.
+     */
 	@Before
 	public void setup() {
 		d_gameEngine = new GameEngine();

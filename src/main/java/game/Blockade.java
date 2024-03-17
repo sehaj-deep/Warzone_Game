@@ -10,6 +10,10 @@ import utils.ValidationException;
  * territory becomes neutral. Inherits from the Order class.
  */
 public class Blockade extends Order {
+	
+	/**
+     * The ID of the country to be blockaded.
+     */
 	private String d_countryId;
 
 	/**

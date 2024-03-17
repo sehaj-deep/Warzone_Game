@@ -14,14 +14,39 @@ import game.GameEngine;
 import game.GameState;
 import game.Player;
 
+/**
+ * The BombTest class contains unit tests for the Bomb order in the game.
+ */
 public class BombTest {
 
+	/**
+	 * The instance of Bomb order being tested.
+	 */
 	private Bomb d_bombOrder;
+
+	/**
+	 * The instance of GameEngine used for testing.
+	 */
 	private GameEngine d_gameEngine;
+
+	/**
+	 * The instance of GameState used for testing.
+	 */
 	private GameState d_gameState;
+
+	/**
+	 * The ID of the first player used for testing.
+	 */
 	private int d_playerId1;
+
+	/**
+	 * The ID of the second player used for testing.
+	 */
 	private int d_playerId2;
 
+	/**
+     * Sets up the test environment by initializing the necessary objects for testing.
+     */
 	@Before
 	public void setup() {
 		d_gameEngine = new GameEngine();
@@ -74,24 +99,36 @@ public class BombTest {
 		d_playerId2 = 1;
 	}
 
+	/**
+     * Test to check whether issuing a bomb order on an adjacent target country is valid.
+     */
 	@Test
 	public void isValidIssueWithAdjacentTargetCountry() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
 		assertTrue(d_bombOrder.isValidIssue(d_gameState, d_playerId1));
 	}
 
+	/**
+     * Tests to check whether issuing a bomb order on a non-adjacent target country is valid.
+     */
 	@Test
 	public void isValidIssueWithNonAdjacentTargetCountry() {
 		d_bombOrder = new Bomb("5", d_gameEngine);
 		assertFalse(d_bombOrder.isValidIssue(d_gameState, d_playerId1));
 	}
 
+	/**
+     * Tests to check whether executing a bomb order without the required card is invalid.
+     */
 	@Test
 	public void isValidExecuteWithNoCard() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
 		assertFalse(d_bombOrder.isValidExecute(d_gameState, d_playerId1));
 	}
 
+	/**
+     * Tests to check whether executing a bomb order with the required card is valid.
+     */
 	@Test
 	public void isValidExecuteWithCard() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
@@ -99,6 +136,9 @@ public class BombTest {
 		assertTrue(d_bombOrder.isValidExecute(d_gameState, d_playerId1));
 	}
 
+	/**
+     * Tests to check the execution of a bomb order when the number of armies is even.
+     */
 	@Test
 	public void executeTestEven() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
@@ -108,6 +148,9 @@ public class BombTest {
 		assertEquals(5, numArmies);
 	}
 
+    /**
+     * Tests to check the execution of a bomb order when the number of armies is odd.
+     */
 	@Test
 	public void executeTestOdd() {
 		d_bombOrder = new Bomb("5", d_gameEngine);
