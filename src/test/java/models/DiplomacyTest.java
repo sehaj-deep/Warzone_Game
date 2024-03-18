@@ -19,9 +19,19 @@ import game.Player;
  * The DiplomacyTest class contains unit tests for the Diplomacy class.
  */
 public class DiplomacyTest {
-
+	/**
+	 * The GameState instance for testing.
+	 */
 	GameState d_gameState;
+
+	/**
+	 * The GameEngine instance used for testing.
+	 */
 	GameEngine d_newGameEngine;
+
+	/**
+	 * The Diplomacy order instance to be tested.
+	 */
 	Diplomacy d_diplomacy;
 
 	/**
@@ -54,20 +64,20 @@ public class DiplomacyTest {
 	 */
 	@Test
 	public void testIsValidIssue() {
-		Diplomacy diplomacyOrder = new Diplomacy("Player2", d_newGameEngine);
-		assertFalse(diplomacyOrder.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyOrder = new Diplomacy("Player2", d_newGameEngine);
+		assertFalse(l_diplomacyOrder.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 
 		// Test without Diplomacy card
-		Diplomacy diplomacyWithoutDiplomacyCard = new Diplomacy("Player2", d_newGameEngine);
-		assertFalse(diplomacyWithoutDiplomacyCard.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyWithoutDiplomacyCard = new Diplomacy("Player2", d_newGameEngine);
+		assertFalse(l_diplomacyWithoutDiplomacyCard.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 
 		// Test with empty target player name
-		Diplomacy diplomacyWithEmptyTargetPlayerName = new Diplomacy("", d_newGameEngine);
-		assertFalse(diplomacyWithEmptyTargetPlayerName.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyWithEmptyTargetPlayerName = new Diplomacy("", d_newGameEngine);
+		assertFalse(l_diplomacyWithEmptyTargetPlayerName.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 
 		// Test with non-existent player
-		Diplomacy diplomacyWithNonExistentPlayer = new Diplomacy("NonExistentPlayer", d_newGameEngine);
-		assertFalse(diplomacyWithNonExistentPlayer.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyWithNonExistentPlayer = new Diplomacy("NonExistentPlayer", d_newGameEngine);
+		assertFalse(l_diplomacyWithNonExistentPlayer.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 	}
 
 	/**
@@ -94,16 +104,16 @@ public class DiplomacyTest {
 	 */
 	@Test
 	public void testIsValidExecute() {
-		Diplomacy diplomacyOrder = new Diplomacy("Player2", d_newGameEngine);
-		assertFalse(diplomacyOrder.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyOrder = new Diplomacy("Player2", d_newGameEngine);
+		assertFalse(l_diplomacyOrder.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 
 		// Test with empty target player name
-		Diplomacy diplomacyWithEmptyTargetPlayerName = new Diplomacy("", d_newGameEngine);
-		assertFalse(diplomacyWithEmptyTargetPlayerName.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyWithEmptyTargetPlayerName = new Diplomacy("", d_newGameEngine);
+		assertFalse(l_diplomacyWithEmptyTargetPlayerName.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 
 		// Test with non-existent player
-		Diplomacy diplomacyWithNonExistentPlayer = new Diplomacy("NonExistentPlayer", d_newGameEngine);
-		assertFalse(diplomacyWithNonExistentPlayer.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
+		Diplomacy l_diplomacyWithNonExistentPlayer = new Diplomacy("NonExistentPlayer", d_newGameEngine);
+		assertFalse(l_diplomacyWithNonExistentPlayer.isValidIssue(d_gameState, 0)); // Assuming player1 has id 0
 	}
 
 	/**
