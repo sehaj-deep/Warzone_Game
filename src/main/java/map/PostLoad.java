@@ -258,14 +258,14 @@ public class PostLoad extends Edit {
 	/**
 	 * Writes map data to a file with the given map name.
 	 *
-	 * @param mapName The name of the map file to write.
+	 * @param p_mapName The name of the map file to write.
 	 */
-	public void fileWrite(String mapName) {
+	public void fileWrite(String p_mapName) {
 
 		PrintWriter l_printWriter = null;
 
 		try {
-			l_printWriter = new PrintWriter(new FileOutputStream(mapName));
+			l_printWriter = new PrintWriter(new FileOutputStream(p_mapName));
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
 			return;
@@ -318,7 +318,6 @@ public class PostLoad extends Edit {
 			l_printWriter.print(i + " ");
 			for (Country l_currNeighbor : l_neighbors) {
 				l_printWriter.print(l_currNeighbor.getD_id() + " ");
-//				l_currNeighbor.getD_id();
 			}
 			l_printWriter.println();
 		}
