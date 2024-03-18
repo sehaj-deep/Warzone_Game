@@ -15,24 +15,24 @@ import map.Preload;
  */
 public class PhaseTest {
 
-	/** 
+	/**
 	 * The instance of GameEngine used for testing.
 	 */
 	private GameEngine d_gameEngine;
 
-    /** 
-	 * The instance of Preload phase used for testing. 
+	/**
+	 * The instance of Preload phase used for testing.
 	 */
 	private Preload d_preload;
 
-    /** 
-	 * The filename of the map being tested. 
+	/**
+	 * The filename of the map being tested.
 	 */
 	private String d_fileName;
 
 	/**
-     * Sets up the test environment before each test method execution.
-     */
+	 * Sets up the test environment before each test method execution.
+	 */
 	@Before
 	public void setup() {
 		d_gameEngine = new GameEngine();

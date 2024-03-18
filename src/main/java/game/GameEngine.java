@@ -7,6 +7,7 @@ import java.util.Scanner;
 import map.Preload;
 import models.Continent;
 import models.Country;
+import phases.EndPhase;
 import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
 import phases.Phase;
@@ -256,7 +257,15 @@ public class GameEngine {
 					l_executeOrdersPhase.executeAllOrders();
 					continue;
 				}
+				if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
+					EndPhase l_endPhase = (EndPhase) this.getPhase();
+					l_endPhase.end();
+					if (l_endPhase.getAnyWinner()) {
+						break;
+					}
 
+					continue;
+				}
 				System.out.println("Enter a command: ");
 				l_command = l_scanner.nextLine();
 
@@ -633,13 +642,13 @@ public class GameEngine {
 	 * This class check if a player made a deal with another player then the attack
 	 * is not allowed
 	 *
-	 * @param player The attacking player.
+	 * @param p_player            The attacking player.
 	 * @param p_targetCountryName accept the country name which player want to
 	 *                            attack
 	 * @return the boolean value true if attack is allowed
 	 */
-	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
-		for (Player p : player.getD_negotiatedWith()) {
+	public boolean checkAttackAllowed(Player p_player, String p_targetCountryName) {
+		for (Player p : p_player.getD_negotiatedWith()) {
 			if (p.getOwnership().contains(p_targetCountryName)) {
 				System.err.println("The negotiated player cannot be attacked for this turn");
 				return false;
@@ -648,28 +657,4 @@ public class GameEngine {
 		return true;
 	}
 
-	/**
-	 * Parse the Deploy command from the user command in terminal Store the user
-	 * input tokens in the game state so that Phase classes can access the inputs
-	 * 
-	 * @param p_tokens an array of tokens given in the user input command
-	 */
-//	private void parseDeployCommand(String[] p_tokens) {
-//		Pattern numericRegex = Pattern.compile("\\d+");
-//		if (p_tokens.length != 3) {
-//			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
-//			return;
-//		}
-//		if (!numericRegex.matcher(p_tokens[2]).matches()) {
-//			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
-//			return;
-//		}
-//
-//		l_player.issue_order(p_tokens);
-//
-//		// TODO Add/Modify this method in the appropriate phase classes
-//		// NOTE: This method might need to be refactored
-//		d_gamePhase.setOrderInput(p_tokens); // pass it to issue orders phase
-//		d_logEntryBuffer.setD_effectOfAction("");
-//	}
 }
