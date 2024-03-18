@@ -55,14 +55,11 @@ public abstract class Play extends Phase {
 		}
 
 		// to get the list of players
-		// FIXME: Find how to get list of players
 		List<Player> l_allPlayers = d_gameEngine.getGameState().getPlayers();
 		if (l_allPlayers.size() == 0) {
 			return;
 		}
-//
-//		// FIXME: Find how to get list of armies for each country
-//		Map<String, Integer> l_countriesArmies = p_gameState.getGameBoard();
+
 		Map<String, Integer> l_countriesArmies = d_gameEngine.getGameState().getGameBoard();
 		for (Player l_currPlayer : l_allPlayers) {
 			System.out.print(l_currPlayer.getPlayerName() + ": ");
@@ -107,7 +104,6 @@ public abstract class Play extends Phase {
 	 * Placeholder method for ending the game.
 	 */
 	public void endGame() {
-		// TODO
-		// d_gameEngine.setPhase(new End(d_gameEngine)));
+		printInvalidCommandMessage();
 	}
 }
