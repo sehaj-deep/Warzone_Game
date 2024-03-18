@@ -216,7 +216,6 @@ public class GameEngine {
 			switch (choice) {
 			case "1":
 				setPhase(new Preload(this));
-
 				break;
 			case "2":
 				setPhase(new PlaySetup(this));
@@ -236,7 +235,6 @@ public class GameEngine {
 
 			l_command = "";
 			do {
-
 				if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
 					ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
 
@@ -560,7 +558,6 @@ public class GameEngine {
 			d_gamePhase.editMap(Common.getMapPath(l_filename));
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " file was edited.");
 		}
-
 	}
 
 	/**
@@ -642,7 +639,7 @@ public class GameEngine {
 	 * This class check if a player made a deal with another player then the attack
 	 * is not allowed
 	 *
-	 * @param p_player            The attacking player.
+	 * @param p_player The attacking player.
 	 * @param p_targetCountryName accept the country name which player want to
 	 *                            attack
 	 * @return the boolean value true if attack is allowed
@@ -656,5 +653,4 @@ public class GameEngine {
 		}
 		return true;
 	}
-
 }

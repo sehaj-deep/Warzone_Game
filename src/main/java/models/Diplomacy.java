@@ -5,9 +5,14 @@ import game.GameState;
 import game.Order;
 import game.Player;
 
+/**
+ * The diplomacy class check if attack is valid or not based on player using diplomacy card.
+ */
 public class Diplomacy extends Order {
 
-	// Target player name
+	/**
+	 * Target player
+	 */
 	String d_targetPlayer;
 
 	/**
@@ -118,7 +123,7 @@ public class Diplomacy extends Order {
 	}
 
 	/**
-	 * method to make the gamestate constant for Bomb order.
+	 * method to make the game state constant for diplomacy order.
 	 *
 	 * @param p_state    The current state of the game.
 	 * @param p_playerId The ID of the player executing the order.

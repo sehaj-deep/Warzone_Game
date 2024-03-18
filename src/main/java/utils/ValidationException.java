@@ -9,16 +9,16 @@ public class ValidationException extends Exception {
 	 * Default constructor
 	 */
 	public ValidationException() {
-		super("Validation Exception occured");
+		super("Validation Exception occurred");
 	}
 
 	/**
 	 * Parameterized constructor
 	 * 
-	 * @param message The message to display
+	 * @param p_message The message to display
 	 */
-	public ValidationException(String message) {
-		super(message);
+	public ValidationException(String p_message) {
+		super(p_message);
 	}
 
 	/**

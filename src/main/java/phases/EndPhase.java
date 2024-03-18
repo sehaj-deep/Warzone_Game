@@ -10,6 +10,9 @@ import game.Player;
  * Phase that ends the game if there is a winner
  */
 public class EndPhase extends MainPlay {
+	/**
+	 * Store the boolean value of winner player
+	 */
 	private boolean d_anyWinner;
 
 	/**
@@ -22,6 +25,11 @@ public class EndPhase extends MainPlay {
 		d_anyWinner = false;
 	}
 
+	/**
+	 * Getter for boolean value of winner player
+	 *
+	 * @return the boolean value of winner player
+	 */
 	public boolean getAnyWinner() {
 		return d_anyWinner;
 	}
@@ -62,72 +70,130 @@ public class EndPhase extends MainPlay {
 		d_gameEngine.getGameState().setPlayers(l_copy);
 	}
 
+	/**
+	 * Load map while playing
+	 *
+	 * @param p_filename the filename of the map
+	 */
 	@Override
 	public void loadMap(String p_filename) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Edit the map of the countries
+	 *
+	 * @param p_filename the filename of the map
+	 */
 	@Override
 	public void editMap(String p_filename) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Add the new continent taking by command from player
+	 *
+	 * @param p_continentName the name of the continent
+	 * @param p_bonusArmies   the bonus armies for owning the continent
+	 */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Remove continent form game map
+	 *
+	 * @param p_continentName the name of the continent to remove
+	 */
 	@Override
 	public void removeContinent(String p_continentName) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Add country in map
+	 *
+	 * @param p_countryName the name of the country
+	 * @param p_continent   the continent to which the country belongs
+	 */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Remove the country from country map
+	 *
+	 * @param p_countryName the name of the country to remove
+	 */
 	@Override
 	public void removeCountry(String p_countryName) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Add neighbor country in map
+	 *
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country
+	 */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Remove neighbor country from map
+	 *
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country to remove
+	 */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Save the map in game
+	 *
+	 * @param p_filename The filename to save the map to.
+	 */
 	@Override
 	public void saveMap(String p_filename) {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * This method to assign Reinforcement army
+	 */
 	@Override
 	public void reinforce() {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * This method initiate the attack
+	 */
 	@Override
 	public void attack() {
 		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * Fortifies the player's positions on the map.
+	 */
 	@Override
 	public void fortify() {
 		this.printInvalidCommandMessage();

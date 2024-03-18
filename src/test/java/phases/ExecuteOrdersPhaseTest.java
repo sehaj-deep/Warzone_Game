@@ -20,8 +20,19 @@ import models.Country;
  * 
  */
 public class ExecuteOrdersPhaseTest {
+	/**
+	 * The current game state.
+	 */
 	private static GameState d_state;
+
+	/**
+	 * The instance of the ExecuteOrdersPhase class being tested.
+	 */
 	ExecuteOrdersPhase d_executeOrdersPhase;
+
+	/**
+	 * The instance of the GameEngine class used for testing.
+	 */
 	private GameEngine d_gameEngine;
 
 	/**

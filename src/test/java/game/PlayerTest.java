@@ -12,10 +12,29 @@ import org.junit.Test;
  * This class is designed to do unit test of features in Player class
  */
 public class PlayerTest {
+	/**
+	 * List of players
+	 */
 	static Player d_player;
+
+	/**
+	 * The game engine instance used for testing.
+	 */
 	static GameEngine d_gameEngine;
+
+	/**
+	 * The list of reinforcement army
+	 */
 	static List<Integer> d_reinforcements;
+
+	/**
+	 * The ID of the player initiating the advance order.
+	 */
 	static int d_plyrId = 0;
+
+	/**
+	 * The game state instance for testing.
+	 */
 	static GameState d_state;
 
 	/**

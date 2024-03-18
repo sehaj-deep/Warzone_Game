@@ -15,13 +15,34 @@ import org.junit.Test;
  * from Order)
  */
 public class DeployTest {
-	// Used one player for players list to test the deploy order class for
-	// simplicity
+	/**
+	 * The Deploy order instance to be tested.
+	 */
 	static Deploy d_deployOrder;
+
+	/**
+	 * The list of players involved in the test.
+	 */
 	static List<Player> d_players;
+
+	/**
+	 * The list of reinforcements available.
+	 */
 	static List<Integer> d_reinforcements;
+
+	/**
+	 * The ID of the player initiating the deploy order.
+	 */
 	static int d_plyrId = 0;
+
+	/**
+	 * The GameState instance for testing.
+	 */
 	static GameState d_state;
+
+	/**
+	 * The GameEngine instance used for testing.
+	 */
 	GameEngine d_gameEngine;
 
 	/**

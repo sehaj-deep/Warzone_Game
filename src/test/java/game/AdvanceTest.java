@@ -12,12 +12,39 @@ import org.junit.Before;
 import org.junit.Test;
 import models.Country;
 
+/**
+ * Represents a test class for validating the functionality of advance orders.
+ */
 public class AdvanceTest {
+
+	/**
+	 * The advance order instance to be tested.
+	 */
 	static Advance d_advanceOrder;
+
+	/**
+	 * The list of players involved in the test.
+	 */
 	static List<Player> d_players;
+
+	/**
+	 * The ID of the player initiating the advance order.
+	 */
 	static int d_plyrId = 0;
+
+	/**
+	 * The ID of the opponent player in the test.
+	 */
 	static int d_opponentId = 1;
+
+	/**
+	 * The game state instance for testing.
+	 */
 	static GameState d_state;
+
+	/**
+	 * The game engine instance used for testing.
+	 */
 	GameEngine d_gameEngine;
 
 	/**

@@ -10,13 +10,27 @@ import java.util.Map;
  * information needed for game playing
  */
 public class GameState {
-	private List<Player> d_players; // list of all players in the game
+	/**
+	 * list of all players in the game
+	 */
+	private List<Player> d_players;
 
-	// list of available reinforcements for all players. Order same as d_players
+	/**
+	 * list of available reinforcements for all players. Order same as d_players
+	 */
 	private List<Integer> d_reinforcements;
+
 //	private Map<Player, Integer> d_reinforcementsNew;
-	private Map<String, Integer> d_board; // key: country name. value: number of army in the country
-	private String[] d_orderInput; // a list of tokens given in the user input command to issue an order
+
+	/**
+	 * key: country name. value: number of army in the country
+	 */
+	private Map<String, Integer> d_board;
+
+	/**
+	 * a list of tokens given in the user input command to issue an order
+	 */
+	private String[] d_orderInput;
 
 	/**
 	 * Parameterized Constructor

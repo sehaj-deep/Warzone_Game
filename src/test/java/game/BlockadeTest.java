@@ -15,8 +15,19 @@ import org.junit.Test;
  * This class contains JUnit tests for the Blockade class.
  */
 public class BlockadeTest {
+	/**
+	 * The Blockade order instance to be tested.
+	 */
 	private Blockade d_blockadeOrder;
+
+	/**
+	 * The GameState instance for testing.
+	 */
 	private GameState d_gameState;
+
+	/**
+	 * The ID of the player executing the blockade order.
+	 */
 	private int d_playerId;
 
 	/**

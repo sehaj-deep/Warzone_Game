@@ -9,7 +9,6 @@ public class GameConstants {
 	 * Private constructor to stop the class from instantiating
 	 */
 	private GameConstants() {
-
 	}
 
 	/**
