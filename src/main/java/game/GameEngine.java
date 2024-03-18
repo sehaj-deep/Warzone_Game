@@ -657,28 +657,4 @@ public class GameEngine {
 		return true;
 	}
 
-	/**
-	 * Parse the Deploy command from the user command in terminal Store the user
-	 * input tokens in the game state so that Phase classes can access the inputs
-	 * 
-	 * @param p_tokens an array of tokens given in the user input command
-	 */
-//	private void parseDeployCommand(String[] p_tokens) {
-//		Pattern numericRegex = Pattern.compile("\\d+");
-//		if (p_tokens.length != 3) {
-//			System.out.println("Invalid command for Deploy order. Syntax must be: deploy countryName numberArmy");
-//			return;
-//		}
-//		if (!numericRegex.matcher(p_tokens[2]).matches()) {
-//			System.out.println("Invalid command for Deploy order. Number of army must be positive integer");
-//			return;
-//		}
-//
-//		l_player.issue_order(p_tokens);
-//
-//		// TODO Add/Modify this method in the appropriate phase classes
-//		// NOTE: This method might need to be refactored
-//		d_gamePhase.setOrderInput(p_tokens); // pass it to issue orders phase
-//		d_logEntryBuffer.setD_effectOfAction("");
-//	}
 }
