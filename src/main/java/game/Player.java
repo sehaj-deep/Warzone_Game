@@ -163,8 +163,8 @@ public class Player {
 		return l_isCommandValid;
 	}
 
-	private boolean issueNegotiateOrder(GameEngine p_gameEngine, String l_playerId) {
-		Diplomacy l_negotiate = new Diplomacy(l_playerId, p_gameEngine);
+	private boolean issueNegotiateOrder(GameEngine p_gameEngine, String p_playerId) {
+		Diplomacy l_negotiate = new Diplomacy(p_playerId, p_gameEngine);
 
 		if (l_negotiate.isValidIssue(p_gameEngine.getGameState(),
 				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
@@ -174,8 +174,8 @@ public class Player {
 		return false;
 	}
 
-	private boolean issueDeployOrder(GameEngine p_gameEngine, String l_targetCountry, int l_numberOfArmies) {
-		Deploy l_deploy = new Deploy(l_targetCountry, l_numberOfArmies, p_gameEngine);
+	private boolean issueDeployOrder(GameEngine p_gameEngine, String p_targetCountry, int p_numberOfArmies) {
+		Deploy l_deploy = new Deploy(p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_deploy.isValidIssue(p_gameEngine.getGameState(),
 				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
@@ -185,9 +185,9 @@ public class Player {
 		return false;
 	}
 
-	private boolean issueAdvanceOrder(GameEngine p_gameEngine, String l_sourceCountry, String l_targetCountry,
-			int l_numberOfArmies) {
-		Advance l_advance = new Advance(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine);
+	private boolean issueAdvanceOrder(GameEngine p_gameEngine, String p_sourceCountry, String p_targetCountry,
+			int p_numberOfArmies) {
+		Advance l_advance = new Advance(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_advance.isValidIssue(p_gameEngine.getGameState(),
 				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
@@ -197,8 +197,8 @@ public class Player {
 		return false;
 	}
 
-	private boolean issueBombOrder(GameEngine p_gameEngine, String l_targetCountry) {
-		Bomb l_bomb = new Bomb(l_targetCountry, p_gameEngine);
+	private boolean issueBombOrder(GameEngine p_gameEngine, String p_targetCountry) {
+		Bomb l_bomb = new Bomb(p_targetCountry, p_gameEngine);
 
 		if (l_bomb.isValidIssue(p_gameEngine.getGameState(), p_gameEngine.getGameState().getPlayers().indexOf(this))) {
 			d_listOrders.add(l_bomb);
@@ -207,9 +207,9 @@ public class Player {
 		return false;
 	}
 
-	private boolean issueAirliftCommand(GameEngine p_gameEngine, String l_sourceCountry, String l_targetCountry,
-			int l_numberOfArmies) {
-		Airlift l_airlift = new Airlift(l_sourceCountry, l_targetCountry, l_numberOfArmies, p_gameEngine);
+	private boolean issueAirliftCommand(GameEngine p_gameEngine, String p_sourceCountry, String p_targetCountry,
+			int p_numberOfArmies) {
+		Airlift l_airlift = new Airlift(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_airlift.isValidIssue(p_gameEngine.getGameState(),
 				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
@@ -219,8 +219,8 @@ public class Player {
 		return false;
 	}
 
-	private boolean issueBlockadeOrder(GameEngine p_gameEngine, String l_targetCountry) {
-		Blockade l_blockade = new Blockade(l_targetCountry, p_gameEngine);
+	private boolean issueBlockadeOrder(GameEngine p_gameEngine, String p_targetCountry) {
+		Blockade l_blockade = new Blockade(p_targetCountry, p_gameEngine);
 
 		if (l_blockade.isValidIssue(p_gameEngine.getGameState(),
 				p_gameEngine.getGameState().getPlayers().indexOf(this))) {

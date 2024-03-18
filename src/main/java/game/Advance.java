@@ -202,6 +202,14 @@ public class Advance extends Order {
 		return true;
 	}
 
+	/**
+	 * Changes the game state after executing the advance order. This method is
+	 * empty as the execution does not change any game state other than the game
+	 * board.
+	 *
+	 * @param p_state    The current game state.
+	 * @param p_playerId The ID of the player executing the order.
+	 */
 	@Override
 	public void changeGameState(GameState p_state, int p_playerId) {
 		// not utilized

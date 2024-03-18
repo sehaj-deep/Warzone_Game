@@ -45,8 +45,8 @@ public class Blockade extends Order {
 	 */
 	@Override
 	public void execute(GameState p_state, int p_playerId) {
-		int currNumArmy = p_state.getGameBoard().get(d_countryId);
-		p_state.getGameBoard().put(d_countryId, currNumArmy * 3);
+		int l_currNumArmy = p_state.getGameBoard().get(d_countryId);
+		p_state.getGameBoard().put(d_countryId, l_currNumArmy * 3);
 
 		for (Player l_player : p_state.getPlayers()) {
 			Set<String> l_playerCountries = l_player.getOwnership();

@@ -215,7 +215,6 @@ public class GameEngine {
 			switch (choice) {
 			case "1":
 				setPhase(new Preload(this));
-
 				break;
 			case "2":
 				setPhase(new PlaySetup(this));
@@ -235,7 +234,6 @@ public class GameEngine {
 
 			l_command = "";
 			do {
-
 				if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
 					ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
 
