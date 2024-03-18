@@ -7,6 +7,7 @@ import java.util.Scanner;
 import map.Preload;
 import models.Continent;
 import models.Country;
+import phases.EndPhase;
 import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
 import phases.Phase;
@@ -256,7 +257,15 @@ public class GameEngine {
 					l_executeOrdersPhase.executeAllOrders();
 					continue;
 				}
+				if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
+					EndPhase l_endPhase = (EndPhase) this.getPhase();
+					l_endPhase.end();
+					if (l_endPhase.getAnyWinner()) {
+						break;
+					}
 
+					continue;
+				}
 				System.out.println("Enter a command: ");
 				l_command = l_scanner.nextLine();
 
@@ -633,7 +642,7 @@ public class GameEngine {
 	 * This class check if a player made a deal with another player then the attack
 	 * is not allowed
 	 *
-	 * @param player The attacking player.
+	 * @param player              The attacking player.
 	 * @param p_targetCountryName accept the country name which player want to
 	 *                            attack
 	 * @return the boolean value true if attack is allowed
