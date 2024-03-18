@@ -642,13 +642,13 @@ public class GameEngine {
 	 * This class check if a player made a deal with another player then the attack
 	 * is not allowed
 	 *
-	 * @param player              The attacking player.
+	 * @param p_player            The attacking player.
 	 * @param p_targetCountryName accept the country name which player want to
 	 *                            attack
 	 * @return the boolean value true if attack is allowed
 	 */
-	public boolean checkAttackAllowed(Player player, String p_targetCountryName) {
-		for (Player p : player.getD_negotiatedWith()) {
+	public boolean checkAttackAllowed(Player p_player, String p_targetCountryName) {
+		for (Player p : p_player.getD_negotiatedWith()) {
 			if (p.getOwnership().contains(p_targetCountryName)) {
 				System.err.println("The negotiated player cannot be attacked for this turn");
 				return false;
