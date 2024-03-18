@@ -10,6 +10,9 @@ import game.Player;
  * Phase that ends the game if there is a winner
  */
 public class EndPhase extends MainPlay {
+	/**
+	 * Store the boolean value of winner player
+	 */
 	private boolean d_anyWinner;
 
 	/**
@@ -22,6 +25,11 @@ public class EndPhase extends MainPlay {
 		d_anyWinner = false;
 	}
 
+	/**
+	 * Getter for boolean value of winner player
+	 *
+	 * @return the boolean value of winner player
+	 */
 	public boolean getAnyWinner() {
 		return d_anyWinner;
 	}
