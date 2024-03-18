@@ -10,7 +10,7 @@ public class Deploy extends Order {
 	/**
 	 * number of armies to be deployed
 	 */
-	private int d_numArmy; 
+	private int d_numArmy;
 
 	/**
 	 * name of country where armies will be deployed to

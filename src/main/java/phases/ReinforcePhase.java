@@ -43,19 +43,6 @@ public class ReinforcePhase extends MainPlay {
 			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
 			System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
 
-//			if (d_gameEngine.getGameState().getReinforcements().size() == d_gameEngine.getGameState().getPlayers()
-//					.size()) {
-//				d_gameEngine.getGameState().getReinforcements().add(l_indexOfPlayer,
-//						l_reinforcements + d_gameEngine.getGameState().getReinforcements().get(l_indexOfPlayer));
-//				System.out.println(p_player.getPlayerName() + " has "
-//						+ (l_reinforcements
-//								+ (int) d_gameEngine.getGameState().getReinforcements().get(l_indexOfPlayer))
-//						+ " army units");
-//			} else {
-//				d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
-//				System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
-//			}
-
 		}
 		this.next();
 	}
@@ -73,11 +60,10 @@ public class ReinforcePhase extends MainPlay {
 		for (HashMap.Entry<String, Continent> l_continent : d_gameEngine.getD_continents().entrySet()) {
 
 			Set<Country> l_countries = l_continent.getValue().getD_countries();
-			boolean l_OwnsAllCountries = false;
-			// FIXME
+			boolean l_OwnsAllCountries = true;
 			for (Country country : l_countries) {
 				if (!p_player.getOwnership().contains(country.getD_name())) {
-					l_OwnsAllCountries = true;
+					l_OwnsAllCountries = false;
 					break;
 				}
 			}
@@ -86,6 +72,11 @@ public class ReinforcePhase extends MainPlay {
 				int bonusArmies = l_continent.getValue().getD_continentBonusArmies();
 				d_reinforcementArmies += bonusArmies;
 			}
+		}
+
+		// Ensure minimum reinforcement armies
+		if (d_reinforcementArmies < 3) {
+			d_reinforcementArmies = 3;
 		}
 		return d_reinforcementArmies;
 	}
