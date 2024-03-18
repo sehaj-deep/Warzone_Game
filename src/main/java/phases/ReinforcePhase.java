@@ -83,73 +83,61 @@ public class ReinforcePhase extends MainPlay {
 
 	@Override
 	public void loadMap(String p_filename) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void editMap(String p_filename) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void removeContinent(String p_continentName) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void removeCountry(String p_countryName) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void saveMap(String p_filename) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 	@Override
 	public void reinforce() {
-		// TODO Auto-generated method stub
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-
+		this.printInvalidCommandMessage();
 	}
 
 	@Override
 	public void fortify() {
-		// TODO Auto-generated method stub
-
+		this.printInvalidCommandMessage();
 	}
 }

@@ -41,12 +41,12 @@ public class Country {
 	/**
 	 * Parameterized constructor
 	 * 
-	 * @param d_id   the id of the country
-	 * @param d_name the name of the country
+	 * @param p_id   the id of the country
+	 * @param p_name the name of the country
 	 */
-	public Country(int d_id, String d_name) {
-		this.d_id = d_id;
-		this.d_name = d_name;
+	public Country(int p_id, String p_name) {
+		this.d_id = p_id;
+		this.d_name = p_name;
 	}
 
 	/**
@@ -59,14 +59,14 @@ public class Country {
 	/**
 	 * Adds a neighboring country to the set of neighbors.
 	 *
-	 * @param name The neighboring country to add.
+	 * @param p_name The neighboring country to add.
 	 */
-	public void addNeighbors(Country name) {
-		if (d_neighbors.contains(name)) {
+	public void addNeighbors(Country p_name) {
+		if (d_neighbors.contains(p_name)) {
 			throw new IllegalArgumentException("Neighbor already exists.");
 		}
 
-		d_neighbors.add(name);
+		d_neighbors.add(p_name);
 	}
 
 }

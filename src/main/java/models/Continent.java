@@ -105,13 +105,13 @@ public class Continent {
 	/**
 	 * Add a country to the HashMap
 	 * 
-	 * @param country Country in a continent
+	 * @param p_country Country in a continent
 	 */
-	public void addD_countries(Country country) {
-		if (!this.getD_countries().contains(country)) {
-			this.d_countries.add(country);
+	public void addD_countries(Country p_country) {
+		if (!this.getD_countries().contains(p_country)) {
+			this.d_countries.add(p_country);
 		} else {
-			System.out.println(this.getD_continentName() + " already contains " + country.getD_name());
+			System.out.println(this.getD_continentName() + " already contains " + p_country.getD_name());
 		}
 	}
 
