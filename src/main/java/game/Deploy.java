@@ -81,8 +81,6 @@ public class Deploy extends Order {
 			System.out.println(e);
 			return false;
 		}
-//		int reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
-//		p_state.getReinforcements().set(p_playerId, reinforcementAvailable - d_numArmy);
 
 		int l_reinforcementAvailable = p_state.getReinforcements().get(p_playerId);
 		p_state.getReinforcements().set(p_playerId, l_reinforcementAvailable - d_numArmy);

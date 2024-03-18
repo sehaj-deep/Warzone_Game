@@ -9,7 +9,6 @@ import utils.ValidationException;
 /**
  * Concrete command class for Advance order which inherits Abstract concrete
  * class Order
- * 
  */
 public class Advance extends Order {
 
@@ -214,5 +213,4 @@ public class Advance extends Order {
 	public void changeGameState(GameState p_state, int p_playerId) {
 		// not utilized
 	}
-
 }
