@@ -7,6 +7,9 @@ import map.MapTestSuite;
 import models.ModelsTestSuite;
 import phases.PhasesTestSuite;
 
+/**
+ * Test suite that runs all tests for the program
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ GameTestSuite.class, MapTestSuite.class, ModelsTestSuite.class, PhasesTestSuite.class })
 public class AllTests {
