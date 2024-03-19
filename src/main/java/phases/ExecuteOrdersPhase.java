@@ -96,7 +96,6 @@ public class ExecuteOrdersPhase extends MainPlay {
 		while (l_totNumOrders > 0) {
 			List<Integer> l_errorLog = roundRobinExecution(d_gameEngine.getGameState());
 			if (l_errorLog.size() > 0) { // couldn't execute all orders because of an invalid order
-				// TODO: handle this invalid order and following orders in build2
 				System.out.println("Invalid Order Exists. Can't execute such order");
 				return;
 			}

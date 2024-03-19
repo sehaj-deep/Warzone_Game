@@ -18,7 +18,7 @@ import models.Country;
 /**
  * Reinforcement Test class
  */
-public class ReinforcementTest {
+public class ReinforcePhaseTest {
 	/**
 	 * Game Engine Instance
 	 */
