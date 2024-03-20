@@ -246,8 +246,6 @@ public class PostLoad extends Edit {
 			}
 		} catch (ValidationException e) {
 			System.out.println(e.getMessage());
-			clearMap();
-			next();
 			return;
 		}
 
