@@ -19,17 +19,17 @@ import utils.ValidationException;
 public class PostLoad extends Edit {
 
 	/**
-     * Constructs a new PostLoad object.
-     * 
-     * @param p_gameEngine a context object for the post-load phase
-     */
+	 * Constructs a new PostLoad object.
+	 * 
+	 * @param p_gameEngine a context object for the post-load phase
+	 */
 	public PostLoad(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
 	/**
-     * Moves to the next phase after post-load actions are completed.
-     */
+	 * Moves to the next phase after post-load actions are completed.
+	 */
 	@Override
 	public void next() {
 		// System.out.println("must save map");
@@ -37,31 +37,31 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Loads the map from a file.
-     * 
-     * @param p_fileName the name of the file to load
-     */
+	 * Loads the map from a file.
+	 * 
+	 * @param p_fileName the name of the file to load
+	 */
 	@Override
 	public void loadMap(String p_fileName) {
 		System.out.println("map has been loaded");
 	}
 
 	/**
-     * Edits the map.
-     * 
-     * @param p_filename the filename of the map
-     */
+	 * Edits the map.
+	 * 
+	 * @param p_filename the filename of the map
+	 */
 	@Override
 	public void editMap(String p_filename) {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Adds a continent to the map.
-     * 
-     * @param p_continentName the name of the continent to add
-     * @param p_bonusArmies   the bonus armies for the continent
-     */
+	 * Adds a continent to the map.
+	 * 
+	 * @param p_continentName the name of the continent to add
+	 * @param p_bonusArmies   the bonus armies for the continent
+	 */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		int l_newContinentId = d_gameEngine.getD_continentId().size() + 1;
@@ -79,10 +79,10 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Removes a continent from the map.
-     * 
-     * @param p_continentName the name of the continent to remove
-     */
+	 * Removes a continent from the map.
+	 * 
+	 * @param p_continentName the name of the continent to remove
+	 */
 	@Override
 	public void removeContinent(String p_continentName) {
 		if (d_gameEngine.getD_continents().containsKey(p_continentName)) {
@@ -103,11 +103,11 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Adds a country to the map.
-     * 
-     * @param p_countryName the name of the country to add
-     * @param p_continent   the continent where the country belongs
-     */
+	 * Adds a country to the map.
+	 * 
+	 * @param p_countryName the name of the country to add
+	 * @param p_continent   the continent where the country belongs
+	 */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		if (!d_gameEngine.getD_countries().containsKey(p_countryName)) {
@@ -131,10 +131,10 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Removes a country from the map.
-     * 
-     * @param p_countryName the name of the country to remove
-     */
+	 * Removes a country from the map.
+	 * 
+	 * @param p_countryName the name of the country to remove
+	 */
 	@Override
 	public void removeCountry(String p_countryName) {
 		if (d_gameEngine.getD_countries().containsKey(p_countryName)) {
@@ -177,11 +177,11 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Adds a neighbor to a country.
-     * 
-     * @param p_country  the name of the country
-     * @param p_neighbor the name of the neighbor country
-     */
+	 * Adds a neighbor to a country.
+	 * 
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country
+	 */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		if (!p_country.equalsIgnoreCase(p_neighbor)) {
@@ -207,11 +207,11 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Removes a neighbor from a country.
-     * 
-     * @param p_country  the name of the country
-     * @param p_neighbor the name of the neighbor country to remove
-     */
+	 * Removes a neighbor from a country.
+	 * 
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country to remove
+	 */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		if (d_gameEngine.getD_countries().containsKey(p_country)
@@ -232,10 +232,10 @@ public class PostLoad extends Edit {
 	}
 
 	/**
-     * Saves the map to a file.
-     * 
-     * @param p_filename the name of the file to save
-     */
+	 * Saves the map to a file.
+	 * 
+	 * @param p_filename the name of the file to save
+	 */
 	@Override
 	public void saveMap(String p_filename) {
 
@@ -245,12 +245,16 @@ public class PostLoad extends Edit {
 				throw new ValidationException("Unable to save map: The map is invalid.");
 			}
 		} catch (ValidationException e) {
-			System.out.print(e.getMessage());
+			System.out.println(e.getMessage());
+			clearMap();
+			next();
 			return;
 		}
 
 		this.fileWrite(p_filename);
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
+
+		clearMap();
 
 		next();
 	}
