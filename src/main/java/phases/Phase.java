@@ -31,70 +31,70 @@ public abstract class Phase {
 	public Phase(GameEngine p_gameEngine) {
 		this.d_gameEngine = p_gameEngine;
 	}
-	
+
 	/**
-     * Abstract method to load a map.
-     * 
-     * @param p_filename the filename of the map
-     */
+	 * Abstract method to load a map.
+	 * 
+	 * @param p_filename the filename of the map
+	 */
 	abstract public void loadMap(String p_filename);
-	
+
 	/**
-     * Abstract method to display the map.
-     */
+	 * Abstract method to display the map.
+	 */
 	abstract public void showMap();
 
 	/**
-     * Abstract method to edit a map.
-     * 
-     * @param p_filename the filename of the map
-     */
+	 * Abstract method to edit a map.
+	 * 
+	 * @param p_filename the filename of the map
+	 */
 	abstract public void editMap(String p_filename);
 
 	/**
-     * Abstract method to add a continent.
-     * 
-     * @param p_continentName the name of the continent
-     * @param p_bonusArmies   the bonus armies for owning the continent
-     */
+	 * Abstract method to add a continent.
+	 * 
+	 * @param p_continentName the name of the continent
+	 * @param p_bonusArmies   the bonus armies for owning the continent
+	 */
 	abstract public void addContinent(String p_continentName, int p_bonusArmies);
 
 	/**
-     * Abstract method to remove a continent.
-     * 
-     * @param p_continentName the name of the continent to remove
-     */
+	 * Abstract method to remove a continent.
+	 * 
+	 * @param p_continentName the name of the continent to remove
+	 */
 	abstract public void removeContinent(String p_continentName);
 
 	/**
-     * Abstract method to add a country.
-     * 
-     * @param p_countryName the name of the country
-     * @param p_continent   the continent to which the country belongs
-     */
+	 * Abstract method to add a country.
+	 * 
+	 * @param p_countryName the name of the country
+	 * @param p_continent   the continent to which the country belongs
+	 */
 	abstract public void addCountry(String p_countryName, String p_continent);
 
-	 /**
-     * Abstract method to remove a country.
-     * 
-     * @param p_countryName the name of the country to remove
-     */
+	/**
+	 * Abstract method to remove a country.
+	 * 
+	 * @param p_countryName the name of the country to remove
+	 */
 	abstract public void removeCountry(String p_countryName);
 
 	/**
-     * Abstract method to add a neighbor to a country.
-     * 
-     * @param p_country  the name of the country
-     * @param p_neighbor the name of the neighbor country
-     */
+	 * Abstract method to add a neighbor to a country.
+	 * 
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country
+	 */
 	abstract public void addNeighbor(String p_country, String p_neighbor);
 
 	/**
-     * Abstract method to remove a neighbor from a country.
-     * 
-     * @param p_country  the name of the country
-     * @param p_neighbor the name of the neighbor country to remove
-     */
+	 * Abstract method to remove a neighbor from a country.
+	 * 
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country to remove
+	 */
 	abstract public void removeNeighbor(String p_country, String p_neighbor);
 
 	/**
@@ -105,22 +105,22 @@ public abstract class Phase {
 	abstract public void saveMap(String p_filename);
 
 	/**
-     * Abstract method to add players to the game.
-     * 
-     * @param p_playerName the name of the player to add
-     */
+	 * Abstract method to add players to the game.
+	 * 
+	 * @param p_playerName the name of the player to add
+	 */
 	abstract public void addPlayers(String p_playerName);
 
 	/**
-     * Abstract method to remove players from the game.
-     * 
-     * @param p_playerName the name of the player to remove
-     */
+	 * Abstract method to remove players from the game.
+	 * 
+	 * @param p_playerName the name of the player to remove
+	 */
 	abstract public void removePlayers(String p_playerName);
 
 	/**
-     * Abstract method to assign countries to players.
-     */
+	 * Abstract method to assign countries to players.
+	 */
 	abstract public void assignCountries();
 
 	/**
@@ -149,8 +149,8 @@ public abstract class Phase {
 	abstract public void next();
 
 	/**
-     * Prints an invalid command message.
-     */
+	 * Prints an invalid command message.
+	 */
 	public void printInvalidCommandMessage() {
 		System.out.println("Invalid command in state " + this.getClass().getSimpleName());
 	}
@@ -291,11 +291,11 @@ public abstract class Phase {
 	}
 
 	/**
-     * Reads the map data from the specified file.
-     * 
-     * @param p_filename  The filename of the map file.
-     * @param p_createNew Flag indicating whether to create a new file if not found.
-     */
+	 * Reads the map data from the specified file.
+	 * 
+	 * @param p_filename  The filename of the map file.
+	 * @param p_createNew Flag indicating whether to create a new file if not found.
+	 */
 	public void readMap(String p_filename, boolean p_createNew) {
 		Scanner l_scanner = null;
 
@@ -398,7 +398,7 @@ public abstract class Phase {
 	 * @param p_continentId   The ID of the continent to be added.
 	 * @param p_continentName The name of the continent to be added.
 	 * @param p_bonusArmies   The bonus armies provided by the continent.
-	 */	
+	 */
 	public void addContinent(int p_continentId, String p_continentName, int p_bonusArmies) {
 		if (d_gameEngine.getD_continents().containsKey(p_continentName)) {
 			return;
@@ -412,10 +412,10 @@ public abstract class Phase {
 	/**
 	 * Adds a country to the game map.
 	 * 
-	 * @param p_countryId    The ID of the country to be added.
-	 * @param p_countryName  The name of the country to be added.
-	 * @param p_continentId  The ID of the continent to which the country belongs.
-	 */	
+	 * @param p_countryId   The ID of the country to be added.
+	 * @param p_countryName The name of the country to be added.
+	 * @param p_continentId The ID of the continent to which the country belongs.
+	 */
 	public void addCountry(int p_countryId, String p_countryName, int p_continentId) {
 
 		if (d_gameEngine.getD_countries().containsKey(p_countryName)) {
@@ -430,7 +430,7 @@ public abstract class Phase {
 		Continent l_continent = d_gameEngine.getD_continentId(p_continentId);
 		l_continent.getD_countries().add(l_country);
 	}
-	
+
 	/**
 	 * Adds a neighbor country to an existing country in the game map.
 	 * 
@@ -452,6 +452,14 @@ public abstract class Phase {
 		} else {
 			System.out.println("The country " + p_country + " already has " + p_neighbor + " as its neighbor.");
 		}
+	}
+
+	/**
+	 * To clear the contents of the map when required.
+	 */
+	public void clearMap() {
+		d_gameEngine.getD_continents().clear();
+		d_gameEngine.getD_countries().clear();
 	}
 
 }
