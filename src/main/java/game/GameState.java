@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import players.Player;
+
 /**
  * GameState class This class captures the current state of the game and store
  * information needed for game playing

@@ -1,4 +1,4 @@
-package models;
+package orders;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,7 +12,9 @@ import org.junit.Test;
 
 import game.GameEngine;
 import game.GameState;
-import game.Player;
+import map.Country;
+import orders.Bomb;
+import players.Player;
 
 /**
  * The BombTest class contains unit tests for the Bomb order in the game.

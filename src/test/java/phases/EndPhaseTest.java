@@ -12,11 +12,11 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import game.Advance;
 import game.GameEngine;
 import game.GameState;
-import game.Player;
-import models.Country;
+import map.Country;
+import orders.Advance;
+import players.Player;
 
 /**
  * Test the key functionalities of End phase

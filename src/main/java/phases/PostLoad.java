@@ -1,4 +1,4 @@
-package map;
+package phases;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,9 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import game.GameEngine;
-import models.Continent;
-import models.Country;
-import phases.PlaySetup;
+import map.Continent;
+import map.Country;
 import utils.ValidationException;
 
 /**

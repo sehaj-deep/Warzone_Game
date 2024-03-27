@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import game.GameEngine;
-import game.Player;
+import players.Player;
 
 /**
  * Represents the phase where players issue orders during gameplay.

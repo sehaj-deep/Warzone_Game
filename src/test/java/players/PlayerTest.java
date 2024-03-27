@@ -1,12 +1,18 @@
-package game;
+package players;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import game.GameEngine;
+import game.GameState;
+import orders.Order;
 
 /**
  * This class is designed to do unit test of features in Player class

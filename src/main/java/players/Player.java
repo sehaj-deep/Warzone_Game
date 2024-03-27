@@ -1,4 +1,4 @@
-package game;
+package players;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import models.Airlift;
-import models.Bomb;
-import models.Diplomacy;
+import game.GameEngine;
+import orders.Advance;
+import orders.Airlift;
+import orders.Blockade;
+import orders.Bomb;
+import orders.Deploy;
+import orders.Diplomacy;
+import orders.Order;
 
 /**
  * Player Class this class stores information and the state of the game about a

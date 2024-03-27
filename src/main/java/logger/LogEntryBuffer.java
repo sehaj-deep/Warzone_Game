@@ -1,4 +1,4 @@
-package utils;
+package logger;
 
 /**
  * A buffer for log entries with observable functionality.

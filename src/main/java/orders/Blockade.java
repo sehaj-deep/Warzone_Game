@@ -1,7 +1,10 @@
-package game;
+package orders;
 
 import java.util.Set;
 
+import game.GameEngine;
+import game.GameState;
+import players.Player;
 import utils.ValidationException;
 
 /**

@@ -1,4 +1,4 @@
-package game;
+package orders;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,6 +10,11 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import game.GameEngine;
+import game.GameState;
+import orders.Blockade;
+import players.Player;
 
 /**
  * This class contains JUnit tests for the Blockade class.

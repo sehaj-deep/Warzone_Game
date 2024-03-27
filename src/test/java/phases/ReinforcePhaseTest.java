@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import game.GameEngine;
 import game.GameState;
-import game.Player;
-import models.Continent;
-import models.Country;
+import map.Continent;
+import map.Country;
+import players.Player;
 
 /**
  * Reinforcement Test class

@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 import game.GameEngine;
-import game.Player;
-import models.Continent;
-import models.Country;
+import map.Continent;
+import map.Country;
+import players.Player;
 
 /**
  * Represents the phase where the game is played.

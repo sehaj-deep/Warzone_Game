@@ -1,4 +1,7 @@
-package game;
+package orders;
+
+import game.GameEngine;
+import game.GameState;
 
 /**
  * abstract interface of Order class to represent player's orders All order

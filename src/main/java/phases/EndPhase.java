@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.GameEngine;
-import game.Player;
+import players.Player;
 
 /**
  * Phase that ends the game if there is a winner

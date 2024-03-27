@@ -2,7 +2,8 @@ package phases;
 
 import game.GameEngine;
 import game.GameState;
-import game.Player;
+import players.Player;
+
 import org.junit.Before;
 import org.junit.Test;
 

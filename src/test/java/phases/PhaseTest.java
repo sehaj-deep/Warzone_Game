@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import constants.GameConstants;
 import game.GameEngine;
-import map.Preload;
 
 /**
  * Unit tests for various phases in the game.

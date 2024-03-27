@@ -1,11 +1,10 @@
-package models;
+package orders;
 
 import java.util.Map;
 
 import game.GameEngine;
 import game.GameState;
-import game.Order;
-import game.Player;
+import players.Player;
 
 /**
  * Airlift order to transfer armies from one country to another.
