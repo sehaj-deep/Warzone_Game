@@ -2,7 +2,6 @@ package phases;
 
 import java.util.HashMap;
 import java.util.Set;
-
 import game.GameEngine;
 import map.Continent;
 import map.Country;
@@ -33,14 +32,14 @@ public class ReinforcePhase extends MainPlay {
 	 */
 	public void calculateReinforcements() {
 
-		d_gameEngine.getGameState().getReinforcements().clear();
+		d_gameEngine.getReinforcements().clear();
 
-		for (Player p_player : d_gameEngine.getGameState().getPlayers()) {
+		for (Player p_player : d_gameEngine.getPlayers()) {
 			int l_reinforcements = calculateReinforcementArmies(p_player);
 
-			int l_indexOfPlayer = d_gameEngine.getGameState().getPlayers().indexOf(p_player);
+			int l_indexOfPlayer = d_gameEngine.getPlayers().indexOf(p_player);
 
-			d_gameEngine.getGameState().getReinforcements().add(l_reinforcements);
+			d_gameEngine.getReinforcements().add(l_reinforcements);
 			System.out.println(p_player.getPlayerName() + " has " + l_reinforcements + " army units");
 
 		}

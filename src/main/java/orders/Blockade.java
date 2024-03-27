@@ -1,9 +1,7 @@
 package orders;
 
 import java.util.Set;
-
 import game.GameEngine;
-import game.GameState;
 import players.Player;
 import utils.ValidationException;
 
@@ -43,22 +41,21 @@ public class Blockade extends Order {
 	 * Executes the blockade order by tripling the army count in the target
 	 * territory and removing ownership of the territory from the player.
 	 * 
-	 * @param p_state    The current game state.
 	 * @param p_playerId The ID of the player executing the order.
 	 */
 	@Override
-	public void execute(GameState p_state, int p_playerId) {
-		int l_currNumArmy = p_state.getGameBoard().get(d_countryId);
-		p_state.getGameBoard().put(d_countryId, l_currNumArmy * 3);
+	public void execute(int p_playerId) {
+		int l_currNumArmy = d_gameEngine.getGameBoard().get(d_countryId);
+		d_gameEngine.getGameBoard().put(d_countryId, l_currNumArmy * 3);
 
-		for (Player l_player : p_state.getPlayers()) {
+		for (Player l_player : d_gameEngine.getPlayers()) {
 			Set<String> l_playerCountries = l_player.getOwnership();
 			if (l_playerCountries.contains(d_countryId)) {
 				l_playerCountries.remove(d_countryId);
 				break;
 			}
 		}
-		Player l_currentPlayer = p_state.getPlayers().get(p_playerId);
+		Player l_currentPlayer = d_gameEngine.getPlayers().get(p_playerId);
 		l_currentPlayer.decreaseCardCount(this.d_orderName);
 
 		System.out.println("Blockade executed: " + d_countryId + " is now neutral and army unites have tripled.");
@@ -67,24 +64,24 @@ public class Blockade extends Order {
 	/**
 	 * Checks if the blockade order is valid to issue.
 	 * 
-	 * @param p_state    The current game state.
 	 * @param p_playerId The ID of the player issuing the order.
 	 * @return True if the order is valid to issue, false otherwise.
 	 */
 	@Override
-	public boolean isValidIssue(GameState p_state, int p_playerId) {
+	public boolean isValidIssue(int p_playerId) {
 		String l_errMessage = "";
 		try {
-			if (!p_state.getGameBoard().containsKey(d_countryId)) {
+			if (!d_gameEngine.getGameBoard().containsKey(d_countryId)) {
 				l_errMessage = "Blockade can't be issued on non-existent country";
 				throw new ValidationException();
 			}
 
-			if (p_state.getGameBoard().get(d_countryId) <= 0) {
+			if (d_gameEngine.getGameBoard().get(d_countryId) <= 0) {
 				l_errMessage = "Blockade can't be issued on country without any army units";
 				throw new ValidationException();
 			}
-		} catch (ValidationException e) {
+		}
+		catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}
@@ -94,25 +91,11 @@ public class Blockade extends Order {
 	/**
 	 * Checks if the blockade order is valid to execute.
 	 * 
-	 * @param p_state    The current game state.
 	 * @param p_playerId The ID of the player executing the order.
 	 * @return True if the order is valid to execute, false otherwise.
 	 */
 	@Override
-	public boolean isValidExecute(GameState p_state, int p_playerId) {
-		return this.isValidIssue(p_state, p_playerId);
-	}
-
-	/**
-	 * Changes the game state after executing the blockade order. This method is
-	 * empty as the execution does not change any game state other than the game
-	 * board.
-	 * 
-	 * @param p_state    The current game state.
-	 * @param p_playerId The ID of the player executing the order.
-	 */
-	@Override
-	public void changeGameState(GameState p_state, int p_playerId) {
-		// No changes required in game state after executing the blockade order
+	public boolean isValidExecute(int p_playerId) {
+		return this.isValidIssue(p_playerId);
 	}
 }

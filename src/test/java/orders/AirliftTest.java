@@ -3,17 +3,12 @@ package orders;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
-import orders.Airlift;
 import players.Player;
 
 /**
@@ -32,11 +27,6 @@ public class AirliftTest {
 	private GameEngine d_gameEngine;
 
 	/**
-	 * The instance of GameState used for testing.
-	 */
-	private GameState d_gameState;
-
-	/**
 	 * The ID of the first player used for testing.
 	 */
 	private int d_playerId1;
@@ -47,8 +37,8 @@ public class AirliftTest {
 	private int d_playerId2;
 
 	/**
-     * Sets up the test environment before each test method execution.
-     */
+	 * Sets up the test environment before each test method execution.
+	 */
 	@Before
 	public void setup() {
 		d_gameEngine = new GameEngine();
@@ -86,93 +76,99 @@ public class AirliftTest {
 		l_players.get(1).getOwnership().add("5");
 
 		// call Bomb Order
-		d_gameState = new GameState();
-		d_gameState.setPlayers(l_players);
+		d_gameEngine.setPlayers(l_players);
 
 		// to set gameBoard
-		d_gameState.getGameBoard().put("1", 0);
-		d_gameState.getGameBoard().put("2", 7);
-		d_gameState.getGameBoard().put("3", 8);
-		d_gameState.getGameBoard().put("4", 10);
-		d_gameState.getGameBoard().put("5", 9);
+		d_gameEngine.getGameBoard().put("1", 0);
+		d_gameEngine.getGameBoard().put("2", 7);
+		d_gameEngine.getGameBoard().put("3", 8);
+		d_gameEngine.getGameBoard().put("4", 10);
+		d_gameEngine.getGameBoard().put("5", 9);
 
 		d_playerId1 = 0;
 		d_playerId2 = 1;
 	}
 
 	/**
-     * Test to check the validity of issuing the Airlift order when there are no armies available.
-     */
+	 * Test to check the validity of issuing the Airlift order when there are no
+	 * armies available.
+	 */
 	@Test
 	public void isValidIssueWithNoArmies() {
 		d_AirliftOrder = new Airlift("1", "3", 7, d_gameEngine);
-		assertFalse(d_AirliftOrder.isValidIssue(d_gameState, d_playerId1));
+		assertFalse(d_AirliftOrder.isValidIssue(d_playerId1));
 	}
 
-    /**
-     * Test to check the validity of issuing the Airlift order with armies in adjacent countries.
-     */
+	/**
+	 * Test to check the validity of issuing the Airlift order with armies in
+	 * adjacent countries.
+	 */
 	@Test
 	public void isValidIssueWithArmiesAdjacent() {
 		d_AirliftOrder = new Airlift("4", "5", 10, d_gameEngine);
-		assertTrue(d_AirliftOrder.isValidIssue(d_gameState, d_playerId2));
+		assertTrue(d_AirliftOrder.isValidIssue(d_playerId2));
 	}
 
 	/**
-     * Test to check the validity of issuing the Airlift order with armies in non-adjacent countries.
-     */
+	 * Test to check the validity of issuing the Airlift order with armies in
+	 * non-adjacent countries.
+	 */
 	@Test
 	public void isValidIssueWithArmiesNonAdjacent() {
 		d_AirliftOrder = new Airlift("2", "5", 7, d_gameEngine);
-		assertTrue(d_AirliftOrder.isValidIssue(d_gameState, d_playerId2));
+		assertTrue(d_AirliftOrder.isValidIssue(d_playerId2));
 	}
 
 	/**
-     * Test to check the validity of issuing the Airlift order when countries belong to different players.
-     */
+	 * Test to check the validity of issuing the Airlift order when countries belong
+	 * to different players.
+	 */
 	@Test
 	public void isValidIssueWithArmiesDifferentPlayerCountries() {
 		d_AirliftOrder = new Airlift("2", "3", 7, d_gameEngine);
-		assertFalse(d_AirliftOrder.isValidIssue(d_gameState, d_playerId2));
+		assertFalse(d_AirliftOrder.isValidIssue(d_playerId2));
 	}
 
 	/**
-     * Test to check the validity of issuing the Airlift order with more armies than available.
-     */
+	 * Test to check the validity of issuing the Airlift order with more armies than
+	 * available.
+	 */
 	@Test
 	public void isValidIssueWithMoreArmies() {
 		d_AirliftOrder = new Airlift("2", "4", 8, d_gameEngine);
-		assertFalse(d_AirliftOrder.isValidIssue(d_gameState, d_playerId2));
+		assertFalse(d_AirliftOrder.isValidIssue(d_playerId2));
 	}
 
 	/**
-     * Test to check the validity of executing the Airlift order with the Airlift card.
-     */
+	 * Test to check the validity of executing the Airlift order with the Airlift
+	 * card.
+	 */
 	@Test
 	public void isValidExecuteWithCard() {
 		d_AirliftOrder = new Airlift("2", "4", 7, d_gameEngine);
-		d_gameState.getPlayers().get(d_playerId2).increaseCardCount("Airlift");
-		assertTrue(d_AirliftOrder.isValidExecute(d_gameState, d_playerId2));
+		d_gameEngine.getPlayers().get(d_playerId2).increaseCardCount("Airlift");
+		assertTrue(d_AirliftOrder.isValidExecute(d_playerId2));
 	}
 
 	/**
-     * Test to check the validity of executing the Airlift order without the Airlift card.
-     */
+	 * Test to check the validity of executing the Airlift order without the Airlift
+	 * card.
+	 */
 	@Test
 	public void isValidExecuteWithoutCard() {
 		d_AirliftOrder = new Airlift("2", "4", 7, d_gameEngine);
-		assertFalse(d_AirliftOrder.isValidExecute(d_gameState, d_playerId2));
+		assertFalse(d_AirliftOrder.isValidExecute(d_playerId2));
 	}
 
 	/**
-     * Test to execute the Airlift order.
-     */
+	 * Test to execute the Airlift order.
+	 */
 	@Test
 	public void executeTest() {
 		d_AirliftOrder = new Airlift("2", "4", 7, d_gameEngine);
-		d_AirliftOrder.execute(d_gameState, d_playerId2);
-		int valueSource = d_gameState.getGameBoard().get("2");
-		int valueTarget = d_gameState.getGameBoard().get("4");
+		d_AirliftOrder.execute(d_playerId2);
+		int valueSource = d_gameEngine.getGameBoard().get("2");
+		int valueTarget = d_gameEngine.getGameBoard().get("4");
 		assertEquals(0, valueSource);
 		assertEquals(17, valueTarget);
 	}

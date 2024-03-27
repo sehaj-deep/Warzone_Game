@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import game.GameEngine;
 import players.Player;
 import utils.ValidationException;
@@ -44,13 +43,13 @@ public class PlaySetup extends Play {
 		}
 
 		// Check if the player already exist
-		if (d_gameEngine.getGameState().getPlayers().contains(l_playerName)) {
+		if (d_gameEngine.getPlayers().contains(l_playerName)) {
 			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
 		}
 
 		// Adding player to the player list
 		Player l_player = new Player(p_playerName);
-		d_gameEngine.getGameState().getPlayers().add(l_player);
+		d_gameEngine.getPlayers().add(l_player);
 
 		System.out.println(p_playerName + " successfully added as a player");
 	}
@@ -69,7 +68,7 @@ public class PlaySetup extends Play {
 		}
 
 		// List of the players
-		List<Player> players = d_gameEngine.getGameState().getPlayers();
+		List<Player> players = d_gameEngine.getPlayers();
 		boolean playerRemoved = false;
 
 		// Finding the target player
@@ -91,7 +90,7 @@ public class PlaySetup extends Play {
 
 		// Removing the player
 		Player l_player = new Player(p_playerName);
-		d_gameEngine.getGameState().getPlayers().remove(l_player);
+		d_gameEngine.getPlayers().remove(l_player);
 
 		System.out.println(p_playerName + " successfully removed as a player");
 	}
@@ -107,8 +106,8 @@ public class PlaySetup extends Play {
 		int l_maxSize = Integer.MIN_VALUE; // max of number of player's owned countries
 
 		// Checking if assigning countries is valid or not
-		for (int i = 1; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
-			Player l_player = d_gameEngine.getGameState().getPlayers().get(i);
+		for (int i = 1; i < d_gameEngine.getPlayers().size(); i++) {
+			Player l_player = d_gameEngine.getPlayers().get(i);
 			int l_numCountriesOwned = l_player.getOwnership().size();
 			if (l_numCountriesOwned < l_minSize) {
 				l_minSize = l_numCountriesOwned;
@@ -139,12 +138,12 @@ public class PlaySetup extends Play {
 
 		for (int i = 0; i < l_countriesList.size(); i++) {
 			// Add assigned country to player's countries (d_ownership)
-			int l_idx = i % (d_gameEngine.getGameState().getPlayers().size());
-			Player l_player = d_gameEngine.getGameState().getPlayers().get(l_idx);
+			int l_idx = i % (d_gameEngine.getPlayers().size());
+			Player l_player = d_gameEngine.getPlayers().get(l_idx);
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
-		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
+		for (Player l_player : d_gameEngine.getPlayers()) {
 			System.out.println("Player --------");
 			Set<String> temp = l_player.getOwnership();
 			for (String s : temp) {
@@ -196,7 +195,8 @@ public class PlaySetup extends Play {
 			if (!l_isValidated) {
 				throw new ValidationException("Unable to load map: The map is invalid.");
 			}
-		} catch (ValidationException e) {
+		}
+		catch (ValidationException e) {
 			System.out.print(e.getMessage());
 			clearMap();
 			return;

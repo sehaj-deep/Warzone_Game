@@ -3,17 +3,12 @@ package orders;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
-import orders.Bomb;
 import players.Player;
 
 /**
@@ -32,11 +27,6 @@ public class BombTest {
 	private GameEngine d_gameEngine;
 
 	/**
-	 * The instance of GameState used for testing.
-	 */
-	private GameState d_gameState;
-
-	/**
 	 * The ID of the first player used for testing.
 	 */
 	private int d_playerId1;
@@ -47,8 +37,9 @@ public class BombTest {
 	private int d_playerId2;
 
 	/**
-     * Sets up the test environment by initializing the necessary objects for testing.
-     */
+	 * Sets up the test environment by initializing the necessary objects for
+	 * testing.
+	 */
 	@Before
 	public void setup() {
 		d_gameEngine = new GameEngine();
@@ -87,78 +78,83 @@ public class BombTest {
 		l_players.get(1).getOwnership().add("5");
 
 		// call Bomb Order
-		d_gameState = new GameState();
-		d_gameState.setPlayers(l_players);
+		d_gameEngine.setPlayers(l_players);
 
 		// to set gameBoard
-		d_gameState.getGameBoard().put("1", 5);
-		d_gameState.getGameBoard().put("2", 7);
-		d_gameState.getGameBoard().put("3", 8);
-		d_gameState.getGameBoard().put("4", 10);
-		d_gameState.getGameBoard().put("5", 9);
+		d_gameEngine.getGameBoard().put("1", 5);
+		d_gameEngine.getGameBoard().put("2", 7);
+		d_gameEngine.getGameBoard().put("3", 8);
+		d_gameEngine.getGameBoard().put("4", 10);
+		d_gameEngine.getGameBoard().put("5", 9);
 
 		d_playerId1 = 0;
 		d_playerId2 = 1;
 	}
 
 	/**
-     * Test to check whether issuing a bomb order on an adjacent target country is valid.
-     */
+	 * Test to check whether issuing a bomb order on an adjacent target country is
+	 * valid.
+	 */
 	@Test
 	public void isValidIssueWithAdjacentTargetCountry() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
-		assertTrue(d_bombOrder.isValidIssue(d_gameState, d_playerId1));
+		assertTrue(d_bombOrder.isValidIssue(d_playerId1));
 	}
 
 	/**
-     * Tests to check whether issuing a bomb order on a non-adjacent target country is valid.
-     */
+	 * Tests to check whether issuing a bomb order on a non-adjacent target country
+	 * is valid.
+	 */
 	@Test
 	public void isValidIssueWithNonAdjacentTargetCountry() {
 		d_bombOrder = new Bomb("5", d_gameEngine);
-		assertFalse(d_bombOrder.isValidIssue(d_gameState, d_playerId1));
+		assertFalse(d_bombOrder.isValidIssue(d_playerId1));
 	}
 
 	/**
-     * Tests to check whether executing a bomb order without the required card is invalid.
-     */
+	 * Tests to check whether executing a bomb order without the required card is
+	 * invalid.
+	 */
 	@Test
 	public void isValidExecuteWithNoCard() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
-		assertFalse(d_bombOrder.isValidExecute(d_gameState, d_playerId1));
+		assertFalse(d_bombOrder.isValidExecute(d_playerId1));
 	}
 
 	/**
-     * Tests to check whether executing a bomb order with the required card is valid.
-     */
+	 * Tests to check whether executing a bomb order with the required card is
+	 * valid.
+	 */
 	@Test
 	public void isValidExecuteWithCard() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
-		d_gameState.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
-		assertTrue(d_bombOrder.isValidExecute(d_gameState, d_playerId1));
+		d_gameEngine.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
+		assertTrue(d_bombOrder.isValidExecute(d_playerId1));
 	}
 
 	/**
-     * Tests to check the execution of a bomb order when the number of armies is even.
-     */
+	 * Tests to check the execution of a bomb order when the number of armies is
+	 * even.
+	 */
 	@Test
 	public void executeTestEven() {
 		d_bombOrder = new Bomb("4", d_gameEngine);
-		d_gameState.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
-		d_bombOrder.execute(d_gameState, d_playerId1);
-		int numArmies = d_gameState.getGameBoard().get("4");
+		d_gameEngine.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
+		d_bombOrder.execute(d_playerId1);
+		int numArmies = d_gameEngine.getGameBoard().get("4");
 		assertEquals(5, numArmies);
 	}
 
-    /**
-     * Tests to check the execution of a bomb order when the number of armies is odd.
-     */
+	/**
+	 * Tests to check the execution of a bomb order when the number of armies is
+	 * odd.
+	 */
 	@Test
 	public void executeTestOdd() {
 		d_bombOrder = new Bomb("5", d_gameEngine);
-		d_gameState.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
-		d_bombOrder.execute(d_gameState, d_playerId1);
-		int numArmies = d_gameState.getGameBoard().get("5");
+		d_gameEngine.getPlayers().get(d_playerId1).increaseCardCount("Bomb");
+		d_bombOrder.execute(d_playerId1);
+		int numArmies = d_gameEngine.getGameBoard().get("5");
 		assertEquals(4, numArmies);
 	}
 

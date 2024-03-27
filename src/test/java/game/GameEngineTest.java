@@ -1,26 +1,23 @@
 package game;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import players.Player;
 
 /**
  * This class is designed to do unit test of features in GameState class
  */
-public class GameStateTest {
+public class GameEngineTest {
 
 	/**
-	 * The GameState instance used for testing various features of the GameState class.
+	 * The GameState instance used for testing various features of the GameState
+	 * class.
 	 */
-	GameState d_gameState;
+	GameEngine d_gameEngine;
 
 	/**
 	 * This is the common setup for all test cases and will be run before each test
@@ -28,9 +25,7 @@ public class GameStateTest {
 	@Before
 	public void before() {
 		System.out.println("Test GameState");
-		List<Player> l_players = new ArrayList<>();
-		d_gameState = new GameState();
-		d_gameState.setPlayers(l_players);
+		d_gameEngine = new GameEngine();
 	}
 
 	/**
@@ -44,13 +39,13 @@ public class GameStateTest {
 		// Test setter for reinforcements
 		System.out.println("Test setter function for reinforcements in GameState");
 		List<Integer> l_reinforcements = new ArrayList<>();
-		d_gameState.setReinforcements(l_reinforcements);
-		List<Integer> l_stateReinforcements = d_gameState.getReinforcements();
+		d_gameEngine.setReinforcements(l_reinforcements);
+		List<Integer> l_stateReinforcements = d_gameEngine.getReinforcements();
 		assertEquals(0, l_stateReinforcements.size());
 
 		// Test getter for reinforcements
 		System.out.println("Test getter function for reinforcements in GameState");
-		l_stateReinforcements = d_gameState.getReinforcements();
+		l_stateReinforcements = d_gameEngine.getReinforcements();
 		l_stateReinforcements.add(1);
 		assertEquals(1, l_stateReinforcements.size());
 	}
@@ -67,14 +62,14 @@ public class GameStateTest {
 		l_board.put("a", 0);
 		// Test if setter has performed correctly
 		System.out.println("Test setter function for game board in GameState");
-		d_gameState.setGameBoard(l_board);
-		Map<String, Integer> l_stateBoard = d_gameState.getGameBoard();
+		d_gameEngine.setGameBoard(l_board);
+		Map<String, Integer> l_stateBoard = d_gameEngine.getGameBoard();
 		assertEquals(1, l_stateBoard.size());
 
 		// Test if modifying the data member after accessing with getter function
 		// updates the data member correctly
 		System.out.println("Test getter function for game board in GameState");
-		l_stateBoard = d_gameState.getGameBoard();
+		l_stateBoard = d_gameEngine.getGameBoard();
 		l_stateBoard.put("b", 0);
 		assertEquals(2, l_stateBoard.size());
 	}

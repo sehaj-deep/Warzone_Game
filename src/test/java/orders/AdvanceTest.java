@@ -3,18 +3,14 @@ package orders;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
 import players.Player;
 
@@ -44,11 +40,6 @@ public class AdvanceTest {
 	static int d_opponentId = 1;
 
 	/**
-	 * The game state instance for testing.
-	 */
-	static GameState d_state;
-
-	/**
 	 * The game engine instance used for testing.
 	 */
 	GameEngine d_gameEngine;
@@ -60,7 +51,7 @@ public class AdvanceTest {
 	public void before() {
 		// game engine set up
 		d_gameEngine = new GameEngine();
-		d_players = d_gameEngine.getGameState().getPlayers();
+		d_players = d_gameEngine.getPlayers();
 		d_players.add(new Player("0"));
 		d_players.add(new Player("1"));
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("korea", "usa", "italy"));
@@ -87,14 +78,13 @@ public class AdvanceTest {
 		l_countries.put("greece", l_country5);
 
 		// game board set up
-		d_state = d_gameEngine.getGameState();
 		HashMap<String, Integer> l_board = new HashMap<String, Integer>(); // key: country name. val: num
 		l_board.put("korea", 3);
 		l_board.put("usa", 12);
 		l_board.put("italy", 4);
 		l_board.put("japan", 1);
 		l_board.put("greece", 1000);
-		d_state.setGameBoard(l_board);
+		d_gameEngine.setGameBoard(l_board);
 	}
 
 	/**
@@ -108,32 +98,32 @@ public class AdvanceTest {
 
 		System.out.println("Testing Valid cases");
 		d_advanceOrder = new Advance("korea", "italy", 1, d_gameEngine);
-		assertTrue(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
 		d_advanceOrder = new Advance("korea", "greece", 1, d_gameEngine);
-		assertTrue(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
 
 		// Invalid case 1: country not occupied by the player
 		System.out.println("Testing invalid advance: advance from country not owned");
 		d_advanceOrder = new Advance("japan", "italy", 1, d_gameEngine);
-		assertFalse(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 
 		// Invalid case 2: more armies to be deployed than the armies available in the
 		// source country
 		System.out.println("Testing invalid advance: advance more armies than availabe in the source country");
 		d_advanceOrder = new Advance("korea", "italy", 4, d_gameEngine);
-		assertFalse(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 
 		// Invalid case 3: negative number of armies for deploy
 		System.out.println("Testing invalid advance: negative number of armies for advance");
 		d_advanceOrder = new Advance("korea", "italy", -1, d_gameEngine);
-		assertFalse(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 
 		// Invalid case: no link from source to target
 		System.out.println("Testing invalid advance: advance to a non-neighbor country");
 		d_advanceOrder = new Advance("korea", "usa", 1, d_gameEngine);
-		assertFalse(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 		d_advanceOrder = new Advance("korea", "japan", 1, d_gameEngine);
-		assertFalse(d_advanceOrder.isValidIssue(d_state, d_plyrId));
+		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 
 		System.out.println("Testing advance.isValidIssue method PASSED!");
 	}
@@ -150,12 +140,12 @@ public class AdvanceTest {
 
 		System.out.println("isValidExecute Case: advancing to the country owned by the player");
 		d_advanceOrder = new Advance("korea", "italy", 1, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
+		d_advanceOrder.isValidExecute(d_plyrId);
 		assertFalse(d_advanceOrder.getIsAttack());
 
 		System.out.println("isValidExecute Case: attacking the country not owned by the player");
 		d_advanceOrder = new Advance("korea", "greece", 1, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
+		d_advanceOrder.isValidExecute(d_plyrId);
 		assertTrue(d_advanceOrder.getIsAttack());
 		System.out.println("Testing advance.isValidExecute method PASSED!");
 	}
@@ -171,16 +161,16 @@ public class AdvanceTest {
 
 		System.out.println("Attack Case: conquer succeded");
 		d_advanceOrder = new Advance("usa", "japan", 9, d_gameEngine);
-		d_advanceOrder.attack(d_state, d_plyrId);
+		d_advanceOrder.attack(d_plyrId);
 		assertTrue(d_players.get(d_plyrId).getOwnership().contains("japan"));
 		assertFalse(d_players.get(d_opponentId).getOwnership().contains("japan"));
 		// check the move of armies after conquering
-		int l_numArmy = d_gameEngine.getGameState().getGameBoard().get("japan");
+		int l_numArmy = d_gameEngine.getGameBoard().get("japan");
 		assertTrue(l_numArmy > 1 && l_numArmy <= 9);
 
 		System.out.println("Attack Case: defender succeeding defence");
 		d_advanceOrder = new Advance("italy", "greece", 3, d_gameEngine);
-		d_advanceOrder.attack(d_state, d_plyrId);
+		d_advanceOrder.attack(d_plyrId);
 		assertFalse(d_players.get(d_plyrId).getOwnership().contains("greece"));
 		assertTrue(d_players.get(d_opponentId).getOwnership().contains("greece"));
 		System.out.println("Testing advance.attack method PASSED!");
@@ -197,17 +187,17 @@ public class AdvanceTest {
 
 		System.out.println("Execute Case: move some armies from source to target");
 		d_advanceOrder = new Advance("korea", "italy", 1, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
-		d_advanceOrder.execute(d_state, d_opponentId);
-		int l_numArmy = d_state.getGameBoard().get("italy");
+		d_advanceOrder.isValidExecute(d_plyrId);
+		d_advanceOrder.execute(d_opponentId);
+		int l_numArmy = d_gameEngine.getGameBoard().get("italy");
 		assertEquals(5, l_numArmy);
 
 		System.out.println("Execute Case: attack some armies from source to target");
 		d_advanceOrder = new Advance("usa", "japan", 7, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
-		d_advanceOrder.execute(d_state, d_plyrId);
-		System.out.println(d_players.get(d_plyrId).getOwnership());
-		System.out.println(d_players.get(d_opponentId).getOwnership());
+		d_advanceOrder.isValidExecute(d_plyrId);
+		d_advanceOrder.execute(d_plyrId);
+		System.out.println("Player owns " + d_players.get(d_plyrId).getOwnership());
+		System.out.println("Opponent owns " + d_players.get(d_opponentId).getOwnership());
 
 		assertTrue(d_players.get(d_plyrId).getOwnership().contains("japan"));
 		assertFalse(d_players.get(d_opponentId).getOwnership().contains("japan"));

@@ -2,9 +2,7 @@ package orders;
 
 import java.util.List;
 import java.util.Random;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
 import players.Player;
 import utils.ValidationException;
@@ -63,20 +61,20 @@ public class Advance extends Order {
 	 * destination country Or attack the destination country with the given army in
 	 * the order
 	 *
-	 * @param p_state    is the game state at the current moment
 	 * @param p_playerId the id of player gave this advance order
 	 */
 	@Override
-	public void execute(GameState p_state, int p_playerId) {
-		int l_currSourceNumArmy = p_state.getGameBoard().get(d_sourceCountry);
+	public void execute(int p_playerId) {
+		int l_currSourceNumArmy = d_gameEngine.getGameBoard().get(d_sourceCountry);
 		// decrease the source army
-		p_state.getGameBoard().put(d_sourceCountry, l_currSourceNumArmy - d_numArmy);
+		d_gameEngine.getGameBoard().put(d_sourceCountry, l_currSourceNumArmy - d_numArmy);
 		if (!getIsAttack()) { // not an attacking advance
-			int l_currTargetNumArmy = p_state.getGameBoard().get(d_targetCountry);
+			int l_currTargetNumArmy = d_gameEngine.getGameBoard().get(d_targetCountry);
 			// increase the target army
-			p_state.getGameBoard().put(d_targetCountry, l_currTargetNumArmy + d_numArmy);
-		} else { // attacking advance
-			attack(p_state, p_playerId);
+			d_gameEngine.getGameBoard().put(d_targetCountry, l_currTargetNumArmy + d_numArmy);
+		}
+		else { // attacking advance
+			attack(p_playerId);
 		}
 	}
 
@@ -84,12 +82,11 @@ public class Advance extends Order {
 	 * Execute attacking move of advance order
 	 * 
 	 * 
-	 * @param p_state    the game state at the current moment
 	 * @param p_playerId the id of player gave this advance order
 	 */
-	public void attack(GameState p_state, int p_playerId) {
+	public void attack(int p_playerId) {
 		// find the owner of the target country
-		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
+		List<Player> l_players = d_gameEngine.getPlayers();
 		int l_prevOwnerId;
 		boolean isNeutralCountry = true;
 		for (l_prevOwnerId = 0; l_prevOwnerId < l_players.size(); l_prevOwnerId++) {
@@ -100,7 +97,7 @@ public class Advance extends Order {
 			}
 		}
 		// get the number of defending armies in the target country
-		int l_numArmyDefence = p_state.getGameBoard().get(d_targetCountry);
+		int l_numArmyDefence = d_gameEngine.getGameBoard().get(d_targetCountry);
 		int l_numArmyAttack = d_numArmy;
 		int l_killDefence, l_killAttack; // chance of killing defending and attacking army
 		Random random = new Random();
@@ -123,17 +120,18 @@ public class Advance extends Order {
 		}
 		if (l_numArmyDefence == 0) { // conquer successful
 			// add the target country to owner countries of the player who gave the advance
-			d_gameEngine.getGameState().getPlayers().get(p_playerId).conquerCountry(d_targetCountry);
+			d_gameEngine.getPlayers().get(p_playerId).conquerCountry(d_targetCountry);
 			if (!isNeutralCountry) {
 				// remove the target country from the previous owner as it is not neutral by
 				// blockade
-				d_gameEngine.getGameState().getPlayers().get(l_prevOwnerId).removeCountry(d_targetCountry);
+				d_gameEngine.getPlayers().get(l_prevOwnerId).removeCountry(d_targetCountry);
 			}
-			p_state.getGameBoard().put(d_targetCountry, l_numArmyAttack);
+			d_gameEngine.getGameBoard().put(d_targetCountry, l_numArmyAttack);
 
 			System.out.println("Advance executed: " + d_targetCountry + " has been conquered.");
-		} else { // no conquer. previous owner still has the target country
-			p_state.getGameBoard().put(d_targetCountry, l_numArmyDefence);
+		}
+		else { // no conquer. previous owner still has the target country
+			d_gameEngine.getGameBoard().put(d_targetCountry, l_numArmyDefence);
 			System.out.println("Advance executed: " + d_targetCountry + " defended successfully.");
 		}
 	}
@@ -144,23 +142,20 @@ public class Advance extends Order {
 	 * source country
 	 * 
 	 * 
-	 * @param p_state    is the game state for the requesting player at the current
-	 *                   moment
 	 * @param p_playerId the id of player gave this deploy order
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public boolean isValidIssue(GameState p_state, int p_playerId) {
+	public boolean isValidIssue(int p_playerId) {
 		String l_errMessage = "";
 		try {
-			if (!d_gameEngine.getGameState().getPlayers().get(p_playerId).getOwnership().contains(d_sourceCountry)) {
+			if (!d_gameEngine.getPlayers().get(p_playerId).getOwnership().contains(d_sourceCountry)) {
 				// check if source country in the player's ownership
 				l_errMessage = "Country where army is from is not owned by the player issued the order";
 				throw new ValidationException(l_errMessage);
 			}
-			if (d_numArmy >= p_state.getGameBoard().get(d_sourceCountry)) {
-				l_errMessage = "Number of armies to advance must be less than "
-						+ "the number of armies of the source country";
+			if (d_numArmy >= d_gameEngine.getGameBoard().get(d_sourceCountry)) {
+				l_errMessage = "Number of armies to advance must be less than " + "the number of armies of the source country";
 				throw new ValidationException(l_errMessage);
 			}
 			if (d_numArmy < 0) {
@@ -172,7 +167,8 @@ public class Advance extends Order {
 				l_errMessage = "There is no link from source country to destination country ";
 				throw new ValidationException(l_errMessage);
 			}
-		} catch (ValidationException e) {
+		}
+		catch (ValidationException e) {
 			System.out.println(e);
 			return false;
 		}
@@ -185,35 +181,20 @@ public class Advance extends Order {
 	 * function also determines whether this advance order consists attacking move
 	 * 
 	 * 
-	 * @param p_state    is the game state for the requesting player at the current
-	 *                   moment
 	 * @param p_playerId the id of player gave this deploy order
 	 * @return true if the order is valid. false if not a valid move
 	 */
 	@Override
-	public boolean isValidExecute(GameState p_state, int p_playerId) {
+	public boolean isValidExecute(int p_playerId) {
 		// TODO Auto-generated method stub
-		if (!isValidIssue(p_state, p_playerId)) {
+		if (!isValidIssue(p_playerId)) {
 			return false;
 		}
-		if (!d_gameEngine.getGameState().getPlayers().get(p_playerId).getOwnership().contains(d_targetCountry)) {
+		if (!d_gameEngine.getPlayers().get(p_playerId).getOwnership().contains(d_targetCountry)) {
 			// checking whether this advance is for attacking here
 			// because the state of the game can change before execution
 			setIsAttack(true);
 		}
 		return true;
-	}
-
-	/**
-	 * Changes the game state after executing the advance order. This method is
-	 * empty as the execution does not change any game state other than the game
-	 * board.
-	 *
-	 * @param p_state    The current game state.
-	 * @param p_playerId The ID of the player executing the order.
-	 */
-	@Override
-	public void changeGameState(GameState p_state, int p_playerId) {
-		// not utilized
 	}
 }
