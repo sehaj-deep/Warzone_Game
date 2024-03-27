@@ -6,8 +6,8 @@ import java.util.Random;
 
 import game.GameEngine;
 import game.GameState;
-import game.Order;
-import game.Player;
+import orders.Order;
+import players.Player;
 
 /**
  * Executes orders of players in the game in a round-robin fashion for one time.

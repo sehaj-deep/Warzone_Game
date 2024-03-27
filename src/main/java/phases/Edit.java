@@ -1,12 +1,11 @@
-package map;
+package phases;
 
 import java.util.HashMap;
 import java.util.Set;
 
 import game.GameEngine;
-import models.Continent;
-import models.Country;
-import phases.Phase;
+import map.Continent;
+import map.Country;
 
 /**
  * Represents the edit phase of the game map.
@@ -14,78 +13,78 @@ import phases.Phase;
 public abstract class Edit extends Phase {
 
 	/**
-     * Constructs a new Edit object.
-     * 
-     * @param p_gameEngine a context object for the edit phase
-     */
+	 * Constructs a new Edit object.
+	 * 
+	 * @param p_gameEngine a context object for the edit phase
+	 */
 	public Edit(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
 	/**
-     * Sets the players for the edit phase.
-     */
+	 * Sets the players for the edit phase.
+	 */
 	public void setPlayers() {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Assign the countries for the edit phase.
-     */
+	 * Assign the countries for the edit phase.
+	 */
 	public void assignCountries() {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Reinforce method for the edit phase.
-     */
+	 * Reinforce method for the edit phase.
+	 */
 	public void reinforce() {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Attack method for the edit phase.
-     */
+	 * Attack method for the edit phase.
+	 */
 	public void attack() {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Fortify method for the edit phase.
-     */
+	 * Fortify method for the edit phase.
+	 */
 	public void fortify() {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * End the game in the edit phase.
-     */
+	 * End the game in the edit phase.
+	 */
 	public void endGame() {
 		printInvalidCommandMessage();
 	}
 
-    /**
-     * Adds players to the edit phase.
-     *
-     * @param p_playerName the name of the player to add
-     */
+	/**
+	 * Adds players to the edit phase.
+	 *
+	 * @param p_playerName the name of the player to add
+	 */
 	public void addPlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Removes players from the edit phase.
-     *
-     * @param p_playerName the name of the player to remove
-     */
+	 * Removes players from the edit phase.
+	 *
+	 * @param p_playerName the name of the player to remove
+	 */
 	public void removePlayers(String p_playerName) {
 		printInvalidCommandMessage();
 	}
 
 	/**
-     * Display the map in text format.
-     * The map consists of continents and their corresponding countries with neighbors.
-     */
+	 * Display the map in text format. The map consists of continents and their
+	 * corresponding countries with neighbors.
+	 */
 	public void showMap() {
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");

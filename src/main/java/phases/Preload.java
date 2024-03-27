@@ -1,4 +1,4 @@
-package map;
+package phases;
 
 import game.GameEngine;
 

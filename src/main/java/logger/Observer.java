@@ -1,4 +1,4 @@
-package utils;
+package logger;
 
 /**
  * Interface for Observer pattern.

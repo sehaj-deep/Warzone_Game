@@ -10,6 +10,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import players.Player;
+
 /**
  * This class is designed to do unit test of features in GameState class
  */

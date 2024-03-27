@@ -1,9 +1,8 @@
-package models;
+package orders;
 
 import game.GameEngine;
 import game.GameState;
-import game.Order;
-import game.Player;
+import players.Player;
 
 /**
  * The diplomacy class check if attack is valid or not based on player using diplomacy card.

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import game.GameEngine;
-import game.Player;
+import players.Player;
 import utils.ValidationException;
 
 /**

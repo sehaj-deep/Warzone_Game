@@ -1,9 +1,12 @@
-package game;
+package orders;
 
 import java.util.List;
 import java.util.Random;
 
-import models.Country;
+import game.GameEngine;
+import game.GameState;
+import map.Country;
+import players.Player;
 import utils.ValidationException;
 
 /**
@@ -13,13 +16,13 @@ import utils.ValidationException;
 public class Advance extends Order {
 
 	/**
-     * The number of armies for advancement.
-     */
+	 * The number of armies for advancement.
+	 */
 	private int d_numArmy;
 
 	/**
-     * The country where armies will be moving from.
-     */
+	 * The country where armies will be moving from.
+	 */
 	private String d_sourceCountry;
 
 	/**

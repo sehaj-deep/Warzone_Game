@@ -1,4 +1,4 @@
-package models;
+package orders;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,7 +13,8 @@ import org.junit.Test;
 
 import game.GameEngine;
 import game.GameState;
-import game.Player;
+import orders.Diplomacy;
+import players.Player;
 
 /**
  * The DiplomacyTest class contains unit tests for the Diplomacy class.

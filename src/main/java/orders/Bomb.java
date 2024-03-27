@@ -1,4 +1,4 @@
-package models;
+package orders;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Set;
 
 import game.GameEngine;
 import game.GameState;
-import game.Order;
-import game.Player;
+import map.Country;
+import players.Player;
 
 /**
  * Bomb order to reduce the number of armies in a country.

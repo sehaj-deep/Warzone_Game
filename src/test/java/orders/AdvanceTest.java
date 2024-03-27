@@ -1,16 +1,22 @@
-package game;
+package orders;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
-import models.Country;
+
+import game.GameEngine;
+import game.GameState;
+import map.Country;
+import players.Player;
 
 /**
  * Represents a test class for validating the functionality of advance orders.

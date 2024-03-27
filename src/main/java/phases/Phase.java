@@ -10,8 +10,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import game.GameEngine;
-import models.Continent;
-import models.Country;
+import map.Continent;
+import map.Country;
 
 /**
  * Abstract class representing a phase in the game.
