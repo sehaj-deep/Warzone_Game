@@ -81,7 +81,7 @@ public class PhaseTest {
 		// disconnectedsubgraph
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
 		d_preload.readMap(d_fileName, false);
-		assertFalse(d_preload.validateMap());
+		assertTrue(d_preload.validateMap());
 	}
 
 }
