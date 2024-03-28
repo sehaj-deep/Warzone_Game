@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="819db189-7781-4265-823f-3bdf0384f25a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logs.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/GameEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/orders/Advance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/orders/Advance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/orders/Diplomacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/orders/Diplomacy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/ExecuteOrdersPhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/ExecuteOrdersPhase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/IssueOrdersPhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/IssueOrdersPhase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/phases/Phase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/Phase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/phases/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/phases/Play.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ValidationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ValidationException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/test_disconnected_subgraph.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/test_disconnected_subgraph.map" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
