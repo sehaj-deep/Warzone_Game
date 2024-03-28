@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import game.GameEngine;
 import map.Continent;
 import map.Country;
@@ -55,12 +54,12 @@ public abstract class Play extends Phase {
 		}
 
 		// to get the list of players
-		List<Player> l_allPlayers = d_gameEngine.getGameState().getPlayers();
+		List<Player> l_allPlayers = d_gameEngine.getPlayers();
 		if (l_allPlayers.size() == 0) {
 			return;
 		}
 
-		Map<String, Integer> l_countriesArmies = d_gameEngine.getGameState().getGameBoard();
+		Map<String, Integer> l_countriesArmies = d_gameEngine.getGameBoard();
 		for (Player l_currPlayer : l_allPlayers) {
 			System.out.print(l_currPlayer.getPlayerName() + ": ");
 
@@ -83,7 +82,7 @@ public abstract class Play extends Phase {
 	public void initalizeBoard() {
 		Set<String> l_mapCountries = d_gameEngine.getD_countries().keySet();
 		for (String countryName : l_mapCountries)
-			d_gameEngine.getGameState().getGameBoard().put(countryName, 0);
+			d_gameEngine.getGameBoard().put(countryName, 0);
 	}
 
 	/**

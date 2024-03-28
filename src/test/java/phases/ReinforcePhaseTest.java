@@ -2,15 +2,11 @@ package phases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Continent;
 import map.Country;
 import players.Player;
@@ -28,10 +24,6 @@ public class ReinforcePhaseTest {
 	 */
 	ReinforcePhase d_reinforcePhase;
 	/**
-	 * The instance of Game State
-	 */
-	GameState d_gameState;
-	/**
 	 * The instance of Player
 	 */
 	Player d_player;
@@ -43,10 +35,9 @@ public class ReinforcePhaseTest {
 	public void setup() {
 		d_gameEngine = new GameEngine();
 		d_reinforcePhase = new ReinforcePhase(d_gameEngine);
-		d_gameState = d_gameEngine.getGameState();
 		// Add a player to the game state
 		d_player = new Player("0");
-		d_gameState.getPlayers().add(d_player);
+		d_gameEngine.getPlayers().add(d_player);
 	}
 
 	/**
@@ -57,7 +48,7 @@ public class ReinforcePhaseTest {
 
 		// Test Case 1: No Countries Owned
 		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
-		assertEquals(3, d_gameState.getReinforcements().get(0).intValue());
+		assertEquals(3, d_gameEngine.getReinforcements().get(0).intValue());
 	}
 
 	/**
@@ -69,7 +60,7 @@ public class ReinforcePhaseTest {
 		d_gameEngine.getD_countries("Country1");
 		d_player.setOwnership(new HashSet<>(Arrays.asList("Country1")));
 		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
-		assertEquals(3, d_gameState.getReinforcements().get(0).intValue());
+		assertEquals(3, d_gameEngine.getReinforcements().get(0).intValue());
 	}
 
 	/**
@@ -78,7 +69,7 @@ public class ReinforcePhaseTest {
 	@Test
 	public void testCalculateReinforcementArmiesThreeCountries() {
 		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
-		assertTrue(d_gameState.getReinforcements().get(0) >= 3);
+		assertTrue(d_gameEngine.getReinforcements().get(0) >= 3);
 	}
 
 	/**
@@ -98,7 +89,7 @@ public class ReinforcePhaseTest {
 		d_player.getOwnership().add("Country5");
 		d_player.getOwnership().add("Country6");
 		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
-		assertEquals(5, d_gameState.getReinforcements().get(0).intValue());
+		assertEquals(5, d_gameEngine.getReinforcements().get(0).intValue());
 	}
 
 }

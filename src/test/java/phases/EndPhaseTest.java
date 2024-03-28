@@ -2,18 +2,14 @@ package phases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
 import orders.Advance;
 import players.Player;
@@ -35,10 +31,6 @@ public class EndPhaseTest {
 	 */
 	static int d_opponentId = 1;
 	/**
-	 * GameState instance
-	 */
-	static GameState d_state;
-	/**
 	 * GameEngine instance
 	 */
 	GameEngine d_gameEngine;
@@ -54,7 +46,7 @@ public class EndPhaseTest {
 	public void before() {
 		// game engine set up
 		d_gameEngine = new GameEngine();
-		d_players = d_gameEngine.getGameState().getPlayers();
+		d_players = d_gameEngine.getPlayers();
 		d_players.add(new Player("0"));
 		d_players.add(new Player("1"));
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("korea"));
@@ -70,11 +62,10 @@ public class EndPhaseTest {
 		l_countries.put("usa", l_country2);
 
 		// game board set up
-		d_state = d_gameEngine.getGameState();
 		HashMap<String, Integer> l_board = new HashMap<String, Integer>(); // key: country name. val: num
 		l_board.put("korea", 3);
 		l_board.put("usa", 12);
-		d_state.setGameBoard(l_board);
+		d_gameEngine.setGameBoard(l_board);
 		d_endPhase = new EndPhase(d_gameEngine);
 	}
 
@@ -84,10 +75,10 @@ public class EndPhaseTest {
 	@Test
 	public void testKickOutPlayer() {
 		Advance d_advanceOrder = new Advance("usa", "korea", 9, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
-		d_advanceOrder.execute(d_state, d_plyrId);
+		d_advanceOrder.isValidExecute(d_plyrId);
+		d_advanceOrder.execute(d_plyrId);
 		d_endPhase.kickOutPlayer();
-		int l_numPlayers = d_gameEngine.getGameState().getPlayers().size();
+		int l_numPlayers = d_gameEngine.getPlayers().size();
 		assertEquals(1, l_numPlayers);
 	}
 
@@ -97,8 +88,8 @@ public class EndPhaseTest {
 	@Test
 	public void testEnd() {
 		Advance d_advanceOrder = new Advance("usa", "korea", 9, d_gameEngine);
-		d_advanceOrder.isValidExecute(d_state, d_plyrId);
-		d_advanceOrder.execute(d_state, d_plyrId);
+		d_advanceOrder.isValidExecute(d_plyrId);
+		d_advanceOrder.execute(d_plyrId);
 		d_endPhase.end();
 		assertTrue(d_endPhase.getAnyWinner());
 	}

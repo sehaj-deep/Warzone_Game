@@ -1,17 +1,13 @@
 package players;
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import orders.Order;
 
 /**
@@ -39,11 +35,6 @@ public class PlayerTest {
 	static int d_plyrId = 0;
 
 	/**
-	 * The game state instance for testing.
-	 */
-	static GameState d_state;
-
-	/**
 	 * This is the common setup for all test cases and will be run before each test
 	 */
 	@Before
@@ -51,14 +42,13 @@ public class PlayerTest {
 		d_player = new Player(Integer.toString(0));
 		System.out.println("Test Player Setup completed");
 		d_gameEngine = new GameEngine();
-		d_state = d_gameEngine.getGameState();
-		d_reinforcements = d_state.getReinforcements();
+		d_reinforcements = d_gameEngine.getReinforcements();
 		d_reinforcements.clear();
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("korea", "usa", "italy"));
-		d_gameEngine.getGameState().getPlayers().add(d_player);
-		d_gameEngine.getGameState().getPlayers().get(0).setOwnership(l_ownedCountries);
+		d_gameEngine.getPlayers().add(d_player);
+		d_gameEngine.getPlayers().get(0).setOwnership(l_ownedCountries);
 		d_reinforcements.add(9);
-		d_state.setReinforcements(d_reinforcements);
+		d_gameEngine.setReinforcements(d_reinforcements);
 	}
 
 	/**

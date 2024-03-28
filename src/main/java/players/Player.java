@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
 import game.GameEngine;
 import orders.Advance;
 import orders.Airlift;
@@ -171,8 +170,7 @@ public class Player {
 	private boolean issueNegotiateOrder(GameEngine p_gameEngine, String p_playerId) {
 		Diplomacy l_negotiate = new Diplomacy(p_playerId, p_gameEngine);
 
-		if (l_negotiate.isValidIssue(p_gameEngine.getGameState(),
-				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_negotiate.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_negotiate);
 			return true;
 		}
@@ -182,8 +180,7 @@ public class Player {
 	private boolean issueDeployOrder(GameEngine p_gameEngine, String p_targetCountry, int p_numberOfArmies) {
 		Deploy l_deploy = new Deploy(p_targetCountry, p_numberOfArmies, p_gameEngine);
 
-		if (l_deploy.isValidIssue(p_gameEngine.getGameState(),
-				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_deploy.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_deploy);
 			return true;
 		}
@@ -194,8 +191,7 @@ public class Player {
 			int p_numberOfArmies) {
 		Advance l_advance = new Advance(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
-		if (l_advance.isValidIssue(p_gameEngine.getGameState(),
-				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_advance.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_advance);
 			return true;
 		}
@@ -205,7 +201,7 @@ public class Player {
 	private boolean issueBombOrder(GameEngine p_gameEngine, String p_targetCountry) {
 		Bomb l_bomb = new Bomb(p_targetCountry, p_gameEngine);
 
-		if (l_bomb.isValidIssue(p_gameEngine.getGameState(), p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_bomb.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_bomb);
 			return true;
 		}
@@ -216,8 +212,7 @@ public class Player {
 			int p_numberOfArmies) {
 		Airlift l_airlift = new Airlift(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
-		if (l_airlift.isValidIssue(p_gameEngine.getGameState(),
-				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_airlift.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_airlift);
 			return true;
 		}
@@ -227,8 +222,7 @@ public class Player {
 	private boolean issueBlockadeOrder(GameEngine p_gameEngine, String p_targetCountry) {
 		Blockade l_blockade = new Blockade(p_targetCountry, p_gameEngine);
 
-		if (l_blockade.isValidIssue(p_gameEngine.getGameState(),
-				p_gameEngine.getGameState().getPlayers().indexOf(this))) {
+		if (l_blockade.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
 			d_listOrders.add(l_blockade);
 			return true;
 		}

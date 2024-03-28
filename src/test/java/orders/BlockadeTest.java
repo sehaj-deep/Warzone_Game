@@ -3,17 +3,12 @@ package orders;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
-import orders.Blockade;
 import players.Player;
 
 /**
@@ -26,31 +21,30 @@ public class BlockadeTest {
 	private Blockade d_blockadeOrder;
 
 	/**
-	 * The GameState instance for testing.
-	 */
-	private GameState d_gameState;
-
-	/**
 	 * The ID of the player executing the blockade order.
 	 */
 	private int d_playerId;
+
+	/**
+	 * The game engine instance used for testing.
+	 */
+	GameEngine d_gameEngine;
 
 	/**
 	 * Sets up the test environment before each test case.
 	 */
 	@Before
 	public void setUp() {
-		d_blockadeOrder = new Blockade("targetCountry", new GameEngine());
-		d_gameState = new GameState();
+		d_gameEngine = new GameEngine();
+		d_blockadeOrder = new Blockade("targetCountry", d_gameEngine);
 		List<Player> players = new ArrayList<>();
 
 		d_playerId = 0;
 		players.add(new Player("0"));
-		d_gameState.setPlayers(players);
-
-		Map<String, Integer> l_gameBoard = d_gameState.getGameBoard();
+		d_gameEngine.setPlayers(players);
+		Map<String, Integer> l_gameBoard = d_gameEngine.getGameBoard();
 		l_gameBoard.put("targetCountry", 1);
-		d_gameState.setGameBoard(l_gameBoard);
+		d_gameEngine.setGameBoard(l_gameBoard);
 	}
 
 	/**
@@ -58,7 +52,7 @@ public class BlockadeTest {
 	 */
 	@Test
 	public void testIsValidIssueWithValidCountryAndArmyUnits() {
-		assertTrue(d_blockadeOrder.isValidIssue(d_gameState, d_playerId));
+		assertTrue(d_blockadeOrder.isValidIssue(d_playerId));
 	}
 
 	/**
@@ -67,7 +61,7 @@ public class BlockadeTest {
 	@Test
 	public void testIsValidIssueWithInvalidCountry() {
 		d_blockadeOrder = new Blockade("invalidCountry", new GameEngine());
-		assertFalse(d_blockadeOrder.isValidIssue(d_gameState, d_playerId));
+		assertFalse(d_blockadeOrder.isValidIssue(d_playerId));
 	}
 
 	/**
@@ -75,8 +69,8 @@ public class BlockadeTest {
 	 */
 	@Test
 	public void testIsValidIssueWithNoArmyUnits() {
-		d_gameState.getGameBoard().put("targetCountry", 0); // Setting army count to 0
-		assertFalse(d_blockadeOrder.isValidIssue(d_gameState, d_playerId));
+		d_gameEngine.getGameBoard().put("targetCountry", 0); // Setting army count to 0
+		assertFalse(d_blockadeOrder.isValidIssue(d_playerId));
 	}
 
 	/**
@@ -84,9 +78,9 @@ public class BlockadeTest {
 	 */
 	@Test
 	public void testExecute() {
-		int initialArmyCount = d_gameState.getGameBoard().get("targetCountry");
-		d_blockadeOrder.execute(d_gameState, d_playerId);
-		int finalArmyCount = d_gameState.getGameBoard().get("targetCountry");
+		int initialArmyCount = d_gameEngine.getGameBoard().get("targetCountry");
+		d_blockadeOrder.execute(d_playerId);
+		int finalArmyCount = d_gameEngine.getGameBoard().get("targetCountry");
 		assertEquals(initialArmyCount * 3, finalArmyCount); // Army count should be tripled after execution
 	}
 }

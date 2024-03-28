@@ -2,7 +2,6 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import game.GameEngine;
 import players.Player;
 
@@ -46,9 +45,8 @@ public class EndPhase extends MainPlay {
 	 */
 	public void end() {
 		kickOutPlayer();
-		if (d_gameEngine.getGameState().getPlayers().size() == 1) {
-			System.out.println(
-					"Player " + d_gameEngine.getGameState().getPlayers().get(0).getPlayerName() + " has won the game");
+		if (d_gameEngine.getPlayers().size() == 1) {
+			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game");
 			d_anyWinner = true;
 
 		}
@@ -60,14 +58,14 @@ public class EndPhase extends MainPlay {
 	 */
 	public void kickOutPlayer() {
 		List<Player> l_copy = new ArrayList<>();
-		l_copy.addAll(d_gameEngine.getGameState().getPlayers());
-		for (Player l_player : d_gameEngine.getGameState().getPlayers()) {
+		l_copy.addAll(d_gameEngine.getPlayers());
+		for (Player l_player : d_gameEngine.getPlayers()) {
 			if (l_player.getOwnership().size() == 0) {
 				// d_gameEngine.getGameState().getPlayers().remove(l_player);
 				l_copy.remove(l_player);
 			}
 		}
-		d_gameEngine.getGameState().setPlayers(l_copy);
+		d_gameEngine.setPlayers(l_copy);
 	}
 
 	/**

@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
-
 import game.GameEngine;
-import game.GameState;
 import map.Country;
 import orders.Advance;
 import players.Player;
@@ -21,10 +19,6 @@ import players.Player;
  * 
  */
 public class ExecuteOrdersPhaseTest {
-	/**
-	 * The current game state.
-	 */
-	private static GameState d_state;
 
 	/**
 	 * The instance of the ExecuteOrdersPhase class being tested.
@@ -43,15 +37,14 @@ public class ExecuteOrdersPhaseTest {
 	@Before
 	public void before() {
 		d_gameEngine = new GameEngine();
-		d_state = d_gameEngine.getGameState();
-		HashMap<String, Integer> boardBefore = new HashMap<String, Integer>();
-		boardBefore.put("0", 0);
-		boardBefore.put("1", 0);
-		boardBefore.put("2", 0);
-		boardBefore.put("3", 0);
-		d_state.setGameBoard(boardBefore);
+		HashMap<String, Integer> l_board = new HashMap<String, Integer>();
+		l_board.put("0", 0);
+		l_board.put("1", 0);
+		l_board.put("2", 0);
+		l_board.put("3", 0);
+		d_gameEngine.setGameBoard(l_board);
 		List<Integer> l_reinforcements = new ArrayList<>(Arrays.asList(10, 15)); // set up reinforcement pool
-		d_state.setReinforcements(l_reinforcements);
+		d_gameEngine.setReinforcements(l_reinforcements);
 		d_executeOrdersPhase = new ExecuteOrdersPhase(d_gameEngine);
 		System.out.println("Setting up a game state to test ExecuteOrderPhase");
 		System.out.println("Reinforcements available to Player0 and Player1: " + l_reinforcements);
@@ -59,7 +52,7 @@ public class ExecuteOrdersPhaseTest {
 		for (int i = 0; i < 2; i++) {
 			Player l_player = new Player(Integer.toString(i));
 			// provide countries owned by this player
-			d_gameEngine.getGameState().getPlayers().add(l_player);
+			d_gameEngine.getPlayers().add(l_player);
 			l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1))));
 			System.out.println("Player" + i + " has countries: " + l_player.getOwnership());
 			int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
@@ -78,15 +71,15 @@ public class ExecuteOrdersPhaseTest {
 	@Test
 	public void testRoundRobinExecution() {
 		System.out.println("Testing RoundRobinExecution method");
-		System.out.println("Game Board before: " + d_state.getGameBoard());
-		d_executeOrdersPhase.roundRobinExecution(d_state);
+		System.out.println("Game Board before: " + d_gameEngine.getGameBoard());
+		d_executeOrdersPhase.roundRobinExecution();
 		HashMap<String, Integer> l_boardAfter = new HashMap<String, Integer>();
 		l_boardAfter.put("0", 5);
 		l_boardAfter.put("1", 0);
 		l_boardAfter.put("2", 5);
 		l_boardAfter.put("3", 0);
-		System.out.println("Game Board After: " + d_state.getGameBoard());
-		assertEquals(l_boardAfter, d_state.getGameBoard());
+		System.out.println("Game Board After: " + d_gameEngine.getGameBoard());
+		assertEquals(l_boardAfter, d_gameEngine.getGameBoard());
 		System.out.println("Testing ExecuteOrdersPhase.RoundRobinExecution methods PASSSED");
 	}
 
@@ -97,7 +90,7 @@ public class ExecuteOrdersPhaseTest {
 	@Test
 	public void testGetNumAllOrders() {
 		System.out.println("Testing getNumAllOrders method");
-		int l_totNumOrders = d_executeOrdersPhase.getNumAllOrders(d_state);
+		int l_totNumOrders = d_executeOrdersPhase.getNumAllOrders();
 		assertEquals(5, l_totNumOrders);
 		System.out.println("Testing ExecuteOrdersPhase.getNumAllOrders() method PASSED!");
 	}
@@ -108,7 +101,7 @@ public class ExecuteOrdersPhaseTest {
 	@Test
 	public void testExecuteOrdersPhaseDeploy() {
 		System.out.println("Testing ExecuteOrdersPhase method");
-		System.out.println("Game Board before: " + d_state.getGameBoard());
+		System.out.println("Game Board before: " + d_gameEngine.getGameBoard());
 		d_executeOrdersPhase.executeAllOrders();
 		// expected state of the game board after successful execution of all orders
 		HashMap<String, Integer> l_boardAfter = new HashMap<String, Integer>();
@@ -116,12 +109,12 @@ public class ExecuteOrdersPhaseTest {
 		l_boardAfter.put("1", 5);
 		l_boardAfter.put("2", 10);
 		l_boardAfter.put("3", 5);
-		System.out.println("Game Board After: " + d_state.getGameBoard());
-		assertEquals(l_boardAfter, d_state.getGameBoard());
+		System.out.println("Game Board After: " + d_gameEngine.getGameBoard());
+		assertEquals(l_boardAfter, d_gameEngine.getGameBoard());
 		int l_totNumOrders = 0;
-		for (int i = 0; i < d_state.getPlayers().size(); i++) {
+		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			// print out a list of orders per player after the execute orders phase
-			Player l_player = d_state.getPlayers().get(i);
+			Player l_player = d_gameEngine.getPlayers().get(i);
 			System.out.println("Player " + l_player.getPlayerName() + " orders left: " + l_player.getListOrders());
 			l_totNumOrders = l_totNumOrders + l_player.getListOrders().size();
 		}
@@ -139,12 +132,12 @@ public class ExecuteOrdersPhaseTest {
 
 		// Case: first player no conquer, and second player one conquer successful
 		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
-		for (int i = 0; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
+		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			l_countConquestPerPlayer.add(i);
 		}
 		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
 		d_executeOrdersPhase.giveCard();
-		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
+		List<Player> l_players = d_gameEngine.getPlayers();
 		int l_numCards;
 		l_numCards = l_players.get(0).getCardCount("Bomb") + l_players.get(0).getCardCount("Blockade")
 				+ l_players.get(0).getCardCount("Airlift") + l_players.get(0).getCardCount("Diplomacy");
@@ -165,7 +158,7 @@ public class ExecuteOrdersPhaseTest {
 		System.out.println("Testing ExecuteOrdersPhase attack method");
 		// advance order setup
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("usa"));
-		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
+		List<Player> l_players = d_gameEngine.getPlayers();
 
 		Player l_player = new Player("2");
 		l_player.setOwnership(l_ownedCountries);
@@ -179,21 +172,21 @@ public class ExecuteOrdersPhaseTest {
 		l_countries.put("usa", l_country1);
 		l_countries.put("japan", l_country2);
 
-		d_state.getGameBoard().put("usa", 12);
-		d_state.getGameBoard().put("italy", 4);
-		d_state.getGameBoard().put("japan", 1);
+		d_gameEngine.getGameBoard().put("usa", 12);
+		d_gameEngine.getGameBoard().put("italy", 4);
+		d_gameEngine.getGameBoard().put("japan", 1);
 
 		Advance l_advanceOrder = new Advance("usa", "japan", 9, d_gameEngine);
-		d_gameEngine.getGameState().getPlayers().add(l_player);
+		d_gameEngine.getPlayers().add(l_player);
 
 		System.out.println("Testing ExecuteOrdersPhase attack in attack method");
 		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
-		for (int i = 0; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
+		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			l_countConquestPerPlayer.add(0);
 		}
 		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
-		l_advanceOrder.isValidExecute(d_state, 2);
-		d_executeOrdersPhase.attack(d_state, 2, l_advanceOrder);
+		l_advanceOrder.isValidExecute(2);
+		d_executeOrdersPhase.attack(2, l_advanceOrder);
 		int l_count = d_executeOrdersPhase.getCountConquestPerPlayer().get(2);
 		assertEquals(1, l_count);
 
@@ -210,7 +203,7 @@ public class ExecuteOrdersPhaseTest {
 		System.out.println("Testing ExecuteOrdersPhase attack method inside rounRobin method");
 		// advance order setup
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("usa"));
-		List<Player> l_players = d_gameEngine.getGameState().getPlayers();
+		List<Player> l_players = d_gameEngine.getPlayers();
 
 		Player l_player = new Player("2");
 		l_player.setOwnership(l_ownedCountries);
@@ -224,22 +217,22 @@ public class ExecuteOrdersPhaseTest {
 		l_countries.put("usa", l_country1);
 		l_countries.put("japan", l_country2);
 
-		d_state.getGameBoard().put("usa", 12);
-		d_state.getGameBoard().put("italy", 4);
-		d_state.getGameBoard().put("japan", 1);
+		d_gameEngine.getGameBoard().put("usa", 12);
+		d_gameEngine.getGameBoard().put("italy", 4);
+		d_gameEngine.getGameBoard().put("japan", 1);
 		l_players.add(l_player);
 
 		String[] l_tokens = { "advance", "usa", "japan", "9" };
 		l_player.issue_order(l_tokens, d_gameEngine);
-		d_gameEngine.getGameState().getPlayers().add(l_player);
+		d_gameEngine.getPlayers().add(l_player);
 
 		System.out.println("Testing ExecuteOrdersPhase attack in attack method");
 		List<Integer> l_countConquestPerPlayer = new ArrayList<>();
-		for (int i = 0; i < d_gameEngine.getGameState().getPlayers().size(); i++) {
+		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			l_countConquestPerPlayer.add(0);
 		}
 		d_executeOrdersPhase.setCountConquestPerPlayer(l_countConquestPerPlayer);
-		d_executeOrdersPhase.roundRobinExecution(d_state);
+		d_executeOrdersPhase.roundRobinExecution();
 		int l_count = d_executeOrdersPhase.getCountConquestPerPlayer().get(2);
 		assertEquals(1, l_count);
 
