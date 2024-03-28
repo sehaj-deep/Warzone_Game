@@ -37,7 +37,7 @@ public abstract class Phase {
 	 * 
 	 * @param p_filename the filename of the map
 	 */
-	abstract public void loadMap(String p_filename);
+	public abstract void loadMap(String p_filename);
 
 	/**
 	 * Abstract method to display the map.

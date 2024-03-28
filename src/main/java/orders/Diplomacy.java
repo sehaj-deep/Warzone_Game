@@ -37,7 +37,7 @@ public class Diplomacy extends Order {
 		Player issuingPlayer = d_gameEngine.getPlayers().get(p_playerId);
 
 		// Check if the player has the Diplomacy card
-		if (!(issuingPlayer.getCardCount("Diplomacy") >= 1)) {
+		if (issuingPlayer.getCardCount("Diplomacy") < 1) {
 			System.err.println("Diplomacy card is not available to use");
 			return false;
 		}
@@ -95,7 +95,6 @@ public class Diplomacy extends Order {
 	@Override
 	public boolean isValidExecute(int p_playerId) {
 
-		Player l_issuingPlayer = d_gameEngine.getPlayers().get(p_playerId);
 
 		// if the player is inputting null name
 		if (d_targetPlayer == null || d_targetPlayer.trim().isEmpty()) {

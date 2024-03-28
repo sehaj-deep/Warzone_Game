@@ -1,0 +1,70 @@
+Phase: Current phase is class phases.ReinforcePhase
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class phases.ReinforcePhase
+-------------------------
+Phase: Current phase is class phases.EndPhase
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class phases.ReinforcePhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.PostLoad
+-------------------------
+Phase: Current phase is class phases.ReinforcePhase
+-------------------------
+Phase: Current phase is class phases.EndPhase
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class map.Preload
+-------------------------
+Phase: Current phase is class phases.ReinforcePhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
+Phase: Current phase is class phases.IssueOrdersPhase
+-------------------------
