@@ -35,7 +35,7 @@ public abstract class Order {
 	 * @param p_orderName     The name of the order.
 	 */
 
-	public Order(GameEngine p_gameEngineNew, String p_orderName) {
+	protected Order(GameEngine p_gameEngineNew, String p_orderName) {
 		this.d_orderName = p_orderName;
 		this.d_gameEngine = p_gameEngineNew;
 		this.d_isAttack = false;
