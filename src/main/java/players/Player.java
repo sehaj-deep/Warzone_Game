@@ -7,13 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+
 import game.GameEngine;
-import orders.Advance;
-import orders.Airlift;
-import orders.Blockade;
-import orders.Bomb;
-import orders.Deploy;
-import orders.Diplomacy;
 import orders.Order;
 
 /**
@@ -27,6 +22,11 @@ public class Player {
 	 * player name
 	 */
 	private String d_playerName;
+
+	/**
+	 * The player's strategy type
+	 */
+	private PlayerStrategy d_playerStrategy;
 
 	/**
 	 * list of orders issued by the player
@@ -116,6 +116,24 @@ public class Player {
 	}
 
 	/**
+	 * Gets the player strategy.
+	 * 
+	 * @return The player strategy.
+	 */
+	public PlayerStrategy getD_playerStrategy() {
+		return d_playerStrategy;
+	}
+
+	/**
+	 * Sets the player strategy.
+	 * 
+	 * @param d_playerStrategy The player strategy to set.
+	 */
+	public void setD_playerStrategy(PlayerStrategy d_playerStrategy) {
+		this.d_playerStrategy = d_playerStrategy;
+	}
+
+	/**
 	 * Parses and processes the issued order based on the provided command tokens.
 	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
@@ -123,110 +141,7 @@ public class Player {
 	 * @return boolean indicating whether the order was successfully issued or not.
 	 */
 	public boolean issue_order(String[] p_tokens, GameEngine p_gameEngine) {
-
-		boolean l_isCommandValid = false;
-		String l_sourceCountry = "";
-		String l_targetCountry = "";
-		String l_playerId = "";
-		int l_numberOfArmies = 0;
-
-		switch (p_tokens[0]) {
-		case "deploy":
-			l_targetCountry = p_tokens[1];
-			l_numberOfArmies = Integer.parseInt(p_tokens[2]);
-			l_isCommandValid = issueDeployOrder(p_gameEngine, l_targetCountry, l_numberOfArmies);
-			break;
-		case "advance":
-			l_sourceCountry = p_tokens[1];
-			l_targetCountry = p_tokens[2];
-			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
-			l_isCommandValid = issueAdvanceOrder(p_gameEngine, l_sourceCountry, l_targetCountry, l_numberOfArmies);
-			break;
-		case "bomb":
-			l_targetCountry = p_tokens[1];
-			l_isCommandValid = issueBombOrder(p_gameEngine, l_targetCountry);
-			break;
-		case "airlift":
-			l_sourceCountry = p_tokens[1];
-			l_targetCountry = p_tokens[2];
-			l_numberOfArmies = Integer.parseInt(p_tokens[3]);
-			l_isCommandValid = issueAirliftCommand(p_gameEngine, l_sourceCountry, l_targetCountry, l_numberOfArmies);
-			break;
-		case "negotiate":
-			l_playerId = p_tokens[1];
-			l_isCommandValid = issueNegotiateOrder(p_gameEngine, l_playerId);
-			break;
-		case "blockade":
-			l_targetCountry = p_tokens[1];
-			l_isCommandValid = issueBlockadeOrder(p_gameEngine, l_targetCountry);
-			break;
-		default:
-			System.out.println("Invalid order. Please try again.");
-			l_isCommandValid = false;
-		}
-		return l_isCommandValid;
-	}
-
-	private boolean issueNegotiateOrder(GameEngine p_gameEngine, String p_playerId) {
-		Diplomacy l_negotiate = new Diplomacy(p_playerId, p_gameEngine);
-
-		if (l_negotiate.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_negotiate);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean issueDeployOrder(GameEngine p_gameEngine, String p_targetCountry, int p_numberOfArmies) {
-		Deploy l_deploy = new Deploy(p_targetCountry, p_numberOfArmies, p_gameEngine);
-
-		if (l_deploy.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_deploy);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean issueAdvanceOrder(GameEngine p_gameEngine, String p_sourceCountry, String p_targetCountry,
-			int p_numberOfArmies) {
-		Advance l_advance = new Advance(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
-
-		if (l_advance.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_advance);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean issueBombOrder(GameEngine p_gameEngine, String p_targetCountry) {
-		Bomb l_bomb = new Bomb(p_targetCountry, p_gameEngine);
-
-		if (l_bomb.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_bomb);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean issueAirliftCommand(GameEngine p_gameEngine, String p_sourceCountry, String p_targetCountry,
-			int p_numberOfArmies) {
-		Airlift l_airlift = new Airlift(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
-
-		if (l_airlift.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_airlift);
-			return true;
-		}
-		return false;
-	}
-
-	private boolean issueBlockadeOrder(GameEngine p_gameEngine, String p_targetCountry) {
-		Blockade l_blockade = new Blockade(p_targetCountry, p_gameEngine);
-
-		if (l_blockade.isValidIssue(p_gameEngine.getPlayers().indexOf(this))) {
-			d_listOrders.add(l_blockade);
-			return true;
-		}
-		return false;
+		return d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
 	}
 
 	/**
