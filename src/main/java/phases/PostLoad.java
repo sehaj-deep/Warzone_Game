@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import game.GameEngine;
@@ -140,7 +141,7 @@ public class PostLoad extends Edit {
 
 			// remove from continent
 			Country l_countryToRemove = d_gameEngine.getD_countries().get(p_countryName);
-			HashMap<String, Continent> l_listOfContinents = d_gameEngine.getD_continents();
+			Map<String, Continent> l_listOfContinents = d_gameEngine.getD_continents();
 			for (HashMap.Entry<String, Continent> l_continent : l_listOfContinents.entrySet()) {
 				Set<Country> l_listOfCountries = l_continent.getValue().getD_countries();
 				if (l_listOfCountries.contains(l_countryToRemove)) {

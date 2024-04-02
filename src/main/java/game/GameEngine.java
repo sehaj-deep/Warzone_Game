@@ -108,7 +108,7 @@ public class GameEngine {
 	 * 
 	 * @return the list of continents
 	 */
-	public HashMap<String, Continent> getD_continents() {
+	public Map<String, Continent> getD_continents() {
 		return d_continents;
 	}
 
@@ -597,8 +597,6 @@ public class GameEngine {
 
 	/**
 	 * Parses the 'showmap' command.
-	 * 
-	 * @param p_tokens Command tokens.
 	 */
 	private void parseShowMapCommand() {
 		d_gamePhase.showMap();

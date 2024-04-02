@@ -21,12 +21,4 @@ public class ValidationException extends Exception {
 		super(p_message);
 	}
 
-	/**
-	 * Method to display the message
-	 */
-	@Override
-	public String getMessage() {
-		return super.getMessage();
-	}
-
 }
