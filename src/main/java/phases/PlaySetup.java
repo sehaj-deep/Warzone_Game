@@ -5,7 +5,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
 import game.GameEngine;
+import map.DominationMapReader;
 import players.Player;
 import utils.ValidationException;
 
@@ -189,14 +191,15 @@ public class PlaySetup extends Play {
 	 */
 	@Override
 	public void loadMap(String p_filename) {
-		readMap(p_filename, true);
+//		readMap(p_filename, true);
+		DominationMapReader mapReader = new DominationMapReader(d_gameEngine);
+		mapReader.readMap(p_filename, true);
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {
 				throw new ValidationException("Unable to load map: The map is invalid.");
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
 			clearMap();
 			return;
