@@ -122,6 +122,6 @@ public class Diplomacy extends Order {
 	 */
 	@Override
 	public String toString() {
-		return null;
+		return "Diplomacy order";
 	}
 }

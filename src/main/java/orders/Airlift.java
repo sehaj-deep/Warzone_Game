@@ -20,11 +20,6 @@ public class Airlift extends Order {
 	private String d_sourceCountry;
 
 	/**
-	 * The country to drop airlifted armies
-	 */
-	private String d_targetCountry;
-
-	/**
 	 * Parameterized constructor of Airlift class
 	 * 
 	 * @param p_sourceCountry The country to lift armies from.
