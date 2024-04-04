@@ -8,7 +8,7 @@ import java.util.Set;
 
 import game.GameEngine;
 
-public class DominationMapWriter {
+public class DominationMapWriter implements DominationWriter {
 
 	private GameEngine d_gameEngine;
 

@@ -41,16 +41,6 @@ public class Preload extends Edit {
 	 */
 	@Override
 	public void editMap(String p_filename) {
-//		readMap(p_filename, false);
-//		String[] l_path = p_filename.split("/");
-//		System.out.println("You are now editing " + l_path[l_path.length - 1]);
-
-		// trying to read data from DominationMapReader
-//		mapReader = new DominationMapReader(d_gameEngine);
-//		mapReader.readMap(p_filename, false);
-//		String[] l_path = p_filename.split("/");
-//		System.out.println("You are now editing " + l_path[l_path.length - 1]);
-
 		// open the file to decide if you need to use an adapter or not
 		Scanner l_scanner = null;
 		try {
@@ -62,6 +52,7 @@ public class Preload extends Edit {
 		if (l_scanner != null) {
 			if (l_scanner.nextLine().contains("[Map]")) {
 				// call the adapter
+				d_isConquestMap = true;
 				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
 				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
 				l_mapAdapter.readDominationMap(p_filename, false);
@@ -71,6 +62,8 @@ public class Preload extends Edit {
 				l_dominationReader.readDominationMap(p_filename, false);
 			}
 		}
+
+		next();
 
 	}
 

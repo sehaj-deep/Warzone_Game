@@ -9,8 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import game.GameEngine;
+import map.ConquestMapWriter;
 import map.Continent;
 import map.Country;
+import map.DominationMapWriter;
+import map.MapWriterAdapter;
 import utils.ValidationException;
 
 /**
@@ -249,7 +252,19 @@ public class PostLoad extends Edit {
 			return;
 		}
 
-		this.fileWrite(p_filename);
+//		this.fileWrite(p_filename);
+
+		if (d_isConquestMap) {
+			// use mapWriter adapter
+			ConquestMapWriter l_mapWriter = new ConquestMapWriter(d_gameEngine);
+			MapWriterAdapter l_writerAdapter = new MapWriterAdapter(l_mapWriter);
+			l_writerAdapter.writeDominationFile(p_filename);
+		} else {
+			// write without adapter to domination
+			DominationMapWriter l_mapWriter = new DominationMapWriter(d_gameEngine);
+			l_mapWriter.writeDominationFile(p_filename);
+		}
+
 		System.out.println("The map has been saved successfully into the file: " + p_filename);
 
 		clearMap();

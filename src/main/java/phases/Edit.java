@@ -13,6 +13,8 @@ import map.Country;
  */
 public abstract class Edit extends Phase {
 
+	protected boolean d_isConquestMap = false;
+
 	/**
 	 * Constructs a new Edit object.
 	 * 
