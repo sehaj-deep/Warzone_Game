@@ -105,7 +105,7 @@ public abstract class Edit extends Phase {
 				Set<Country> l_countryNeighbors = l_country.getNeighbors();
 				for (Country neighbor : l_countryNeighbors) {
 					String l_neighborName = neighbor.getD_name();
-					System.out.print(l_neighborName + " ");
+					System.out.print(l_neighborName + "; ");
 				}
 				System.out.println();
 			}

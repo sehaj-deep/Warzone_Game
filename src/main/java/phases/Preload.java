@@ -1,7 +1,13 @@
 package phases;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import game.GameEngine;
+import map.ConquestMapReader;
 import map.DominationMapReader;
+import map.MapReaderAdapter;
 
 /**
  * Represents the preload phase in the map editing process.
@@ -40,12 +46,32 @@ public class Preload extends Edit {
 //		System.out.println("You are now editing " + l_path[l_path.length - 1]);
 
 		// trying to read data from DominationMapReader
-		mapReader = new DominationMapReader(d_gameEngine);
-		mapReader.readMap(p_filename, false);
-		String[] l_path = p_filename.split("/");
-		System.out.println("You are now editing " + l_path[l_path.length - 1]);
+//		mapReader = new DominationMapReader(d_gameEngine);
+//		mapReader.readMap(p_filename, false);
+//		String[] l_path = p_filename.split("/");
+//		System.out.println("You are now editing " + l_path[l_path.length - 1]);
 
-		next();
+		// open the file to decide if you need to use an adapter or not
+		Scanner l_scanner = null;
+		try {
+			l_scanner = new Scanner(new FileInputStream(p_filename));
+		} catch (FileNotFoundException e) {
+			System.out.println("The map file " + p_filename + " is not found in resources folder.");
+		}
+
+		if (l_scanner != null) {
+			if (l_scanner.nextLine().contains("[Map]")) {
+				// call the adapter
+				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
+				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
+				l_mapAdapter.readDominationMap(p_filename, false);
+			} else {
+				// call the domination file
+				DominationMapReader l_dominationReader = new DominationMapReader(d_gameEngine);
+				l_dominationReader.readDominationMap(p_filename, false);
+			}
+		}
+
 	}
 
 	/**

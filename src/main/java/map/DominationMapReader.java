@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import game.GameEngine;
 
-public class DominationMapReader {
+public class DominationMapReader implements DominationReader {
 
 	private GameEngine d_gameEngine;
 
@@ -16,7 +16,7 @@ public class DominationMapReader {
 		d_gameEngine = p_gameEngine;
 	}
 
-	public void readMap(String p_fileName, boolean p_createNew) {
+	public void readDominationMap(String p_fileName, boolean p_createNew) {
 
 		Scanner l_scanner = null;
 
