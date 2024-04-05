@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import logger.LogEntryBuffer;
 import logger.LogFileWriter;
 import map.Continent;
@@ -113,6 +114,15 @@ public class GameEngine {
 	}
 
 	/**
+	 * To set the d_continents Hashmap.
+	 * 
+	 * @param p_continents the Hashmap of String Key and Continent Value
+	 */
+	public void setD_continents(HashMap<String, Continent> p_continents) {
+		this.d_continents = p_continents;
+	}
+
+	/**
 	 * 
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
@@ -167,6 +177,16 @@ public class GameEngine {
 	 */
 	public HashMap<String, Country> getD_countries() {
 		return d_countries;
+	}
+
+	/**
+	 * Set the countries HashMap
+	 * 
+	 * @param p_countries The Hashmap of countries storing String Key and Country
+	 *                    Values
+	 */
+	public void setD_countries(HashMap<String, Country> p_countries) {
+		d_countries = p_countries;
 	}
 
 	/**
@@ -288,12 +308,11 @@ public class GameEngine {
 
 			String l_command = "";
 
-			while (this.getPhase() instanceof PlaySetup)
-            {
+			while (this.getPhase() instanceof PlaySetup) {
 				System.out.print("\n> Enter a command: ");
 				l_command = l_scanner.nextLine();
 				parseUserCommand(l_command);
-			 }
+			}
 
 			l_command = "";
 			do {
@@ -330,9 +349,8 @@ public class GameEngine {
 				l_command = l_scanner.nextLine();
 
 				parseUserCommand(l_command);
-			}
-			while (!l_command.toLowerCase().equals("done"));
-		
+			} while (!l_command.toLowerCase().equals("done"));
+
 		}
 	}
 
@@ -419,7 +437,8 @@ public class GameEngine {
 	 */
 	private void parseEditContinentCommand(String[] p_tokens) {
 		if (p_tokens.length < 3) {
-			System.out.println("Invalid command. Syntax: editcontinent -add continentId continentvalue -remove continentId");
+			System.out.println(
+					"Invalid command. Syntax: editcontinent -add continentId continentvalue -remove continentId");
 			return;
 		}
 
@@ -431,12 +450,13 @@ public class GameEngine {
 			try {
 				if (p_tokens[i].startsWith("-")) {
 					l_option = p_tokens[i].toLowerCase();
-				}
-				else {
+				} else {
 					switch (l_option) {
 					case "-add":
-						// Validation - there should be at least 2 tokens after add and Validation - parameter should not start with "-"
-						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+						// Validation - there should be at least 2 tokens after add and Validation -
+						// parameter should not start with "-"
+						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-")
+								&& !p_tokens[i + 1].startsWith("-")) {
 							l_continentName = p_tokens[i];
 							l_continentValue = p_tokens[++i];
 							addContinentAndLog(l_continentName, l_continentValue);
@@ -449,11 +469,11 @@ public class GameEngine {
 						}
 						break;
 					default:
-						throw new IllegalArgumentException("Invalid option for editcontinent command. Use -add or -remove.");
+						throw new IllegalArgumentException(
+								"Invalid option for editcontinent command. Use -add or -remove.");
 					}
 				}
-			}
-			catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -479,22 +499,22 @@ public class GameEngine {
 			try {
 				if (p_tokens[i].startsWith("-")) {
 					l_option = p_tokens[i].toLowerCase();
-				}
-				else {
+				} else {
 					switch (l_option) {
 					case "-add":
-						// Validation - there should be at least 2 tokens after add and Validation - parameter should not start with "-"
-						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")){
-								l_countryId = p_tokens[i];
-								l_continentId = p_tokens[++i];
+						// Validation - there should be at least 2 tokens after add and Validation -
+						// parameter should not start with "-"
+						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-")
+								&& !p_tokens[i + 1].startsWith("-")) {
+							l_countryId = p_tokens[i];
+							l_continentId = p_tokens[++i];
 
-								try {
-									d_gamePhase.addCountry(l_countryId, l_continentId);
-									d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was added.");
-								}
-								catch (Exception e) {
-									System.out.println(e.getMessage());
-								}
+							try {
+								d_gamePhase.addCountry(l_countryId, l_continentId);
+								d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was added.");
+							} catch (Exception e) {
+								System.out.println(e.getMessage());
+							}
 						}
 						break;
 					case "-remove":
@@ -504,18 +524,17 @@ public class GameEngine {
 							try {
 								d_gamePhase.removeCountry(l_countryId);
 								d_logEntryBuffer.setD_effectOfAction("Country " + l_countryId + " was removed.");
-							}
-							catch (Exception e) {
+							} catch (Exception e) {
 								System.out.println(e.getMessage());
 							}
 						}
 						break;
 					default:
-						throw new IllegalArgumentException("Invalid option for editcountry command. Use -add or -remove.");
+						throw new IllegalArgumentException(
+								"Invalid option for editcountry command. Use -add or -remove.");
 					}
 				}
-			}
-			catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -541,8 +560,7 @@ public class GameEngine {
 			try {
 				if (p_tokens[i].startsWith("-")) {
 					l_option = p_tokens[i].toLowerCase();
-				}
-				else {
+				} else {
 					switch (l_option) {
 					case "-add":
 						// Validation - there should be at least 2 tokens after add
@@ -555,10 +573,9 @@ public class GameEngine {
 
 								try {
 									d_gamePhase.addNeighbor(l_countryId, l_neighborCountryId);
-									d_logEntryBuffer
-											.setD_effectOfAction(l_neighborCountryId + " was added as a neighbor to " + l_countryId);
-								}
-								catch (Exception e) {
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was added as a neighbor to " + l_countryId);
+								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
 							}
@@ -575,21 +592,20 @@ public class GameEngine {
 
 								try {
 									d_gamePhase.removeNeighbor(l_countryId, l_neighborCountryId);
-									d_logEntryBuffer
-											.setD_effectOfAction(l_neighborCountryId + " was removed as a neighbor of " + l_countryId);
-								}
-								catch (Exception e) {
+									d_logEntryBuffer.setD_effectOfAction(
+											l_neighborCountryId + " was removed as a neighbor of " + l_countryId);
+								} catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
 							}
 						}
 						break;
 					default:
-						throw new IllegalArgumentException("Invalid option for editneighbor command. Use -add or -remove.");
+						throw new IllegalArgumentException(
+								"Invalid option for editneighbor command. Use -add or -remove.");
 					}
 				}
-			}
-			catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 			}
 		}
@@ -611,8 +627,7 @@ public class GameEngine {
 	private void parseSaveMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: savemap filename");
-		}
-		else {
+		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
 
 			d_gamePhase.saveMap(l_filename);
@@ -628,8 +643,7 @@ public class GameEngine {
 	private void parseEditMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: editmap filename");
-		}
-		else {
+		} else {
 			String l_filename = p_tokens[1];
 
 			d_gamePhase.editMap(Common.getMapPath(l_filename));
@@ -664,8 +678,7 @@ public class GameEngine {
 		for (int i = 1; i < p_tokens.length; i++) {
 			if (p_tokens[i].startsWith("-")) {
 				l_option = p_tokens[i].toLowerCase();
-			}
-			else {
+			} else {
 				switch (l_option) {
 				case "-add":
 					if (!p_tokens[i].startsWith("-")) {
@@ -706,8 +719,7 @@ public class GameEngine {
 	private void parseLoadMapCommand(String[] p_tokens) {
 		if (p_tokens.length != 2) {
 			System.out.println("Invalid command. Syntax: loadmap filename");
-		}
-		else {
+		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
