@@ -31,7 +31,7 @@ public abstract class Play extends Phase {
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
 
-		HashMap<String, Continent> l_continents = d_gameEngine.getD_continents();
+		Map<String, Continent> l_continents = d_gameEngine.getD_continents();
 		for (HashMap.Entry<String, Continent> l_cont : l_continents.entrySet()) {
 			Continent l_currContinent = l_cont.getValue();
 			String l_nameOfCont = l_currContinent.getD_continentName();
@@ -55,7 +55,7 @@ public abstract class Play extends Phase {
 
 		// to get the list of players
 		List<Player> l_allPlayers = d_gameEngine.getPlayers();
-		if (l_allPlayers.size() == 0) {
+		if (l_allPlayers.isEmpty()) {
 			return;
 		}
 

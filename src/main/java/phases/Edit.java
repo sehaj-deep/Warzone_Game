@@ -1,6 +1,7 @@
 package phases;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import game.GameEngine;
@@ -11,6 +12,8 @@ import map.Country;
  * Represents the edit phase of the game map.
  */
 public abstract class Edit extends Phase {
+
+	protected boolean d_isConquestMap = false;
 
 	/**
 	 * Constructs a new Edit object.
@@ -89,7 +92,7 @@ public abstract class Edit extends Phase {
 		System.out.println("The following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
 
-		HashMap<String, Continent> l_continents = d_gameEngine.getD_continents();
+		Map<String, Continent> l_continents = d_gameEngine.getD_continents();
 		for (HashMap.Entry<String, Continent> l_cont : l_continents.entrySet()) {
 			Continent l_currContinent = l_cont.getValue();
 			String l_nameOfCont = l_currContinent.getD_continentName();
@@ -104,7 +107,7 @@ public abstract class Edit extends Phase {
 				Set<Country> l_countryNeighbors = l_country.getNeighbors();
 				for (Country neighbor : l_countryNeighbors) {
 					String l_neighborName = neighbor.getD_name();
-					System.out.print(l_neighborName + " ");
+					System.out.print(l_neighborName + "; ");
 				}
 				System.out.println();
 			}

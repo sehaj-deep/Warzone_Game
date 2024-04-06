@@ -80,8 +80,6 @@ public class GameEngine {
 	 */
 	private List<Integer> d_reinforcements = new ArrayList<>();
 
-//	private Map<Player, Integer> d_reinforcementsNew;
-
 	/**
 	 * key: country name. value: number of army in the country
 	 */
@@ -110,7 +108,7 @@ public class GameEngine {
 	 * 
 	 * @return the list of continents
 	 */
-	public HashMap<String, Continent> getD_continents() {
+	public Map<String, Continent> getD_continents() {
 		return d_continents;
 	}
 
@@ -290,11 +288,12 @@ public class GameEngine {
 
 			String l_command = "";
 
-			while (this.getPhase().getClass().equals(new PlaySetup(this).getClass())) {
+			while (this.getPhase() instanceof PlaySetup)
+            {
 				System.out.print("\n> Enter a command: ");
 				l_command = l_scanner.nextLine();
 				parseUserCommand(l_command);
-			}
+			 }
 
 			l_command = "";
 			do {
@@ -332,7 +331,8 @@ public class GameEngine {
 
 				parseUserCommand(l_command);
 			}
-			while (l_command.toLowerCase() != "done");
+			while (!l_command.toLowerCase().equals("done"));
+		
 		}
 	}
 
@@ -358,7 +358,7 @@ public class GameEngine {
 			parseEditNeighborCommand(l_tokens);
 			break;
 		case "showmap":
-			parseShowMapCommand(l_tokens);
+			parseShowMapCommand();
 			break;
 		case "savemap":
 			parseSaveMapCommand(l_tokens);
@@ -380,6 +380,35 @@ public class GameEngine {
 			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
+		}
+	}
+
+	/**
+	 * Adds a continent and logs the action.
+	 * 
+	 * @param l_continentName  The name of the continent to add.
+	 * @param l_continentValue The value of the continent to add.
+	 */
+	private void addContinentAndLog(String l_continentName, String l_continentValue) {
+		try {
+			d_gamePhase.addContinent(l_continentName, Integer.parseInt(l_continentValue));
+			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was added.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * Removes a continent and logs the action.
+	 * 
+	 * @param l_continentName The name of the continent to remove.
+	 */
+	private void removeContinentAndLog(String l_continentName) {
+		try {
+			d_gamePhase.removeContinent(l_continentName);
+			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -406,35 +435,17 @@ public class GameEngine {
 				else {
 					switch (l_option) {
 					case "-add":
-						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length) {
-
-							// Validation - parameter should not start with "-"
-							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
-								l_continentName = p_tokens[i];
-								l_continentValue = p_tokens[++i];
-
-								try {
-									d_gamePhase.addContinent(l_continentName, Integer.parseInt(l_continentValue));
-									d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was added.");
-								}
-								catch (Exception e) {
-									System.out.println(e.getMessage());
-								}
-							}
+						// Validation - there should be at least 2 tokens after add and Validation - parameter should not start with "-"
+						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+							l_continentName = p_tokens[i];
+							l_continentValue = p_tokens[++i];
+							addContinentAndLog(l_continentName, l_continentValue);
 						}
 						break;
 					case "-remove":
 						if (!p_tokens[i].startsWith("-")) {
 							l_continentName = p_tokens[i];
-
-							try {
-								d_gamePhase.removeContinent(l_continentName);
-								d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
-							}
-							catch (Exception e) {
-								System.out.println(e.getMessage());
-							}
+							removeContinentAndLog(l_continentName);
 						}
 						break;
 					default:
@@ -472,11 +483,8 @@ public class GameEngine {
 				else {
 					switch (l_option) {
 					case "-add":
-						// Validation - there should be at least 2 tokens after add
-						if (i + 1 < p_tokens.length) {
-
-							// Validation - parameter should not start with "-"
-							if (!p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")) {
+						// Validation - there should be at least 2 tokens after add and Validation - parameter should not start with "-"
+						if (i + 1 < p_tokens.length && !p_tokens[i].startsWith("-") && !p_tokens[i + 1].startsWith("-")){
 								l_countryId = p_tokens[i];
 								l_continentId = p_tokens[++i];
 
@@ -487,7 +495,6 @@ public class GameEngine {
 								catch (Exception e) {
 									System.out.println(e.getMessage());
 								}
-							}
 						}
 						break;
 					case "-remove":
@@ -590,11 +597,8 @@ public class GameEngine {
 
 	/**
 	 * Parses the 'showmap' command.
-	 * 
-	 * @param p_tokens Command tokens.
 	 */
-	private void parseShowMapCommand(String[] p_tokens) {
-		// TODO: Check two diff phases that use this
+	private void parseShowMapCommand() {
 		d_gamePhase.showMap();
 		d_logEntryBuffer.setD_effectOfAction("The map was shown.");
 	}

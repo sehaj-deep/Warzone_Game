@@ -99,7 +99,8 @@ public class Advance extends Order {
 		// get the number of defending armies in the target country
 		int l_numArmyDefence = d_gameEngine.getGameBoard().get(d_targetCountry);
 		int l_numArmyAttack = d_numArmy;
-		int l_killDefence, l_killAttack; // chance of killing defending and attacking army
+		int l_killDefence; // chance of killing defending.
+		int l_killAttack; // chance of killing and attacking army
 		Random random = new Random();
 		while (l_numArmyDefence > 0 && l_numArmyAttack > 0) {
 			l_killDefence = random.nextInt(10 - 1 + 1) + 1;
@@ -114,7 +115,7 @@ public class Advance extends Order {
 			if (l_killAttack <= 7) { // an defending army has 70% killing a attacking
 				l_numArmyAttack = l_numArmyAttack - 1;
 				if (l_numArmyAttack == 0) {
-					continue;
+					break;
 				}
 			}
 		}
@@ -186,7 +187,6 @@ public class Advance extends Order {
 	 */
 	@Override
 	public boolean isValidExecute(int p_playerId) {
-		// TODO Auto-generated method stub
 		if (!isValidIssue(p_playerId)) {
 			return false;
 		}

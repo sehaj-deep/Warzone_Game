@@ -62,11 +62,11 @@ public class IssueOrdersPhase extends MainPlay {
 					System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
 					l_orderCommand = p_scanner.nextLine();
 
-					if (l_orderCommand.toLowerCase().equals("none")) {
+					if (l_orderCommand.equalsIgnoreCase("none")) {
 						l_hasCommands.put(l_player, false);
 						break;
 					}
-					else if (l_orderCommand.toLowerCase().equals("showmap")) {
+					else if (l_orderCommand.equalsIgnoreCase("showmap")) {
 						showMap();
 					}
 					else {

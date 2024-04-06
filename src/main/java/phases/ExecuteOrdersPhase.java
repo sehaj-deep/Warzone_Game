@@ -45,7 +45,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 		List<Integer> l_errorLog = new ArrayList<>();
 		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			Player l_player = d_gameEngine.getPlayers().get(i);
-			if (l_player.getListOrders().size() == 0) {
+			if (l_player.getListOrders().isEmpty()) {
 				System.out.println(l_player.getPlayerName() + " has no more orders to execute");
 				continue;
 			}
@@ -62,7 +62,6 @@ public class ExecuteOrdersPhase extends MainPlay {
 			else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
-				continue;
 			}
 		}
 		return l_errorLog;
