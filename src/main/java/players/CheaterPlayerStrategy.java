@@ -2,16 +2,17 @@ package players;
 
 import game.GameEngine;
 import map.Country;
+import orders.Order;
 
 public class CheaterPlayerStrategy extends PlayerStrategy {
 
 	@Override
-	protected boolean createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
+	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
 
 		conquerNeighboringCountries(p_player, p_gameEngine);
 		doubleArmies(p_player, p_gameEngine);
 
-		return true;
+		return null;
 	}
 
 	/**
@@ -69,26 +70,7 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
 	}
 
 	@Override
-	protected Country toAttack() {
+	public void reset() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toAttackFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toMoveFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toDefend() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
