@@ -10,6 +10,7 @@ import java.util.Set;
 
 import game.GameEngine;
 import orders.Order;
+import utils.ValidationException;
 
 /**
  * Player Class this class stores information and the state of the game about a
@@ -43,6 +44,24 @@ public class Player {
 	 */
 	private HashMap<String, Integer> d_listOfCards;
 	private final List<Player> d_negotiatedWith = new ArrayList<>();
+
+	/**
+	 * Parameterized constructor for the player that requires PlayerStrategy
+	 * 
+	 * @param p_playerName     p_playerName To uniquely identify the player
+	 * @param p_playerStrategy the behavior that defines how player plays the game
+	 */
+	public Player(String p_playerName, PlayerStrategy p_playerStrategy) {
+		d_playerName = p_playerName;
+		d_listOrders = new LinkedList<>();
+		d_ownership = new HashSet<String>();
+		d_listOfCards = new HashMap<>();
+		d_playerStrategy = p_playerStrategy;
+		d_listOfCards.put("Bomb", 0);
+		d_listOfCards.put("Blockade", 0);
+		d_listOfCards.put("Airlift", 0);
+		d_listOfCards.put("Diplomacy", 0);
+	}
 
 	/**
 	 * Parameterized constructor for the player
@@ -137,11 +156,15 @@ public class Player {
 	 * Parses and processes the issued order based on the provided command tokens.
 	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
-	 * @param p_gameEngine The game engine instance managing the game state.
-	 * @return boolean indicating whether the order was successfully issued or not.
+	 * @param p_gameEngine The game engine instance managing the game state
 	 */
-	public boolean issue_order(String[] p_tokens, GameEngine p_gameEngine) {
-		return d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) throws ValidationException {
+		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
+		if (l_order != null) {
+			this.d_listOrders.add(l_order);
+		} else {
+			throw new ValidationException();
+		}
 	}
 
 	/**
@@ -215,4 +238,21 @@ public class Player {
 		d_negotiatedWith.clear();
 	}
 
+	/**
+	 * Access d_playerStrategy data member of this class object
+	 * 
+	 * @return PlayerStrategy object that defines the behavior of this player
+	 */
+	public PlayerStrategy getPlayerStrategy() {
+		return d_playerStrategy;
+	}
+
+	/**
+	 * Update d_playerStrategy data member of this class object
+	 *
+	 * @param p_playerStrategy new PlayerStrategy class object
+	 */
+	public void setPlayerStrategy(PlayerStrategy p_playerStrategy) {
+		d_playerStrategy = p_playerStrategy;
+	}
 }
