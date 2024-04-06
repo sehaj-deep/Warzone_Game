@@ -82,7 +82,6 @@ public class DominationMapReader implements DominationReader {
 		String[] l_continentArr = p_singleLine.split("\\s");
 		if (l_continentArr.length >= 2)
 			addContinent(p_continentId, l_continentArr[0], Integer.parseInt(l_continentArr[1]));
-//		p_gameEngine.addContinent(p_continentId, l_continentArr[0], Integer.parseInt(l_continentArr[1]));
 	}
 
 	/**
@@ -112,7 +111,6 @@ public class DominationMapReader implements DominationReader {
 
 		for (int i = 1; i < l_neighborsArr.length; i++) {
 			addNeighbor(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
-//			p_mapEditor.addNeighbor(Integer.parseInt(l_neighborsArr[0]), Integer.parseInt(l_neighborsArr[i]));
 		}
 	}
 
