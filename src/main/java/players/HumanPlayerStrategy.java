@@ -72,7 +72,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		Deploy l_deploy = new Deploy(p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_deploy.isValidIssue(p_gameEngine.getPlayers().indexOf(p_player))) {
-			// p_player.getListOrders().add(l_deploy);
 			return l_deploy;
 		}
 		return null;
@@ -83,7 +82,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		Advance l_advance = new Advance(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_advance.isValidIssue(p_gameEngine.getPlayers().indexOf(p_player))) {
-			// p_player.getListOrders().add(l_advance);
 			return l_advance;
 		}
 		return null;
@@ -93,7 +91,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		Bomb l_bomb = new Bomb(p_targetCountry, p_gameEngine);
 
 		if (l_bomb.isValidIssue(p_gameEngine.getPlayers().indexOf(p_player))) {
-			// p_player.getListOrders().add(l_bomb);
 			return l_bomb;
 		}
 		return null;
@@ -104,7 +101,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		Airlift l_airlift = new Airlift(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
 
 		if (l_airlift.isValidIssue(p_gameEngine.getPlayers().indexOf(p_player))) {
-			// p_player.getListOrders().add(l_airlift);
 			return l_airlift;
 		}
 		return null;
@@ -114,7 +110,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		Blockade l_blockade = new Blockade(p_targetCountry, p_gameEngine);
 
 		if (l_blockade.isValidIssue(p_gameEngine.getPlayers().indexOf(p_player))) {
-			// p_player.getListOrders().add(l_blockade);
 			return l_blockade;
 		}
 		return null;
