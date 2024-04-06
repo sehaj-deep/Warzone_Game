@@ -252,8 +252,6 @@ public class PostLoad extends Edit {
 			return;
 		}
 
-//		this.fileWrite(p_filename);
-
 		if (d_isConquestMap) {
 			// use mapWriter adapter
 			ConquestMapWriter l_mapWriter = new ConquestMapWriter(d_gameEngine);
