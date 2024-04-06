@@ -11,10 +11,8 @@ import orders.DeployTest;
  * Test suite that runs all tests for the phases package
  */
 @RunWith(Suite.class)
-//@SuiteClasses({ EndPhaseTest.class, ExecuteOrdersPhaseTest.class, PhaseTest.class, PlaySetupTest.class,
-//		ReinforcePhaseTest.class, AdvanceTest.class, BlockadeTest.class, DeployTest.class })
-@SuiteClasses({ EndPhaseTest.class, PhaseTest.class, PlaySetupTest.class, ReinforcePhaseTest.class, AdvanceTest.class,
-		BlockadeTest.class, DeployTest.class })
+@SuiteClasses({ EndPhaseTest.class, ExecuteOrdersPhaseTest.class, PhaseTest.class, PlaySetupTest.class,
+		ReinforcePhaseTest.class, AdvanceTest.class, BlockadeTest.class, DeployTest.class })
 public class PhasesTestSuite {
 
 }
