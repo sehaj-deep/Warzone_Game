@@ -258,7 +258,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	 * Reset data attributes of PlayerStrategy object
 	 */
 	@Override
-	protected void reset() {
+	public void reset() {
 		d_canDeploy = true;
 		d_canAttack = true;
 		setHasOrder(true);

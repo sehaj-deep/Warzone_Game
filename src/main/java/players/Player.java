@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.Set;
 import game.GameEngine;
 import orders.Order;
+import utils.ValidationException;
 
 /**
  * Player Class this class stores information and the state of the game about a
@@ -154,13 +155,15 @@ public class Player {
 	 * Parses and processes the issued order based on the provided command tokens.
 	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
-	 * @param p_gameEngine The game engine instance managing the game state.
-	 * @return boolean indicating whether the order was successfully issued or not.
+	 * @param p_gameEngine The game engine instance managing the game state
 	 */
-	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) throws ValidationException {
 		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
 		if (l_order != null) {
 			this.d_listOrders.add(l_order);
+		}
+		else {
+			throw new ValidationException();
 		}
 	}
 

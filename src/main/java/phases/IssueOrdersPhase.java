@@ -1,10 +1,11 @@
 package phases;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import game.GameEngine;
+import players.HumanPlayerStrategy;
 import players.Player;
+import utils.ValidationException;
 
 /**
  * Represents the phase where players issue orders during gameplay.
@@ -37,43 +38,86 @@ public class IssueOrdersPhase extends MainPlay {
 		return false;
 	}
 
+	public boolean anyPlayerWithCommandLeft() {
+		for (Player l_player : d_gameEngine.getPlayers()) {
+			if (l_player.getPlayerStrategy().getHasOrder()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Method to allow players to issue orders during this phase.
 	 *
 	 * @param p_scanner Scanner object for user input.
 	 */
 	public void issueOrders(Scanner p_scanner) {
-		Map<Player, Boolean> l_hasCommands = new HashMap<>();
-		for (Player l_player : d_gameEngine.getPlayers()) {
-			l_hasCommands.put(l_player, true);
-		}
+//		Map<Player, Boolean> l_hasCommands = new HashMap<>();
+//		for (Player l_player : d_gameEngine.getPlayers()) {
+		// if
+		// (l_player.getD_playerStrategy().getClass().equals(HumanPlayerStrategy.class))
+		// {
+//			l_hasCommands.put(l_player, true);
+		// } else {
 
-		while (anyCommandLeft(l_hasCommands)) {
+		// }
+
+		// }
+
+		for (Player l_player : d_gameEngine.getPlayers()) {
+			l_player.getPlayerStrategy().reset();
+		}
+		// while (anyCommandLeft(l_hasCommands)) {
+		while (anyPlayerWithCommandLeft()) {
 			for (Player l_player : d_gameEngine.getPlayers()) {
 
-				if (!l_hasCommands.get(l_player)) {
+//				if (!l_hasCommands.get(l_player)) {
+//					continue;
+//				}
+				if (!l_player.getPlayerStrategy().getHasOrder()) {
 					continue;
 				}
+				if (l_player.getD_playerStrategy().getClass().equals(HumanPlayerStrategy.class)) {
+					String l_orderCommand;
+					boolean l_isCommandValid = false;
 
-				String l_orderCommand;
-				boolean l_isCommandValid = false;
+					do {
+						System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+						l_orderCommand = p_scanner.nextLine();
 
-				do {
-					System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
-					l_orderCommand = p_scanner.nextLine();
-
-					if (l_orderCommand.equalsIgnoreCase("none")) {
-						l_hasCommands.put(l_player, false);
-						break;
+						if (l_orderCommand.equalsIgnoreCase("none")) {
+							// l_hasCommands.put(l_player, false);
+							l_player.getPlayerStrategy().setHasOrder(false);
+							break;
+						}
+						else if (l_orderCommand.equalsIgnoreCase("showmap")) {
+							showMap();
+						}
+						else {
+							try {
+								l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+								l_isCommandValid = true;
+							}
+							catch (ValidationException e) {
+								// newly created order is invalid, so continue asking the player until valid one
+								// is given
+								continue;
+							}
+						}
 					}
-					else if (l_orderCommand.equalsIgnoreCase("showmap")) {
-						showMap();
+					while (!l_isCommandValid);
+				}
+				else {
+					try {
+						l_player.issue_order(null, d_gameEngine);
 					}
-					else {
-						l_isCommandValid = l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+					catch (ValidationException e) {
+						// ignore and skip the exception in this case as null order is not added in the
+						// player's orders list
+						continue;
 					}
 				}
-				while (!l_isCommandValid);
 			}
 		}
 		this.next();

@@ -27,7 +27,7 @@ public abstract class PlayerStrategy {
 	/**
 	 * Reset data attributes of PlayerStrategy object
 	 */
-	protected abstract void reset();
+	public abstract void reset();
 
 	/**
 	 * Read d_hasOrder data member of this class
