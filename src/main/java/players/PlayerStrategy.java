@@ -3,6 +3,10 @@ package players;
 import game.GameEngine;
 import orders.Order;
 
+/**
+ * Abstract class for PlayerStrategy by Strategy pattern from which all concrete
+ * strategies must inherit
+ */
 public abstract class PlayerStrategy {
 	/**
 	 * Create an order to be issued by the player using this PlayerStrategy
