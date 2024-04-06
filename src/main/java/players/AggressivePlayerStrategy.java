@@ -24,11 +24,6 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	private boolean d_canAttack = true;
 
 	/**
-	 * Boolean representing whether issuing an order is allowed currently
-	 */
-	private boolean d_hasOrder = true;
-
-	/**
 	 * The name of the strongest country owned by this player
 	 */
 	private String d_strongest = null;
@@ -37,11 +32,6 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	 * Queue of orders waiting to be added to player's order's list
 	 */
 	private Queue<Order> d_waitingOrders = new LinkedList<>();
-
-	/**
-	 * Queue of orders waiting to be added to player's order's list
-	 */
-	private Queue<Order> d_remainingOrders = new LinkedList<>();
 
 	/**
 	 * Create an order to be issued by the player using this PlayerStrategy
@@ -65,7 +55,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 			l_order = orderAttack(p_player, p_gameEngine);
 			l_currPhasePtr = d_canAttack;
 		}
-		else if (d_hasOrder) { // After deploy, now move armies to weaker countries
+		else if (getHasOrder()) { // After deploy, now move armies to weaker countries
 			// No need to create card Order because benevolent player will never get a card
 			// as the player does not attack
 			if (d_waitingOrders.size() == 0) {
@@ -78,7 +68,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 			if (d_waitingOrders.size() == 0) {
 				// if d_waitingOrder's size becomes 0 after remove,
 				// then no more Orders from this player
-				d_hasOrder = false;
+				setHasOrder(false);
 			}
 		}
 		if (l_order != null && l_order.isValidIssue(l_playerIdx)) {
@@ -143,13 +133,15 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	public Order orderAttack(Player p_player, GameEngine p_gameEngine) {
 		Country l_country = p_gameEngine.getD_countries(d_strongest);
 		// Find the weakest enemy territory in terms of number of army
-		int l_fewestNumArmy = 999999999;
+		int l_fewestNumArmy = Integer.MAX_VALUE;
 		String l_weakestEnemy = "";
 		for (Country l_neighbor : l_country.getNeighbors()) {
-			int l_numArmy = p_gameEngine.getGameBoard().get(l_neighbor.getD_name());
-			if (l_numArmy <= l_fewestNumArmy) {
-				l_fewestNumArmy = l_numArmy;
-				l_weakestEnemy = l_neighbor.getD_name();
+			if (!p_player.getOwnership().contains(l_neighbor.getD_name())) {
+				int l_numArmy = p_gameEngine.getGameBoard().get(l_neighbor.getD_name());
+				if (l_numArmy <= l_fewestNumArmy) {
+					l_fewestNumArmy = l_numArmy;
+					l_weakestEnemy = l_neighbor.getD_name();
+				}
 			}
 		}
 		d_canAttack = false;
@@ -263,21 +255,14 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	}
 
 	/**
-	 * Read d_hasOrder data member of this class
-	 * 
-	 * @return a boolean representing whether this player can make an Order
+	 * Reset data attributes of PlayerStrategy object
 	 */
-	public boolean getHasOrder() {
-		return d_hasOrder;
-	}
-
-	/**
-	 * Update d_hasOrder data member of this class
-	 * 
-	 * @param p_hasOrder a new boolean value whether this player can make an Order
-	 *                   order
-	 */
-	public void setHasOrder(boolean p_hasOrder) {
-		d_hasOrder = p_hasOrder;
+	@Override
+	protected void reset() {
+		d_canDeploy = true;
+		d_canAttack = true;
+		setHasOrder(true);
+		d_strongest = null;
+		d_waitingOrders = new LinkedList<>();
 	}
 }

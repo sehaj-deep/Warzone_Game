@@ -23,11 +23,6 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	private boolean d_canDeploy = true;
 
 	/**
-	 * Boolean representing whether issuing an order is allowed currently
-	 */
-	private boolean d_hasOrder = true;
-
-	/**
 	 * Queue of orders waiting to be added to player's order's list
 	 */
 	private Queue<Order> d_waitingOrders = new LinkedList<>();
@@ -50,7 +45,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 			l_order = deployToWeakest(p_player, p_gameEngine);
 			l_currPhasePtr = d_canDeploy;
 		}
-		else if (d_hasOrder) { // After deploy, now move armies to weaker countries
+		else if (getHasOrder()) { // After deploy, now move armies to weaker countries
 			// No need to create card Order because benevolent player will never get a card
 			// as the player does not attack
 			if (d_waitingOrders.size() == 0) {
@@ -63,7 +58,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 			if (d_waitingOrders.size() == 0) {
 				// if d_waitingOrder's size becomes 0 after remove,
 				// then no more Orders from this player
-				d_hasOrder = false;
+				setHasOrder(false);
 			}
 		}
 		if (l_order != null && l_order.isValidIssue(l_playerIdx)) {
@@ -83,7 +78,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	 */
 	public void findWeakestCountry(Player p_player, GameEngine p_gameEngine) {
 		String l_weakest = ""; // name of the weakest country found so far
-		int l_fewestNumArmy = 999999999; // number of armies in the weakest country found so far
+		int l_fewestNumArmy = Integer.MAX_VALUE; // number of armies in the weakest country found so far
 		for (String l_countryName : p_player.getOwnership()) {
 			int l_numArmy = p_gameEngine.getGameBoard().get(l_countryName);
 			// Strongest iff a country has most army and located in the border
@@ -187,21 +182,13 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	}
 
 	/**
-	 * Read d_hasOrder data member of this class
-	 * 
-	 * @return a boolean representing whether this player can make an Order
+	 * Reset data attributes of PlayerStrategy object
 	 */
-	public boolean getHasOrder() {
-		return d_hasOrder;
-	}
-
-	/**
-	 * Update d_hasOrder data member of this class
-	 * 
-	 * @param p_hasOrder a new boolean value whether this player can make an Order
-	 *                   order
-	 */
-	public void setHasOrder(boolean p_hasOrder) {
-		d_hasOrder = p_hasOrder;
+	@Override
+	protected void reset() {
+		d_canDeploy = true;
+		setHasOrder(true);
+		d_weakest = null;
+		d_waitingOrders = new LinkedList<>();
 	}
 }
