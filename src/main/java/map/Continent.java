@@ -41,6 +41,11 @@ public class Continent {
 		this.d_continentBonusArmies = p_continentBonusArmies;
 	}
 
+	public Continent(String p_continentName, int p_continentBonusArmies) {
+		this.d_continentName = p_continentName;
+		this.d_continentBonusArmies = p_continentBonusArmies;
+	}
+
 	/**
 	 * 
 	 * @return continent Id The serial number of continent
