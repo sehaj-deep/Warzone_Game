@@ -157,12 +157,11 @@ public class Player {
 	 * @param p_gameEngine The game engine instance managing the game state.
 	 * @return boolean indicating whether the order was successfully issued or not.
 	 */
-	public boolean issue_order(String[] p_tokens, GameEngine p_gameEngine) {
+	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) {
 		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
 		if (l_order != null) {
 			this.d_listOrders.add(l_order);
 		}
-		return true;
 	}
 
 	/**
