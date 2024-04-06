@@ -55,11 +55,11 @@ public class Preload extends Edit {
 				d_isConquestMap = true;
 				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
 				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
-				l_mapAdapter.readDominationMap(p_filename, false);
+				l_mapAdapter.readDominationMap(p_filename, true);
 			} else {
 				// call the domination file
 				DominationMapReader l_dominationReader = new DominationMapReader(d_gameEngine);
-				l_dominationReader.readDominationMap(p_filename, false);
+				l_dominationReader.readDominationMap(p_filename, true);
 			}
 		}
 
