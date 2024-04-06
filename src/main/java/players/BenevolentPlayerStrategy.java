@@ -12,8 +12,19 @@ import orders.Order;
  * Benevolent Player's issue order implementation using player strategy
  */
 public class BenevolentPlayerStrategy extends PlayerStrategy {
+	/**
+	 * The name of the weakest country owned by this player
+	 */
 	private String d_weakest;
+
+	/**
+	 * Boolean representing whether issuing Deploy order is allowed currently
+	 */
 	private boolean d_canDeploy = true;
+
+	/**
+	 * Boolean representing whether issuing an order is allowed currently
+	 */
 	private boolean d_hasOrder = true;
 
 	/**

@@ -12,9 +12,25 @@ import orders.Order;
  * Aggressive Player's issue order implementation using player strategy
  */
 public class AggressivePlayerStrategy extends PlayerStrategy {
+	/**
+	 * Boolean representing whether issuing Deploy order is allowed currently
+	 */
 	private boolean d_canDeploy = true;
+
+	/**
+	 * Boolean representing whether issuing attacking type Advance order is allowed
+	 * currently
+	 */
 	private boolean d_canAttack = true;
+
+	/**
+	 * Boolean representing whether issuing an order is allowed currently
+	 */
 	private boolean d_hasOrder = true;
+
+	/**
+	 * The name of the strongest country owned by this player
+	 */
 	private String d_strongest = null;
 
 	/**
