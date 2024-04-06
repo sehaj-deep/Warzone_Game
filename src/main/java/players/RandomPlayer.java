@@ -33,8 +33,7 @@ public class RandomPlayer extends PlayerStrategy {
     /**
      * Queue of orders waiting to be added to player's order's list
      */
-    private Queue<Order> d_waitingOrders = new LinkedList<>();
-
+    private final Queue<Order> d_waitingOrders = new LinkedList<>();
 
     /**
      * Generates a random order based on the current game state and player's
@@ -70,7 +69,6 @@ public class RandomPlayer extends PlayerStrategy {
                         createRandomCardOrder(p_player, p_gameEngine);
                         break;
                 }
-
             }
 
             if (!d_waitingOrders.isEmpty()) {

@@ -1,11 +1,18 @@
 package phases;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import game.GameEngine;
+import map.ConquestMapReader;
+import map.DominationMapReader;
+import map.MapReaderAdapter;
+import players.HumanPlayerStrategy;
 import players.Player;
 import utils.ValidationException;
 
@@ -48,7 +55,8 @@ public class PlaySetup extends Play {
 		}
 
 		// Adding player to the player list
-		Player l_player = new Player(p_playerName);
+		// TODO: change to proper PlayerStrategy
+		Player l_player = new Player(p_playerName, new HumanPlayerStrategy());
 		d_gameEngine.getPlayers().add(l_player);
 
 		System.out.println(p_playerName + " successfully added as a player");
@@ -189,7 +197,29 @@ public class PlaySetup extends Play {
 	 */
 	@Override
 	public void loadMap(String p_filename) {
-		readMap(p_filename, true);
+		// open the file to decide if you need to use an adapter or not
+		Scanner l_scanner = null;
+		try {
+			l_scanner = new Scanner(new FileInputStream(p_filename));
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("The map file " + p_filename + " is not found in resources folder.");
+		}
+
+		if (l_scanner != null) {
+			if (l_scanner.nextLine().contains("[Map]")) {
+				// call the adapter
+				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
+				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
+				l_mapAdapter.readDominationMap(p_filename, false);
+			}
+			else {
+				// call the domination file
+				DominationMapReader l_dominationReader = new DominationMapReader(d_gameEngine);
+				l_dominationReader.readDominationMap(p_filename, false);
+			}
+		}
+
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {

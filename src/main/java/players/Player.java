@@ -46,7 +46,7 @@ public class Player {
 
 	/**
 	 * Parameterized constructor for the player that requires PlayerStrategy
-	 *
+	 * 
 	 * @param p_playerName     p_playerName To uniquely identify the player
 	 * @param p_playerStrategy the behavior that defines how player plays the game
 	 */
@@ -135,7 +135,7 @@ public class Player {
 
 	/**
 	 * Gets the player strategy.
-	 *
+	 * 
 	 * @return The player strategy.
 	 */
 	public PlayerStrategy getD_playerStrategy() {
@@ -144,7 +144,7 @@ public class Player {
 
 	/**
 	 * Sets the player strategy.
-	 *
+	 * 
 	 * @param d_playerStrategy The player strategy to set.
 	 */
 	public void setD_playerStrategy(PlayerStrategy d_playerStrategy) {
@@ -153,7 +153,7 @@ public class Player {
 
 	/**
 	 * Parses and processes the issued order based on the provided command tokens.
-	 *
+	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
 	 * @param p_gameEngine The game engine instance managing the game state
 	 */
@@ -178,7 +178,7 @@ public class Player {
 
 	/**
 	 * To get the count of a particular card that the player holds
-	 *
+	 * 
 	 * @param p_cardName The name of the card
 	 * @return The count of the card
 	 */
@@ -188,7 +188,7 @@ public class Player {
 
 	/**
 	 * To increment the value of the card by 1
-	 *
+	 * 
 	 * @param p_cardName The name of the card whose value is to be changed
 	 */
 	public void increaseCardCount(String p_cardName) {
@@ -197,7 +197,7 @@ public class Player {
 
 	/**
 	 * To decrement the number of cards by 1
-	 *
+	 * 
 	 * @param p_cardName The name of the card whose value is to be changed
 	 */
 	public void decreaseCardCount(String p_cardName) {
@@ -240,7 +240,7 @@ public class Player {
 
 	/**
 	 * Access d_playerStrategy data member of this class object
-	 *
+	 * 
 	 * @return PlayerStrategy object that defines the behavior of this player
 	 */
 	public PlayerStrategy getPlayerStrategy() {

@@ -49,6 +49,10 @@ public class Country {
 		this.d_name = p_name;
 	}
 
+	public Country(String p_name) {
+		this.d_name = p_name;
+	}
+
 	/**
 	 * @return the list of all neighbors corresponding
 	 */
