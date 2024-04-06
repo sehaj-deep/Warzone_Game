@@ -65,11 +65,11 @@ public class AggressivePlayerStrategyTest {
 		// 4 -> 2, 3
 		// 5 -> 1, 2
 		Country l_country1, l_country2, l_country3, l_country4, l_country5;
-		l_country1 = new Country(0, "1");
-		l_country2 = new Country(1, "2");
-		l_country3 = new Country(2, "3");
-		l_country4 = new Country(3, "4");
-		l_country5 = new Country(4, "5");
+		l_country1 = new Country(1, "1");
+		l_country2 = new Country(2, "2");
+		l_country3 = new Country(3, "3");
+		l_country4 = new Country(4, "4");
+		l_country5 = new Country(5, "5");
 		l_country1.addNeighbors(l_country3);
 		l_country1.addNeighbors(l_country5);
 		l_country3.addNeighbors(l_country4);
