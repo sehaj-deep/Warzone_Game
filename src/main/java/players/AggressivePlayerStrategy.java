@@ -8,6 +8,9 @@ import orders.Advance;
 import orders.Deploy;
 import orders.Order;
 
+/**
+ * Aggressive Player's issue order implementation using player strategy
+ */
 public class AggressivePlayerStrategy extends PlayerStrategy {
 	private boolean d_canDeploy = true;
 	private boolean d_canAttack = true;
@@ -24,6 +27,15 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 	 */
 	private Queue<Order> d_remainingOrders = new LinkedList<>();
 
+	/**
+	 * Create an order to be issued by the player using this PlayerStrategy
+	 * 
+	 * @param p_player     Player object that uses this PlayerStrategy
+	 * @param p_tokens     string tokens from user commands. Expect null for this
+	 *                     PlayerStrategy
+	 * @param p_gameEngine a context object for ExecuteOrders phase
+	 * @return a new order to be issued
+	 */
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
 		int l_playerIdx = p_gameEngine.getPlayers().indexOf(p_player);
@@ -105,6 +117,13 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 		d_strongest = l_strongest;
 	}
 
+	/**
+	 * Create an attacking order from the strongest country to weakest enemy
+	 * 
+	 * @param p_player     Player object that uses this PlayerStrategy
+	 * @param p_gameEngine a context object for ExecuteOrders phase
+	 * @return a new order to be issued
+	 */
 	public Order orderAttack(Player p_player, GameEngine p_gameEngine) {
 		Country l_country = p_gameEngine.getD_countries(d_strongest);
 		// Find the weakest enemy territory in terms of number of army

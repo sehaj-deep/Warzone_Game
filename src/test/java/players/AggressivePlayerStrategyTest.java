@@ -18,7 +18,8 @@ import orders.Deploy;
 import orders.Order;
 
 /**
- * This class is designed to do unit test of features in Player class
+ * This class is designed to do unit test of features in
+ * AggressivePlayerStrategy
  */
 public class AggressivePlayerStrategyTest {
 	/**

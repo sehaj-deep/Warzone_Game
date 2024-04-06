@@ -8,6 +8,9 @@ import orders.Advance;
 import orders.Deploy;
 import orders.Order;
 
+/**
+ * Benevolent Player's issue order implementation using player strategy
+ */
 public class BenevolentPlayerStrategy extends PlayerStrategy {
 	private String d_weakest;
 	private boolean d_canDeploy = true;
@@ -18,6 +21,15 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	 */
 	private Queue<Order> d_waitingOrders = new LinkedList<>();
 
+	/**
+	 * Create an order to be issued by the player using this PlayerStrategy
+	 * 
+	 * @param p_player     Player object that uses this PlayerStrategy
+	 * @param p_tokens     string tokens from user commands. Expect null for this
+	 *                     PlayerStrategy
+	 * @param p_gameEngine a context object for ExecuteOrders phase
+	 * @return a new order to be issued
+	 */
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
 		int l_playerIdx = p_gameEngine.getPlayers().indexOf(p_player);
