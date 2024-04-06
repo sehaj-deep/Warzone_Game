@@ -1,28 +1,17 @@
 package players;
 
 import game.GameEngine;
-import map.Country;
 import orders.Order;
 
 public abstract class PlayerStrategy {
-//	Player d_player;
-//
-//	/**
-//	 * PlayerStrategy Constructor
-//	 * 
-//	 * @param p_player player that uses this strategy
-//	 */
-//	PlayerStrategy(Player p_player) {
-//		this.d_player = p_player;
-//	}
-
+	/**
+	 * Create an order to be issued by the player using this PlayerStrategy
+	 * 
+	 * @param p_player     Player object that uses this PlayerStrategy
+	 * @param p_tokens     string tokens from user commands. Expect null for non
+	 *                     Human Player
+	 * @param p_gameEngine a context object for ExecuteOrders phase
+	 * @return a new order to be issued by the player using this PlayerStrategy
+	 */
 	protected abstract Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine);
-
-	protected abstract Country toAttack();
-
-	protected abstract Country toAttackFrom();
-
-	protected abstract Country toMoveFrom();
-
-	protected abstract Country toDefend();
 }

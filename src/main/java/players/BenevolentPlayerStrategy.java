@@ -100,7 +100,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	 * 
 	 * @param p_player     player whom this strategy belongs to
 	 * @param p_gameEngine current game engine where this game runs
-	 * @return
+	 * @return Order that deploys all bonus armies to the weakest country
 	 */
 	public Order deployToWeakest(Player p_player, GameEngine p_gameEngine) {
 		int l_playerIdx = p_gameEngine.getPlayers().indexOf(p_player);
@@ -203,29 +203,5 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 	 */
 	public void setHasOrder(boolean p_hasOrder) {
 		d_hasOrder = p_hasOrder;
-	}
-
-	@Override
-	protected Country toAttack() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toAttackFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toMoveFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected Country toDefend() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
