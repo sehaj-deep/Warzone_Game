@@ -8,14 +8,32 @@ import java.util.Scanner;
 
 import game.GameEngine;
 
+/**
+ * The DominationMapReader class is responsible for reading domination map files and constructing
+ * the game map accordingly.
+ */
 public class DominationMapReader implements DominationReader {
 
+    /** 
+	 * The GameEngine instance associated with this reader
+	 */
 	private GameEngine d_gameEngine;
 
+    /**
+     * Constructs a DominationMapReader with the specified GameEngine instance.
+     *
+     * @param p_gameEngine The GameEngine instance to associate with this reader.
+     */
 	public DominationMapReader(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
+    /**
+     * Reads a domination map file and constructs the game map accordingly.
+     *
+     * @param p_fileName  The name of the domination map file.
+     * @param p_createNew Indicates whether to create a new file if it doesn't exist.
+     */
 	public void readDominationMap(String p_fileName, boolean p_createNew) {
 
 		Scanner l_scanner = null;
@@ -94,8 +112,6 @@ public class DominationMapReader implements DominationReader {
 		String[] l_countriesArr = p_singleLine.split("\\s");
 		if (l_countriesArr.length >= 3)
 			addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1], Integer.parseInt(l_countriesArr[2]));
-//		d_gameEngine.addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1],
-//				Integer.parseInt(l_countriesArr[2]));
 	}
 
 	/**

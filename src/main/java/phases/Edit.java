@@ -13,6 +13,9 @@ import map.Country;
  */
 public abstract class Edit extends Phase {
 
+    /** 
+	 * Flag indicating whether the map is a Conquest map. 
+	 */
 	protected boolean d_isConquestMap = false;
 
 	/**
