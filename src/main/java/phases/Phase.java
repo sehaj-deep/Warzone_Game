@@ -12,6 +12,7 @@ import java.util.Set;
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.PlayerStrategy;
 
 /**
  * Abstract class representing a phase in the game.
@@ -107,9 +108,10 @@ public abstract class Phase {
 	/**
 	 * Abstract method to add players to the game.
 	 * 
-	 * @param p_playerName the name of the player to add
+	 * @param p_playerName     the name of the player to add
+	 * @param p_playerStrategy the type of the player to add
 	 */
-	abstract public void addPlayers(String p_playerName);
+	abstract public void addPlayers(String p_playerName, PlayerStrategy p_playerStrategy);
 
 	/**
 	 * Abstract method to remove players from the game.

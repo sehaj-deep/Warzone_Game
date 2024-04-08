@@ -49,6 +49,8 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 			l_targetCountry = p_tokens[1];
 			l_order = issueBlockadeOrder(p_player, p_gameEngine, l_targetCountry);
 			break;
+		case "none":
+			setHasOrder(false);
 		default:
 			System.out.println("Invalid order. Please try again.");
 			l_order = null;
@@ -117,7 +119,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		setHasOrder(true);
 	}
 }
