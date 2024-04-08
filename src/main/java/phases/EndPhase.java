@@ -2,6 +2,7 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import game.GameEngine;
 import players.Player;
 
@@ -171,30 +172,8 @@ public class EndPhase extends MainPlay {
 
 	}
 
-	/**
-	 * This method to assign Reinforcement army
-	 */
 	@Override
-	public void reinforce() {
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * This method initiate the attack
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Fortifies the player's positions on the map.
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
-
 	}
 }

@@ -3,6 +3,7 @@ package phases;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 import game.GameEngine;
 import orders.Order;
 import players.Player;
@@ -54,12 +55,10 @@ public class ExecuteOrdersPhase extends MainPlay {
 				// order is valid in the current state, so execute it
 				if (l_order.getIsAttack()) {
 					attack(i, l_order);
-				}
-				else {
+				} else {
 					l_order.execute(i);
 				}
-			}
-			else { // order can't be executed, so update error log and return it
+			} else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
 			}
@@ -285,30 +284,8 @@ public class ExecuteOrdersPhase extends MainPlay {
 
 	}
 
-	/**
-	 * Reinforces the army.
-	 */
 	@Override
-	public void reinforce() {
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Executes attacks between players.
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Fortifies the player's positions on the map.
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
-
 	}
 }
