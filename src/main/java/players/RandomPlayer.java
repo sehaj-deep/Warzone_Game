@@ -188,7 +188,7 @@ public class RandomPlayer extends PlayerStrategy {
 
         switch (randomCardOrderType.toLowerCase()) {
             case "bomb", "blockade":
-                targetCountry = getRandomCountry(player, gameEngine);
+                targetCountry = getRandomCountryOwnedByOtherPlayer(player, gameEngine);
                 break;
             case "airlift":
                 String sourceCountry = getRandomCountry(player, gameEngine);
@@ -196,7 +196,7 @@ public class RandomPlayer extends PlayerStrategy {
                 numberOfArmies = random.nextInt(gameEngine.getGameBoard().get(sourceCountry));
                 return new Airlift(sourceCountry, destinationCountry, numberOfArmies, gameEngine);
             case "negotiate":
-                playerId = getRandomPlayerId(gameEngine);
+                playerId = getRandomPlayerId(player, gameEngine);
                 break;
             default:
                 // Invalid card order type
@@ -224,15 +224,37 @@ public class RandomPlayer extends PlayerStrategy {
     }
 
     /**
+     * Retrieves a randomly selected country owned by another player.
+     *
+     * @param p_player      The player for whom the country is not selected.
+     * @param p_gameEngine  The game engine object representing the current game state.
+     * @return              A string representing the name of the selected country.
+     */
+    public String getRandomCountryOwnedByOtherPlayer(Player p_player, GameEngine p_gameEngine) {
+        List<Player> l_players = p_gameEngine.getPlayers();
+        Player l_randomPlayer;
+        do {
+            l_randomPlayer = l_players.get(random.nextInt(l_players.size()));
+        } while (l_randomPlayer == p_player);
+
+        List<String> l_ownedCountries = new ArrayList<>(l_randomPlayer.getOwnership());
+        return l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
+    }
+
+    /**
      * Retrieves the ID of a randomly selected player from the game engine.
      *
      * @param gameEngine The game engine object representing the current game state.
      * @return A string representing the ID of the selected player.
      */
-    public String getRandomPlayerId(GameEngine gameEngine) {
-        List<Player> players = gameEngine.getPlayers();
-        Player randomPlayer = players.get(random.nextInt(players.size()));
-        return randomPlayer.getPlayerName();
+    public String getRandomPlayerId(Player player, GameEngine gameEngine) {
+        List<Player> l_players = gameEngine.getPlayers();
+        Player l_randomPlayer;
+        do {
+            l_randomPlayer = l_players.get(random.nextInt(l_players.size()));
+        } while (l_randomPlayer == player);
+
+        return l_randomPlayer.getPlayerName();
     }
 
     /**
