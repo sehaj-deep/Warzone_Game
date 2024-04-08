@@ -95,12 +95,20 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return A Deploy order object.
      */
-    private Order deployRandomly(Player player, GameEngine gameEngine) {
-        List<String> l_ownedCountries = new ArrayList<>(player.getOwnership());
-        String l_randomCountry = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
-        int l_reinforcements = gameEngine.getReinforcements().get(gameEngine.getPlayers().indexOf(player));
+    public Order deployRandomly(Player player, GameEngine gameEngine) {
+        int playerIndex = gameEngine.getPlayers().indexOf(player);
+        if (playerIndex < 0 || playerIndex >= gameEngine.getReinforcements().size()) {
+            // Player not found or invalid index
+            return null;
+        }
 
-        return new Deploy(l_randomCountry, l_reinforcements, gameEngine);
+        List<String> ownedCountries = new ArrayList<>(player.getOwnership());
+        String randomCountry = ownedCountries.get(random.nextInt(ownedCountries.size()));
+        int reinforcements = gameEngine.getReinforcements().get(playerIndex);
+
+        d_canDeploy = false;
+
+        return new Deploy(randomCountry, reinforcements, gameEngine);
     }
 
     /**
@@ -110,11 +118,13 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return An Advance order object.
      */
-    private Order attackRandomly(Player player, GameEngine gameEngine) {
+    public Order attackRandomly(Player player, GameEngine gameEngine) {
         List<String> l_ownedCountries = new ArrayList<>(player.getOwnership());
         String l_attackingCountry = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
         Country country = gameEngine.getD_countries(l_attackingCountry);
         List<Country> enemyNeighbors = new ArrayList<>();
+
+        d_canAttack = false;
 
         for (Country neighbor : country.getNeighbors()) {
             if (!player.getOwnership().contains(neighbor.getD_name())) {
@@ -137,7 +147,7 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return An Advance order object.
      */
-    private Order moveArmiesRandomly(Player player, GameEngine gameEngine) {
+    public Order moveArmiesRandomly(Player player, GameEngine gameEngine) {
         List<String> l_ownedCountries = new ArrayList<>(player.getOwnership());
         String l_fromCountry = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
         Country l_country = gameEngine.getD_countries(l_fromCountry);
@@ -164,7 +174,7 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return A card order object, or null if no valid card order can be generated.
      */
-    private Order createRandomCardOrder(Player player, GameEngine gameEngine) {
+    public Order createRandomCardOrder(Player player, GameEngine gameEngine) {
         List<String> cardOrderTypes = Arrays.asList("Bomb", "Airlift", "Blockade", "Negotiate");
         String randomCardOrderType = cardOrderTypes.get(random.nextInt(cardOrderTypes.size()));
 
@@ -208,7 +218,7 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return A string representing the name of the selected country.
      */
-    private String getRandomCountry(Player player, GameEngine gameEngine) {
+    public String getRandomCountry(Player player, GameEngine gameEngine) {
         List<String> ownedCountries = new ArrayList<>(player.getOwnership());
         return ownedCountries.get(random.nextInt(ownedCountries.size()));
     }
@@ -219,10 +229,48 @@ public class RandomPlayer extends PlayerStrategy {
      * @param gameEngine The game engine object representing the current game state.
      * @return A string representing the ID of the selected player.
      */
-    private String getRandomPlayerId(GameEngine gameEngine) {
+    public String getRandomPlayerId(GameEngine gameEngine) {
         List<Player> players = gameEngine.getPlayers();
         Player randomPlayer = players.get(random.nextInt(players.size()));
         return randomPlayer.getPlayerName();
+    }
+
+    /**
+     * Read d_canDeploy data member of this class
+     *
+     * @return a boolean representing whether this player can make Deploy order
+     */
+    public boolean isD_canDeploy() {
+        return d_canDeploy;
+    }
+
+    /**
+     * Update d_canDeploy data member of this class
+     *
+     * @param p_canDeploy a new boolean value whether this player can make Deploy
+     *                    order
+     */
+    public void setD_canDeploy(boolean p_canDeploy) {
+        this.d_canDeploy = p_canDeploy;
+    }
+
+    /**
+     * Read d_canAttack data member of this class
+     *
+     * @return a boolean representing whether this player can make Attacking order
+     */
+    public boolean isD_canAttack() {
+        return d_canAttack;
+    }
+
+    /**
+     * Update d_canAttack data member of this class
+     *
+     * @param p_canAttack a new boolean value whether this player can make Attacking
+     *                    order
+     */
+    public void setD_canAttack(boolean p_canAttack) {
+        this.d_canAttack = p_canAttack;
     }
 
     /**
@@ -230,5 +278,8 @@ public class RandomPlayer extends PlayerStrategy {
      */
     @Override
     public void reset() {
+        d_canDeploy = true;
+        d_canAttack = true;
+        setHasOrder(true);
     }
 }
