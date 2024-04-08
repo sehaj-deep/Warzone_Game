@@ -8,12 +8,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+
 import game.GameEngine;
 import map.ConquestMapReader;
 import map.DominationMapReader;
 import map.MapReaderAdapter;
-import players.HumanPlayerStrategy;
 import players.Player;
+import players.PlayerStrategy;
 import utils.ValidationException;
 
 /**
@@ -33,11 +34,12 @@ public class PlaySetup extends Play {
 	/**
 	 * Adds a player to the player list.
 	 *
-	 * @param p_playerName The name of the player to add.
+	 * @param p_playerName     The name of the player to add.
+	 * @param p_playerStrategy the type of the player to add
 	 */
 	@Override
-	public void addPlayers(String p_playerName) {
-		Player l_playerName = new Player(p_playerName);
+	public void addPlayers(String p_playerName, PlayerStrategy p_playerStrategy) {
+		Player l_player = new Player(p_playerName, p_playerStrategy);
 
 		// Check if the input player is not empty or null
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
@@ -50,15 +52,11 @@ public class PlaySetup extends Play {
 		}
 
 		// Check if the player already exist
-		if (d_gameEngine.getPlayers().contains(l_playerName)) {
+		if (d_gameEngine.getPlayers().contains(l_player)) {
 			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
 		}
 
-		// Adding player to the player list
-		// TODO: change to proper PlayerStrategy
-		Player l_player = new Player(p_playerName, new HumanPlayerStrategy());
 		d_gameEngine.getPlayers().add(l_player);
-
 		System.out.println(p_playerName + " successfully added as a player");
 	}
 
@@ -201,8 +199,7 @@ public class PlaySetup extends Play {
 		Scanner l_scanner = null;
 		try {
 			l_scanner = new Scanner(new FileInputStream(p_filename));
-		}
-		catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.out.println("The map file " + p_filename + " is not found in resources folder.");
 		}
 
@@ -212,8 +209,7 @@ public class PlaySetup extends Play {
 				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
 				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
 				l_mapAdapter.readDominationMap(p_filename, false);
-			}
-			else {
+			} else {
 				// call the domination file
 				DominationMapReader l_dominationReader = new DominationMapReader(d_gameEngine);
 				l_dominationReader.readDominationMap(p_filename, false);
@@ -225,8 +221,7 @@ public class PlaySetup extends Play {
 			if (!l_isValidated) {
 				throw new ValidationException("Unable to load map: The map is invalid.");
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
 			clearMap();
 			return;

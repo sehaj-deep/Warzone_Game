@@ -2,6 +2,7 @@ package phases;
 
 import java.util.Map;
 import java.util.Scanner;
+
 import game.GameEngine;
 import players.HumanPlayerStrategy;
 import players.Player;
@@ -78,41 +79,33 @@ public class IssueOrdersPhase extends MainPlay {
 				if (!l_player.getPlayerStrategy().getHasOrder()) {
 					continue;
 				}
+
 				if (l_player.getD_playerStrategy().getClass().equals(HumanPlayerStrategy.class)) {
 					String l_orderCommand;
 					boolean l_isCommandValid = false;
 
 					do {
-						System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+						System.out.print(
+								"\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
 						l_orderCommand = p_scanner.nextLine();
 
-						if (l_orderCommand.equalsIgnoreCase("none")) {
-							// l_hasCommands.put(l_player, false);
-							l_player.getPlayerStrategy().setHasOrder(false);
-							break;
-						}
-						else if (l_orderCommand.equalsIgnoreCase("showmap")) {
+						if (l_orderCommand.equalsIgnoreCase("showmap")) {
 							showMap();
-						}
-						else {
+						} else {
 							try {
 								l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
 								l_isCommandValid = true;
-							}
-							catch (ValidationException e) {
+							} catch (ValidationException e) {
 								// newly created order is invalid, so continue asking the player until valid one
 								// is given
 								continue;
 							}
 						}
-					}
-					while (!l_isCommandValid);
-				}
-				else {
+					} while (!l_isCommandValid);
+				} else {
 					try {
 						l_player.issue_order(null, d_gameEngine);
-					}
-					catch (ValidationException e) {
+					} catch (ValidationException e) {
 						// ignore and skip the exception in this case as null order is not added in the
 						// player's orders list
 						continue;

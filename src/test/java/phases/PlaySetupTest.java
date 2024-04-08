@@ -3,14 +3,19 @@ package phases;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import game.GameEngine;
+import players.HumanPlayerStrategy;
 import players.Player;
+import players.PlayerStrategy;
 
 /**
  * This class contains unit tests for the {@link PlaySetup} class. It tests
@@ -48,8 +53,8 @@ public class PlaySetupTest {
 	}
 
 	/**
-	 * Tests the {@link PlaySetup#addPlayers(String)} method. It verifies whether
-	 * players are successfully added to the game.
+	 * Tests the {@link PlaySetup#addPlayers(String, PlayerStrategy)} method. It
+	 * verifies whether players are successfully added to the game.
 	 */
 	@Test
 	public void addPlayers() {
@@ -58,7 +63,7 @@ public class PlaySetupTest {
 		String[] dummyPlayerName = { "player1", "player2", "player3" };
 
 		for (String s : dummyPlayerName) {
-			d_playSetup.addPlayers(s);
+			d_playSetup.addPlayers(s, new HumanPlayerStrategy());
 		}
 
 		System.out.println("AFTER: players in the game: " + d_newGameEngine.getPlayers());
