@@ -14,7 +14,8 @@ import phases.EndPhase;
 import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
 import phases.Phase;
-import phases.PlaySetup;
+import phases.PlaySetupSingleMode;
+import phases.PlaySetupTournamentMode;
 import phases.Preload;
 import phases.ReinforcePhase;
 import players.AggressivePlayerStrategy;
@@ -298,7 +299,7 @@ public class GameEngine {
 
 			String l_command = "";
 
-			while (this.getPhase() instanceof PlaySetup) {
+			while (this.getPhase() instanceof PlaySetupSingleMode) {
 				System.out.print("\n> Enter a command: ");
 				l_command = d_scanner.nextLine();
 				parseUserCommand(l_command);
@@ -355,10 +356,13 @@ public class GameEngine {
 
 		switch (choice) {
 		case "1":
-			setPhase(new PlaySetup(this));
+			setPhase(new PlaySetupSingleMode(this));
 			break;
 		case "2":
-			// TODO: Implement tournament logic
+			// TODO: Implement tournament logic, maybe create a PlaySetup phase for
+			// tournament mode PlaySetupSingleMode vs PlaySetupTournamentMode. In this phase
+			// you can only use tournament command.
+			setPhase(new PlaySetupTournamentMode(this));
 			break;
 		default:
 			System.out.println("Invalid choice. Please try again.");
@@ -408,6 +412,8 @@ public class GameEngine {
 		case "loadmap":
 			parseLoadMapCommand(l_tokens);
 			break;
+		case "tournament":
+			parseTournamentCommand(l_tokens);
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -439,6 +445,100 @@ public class GameEngine {
 			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * Parses the 'tournament' command.
+	 * 
+	 * @param p_tokens command tokens.
+	 */
+	private void parseTournamentCommand(String[] p_tokens) {
+		if (p_tokens.length < 10) {
+			System.out.println(
+					"Invalid command. Syntax: tournament -M listofmapfiles -P listofplayerstrategies -G numberofgames -D maxnumberofturns");
+			return;
+		}
+
+		String l_option = "";
+		List<String> l_mapFiles = new ArrayList<String>();
+		List<String> l_playerStrategies = new ArrayList<String>();
+		int l_numberOfGames = 0;
+		int l_maxNumberOfTurns = 0;
+
+		try {
+			for (int i = 1; i < p_tokens.length; i++) {
+
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toUpperCase();
+				} else {
+					switch (l_option) {
+					case "-M":
+						if (p_tokens[i].endsWith(".txt")) {
+							l_mapFiles.add(p_tokens[i]);
+						} else {
+							throw new IllegalArgumentException(
+									"Invalid input: Map files must end with .txt extension.");
+						}
+						break;
+					case "-P":
+						l_playerStrategies.add(p_tokens[i]);
+						break;
+					case "-G":
+						l_numberOfGames = Integer.parseInt(p_tokens[i]);
+						break;
+					case "-D":
+						l_maxNumberOfTurns = Integer.parseInt(p_tokens[i]);
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for tournament command. Use -M, -P, -G or -D.");
+					}
+				}
+			}
+			validateArgumentsForTournmanetCommand(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
+
+			// TODO Call method that handles tournament mode logic
+			startTournament(l_mapFiles, l_playerStrategies);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void startTournament(List<String> l_mapFiles, List<String> l_playerStrategies) {
+		for (String l_mapFile : l_mapFiles) {
+			d_gamePhase.setupTournament(l_mapFile, l_playerStrategies);
+		}
+	}
+
+	/**
+	 * Validates tournament command arguments and throws exceptions accordingly
+	 * 
+	 * @param l_mapFiles         list of map files provided by the user
+	 * @param l_playerStrategies list of player strategies provided by the user
+	 * @param l_numberOfGames    number of games to be played per map provided by
+	 *                           the user
+	 * @param l_maxNumberOfTurns max number of turns provided by the user
+	 */
+	private void validateArgumentsForTournmanetCommand(List<String> l_mapFiles, List<String> l_playerStrategies,
+			int l_numberOfGames, int l_maxNumberOfTurns) {
+		if (l_mapFiles.size() < 1 || l_mapFiles.size() > 5) {
+
+			throw new IllegalArgumentException("Invalid input: Please provide between 1 and 5 maps.");
+
+		} else if (l_playerStrategies.size() < 2 || l_playerStrategies.size() > 4) {
+
+			throw new IllegalArgumentException("Invalid input: Please provide between 2 and 4 player strategies.");
+
+		} else if (l_numberOfGames < 1 || l_numberOfGames > 5) {
+
+			throw new IllegalArgumentException(
+					"Invalid input: Please input a number between 1 and 5 for the number of games you can play on each map.");
+
+		} else if (l_maxNumberOfTurns < 10 || l_maxNumberOfTurns > 50) {
+
+			throw new IllegalArgumentException(
+					"Invalid input: Please input a number between 10 and 50 for the maximum number of turns.");
 		}
 	}
 
