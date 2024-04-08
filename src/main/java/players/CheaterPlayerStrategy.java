@@ -12,6 +12,8 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
 		conquerNeighboringCountries(p_player, p_gameEngine);
 		doubleArmies(p_player, p_gameEngine);
 
+		setHasOrder(false);
+
 		return null;
 	}
 
@@ -46,8 +48,8 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
 			for (Country l_neighbor : l_cheaterCountry.getNeighbors()) {
 				Player l_neighborOwner = getOwnerOfCountry(p_gameEngine, l_neighbor);
 				if (l_neighborOwner != null && !l_neighborOwner.getPlayerName().equals(p_cheater.getPlayerName())) {
-					int currentArmies = p_gameEngine.getGameBoard().get(l_neighbor.getD_name());
-					p_gameEngine.getGameBoard().put(l_neighbor.getD_name(), currentArmies * 2);
+					int l_currentArmies = p_gameEngine.getGameBoard().get(l_cheaterCountry.getD_name());
+					p_gameEngine.getGameBoard().put(l_cheaterCountry.getD_name(), l_currentArmies * 2);
 				}
 			}
 		}
@@ -71,6 +73,6 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
+		setHasOrder(true);
 	}
 }

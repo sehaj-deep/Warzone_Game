@@ -117,7 +117,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
 		setHasOrder(true);
 	}
 }
