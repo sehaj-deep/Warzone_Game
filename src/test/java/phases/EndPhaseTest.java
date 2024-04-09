@@ -90,7 +90,7 @@ public class EndPhaseTest {
 		Advance d_advanceOrder = new Advance("usa", "korea", 9, d_gameEngine);
 		d_advanceOrder.isValidExecute(d_plyrId);
 		d_advanceOrder.execute(d_plyrId);
-		d_endPhase.end();
+		d_endPhase.checkForWinner();
 		assertTrue(d_endPhase.getAnyWinner());
 	}
 

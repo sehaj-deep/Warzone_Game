@@ -7,6 +7,7 @@ import players.AggressivePlayerStrategy;
 import players.BenevolentPlayerStrategy;
 import players.CheaterPlayerStrategy;
 import players.PlayerStrategy;
+import utils.Common;
 
 public class PlaySetupTournamentMode extends PlaySetupSingleMode {
 
@@ -90,11 +91,10 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode {
 	@Override
 	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		// 1 load map
+		String l_filename = Common.getMapPath(p_mapFile);
+		super.loadMap(l_filename);
+
 		// 2 create players
-		// 3 assign countries
-
-		super.loadMap(p_mapFile);
-
 		for (String l_playerStrategyInput : p_playerStrategies) {
 
 			PlayerStrategy l_playerStrategy = null;
@@ -118,7 +118,7 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode {
 			}
 			super.addPlayers(l_playerStrategyInput + "Player", l_playerStrategy);
 		}
+		// 3 assign countries
 		super.assignCountries();
-		super.next();
 	}
 }

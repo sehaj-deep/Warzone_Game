@@ -42,15 +42,16 @@ public class EndPhase extends MainPlay {
 	}
 
 	/**
-	 * check if there is a winner is found
+	 * check if there is a winner found
 	 */
-	public void end() {
+	public void checkForWinner() {
 		kickOutPlayer();
 		if (d_gameEngine.getPlayers().size() == 1) {
-			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game");
+			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game!");
 			d_anyWinner = true;
-
 		}
+		// todo
+
 		this.next();
 	}
 

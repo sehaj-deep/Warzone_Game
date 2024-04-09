@@ -149,13 +149,6 @@ public class PlaySetupSingleMode extends Play {
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
-		for (Player l_player : d_gameEngine.getPlayers()) {
-			System.out.println("Player --------");
-			Set<String> temp = l_player.getOwnership();
-			for (String s : temp) {
-				System.out.println(s + ",");
-			}
-		}
 		System.out.println("Assign Countries Completed");
 
 		initalizeBoard();

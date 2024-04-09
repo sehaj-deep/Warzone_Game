@@ -47,9 +47,14 @@ public class GameEngine {
 	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
 	/**
-	 * Map to store the validity of orders for each player.
+	 * The current game number
 	 */
-	private Map<Player, Boolean> d_validOrder = new HashMap<>();
+	private static int d_gameNumber = 1;
+
+	/**
+	 * The current round
+	 */
+	private int d_roundNumber = 1;
 
 	/**
 	 * The current phase of the game.
@@ -95,6 +100,62 @@ public class GameEngine {
 	 * key: country name. value: number of army in the country
 	 */
 	private Map<String, Integer> d_board = new HashMap<String, Integer>();
+
+	/**
+	 * To change the game number and reset the round number
+	 * 
+	 * @param p_phase The game number to be set
+	 */
+	public void setGameNumber(int p_gameNumber) {
+		d_gameNumber = p_gameNumber;
+		d_roundNumber = 1;
+
+		d_continents.clear();
+		d_continentId.clear();
+		d_countries.clear();
+		d_countriesId.clear();
+	}
+
+	/**
+	 * To get the game number
+	 * 
+	 * @return The current game number
+	 */
+	public int getGameNumber() {
+		return d_gameNumber;
+	}
+
+	/**
+	 * To change the round number
+	 * 
+	 * @param p_phase The round number to be set
+	 */
+	public void setRoundNumber(int p_roundNumber) {
+		d_roundNumber = p_roundNumber;
+	}
+
+	/**
+	 * To get the round number
+	 * 
+	 * @return The current round number
+	 */
+	public int getRoundNumber() {
+		return d_roundNumber;
+	}
+
+	/**
+	 * Increment game number by 1
+	 */
+	public void incrementGameNumber() {
+		setGameNumber(getGameNumber() + 1);
+	}
+
+	/**
+	 * Increment game round by 1
+	 */
+	public void incrementRoundNumber() {
+		setRoundNumber(getRoundNumber() + 1);
+	}
 
 	/**
 	 * To change the phase
@@ -327,16 +388,18 @@ public class GameEngine {
 					l_executeOrdersPhase.executeAllOrders();
 					continue;
 				}
+
 				if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
 					EndPhase l_endPhase = (EndPhase) this.getPhase();
-					l_endPhase.end();
+
+					l_endPhase.checkForWinner();
 					if (l_endPhase.getAnyWinner()) {
 						break;
 					}
-
 					continue;
 				}
-				System.out.println("Enter a command: ");
+
+				System.out.println("\n> Enter a command: ");
 				l_command = d_scanner.nextLine();
 
 				parseUserCommand(l_command);
@@ -359,9 +422,6 @@ public class GameEngine {
 			setPhase(new PlaySetupSingleMode(this));
 			break;
 		case "2":
-			// TODO: Implement tournament logic, maybe create a PlaySetup phase for
-			// tournament mode PlaySetupSingleMode vs PlaySetupTournamentMode. In this phase
-			// you can only use tournament command.
 			setPhase(new PlaySetupTournamentMode(this));
 			break;
 		default:
@@ -414,6 +474,7 @@ public class GameEngine {
 			break;
 		case "tournament":
 			parseTournamentCommand(l_tokens);
+			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -474,11 +535,11 @@ public class GameEngine {
 				} else {
 					switch (l_option) {
 					case "-M":
-						if (p_tokens[i].endsWith(".txt")) {
+						if (p_tokens[i].endsWith(".map")) {
 							l_mapFiles.add(p_tokens[i]);
 						} else {
 							throw new IllegalArgumentException(
-									"Invalid input: Map files must end with .txt extension.");
+									"Invalid input: Map files must end with .map extension.");
 						}
 						break;
 					case "-P":
@@ -497,18 +558,80 @@ public class GameEngine {
 				}
 			}
 			validateArgumentsForTournmanetCommand(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
-
-			// TODO Call method that handles tournament mode logic
-			startTournament(l_mapFiles, l_playerStrategies);
+			startTournament(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	private void startTournament(List<String> l_mapFiles, List<String> l_playerStrategies) {
-		for (String l_mapFile : l_mapFiles) {
-			d_gamePhase.setupTournament(l_mapFile, l_playerStrategies);
+	/**
+	 * Starts tournament mode by setting up maps and players, then goes through the
+	 * main gameplay loop
+	 * 
+	 * @param p_mapFiles         list of map files given by user
+	 * @param p_playerStrategies list of player strategies given by user
+	 * @param p_gamesToBePlayed  number of games to be played on each map given by
+	 *                           user
+	 */
+	private void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
+			int p_maxNumberOfTurns) {
+		String[][] l_results = new String[p_mapFiles.size()][p_gamesToBePlayed];
+
+		for (String l_mapFile : p_mapFiles) {
+			for (int l_currentGameNumber = getGameNumber(); l_currentGameNumber < p_gamesToBePlayed; incrementGameNumber()) {
+				System.out.println("Game " + getGameNumber());
+				System.out.println("-------");
+
+				d_gamePhase.setupTournament(l_mapFile, p_playerStrategies);
+				boolean l_isWinner = false;
+
+				do {
+					System.out.println("Round " + getRoundNumber());
+					System.out.println("--------");
+					if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
+						ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
+
+						l_reinforcePhase.calculateReinforcements();
+						continue;
+					}
+
+					if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
+						IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
+
+						l_issueOrdersPhase.issueOrders(d_scanner);
+						continue;
+					}
+
+					if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
+						ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
+
+						l_executeOrdersPhase.executeAllOrders();
+						continue;
+					}
+
+					if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
+						EndPhase l_endPhase = (EndPhase) this.getPhase();
+
+						l_endPhase.checkForWinner();
+						l_isWinner = l_endPhase.getAnyWinner();
+						if (l_isWinner) {
+							break;
+						}
+					}
+					incrementRoundNumber();
+				} while (getRoundNumber() <= p_maxNumberOfTurns);
+
+				if (l_isWinner) {
+					l_results[p_mapFiles.indexOf(l_mapFile)][getGameNumber()] = findWinner().getPlayerName();
+				} else {
+					l_results[p_mapFiles.indexOf(l_mapFile)][getGameNumber()] = "Draw";
+				}
+			}
 		}
+	}
+
+	public Player findWinner() {
+		return this.getPlayers().get(0); // only one player left when there is a winner
 	}
 
 	/**
