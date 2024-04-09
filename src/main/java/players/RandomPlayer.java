@@ -124,7 +124,10 @@ public class RandomPlayer extends PlayerStrategy {
         Country country = gameEngine.getD_countries(l_attackingCountry);
         List<Country> enemyNeighbors = new ArrayList<>();
 
-        d_canAttack = false;
+        Country l_targetCountry = null;
+        int l_numArmies = 0;
+
+                d_canAttack = false;
 
         for (Country neighbor : country.getNeighbors()) {
             if (!player.getOwnership().contains(neighbor.getD_name())) {
@@ -133,11 +136,12 @@ public class RandomPlayer extends PlayerStrategy {
         }
 
         if (!enemyNeighbors.isEmpty()) {
-            Country l_targetCountry = enemyNeighbors.get(random.nextInt(enemyNeighbors.size()));
-            int l_numArmies = gameEngine.getGameBoard().get(l_attackingCountry) - 1;
-            return new Advance(l_attackingCountry, l_targetCountry.getD_name(), l_numArmies, gameEngine);
+            l_targetCountry = enemyNeighbors.get(random.nextInt(enemyNeighbors.size()));
+            l_numArmies = gameEngine.getGameBoard().get(l_attackingCountry) - 1;
         }
-        return null;
+
+        assert l_targetCountry != null;
+        return new Advance(l_attackingCountry, l_targetCountry.getD_name(), l_numArmies, gameEngine);
     }
 
     /**
@@ -145,9 +149,8 @@ public class RandomPlayer extends PlayerStrategy {
      *
      * @param player     The player for whom the order is generated.
      * @param gameEngine The game engine object representing the current game state.
-     * @return An Advance order object.
      */
-    public Order moveArmiesRandomly(Player player, GameEngine gameEngine) {
+    public void moveArmiesRandomly(Player player, GameEngine gameEngine) {
         List<String> l_ownedCountries = new ArrayList<>(player.getOwnership());
         String l_fromCountry = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
         Country l_country = gameEngine.getD_countries(l_fromCountry);
@@ -162,9 +165,8 @@ public class RandomPlayer extends PlayerStrategy {
         if (!l_friendlyNeighbors.isEmpty()) {
             String l_toCountry = l_friendlyNeighbors.get(random.nextInt(l_friendlyNeighbors.size()));
             int l_numArmies = random.nextInt(gameEngine.getGameBoard().get(l_fromCountry));
-            return new Advance(l_fromCountry, l_toCountry, l_numArmies, gameEngine);
+            new Advance(l_fromCountry, l_toCountry, l_numArmies, gameEngine);
         }
-        return null;
     }
 
     /**
@@ -172,14 +174,13 @@ public class RandomPlayer extends PlayerStrategy {
      *
      * @param player     The player for whom the order is generated.
      * @param gameEngine The game engine object representing the current game state.
-     * @return A card order object, or null if no valid card order can be generated.
      */
-    public Order createRandomCardOrder(Player player, GameEngine gameEngine) {
+    public void createRandomCardOrder(Player player, GameEngine gameEngine) {
         List<String> cardOrderTypes = Arrays.asList("Bomb", "Airlift", "Blockade", "Negotiate");
         String randomCardOrderType = cardOrderTypes.get(random.nextInt(cardOrderTypes.size()));
 
         if (player.getCardCount(randomCardOrderType.toLowerCase()) == 0) {
-            return null;
+            return;
         }
 
         String targetCountry = "";
@@ -200,26 +201,27 @@ public class RandomPlayer extends PlayerStrategy {
                 playerId = getRandomPlayerId(player, gameEngine);
                 break;
             default:
-                return null;
+                return;
         }
 
-        return switch (randomCardOrderType.toLowerCase()) {
+        switch (randomCardOrderType.toLowerCase()) {
             case "bomb" -> new Bomb(targetCountry, gameEngine);
             case "blockade" -> new Blockade(targetCountry, gameEngine);
             case "negotiate" -> new Diplomacy(playerId, gameEngine);
             case "airlift" -> new Airlift(sourceCountry, destinationCountry, numberOfArmies, gameEngine);
-            default -> null;
-        };
+            default -> {
+            }
+        }
     }
 
     /**
      * Retrieves a randomly selected country owned by the player.
      *
      * @param player     The player for whom the country is selected.
-     * @param gameEngine The game engine object representing the current game state.
+     * @param p_gameEngine The game engine object representing the current game state.
      * @return A string representing the name of the selected country.
      */
-    public String getRandomCountry(Player player, GameEngine gameEngine) {
+    public String getRandomCountry(Player player, GameEngine p_gameEngine) {
         List<String> ownedCountries = new ArrayList<>(player.getOwnership());
         return ownedCountries.get(random.nextInt(ownedCountries.size()));
     }
