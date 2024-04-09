@@ -2,13 +2,16 @@ package phases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import game.GameEngine;
 import map.Country;
 import orders.Advance;
@@ -90,7 +93,10 @@ public class EndPhaseTest {
 		Advance d_advanceOrder = new Advance("usa", "korea", 9, d_gameEngine);
 		d_advanceOrder.isValidExecute(d_plyrId);
 		d_advanceOrder.execute(d_plyrId);
-		d_endPhase.end();
+		System.out.println(d_gameEngine.getPlayers().get(d_plyrId).getOwnership());
+		d_endPhase.checkForWinner();
+
+		System.out.println(d_endPhase.getAnyWinner());
 		assertTrue(d_endPhase.getAnyWinner());
 	}
 

@@ -2,6 +2,7 @@ package phases;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 import game.GameEngine;
@@ -152,6 +153,11 @@ public class Preload extends Edit {
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		this.printInvalidCommandMessage();
 	}
 
 }

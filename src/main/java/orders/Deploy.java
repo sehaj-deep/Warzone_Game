@@ -76,9 +76,8 @@ public class Deploy extends Order {
 				l_errMessage = "Can't deploy more armies than the reinforcement armies available to the player";
 				throw new ValidationException(l_errMessage);
 			}
-		}
-		catch (ValidationException e) {
-			System.out.println(e);
+		} catch (ValidationException e) {
+			// System.out.println(e);
 			return false;
 		}
 
@@ -107,8 +106,7 @@ public class Deploy extends Order {
 				l_errMessage = "Can't pass negative number for number of armies for deployment";
 				throw new ValidationException();
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}

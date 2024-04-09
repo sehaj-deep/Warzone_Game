@@ -1,7 +1,9 @@
 package phases;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
+
 import game.GameEngine;
 import map.Continent;
 import map.Country;
@@ -126,17 +128,7 @@ public class ReinforcePhase extends MainPlay {
 	}
 
 	@Override
-	public void reinforce() {
-		this.printInvalidCommandMessage();
-	}
-
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-	}
-
-	@Override
-	public void fortify() {
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		this.printInvalidCommandMessage();
 	}
 }

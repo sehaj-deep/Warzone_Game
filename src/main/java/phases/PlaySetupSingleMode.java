@@ -20,14 +20,14 @@ import utils.ValidationException;
 /**
  * Setup phase of the game where players are added and countries are assigned.
  */
-public class PlaySetup extends Play {
+public class PlaySetupSingleMode extends Play {
 
 	/**
-	 * Constructs a PlaySetup object with the specified game engine.
+	 * Constructs a PlaySetupSingle object with the specified game engine.
 	 *
 	 * @param p_gameEngine the game engine
 	 */
-	public PlaySetup(GameEngine p_gameEngine) {
+	public PlaySetupSingleMode(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
@@ -149,43 +149,12 @@ public class PlaySetup extends Play {
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
-		for (Player l_player : d_gameEngine.getPlayers()) {
-			System.out.println("Player --------");
-			Set<String> temp = l_player.getOwnership();
-			for (String s : temp) {
-				System.out.println(s + ",");
-			}
-		}
 		System.out.println("Assign Countries Completed");
 
 		initalizeBoard();
 		showMap();
 
 		this.next();
-	}
-
-	/**
-	 * Reinforce is invalid in playSetup
-	 */
-	@Override
-	public void reinforce() {
-		this.printInvalidCommandMessage();
-	}
-
-	/**
-	 * Attack is invalid in playSetup
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-	}
-
-	/**
-	 * fortify is invalid in playSetup
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
 	}
 
 	/**
@@ -219,7 +188,7 @@ public class PlaySetup extends Play {
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {
-				throw new ValidationException("Unable to load map: The map is invalid.");
+				throw new ValidationException("Unable to load map " + p_filename + ": The map is invalid.");
 			}
 		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
@@ -301,6 +270,12 @@ public class PlaySetup extends Play {
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

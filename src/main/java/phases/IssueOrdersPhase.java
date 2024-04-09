@@ -1,5 +1,6 @@
 package phases;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -221,38 +222,16 @@ public class IssueOrdersPhase extends MainPlay {
 	}
 
 	/**
-	 * Reinforces the army.
-	 */
-	@Override
-	public void reinforce() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Executes attacks between players.
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Fortifies the player's positions on the map.
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
 	 * Moves the game to the next phase after the issuing orders phase.
 	 */
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ExecuteOrdersPhase(d_gameEngine));
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		this.printInvalidCommandMessage();
 	}
 
 }
