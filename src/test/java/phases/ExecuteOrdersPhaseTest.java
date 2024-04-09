@@ -12,7 +12,9 @@ import org.junit.Test;
 import game.GameEngine;
 import map.Country;
 import orders.Advance;
+import players.HumanPlayerStrategy;
 import players.Player;
+import utils.ValidationException;
 
 /**
  * This class tests executeOrderPhase class in JUnit testing
@@ -49,18 +51,25 @@ public class ExecuteOrdersPhaseTest {
 		System.out.println("Setting up a game state to test ExecuteOrderPhase");
 		System.out.println("Reinforcements available to Player0 and Player1: " + l_reinforcements);
 		// set up players list
-		for (int i = 0; i < 2; i++) {
-			Player l_player = new Player(Integer.toString(i));
+		for (int i = 0; i < 2; i++) { // looping over the players
+			Player l_player = new Player(Integer.toString(i), new HumanPlayerStrategy());
 			// provide countries owned by this player
 			d_gameEngine.getPlayers().add(l_player);
 			l_player.setOwnership(new HashSet<String>(Arrays.asList(Integer.toString(2 * i), Integer.toString(2 * i + 1))));
 			System.out.println("Player" + i + " has countries: " + l_player.getOwnership());
 			int l_deployNumArmy = l_reinforcements.get(i) / (2 + i);
 			for (int j = 0; j < (2 + i); j++) { // add Orders for testing purpose
-				// Here, player0 has more orders than player1
+				// Here, player1 has more orders than player0
 				String[] l_tokens = { "deploy", Integer.toString((2 * i) + (j % 2)), Integer.toString(l_deployNumArmy) };
-				l_player.issue_order(l_tokens, d_gameEngine);
+				System.out.println(i + " and " + j);
+				try {
+					l_player.issue_order(l_tokens, d_gameEngine);
+				}
+				catch (ValidationException e) {
+					System.out.println("Invalid Order");
+				}
 			}
+			System.out.println("debug here " + l_player.getListOrders());
 		}
 	}
 
@@ -91,6 +100,7 @@ public class ExecuteOrdersPhaseTest {
 	public void testGetNumAllOrders() {
 		System.out.println("Testing getNumAllOrders method");
 		int l_totNumOrders = d_executeOrdersPhase.getNumAllOrders();
+		System.out.println("debug " + l_totNumOrders);
 		assertEquals(5, l_totNumOrders);
 		System.out.println("Testing ExecuteOrdersPhase.getNumAllOrders() method PASSED!");
 	}
@@ -205,7 +215,7 @@ public class ExecuteOrdersPhaseTest {
 		Set<String> l_ownedCountries = new HashSet<>(Arrays.asList("usa"));
 		List<Player> l_players = d_gameEngine.getPlayers();
 
-		Player l_player = new Player("2");
+		Player l_player = new Player("2", new HumanPlayerStrategy());
 		l_player.setOwnership(l_ownedCountries);
 		Country l_country1, l_country2;
 		l_country1 = new Country(1, "usa");
@@ -223,7 +233,12 @@ public class ExecuteOrdersPhaseTest {
 		l_players.add(l_player);
 
 		String[] l_tokens = { "advance", "usa", "japan", "9" };
-		l_player.issue_order(l_tokens, d_gameEngine);
+		try {
+			l_player.issue_order(l_tokens, d_gameEngine);
+		}
+		catch (ValidationException e) {
+			System.out.println("Invalid Order");
+		}
 		d_gameEngine.getPlayers().add(l_player);
 
 		System.out.println("Testing ExecuteOrdersPhase attack in attack method");

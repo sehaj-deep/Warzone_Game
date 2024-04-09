@@ -2,6 +2,7 @@ package phases;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 import game.GameEngine;
@@ -55,11 +56,11 @@ public class Preload extends Edit {
 				d_isConquestMap = true;
 				ConquestMapReader l_conquestReader = new ConquestMapReader(d_gameEngine);
 				MapReaderAdapter l_mapAdapter = new MapReaderAdapter(l_conquestReader);
-				l_mapAdapter.readDominationMap(p_filename, false);
+				l_mapAdapter.readDominationMap(p_filename, true);
 			} else {
 				// call the domination file
 				DominationMapReader l_dominationReader = new DominationMapReader(d_gameEngine);
-				l_dominationReader.readDominationMap(p_filename, false);
+				l_dominationReader.readDominationMap(p_filename, true);
 			}
 		}
 
@@ -149,6 +150,11 @@ public class Preload extends Edit {
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		this.printInvalidCommandMessage();
 	}
 
 }

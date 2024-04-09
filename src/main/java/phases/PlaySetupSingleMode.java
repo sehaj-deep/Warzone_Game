@@ -14,30 +14,32 @@ import map.ConquestMapReader;
 import map.DominationMapReader;
 import map.MapReaderAdapter;
 import players.Player;
+import players.PlayerStrategy;
 import utils.ValidationException;
 
 /**
  * Setup phase of the game where players are added and countries are assigned.
  */
-public class PlaySetup extends Play {
+public class PlaySetupSingleMode extends Play {
 
 	/**
-	 * Constructs a PlaySetup object with the specified game engine.
+	 * Constructs a PlaySetupSingle object with the specified game engine.
 	 *
 	 * @param p_gameEngine the game engine
 	 */
-	public PlaySetup(GameEngine p_gameEngine) {
+	public PlaySetupSingleMode(GameEngine p_gameEngine) {
 		super(p_gameEngine);
 	}
 
 	/**
 	 * Adds a player to the player list.
 	 *
-	 * @param p_playerName The name of the player to add.
+	 * @param p_playerName     The name of the player to add.
+	 * @param p_playerStrategy the type of the player to add
 	 */
 	@Override
-	public void addPlayers(String p_playerName) {
-		Player l_playerName = new Player(p_playerName);
+	public void addPlayers(String p_playerName, PlayerStrategy p_playerStrategy) {
+		Player l_player = new Player(p_playerName, p_playerStrategy);
 
 		// Check if the input player is not empty or null
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
@@ -50,14 +52,11 @@ public class PlaySetup extends Play {
 		}
 
 		// Check if the player already exist
-		if (d_gameEngine.getPlayers().contains(l_playerName)) {
+		if (d_gameEngine.getPlayers().contains(l_player)) {
 			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
 		}
 
-		// Adding player to the player list
-		Player l_player = new Player(p_playerName);
 		d_gameEngine.getPlayers().add(l_player);
-
 		System.out.println(p_playerName + " successfully added as a player");
 	}
 
@@ -150,43 +149,12 @@ public class PlaySetup extends Play {
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
-		for (Player l_player : d_gameEngine.getPlayers()) {
-			System.out.println("Player --------");
-			Set<String> temp = l_player.getOwnership();
-			for (String s : temp) {
-				System.out.println(s + ",");
-			}
-		}
 		System.out.println("Assign Countries Completed");
 
 		initalizeBoard();
 		showMap();
 
 		this.next();
-	}
-
-	/**
-	 * Reinforce is invalid in playSetup
-	 */
-	@Override
-	public void reinforce() {
-		this.printInvalidCommandMessage();
-	}
-
-	/**
-	 * Attack is invalid in playSetup
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-	}
-
-	/**
-	 * fortify is invalid in playSetup
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
 	}
 
 	/**
@@ -220,7 +188,7 @@ public class PlaySetup extends Play {
 		try {
 			boolean l_isValidated = validateMap();
 			if (!l_isValidated) {
-				throw new ValidationException("Unable to load map: The map is invalid.");
+				throw new ValidationException("Unable to load map " + p_filename + ": The map is invalid.");
 			}
 		} catch (ValidationException e) {
 			System.out.print(e.getMessage());
@@ -302,6 +270,12 @@ public class PlaySetup extends Play {
 	@Override
 	public void next() {
 		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

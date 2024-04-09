@@ -7,6 +7,7 @@ import java.util.Set;
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.PlayerStrategy;
 
 /**
  * Represents the edit phase of the game map.
@@ -71,7 +72,7 @@ public abstract class Edit extends Phase {
 	 *
 	 * @param p_playerName the name of the player to add
 	 */
-	public void addPlayers(String p_playerName) {
+	public void addPlayers(String p_playerName, PlayerStrategy p_playerStrategy) {
 		printInvalidCommandMessage();
 	}
 
