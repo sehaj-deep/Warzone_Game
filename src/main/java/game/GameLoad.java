@@ -17,12 +17,12 @@ public class GameLoad implements Serializable {
 
 	private GameEngine d_gameEngine;
 
-	String d_playersFileName;
-	String d_continentFileName;
-	String d_coutriesFileName;
+	private String d_playersFileName;
+	private String d_continentFileName;
+	private String d_coutriesFileName;
 
-	public GameLoad(GameEngine p_gameEngine) {
-		d_gameEngine = p_gameEngine;
+	public GameLoad() {
+		d_gameEngine = new GameEngine();
 	}
 
 	// load game state to populate the variables in gameEngine

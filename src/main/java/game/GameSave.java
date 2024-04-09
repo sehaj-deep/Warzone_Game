@@ -19,10 +19,10 @@ import players.Player;
  */
 public class GameSave implements Serializable {
 
-	GameEngine d_gameEngine;
+	private GameEngine d_gameEngine;
 
-	public GameSave(GameEngine p_gameEngine) {
-		this.d_gameEngine = p_gameEngine;
+	public GameSave() {
+		this.d_gameEngine = new GameEngine();
 	}
 
 	public String savePlayers() {

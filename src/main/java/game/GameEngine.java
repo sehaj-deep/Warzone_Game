@@ -489,6 +489,10 @@ public class GameEngine {
 		case "tournament":
 			parseTournamentCommand(l_tokens);
 			break;
+		case "savegame":
+			parseSaveGameCommand(l_tokens);
+		case "loadgame":
+			parseLoadGameCommand(l_tokens);
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -520,6 +524,40 @@ public class GameEngine {
 			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	public void parseSaveGameCommand(String[] p_tokens) {
+		if (p_tokens.length <= 1 || p_tokens.length > 2) {
+			System.out.println("Please enter a valid savegame command.");
+			return;
+		}
+		GameSave l_gameSave = new GameSave();
+		l_gameSave.saveGame(p_tokens[1]);
+	}
+
+	public void parseLoadGameCommand(String[] p_tokens) {
+		if (p_tokens.length <= 1 || p_tokens.length > 2) {
+			System.out.println("Please enter a valid loadgame command.");
+			return;
+		}
+
+		GameLoad l_gameLoad = new GameLoad();
+		l_gameLoad.loadGame(p_tokens[1]);
+
+		// test the methods
+
+		// print the countries list
+		for (Country c : d_countries.values()) {
+			System.out.println(c.getD_name());
+		}
+		System.out.println("-----------------------------------------------");
+		System.out.println("Players list:");
+		System.out.println("-----------------------------------------------");
+
+		// print the players list
+		for (Player p : d_players) {
+			System.out.println(p.getPlayerName());
 		}
 	}
 
