@@ -184,6 +184,8 @@ public class RandomPlayer extends PlayerStrategy {
 
         String targetCountry = "";
         String playerId = "";
+        String destinationCountry = "";
+        String sourceCountry = "";
         int numberOfArmies = 0;
 
         switch (randomCardOrderType.toLowerCase()) {
@@ -191,15 +193,13 @@ public class RandomPlayer extends PlayerStrategy {
                 targetCountry = getRandomCountryOwnedByOtherPlayer(player, gameEngine);
                 break;
             case "airlift":
-                String sourceCountry = getRandomCountry(player, gameEngine);
-                String destinationCountry = getRandomCountry(player, gameEngine);
+                sourceCountry = getRandomCountry(player, gameEngine);
+                destinationCountry = getRandomCountry(player, gameEngine);
                 numberOfArmies = random.nextInt(gameEngine.getGameBoard().get(sourceCountry));
-                return new Airlift(sourceCountry, destinationCountry, numberOfArmies, gameEngine);
             case "negotiate":
                 playerId = getRandomPlayerId(player, gameEngine);
                 break;
             default:
-                // Invalid card order type
                 return null;
         }
 
@@ -207,6 +207,7 @@ public class RandomPlayer extends PlayerStrategy {
             case "bomb" -> new Bomb(targetCountry, gameEngine);
             case "blockade" -> new Blockade(targetCountry, gameEngine);
             case "negotiate" -> new Diplomacy(playerId, gameEngine);
+            case "airlift" -> new Airlift(sourceCountry, destinationCountry, numberOfArmies, gameEngine);
             default -> null;
         };
     }
