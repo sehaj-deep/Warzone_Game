@@ -47,7 +47,7 @@ public class ExecuteOrdersPhase extends MainPlay {
 		for (int i = 0; i < d_gameEngine.getPlayers().size(); i++) {
 			Player l_player = d_gameEngine.getPlayers().get(i);
 			if (l_player.getListOrders().isEmpty()) {
-				System.out.println(l_player.getPlayerName() + " has no more orders to execute");
+				System.out.println(l_player.getPlayerName() + " has executed all their orders.");
 				continue;
 			}
 			Order l_order = l_player.next_order(); // get the next order from player's orders list
@@ -57,6 +57,8 @@ public class ExecuteOrdersPhase extends MainPlay {
 					attack(i, l_order);
 				} else {
 					l_order.execute(i);
+					System.out.println(
+							l_player.getPlayerName() + " executed a " + l_order.getClass().getSimpleName() + " order.");
 				}
 			} else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);

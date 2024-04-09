@@ -109,11 +109,6 @@ public class GameEngine {
 	public void setGameNumber(int p_gameNumber) {
 		d_gameNumber = p_gameNumber;
 		d_roundNumber = 1;
-
-		d_continents.clear();
-		d_continentId.clear();
-		d_countries.clear();
-		d_countriesId.clear();
 	}
 
 	/**
@@ -577,36 +572,47 @@ public class GameEngine {
 			int p_maxNumberOfTurns) {
 		String[][] l_results = new String[p_mapFiles.size()][p_gamesToBePlayed];
 
+		int l_fileIdx = 0;
 		for (String l_mapFile : p_mapFiles) {
-			for (int l_currentGameNumber = getGameNumber(); l_currentGameNumber < p_gamesToBePlayed; incrementGameNumber()) {
-				System.out.println("Game " + getGameNumber());
-				System.out.println("-------");
+			setGameNumber(1); // reset Game Number as map file changes
 
+			while (getGameNumber() <= p_gamesToBePlayed) {
+				System.out.println("\nGame " + getGameNumber() + " on " + l_mapFile);
+				System.out.println("------------------");
+
+				setPhase(new PlaySetupTournamentMode(this));
+
+				// reset map related objects and players list as new game begins
+				d_continents.clear();
+				d_continentId.clear();
+				d_countries.clear();
+				d_countriesId.clear();
+				d_board.clear();
+				d_players.clear();
 				d_gamePhase.setupTournament(l_mapFile, p_playerStrategies);
+				System.out.println(d_gamePhase);
 				boolean l_isWinner = false;
 
 				do {
-					System.out.println("Round " + getRoundNumber());
+					System.out.println("\nRound " + getRoundNumber());
 					System.out.println("--------");
+
 					if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
 						ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
 
 						l_reinforcePhase.calculateReinforcements();
-						continue;
 					}
 
 					if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
 						IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
 
 						l_issueOrdersPhase.issueOrders(d_scanner);
-						continue;
 					}
 
 					if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
 						ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
 
 						l_executeOrdersPhase.executeAllOrders();
-						continue;
 					}
 
 					if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
@@ -622,12 +628,36 @@ public class GameEngine {
 				} while (getRoundNumber() <= p_maxNumberOfTurns);
 
 				if (l_isWinner) {
-					l_results[p_mapFiles.indexOf(l_mapFile)][getGameNumber()] = findWinner().getPlayerName();
+					l_results[l_fileIdx][getGameNumber() - 1] = findWinner().getPlayerName();
 				} else {
-					l_results[p_mapFiles.indexOf(l_mapFile)][getGameNumber()] = "Draw";
+					l_results[l_fileIdx][getGameNumber() - 1] = "Draw";
 				}
+				incrementGameNumber();
 			}
+			l_fileIdx++;
 		}
+		System.out.println("\nResults report:\n" + reportTournamentResult(l_results, p_mapFiles));
+		System.exit(1);
+	}
+
+	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
+		// Initialize the report with column titles
+		String l_report = "\t\t|\t"; // Empty space for row titles
+		for (int j = 0; j < p_results[0].length; j++) {
+			l_report += "Game " + (j + 1) + "\t\t|\t"; // Add column titles
+		}
+		l_report += "\n";
+
+		// Add data rows with map titles
+		for (int i = 0; i < p_results.length; i++) {
+			l_report += p_mapFiles.get(i) + "\t|\t"; // Add row title (map)
+			for (int j = 0; j < p_results[i].length; j++) {
+				l_report += p_results[i][j] + "\t|\t"; // Add data
+			}
+			l_report += "\n";
+		}
+
+		return l_report;
 	}
 
 	public Player findWinner() {
@@ -1005,24 +1035,5 @@ public class GameEngine {
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
-	}
-
-	/**
-	 * This class check if a player made a deal with another player then the attack
-	 * is not allowed
-	 *
-	 * @param p_player            The attacking player.
-	 * @param p_targetCountryName accept the country name which player want to
-	 *                            attack
-	 * @return the boolean value true if attack is allowed
-	 */
-	public boolean checkAttackAllowed(Player p_player, String p_targetCountryName) {
-		for (Player p : p_player.getD_negotiatedWith()) {
-			if (p.getOwnership().contains(p_targetCountryName)) {
-				System.err.println("The negotiated player cannot be attacked for this turn");
-				return false;
-			}
-		}
-		return true;
 	}
 }

@@ -83,12 +83,6 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode {
 	}
 
 	@Override
-	public void next() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		// 1 load map
 		String l_filename = Common.getMapPath(p_mapFile);
