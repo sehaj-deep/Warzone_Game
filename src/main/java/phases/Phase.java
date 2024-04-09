@@ -6,12 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.PlayerStrategy;
 
 /**
  * Abstract class representing a phase in the game.
@@ -107,9 +109,10 @@ public abstract class Phase {
 	/**
 	 * Abstract method to add players to the game.
 	 * 
-	 * @param p_playerName the name of the player to add
+	 * @param p_playerName     the name of the player to add
+	 * @param p_playerStrategy the type of the player to add
 	 */
-	abstract public void addPlayers(String p_playerName);
+	abstract public void addPlayers(String p_playerName, PlayerStrategy p_playerStrategy);
 
 	/**
 	 * Abstract method to remove players from the game.
@@ -124,19 +127,15 @@ public abstract class Phase {
 	abstract public void assignCountries();
 
 	/**
-	 * Abstract method to reinforce armies during the reinforcement phase.
+	 * Abstract method to start tournament mode.
+	 * @param p_mapFile TODO
+	 * @param p_playerStrategies TODO
+	 * @param l_maxNumberOfTurns
+	 * @param l_numberOfGames
+	 * @param l_playerStrategies
+	 * @param l_mapFiles
 	 */
-	abstract public void reinforce();
-
-	/**
-	 * Abstract method to perform attacks during the attack phase.
-	 */
-	abstract public void attack();
-
-	/**
-	 * Abstract method to fortify armies during the fortification phase.
-	 */
-	abstract public void fortify();
+	abstract public void setupTournament(String p_mapFile, List<String> p_playerStrategies);
 
 	/**
 	 * Abstract method to end the game.
@@ -152,7 +151,7 @@ public abstract class Phase {
 	 * Prints an invalid command message.
 	 */
 	public void printInvalidCommandMessage() {
-		System.out.println("Invalid command in state " + this.getClass().getSimpleName());
+		System.out.println("Invalid command in " + this.getClass().getSimpleName() + " phase.");
 	}
 
 	// Common functionalities of all phases

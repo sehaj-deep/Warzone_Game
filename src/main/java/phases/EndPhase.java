@@ -2,6 +2,7 @@ package phases;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import game.GameEngine;
 import players.Player;
 
@@ -41,15 +42,16 @@ public class EndPhase extends MainPlay {
 	}
 
 	/**
-	 * check if there is a winner is found
+	 * check if there is a winner found
 	 */
-	public void end() {
+	public void checkForWinner() {
 		kickOutPlayer();
 		if (d_gameEngine.getPlayers().size() == 1) {
-			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game");
+			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game!");
 			d_anyWinner = true;
-
 		}
+		// todo
+
 		this.next();
 	}
 
@@ -171,30 +173,8 @@ public class EndPhase extends MainPlay {
 
 	}
 
-	/**
-	 * This method to assign Reinforcement army
-	 */
 	@Override
-	public void reinforce() {
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * This method initiate the attack
-	 */
-	@Override
-	public void attack() {
-		this.printInvalidCommandMessage();
-
-	}
-
-	/**
-	 * Fortifies the player's positions on the map.
-	 */
-	@Override
-	public void fortify() {
-		this.printInvalidCommandMessage();
-
 	}
 }
