@@ -41,30 +41,33 @@ public class RandomPlayerTest {
      * It tests whether an attack order is generated correctly when there are no valid targets.
      */
     @Test
-    public void testAttackRandomly() {
-        // Test setup
+    public void testAttackRandomly_WithValidTargets() {
+        // Test setup with valid targets for attack
         GameEngine gameEngine = new GameEngine();
         RandomPlayer player = new RandomPlayer();
         Player testPlayer = new Player("TestPlayer");
         gameEngine.getPlayers().add(testPlayer);
-        testPlayer.getOwnership().add("Country1");
-        testPlayer.getOwnership().add("Country2");
+        // Add owned country
+        testPlayer.getOwnership().add("AttackingCountry");
+        // Add target country owned by another player
         Player otherPlayer = new Player("OtherPlayer");
         gameEngine.getPlayers().add(otherPlayer);
-        Country neighborCountry = new Country("NeighborCountry");
-        gameEngine.getD_countries().put("NeighborCountry", neighborCountry);
-        Country country1 = new Country("Country1");
-        Country country2 = new Country("Country2");
-        gameEngine.getD_countries().put("Country1", country1);
-        gameEngine.getD_countries().put("Country2", country2);
-        country1.getNeighbors().add(neighborCountry);
+        Country targetCountry = new Country("TargetCountry");
+        gameEngine.getD_countries().put("TargetCountry", targetCountry);
+        // Add attacking country and set it to neighbor target country
+        Country attackingCountry = new Country("AttackingCountry");
+        gameEngine.getD_countries().put("AttackingCountry", attackingCountry);
+        attackingCountry.getNeighbors().add(targetCountry);
 
         // Execute the method under test
         Order attackOrder = player.attackRandomly(testPlayer, gameEngine);
 
         // Assertion
-        assertNull(attackOrder); // Ensure no attack order is generated when there are no valid targets
+        assertNotNull(attackOrder); // Ensure an attack order is generated when there are valid targets
+        assertTrue(attackOrder instanceof Advance); // Ensure the generated order is an Advance order
+        // Additional assertions can be added to check the correctness of the order parameters
     }
+
 
     /**
      * Test case for the getRandomCountry method of RandomPlayer class.

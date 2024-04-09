@@ -114,35 +114,38 @@ public class RandomPlayer extends PlayerStrategy {
     /**
      * Generates an Advance order targeting a randomly selected enemy neighbor country.
      *
-     * @param player     The player for whom the order is generated.
-     * @param gameEngine The game engine object representing the current game state.
-     * @return An Advance order object.
+     * @param player     The player initiating the attack.
+     * @param gameEngine The current game engine object.
+     * @return An Advance order object representing the attack, or null if no valid target is available.
      */
     public Order attackRandomly(Player player, GameEngine gameEngine) {
         List<String> l_ownedCountries = new ArrayList<>(player.getOwnership());
-        String l_attackingCountry = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
-        Country country = gameEngine.getD_countries(l_attackingCountry);
-        List<Country> enemyNeighbors = new ArrayList<>();
+        String l_attackingCountryName = l_ownedCountries.get(random.nextInt(l_ownedCountries.size()));
+        Country l_attackingCountry = gameEngine.getD_countries().get(l_attackingCountryName);
+        List<Country> l_enemyNeighbors = new ArrayList<>();
 
         Country l_targetCountry = null;
         int l_numArmies = 0;
 
-                d_canAttack = false;
+        d_canAttack = false;
 
-        for (Country neighbor : country.getNeighbors()) {
-            if (!player.getOwnership().contains(neighbor.getD_name())) {
-                enemyNeighbors.add(neighbor);
+        if (l_attackingCountry != null) {
+            for (Country neighbor : l_attackingCountry.getNeighbors()) {
+                if (!player.getOwnership().contains(neighbor.getD_name())) {
+                    l_enemyNeighbors.add(neighbor);
+                }
+            }
+
+            if (!l_enemyNeighbors.isEmpty()) {
+                l_targetCountry = l_enemyNeighbors.get(random.nextInt(l_enemyNeighbors.size()));
+                l_numArmies = gameEngine.getGameBoard().getOrDefault(l_attackingCountryName, 0) - 1;
             }
         }
 
-        if (!enemyNeighbors.isEmpty()) {
-            l_targetCountry = enemyNeighbors.get(random.nextInt(enemyNeighbors.size()));
-            l_numArmies = gameEngine.getGameBoard().get(l_attackingCountry) - 1;
-        }
-
-        assert l_targetCountry != null;
-        return new Advance(l_attackingCountry, l_targetCountry.getD_name(), l_numArmies, gameEngine);
+        assert l_targetCountry != null; // Ensure a valid target country is selected
+        return new Advance(l_attackingCountryName, l_targetCountry.getD_name(), l_numArmies, gameEngine);
     }
+
 
     /**
      * Generates an Advance order to move armies from one friendly country to another.

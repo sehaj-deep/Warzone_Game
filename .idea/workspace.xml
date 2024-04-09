@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="305bed67-c301-47f0-80f3-046a31c6d661" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/players/RandomPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/players/RandomPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/players/RandomPlayerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/players/RandomPlayerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,27 +35,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.RandomPlayerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testAttackRandomly.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testCreateRandomCardOrder.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testDeployRandomly.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testGetRandomCountry.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testGetRandomCountryOwnedByOtherPlayer.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testGetRandomPlayerId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testMoveArmiesRandomly.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testMoveArmiesRandomlyNoValidMoves.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.RandomPlayerTest.testMoveArmiesRandomlyWithValidMoves.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3&quot;: &quot;junit.framework.TestCase&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;build__three__NB&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.RandomPlayerTest.executor": "Run",
+    "JUnit.RandomPlayerTest.testAttackRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testCreateRandomCardOrder.executor": "Run",
+    "JUnit.RandomPlayerTest.testDeployRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomCountry.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomCountryOwnedByOtherPlayer.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomPlayerId.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomlyNoValidMoves.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomlyWithValidMoves.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "git-widget-placeholder": "build__three__NB",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/players" />
@@ -98,6 +103,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RandomPlayerTest.testAttackRandomly_NoValidTargets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="METHOD_NAME" value="testAttackRandomly_NoValidTargets" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomPlayerTest.testAttackRandomly_WithValidTargets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="METHOD_NAME" value="testAttackRandomly_WithValidTargets" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RandomPlayerTest.testDeployRandomly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="warzone" />
       <extension name="coverage">
@@ -114,51 +151,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RandomPlayerTest.testMoveArmiesRandomlyNoValidMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="players.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="players" />
-      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
-      <option name="METHOD_NAME" value="testMoveArmiesRandomlyNoValidMoves" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RandomPlayerTest.testMoveArmiesRandomlyWithValidMoves" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="players.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="players" />
-      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
-      <option name="METHOD_NAME" value="testMoveArmiesRandomlyWithValidMoves" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.RandomPlayerTest" />
-        <item itemvalue="JUnit.RandomPlayerTest.testDeployRandomly" />
+        <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly_NoValidTargets" />
+        <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly_WithValidTargets" />
         <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly" />
-        <item itemvalue="JUnit.RandomPlayerTest.testMoveArmiesRandomlyWithValidMoves" />
-        <item itemvalue="JUnit.RandomPlayerTest.testMoveArmiesRandomlyNoValidMoves" />
+        <item itemvalue="JUnit.RandomPlayerTest.testDeployRandomly" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-3183f394aec4-8ce719b4" />
         <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-1e1a4159" />
       </set>
     </attachedChunks>
@@ -179,13 +185,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/players/RandomPlayer.java</url>
-          <line>150</line>
+          <line>164</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/players/RandomPlayer.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
