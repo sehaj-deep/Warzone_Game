@@ -13,6 +13,7 @@ import java.util.Set;
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.Player;
 import players.PlayerStrategy;
 
 /**
@@ -128,12 +129,9 @@ public abstract class Phase {
 
 	/**
 	 * Abstract method to start tournament mode.
-	 * @param p_mapFile TODO
-	 * @param p_playerStrategies TODO
-	 * @param l_maxNumberOfTurns
-	 * @param l_numberOfGames
-	 * @param l_playerStrategies
-	 * @param l_mapFiles
+	 * 
+	 * @param p_mapFile          map file provided by user
+	 * @param p_playerStrategies player strategies provided by user
 	 */
 	abstract public void setupTournament(String p_mapFile, List<String> p_playerStrategies);
 
@@ -146,6 +144,16 @@ public abstract class Phase {
 	 * move to the next state(phase)
 	 */
 	abstract public void next();
+
+	/**
+	 * save current game state to a file
+	 */
+	abstract public void saveGame(String p_fileName, Player p_lastPlayer);
+
+	/**
+	 * load game state from a file
+	 */
+	abstract public void loadGame(String p_fileName);
 
 	/**
 	 * Prints an invalid command message.

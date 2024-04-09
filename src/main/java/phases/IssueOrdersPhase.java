@@ -24,6 +24,16 @@ public class IssueOrdersPhase extends MainPlay {
 
 	}
 
+	private Player d_lastPlayer = null;
+
+	public Player getD_lastPlayer() {
+		return d_lastPlayer;
+	}
+
+	public void setD_lastPlayer(Player d_lastPlayer) {
+		this.d_lastPlayer = d_lastPlayer;
+	}
+
 	/**
 	 * Checks if any commands are left to be issued by players.
 	 *
@@ -55,28 +65,20 @@ public class IssueOrdersPhase extends MainPlay {
 	 * @param p_scanner Scanner object for user input.
 	 */
 	public void issueOrders(Scanner p_scanner) {
-//		Map<Player, Boolean> l_hasCommands = new HashMap<>();
-//		for (Player l_player : d_gameEngine.getPlayers()) {
-		// if
-		// (l_player.getD_playerStrategy().getClass().equals(HumanPlayerStrategy.class))
-		// {
-//			l_hasCommands.put(l_player, true);
-		// } else {
-
-		// }
-
-		// }
-
 		for (Player l_player : d_gameEngine.getPlayers()) {
 			l_player.getPlayerStrategy().reset();
 		}
-		// while (anyCommandLeft(l_hasCommands)) {
+
 		while (anyPlayerWithCommandLeft()) {
 			for (Player l_player : d_gameEngine.getPlayers()) {
+				// Last player is not null when the game state is laoded
+				if (d_lastPlayer != null) {
+					if (l_player != d_lastPlayer) {
+						d_lastPlayer = null;
+						continue;
+					}
+				}
 
-//				if (!l_hasCommands.get(l_player)) {
-//					continue;
-//				}
 				if (!l_player.getPlayerStrategy().getHasOrder()) {
 					continue;
 				}
@@ -90,17 +92,26 @@ public class IssueOrdersPhase extends MainPlay {
 								"\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
 						l_orderCommand = p_scanner.nextLine();
 
-						if (l_orderCommand.equalsIgnoreCase("showmap")) {
-							showMap();
-						} else {
-							try {
-								l_player.issue_order(l_orderCommand.split("\\s+"), d_gameEngine);
+						try {
+							String[] l_tokens = l_orderCommand.split("\\s+");
+
+							if (l_tokens[0].equalsIgnoreCase("savegame")) {
+								if (l_tokens.length <= 1 || l_tokens.length > 2) {
+									System.out.println("Invalid command. Syntax: savegame filename");
+									return;
+								}
+								d_gameEngine.getPhase().saveGame(l_tokens[1], l_player);
+								break;
+							} else if (l_tokens[0].equalsIgnoreCase("showmap")) {
+								showMap();
+							} else {
+								l_player.issue_order(l_tokens, d_gameEngine);
 								l_isCommandValid = true;
-							} catch (ValidationException e) {
-								// newly created order is invalid, so continue asking the player until valid one
-								// is given
-								continue;
 							}
+						} catch (ValidationException e) {
+							// newly created order is invalid, so continue asking the player until valid one
+							// is given
+							continue;
 						}
 					} while (!l_isCommandValid);
 				} else {
@@ -115,6 +126,7 @@ public class IssueOrdersPhase extends MainPlay {
 			}
 		}
 		this.next();
+
 	}
 
 	/**
@@ -218,7 +230,6 @@ public class IssueOrdersPhase extends MainPlay {
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();
-
 	}
 
 	/**

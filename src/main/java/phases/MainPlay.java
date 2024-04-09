@@ -1,6 +1,8 @@
 package phases;
 
 import game.GameEngine;
+import game.GameSave;
+import players.Player;
 import players.PlayerStrategy;
 
 /**
@@ -54,6 +56,21 @@ public abstract class MainPlay extends Play {
 	 * @param p_playerName The name of the player to be removed.
 	 */
 	public void removePlayers(String p_playerName) {
+		printInvalidCommandMessage();
+	}
+
+	/**
+	 * save current game state to a file
+	 */
+	public void saveGame(String p_fileName, Player p_lastPlayer) {
+		GameSave l_saveGame = new GameSave(d_gameEngine);
+		l_saveGame.saveGame(p_fileName, p_lastPlayer);
+	}
+
+	/**
+	 * load game state from a file
+	 */
+	public void loadGame(String p_fileName) {
 		printInvalidCommandMessage();
 	}
 }

@@ -1,12 +1,15 @@
 package map;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Continent class represents a continent in the game map.
  */
-public class Continent {
+public class Continent implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * continent ID.

@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import constants.GameConstants;
 import map.Continent;
 import map.Country;
+import phases.IssueOrdersPhase;
 import players.Player;
 
 public class GameLoad implements Serializable {
@@ -19,14 +21,15 @@ public class GameLoad implements Serializable {
 
 	private String d_playersFileName;
 	private String d_continentFileName;
-	private String d_coutriesFileName;
+	private String d_countriesFileName;
 
-	public GameLoad() {
-		d_gameEngine = new GameEngine();
+	public GameLoad(GameEngine p_gameEngine) {
+		d_gameEngine = p_gameEngine;
 	}
 
 	// load game state to populate the variables in gameEngine
 	public void loadGame(String p_fileName) {
+		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
 		Scanner l_stateReader = null;
 		try {
 			l_stateReader = new Scanner(new FileInputStream(p_fileName));
@@ -36,14 +39,26 @@ public class GameLoad implements Serializable {
 
 		d_playersFileName = l_stateReader.nextLine();
 		d_continentFileName = l_stateReader.nextLine();
-		d_coutriesFileName = l_stateReader.nextLine();
+		d_countriesFileName = l_stateReader.nextLine();
+
+		populatePlayer(d_playersFileName);
+		populateContinents(d_continentFileName);
+		populateCountries(d_countriesFileName);
+
+		d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
+		if (d_gameEngine.getPhase().getClass().equals(new IssueOrdersPhase(d_gameEngine).getClass())) {
+			IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) d_gameEngine.getPhase();
+
+			// TODO populate last player and set it in the issueordersphase here
+			// l_issueOrdersPhase.setD_lastPlayer();
+		}
 	}
 
-	public void populatePlayer() {
+	public void populatePlayer(String p_playersFileName) {
 		ObjectInputStream l_inputStream = null;
 
 		try {
-			l_inputStream = new ObjectInputStream(new FileInputStream(d_playersFileName));
+			l_inputStream = new ObjectInputStream(new FileInputStream(p_playersFileName));
 
 			// read the players hashmap
 			List<Player> l_allPlayers = (List<Player>) l_inputStream.readObject();
@@ -61,10 +76,10 @@ public class GameLoad implements Serializable {
 		}
 	}
 
-	public void populateContinents() {
+	public void populateContinents(String p_continentFileName) {
 		ObjectInputStream l_inputStream = null;
 		try {
-			l_inputStream = new ObjectInputStream(new FileInputStream(d_continentFileName));
+			l_inputStream = new ObjectInputStream(new FileInputStream(p_continentFileName));
 
 			// read the Hashmap from the file
 			HashMap<String, Continent> l_allContinents = (HashMap<String, Continent>) l_inputStream.readObject();
@@ -79,17 +94,16 @@ public class GameLoad implements Serializable {
 		}
 	}
 
-	public void populateCountries() {
+	public void populateCountries(String p_countriesFileName) {
 		ObjectInputStream l_inputStream = null;
 		try {
-			l_inputStream = new ObjectInputStream(new FileInputStream(d_coutriesFileName));
+			l_inputStream = new ObjectInputStream(new FileInputStream(p_countriesFileName));
 
 			// read the Hashmap from the file
 			HashMap<String, Country> l_allCountries = (HashMap<String, Country>) l_inputStream.readObject();
 			d_gameEngine.setD_countries(l_allCountries);
 			l_inputStream.close();
 
-			l_inputStream.close();
 		} catch (IOException e) {
 			System.out.println("Input Output Exception occurred while reading country objects.");
 

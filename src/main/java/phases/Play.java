@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import game.GameEngine;
 import map.Continent;
 import map.Country;
@@ -28,7 +29,7 @@ public abstract class Play extends Phase {
 	 */
 	@Override
 	public void showMap() {
-		System.out.println("The following is the text format of the map");
+		System.out.println("\nThe following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
 
 		Map<String, Continent> l_continents = d_gameEngine.getD_continents();

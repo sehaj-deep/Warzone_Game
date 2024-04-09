@@ -55,7 +55,6 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 			System.out.println("Invalid order. Please try again.");
 			l_order = null;
 		}
-		System.out.println("debug human: " + l_order);
 		return l_order;
 	}
 

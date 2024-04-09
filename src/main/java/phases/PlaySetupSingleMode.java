@@ -10,6 +10,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import game.GameEngine;
+import game.GameLoad;
 import map.ConquestMapReader;
 import map.DominationMapReader;
 import map.MapReaderAdapter;
@@ -43,21 +44,21 @@ public class PlaySetupSingleMode extends Play {
 
 		// Check if the input player is not empty or null
 		if (p_playerName == null || p_playerName.trim().isEmpty()) {
-			throw new IllegalArgumentException("Player name cannot be empty");
+			throw new IllegalArgumentException("Player name cannot be empty.");
 		}
 
 		// Check if input characters are valid or not
 		if (!p_playerName.matches("[a-zA-Z0-9]+")) {
-			throw new IllegalArgumentException("Invalid characters are not allowed");
+			throw new IllegalArgumentException("Invalid characters are not allowed.");
 		}
 
 		// Check if the player already exist
 		if (d_gameEngine.getPlayers().contains(l_player)) {
-			throw new IllegalArgumentException("Player " + p_playerName + " already exists");
+			throw new IllegalArgumentException("Player " + p_playerName + " already exists.");
 		}
 
 		d_gameEngine.getPlayers().add(l_player);
-		System.out.println(p_playerName + " successfully added as a player");
+		System.out.println(p_playerName + " successfully added as a player.");
 	}
 
 	/**
@@ -149,7 +150,7 @@ public class PlaySetupSingleMode extends Play {
 			l_player.conquerCountry(l_countriesList.get(i));
 		}
 
-		System.out.println("Assign Countries Completed");
+		System.out.println("Assigning countries to players...");
 
 		initalizeBoard();
 		showMap();
@@ -274,8 +275,22 @@ public class PlaySetupSingleMode extends Play {
 
 	@Override
 	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
-		// TODO Auto-generated method stub
+		this.printInvalidCommandMessage();
 
 	}
 
+	/**
+	 * save current game state to a file
+	 */
+	public void saveGame(String p_fileName, Player p_lastPlayer) {
+		this.printInvalidCommandMessage();
+	}
+
+	/**
+	 * load game state from a file
+	 */
+	public void loadGame(String p_fileName) {
+		GameLoad l_loadGame = new GameLoad(d_gameEngine);
+		l_loadGame.loadGame(p_fileName);
+	}
 }

@@ -491,8 +491,10 @@ public class GameEngine {
 			break;
 		case "savegame":
 			parseSaveGameCommand(l_tokens);
+			break;
 		case "loadgame":
 			parseLoadGameCommand(l_tokens);
+			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -529,24 +531,22 @@ public class GameEngine {
 
 	public void parseSaveGameCommand(String[] p_tokens) {
 		if (p_tokens.length <= 1 || p_tokens.length > 2) {
-			System.out.println("Please enter a valid savegame command.");
+			System.out.println("Invalid command. Syntax: savegame filename");
 			return;
 		}
-		GameSave l_gameSave = new GameSave();
-		l_gameSave.saveGame(p_tokens[1]);
+		d_gamePhase.saveGame(d_mapName, null);
 	}
 
 	public void parseLoadGameCommand(String[] p_tokens) {
 		if (p_tokens.length <= 1 || p_tokens.length > 2) {
-			System.out.println("Please enter a valid loadgame command.");
+			System.out.println("Invalid command. Syntax: loadgame filename");
 			return;
 		}
 
-		GameLoad l_gameLoad = new GameLoad();
-		l_gameLoad.loadGame(p_tokens[1]);
+		d_gamePhase.loadGame(p_tokens[1]);
 
 		// test the methods
-
+		// TODO remove once done testing
 		// print the countries list
 		for (Country c : d_countries.values()) {
 			System.out.println(c.getD_name());
@@ -554,6 +554,10 @@ public class GameEngine {
 		System.out.println("-----------------------------------------------");
 		System.out.println("Players list:");
 		System.out.println("-----------------------------------------------");
+
+		for (Continent c : d_continents.values()) {
+			System.out.println(c.getD_continentName());
+		}
 
 		// print the players list
 		for (Player p : d_players) {
@@ -694,7 +698,7 @@ public class GameEngine {
 			l_fileIdx++;
 		}
 		System.out.println("\nResults report:\n" + reportTournamentResult(l_results, p_mapFiles));
-		System.exit(1);
+		System.exit(0);
 	}
 
 	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
@@ -1028,7 +1032,7 @@ public class GameEngine {
 
 	private PlayerStrategy choosePlayerBehavior(String l_playerName) {
 
-		System.out.println("a. Human");
+		System.out.println("\na. Human");
 		System.out.println("b. Aggressive");
 		System.out.println("c. Benevolent");
 		System.out.println("d. Random");

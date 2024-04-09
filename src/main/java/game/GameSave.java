@@ -21,8 +21,8 @@ public class GameSave implements Serializable {
 
 	private GameEngine d_gameEngine;
 
-	public GameSave() {
-		this.d_gameEngine = new GameEngine();
+	public GameSave(GameEngine p_gameEngine) {
+		this.d_gameEngine = p_gameEngine;
 	}
 
 	public String savePlayers() {
@@ -45,9 +45,7 @@ public class GameSave implements Serializable {
 		} catch (IOException e) {
 			System.out.println("Input - Output Exception in creating the new file for player objects.");
 		}
-
 		return l_playerFileName;
-
 	}
 
 	public String saveContinents() {
@@ -92,9 +90,11 @@ public class GameSave implements Serializable {
 
 	}
 
-	public void saveGame(String p_fileName) {
+	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		GameConstants.d_saveId++;
+		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
 
+		// TODO save and serialize last player
 		String l_playersFileName = savePlayers();
 		String l_continentsFileName = saveContinents();
 		String l_countriesFileName = saveCountries();
@@ -119,6 +119,9 @@ public class GameSave implements Serializable {
 		if (l_stateWriter != null) {
 			l_stateWriter.close();
 		}
-	}
 
+		System.out.println("Game saved.");
+		System.out.println("Exiting...");
+		System.exit(0);
+	}
 }
