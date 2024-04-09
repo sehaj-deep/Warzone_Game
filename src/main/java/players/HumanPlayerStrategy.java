@@ -9,8 +9,19 @@ import orders.Deploy;
 import orders.Diplomacy;
 import orders.Order;
 
+/**
+ * Represents a human player strategy in the game.
+ */
 public class HumanPlayerStrategy extends PlayerStrategy {
 
+    /**
+     * Creates an order based on the provided tokens.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_tokens The tokens representing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @return The created order.
+     */
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
 		String l_sourceCountry = "";
@@ -59,6 +70,14 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return l_order;
 	}
 
+    /**
+     * Issues a negotiate order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_playerId The ID of the player to negotiate with.
+     * @return The negotiate order.
+     */
 	private Order issueNegotiateOrder(Player p_player, GameEngine p_gameEngine, String p_playerId) {
 		Diplomacy l_negotiate = new Diplomacy(p_playerId, p_gameEngine);
 
@@ -69,6 +88,15 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+	/**
+     * Issues a deploy order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_targetCountry The target country for deployment.
+     * @param p_numberOfArmies The number of armies to deploy.
+     * @return The deploy order.
+     */
 	private Order issueDeployOrder(Player p_player, GameEngine p_gameEngine, String p_targetCountry,
 			int p_numberOfArmies) {
 		Deploy l_deploy = new Deploy(p_targetCountry, p_numberOfArmies, p_gameEngine);
@@ -79,6 +107,16 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+    /**
+     * Issues an advance order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_sourceCountry The source country for the advance.
+     * @param p_targetCountry The target country for the advance.
+     * @param p_numberOfArmies The number of armies to advance.
+     * @return The advance order.
+     */
 	private Order issueAdvanceOrder(Player p_player, GameEngine p_gameEngine, String p_sourceCountry,
 			String p_targetCountry, int p_numberOfArmies) {
 		Advance l_advance = new Advance(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
@@ -89,6 +127,14 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+    /**
+     * Issues a bomb order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_targetCountry The target country for the bomb.
+     * @return The bomb order.
+     */
 	private Order issueBombOrder(Player p_player, GameEngine p_gameEngine, String p_targetCountry) {
 		Bomb l_bomb = new Bomb(p_targetCountry, p_gameEngine);
 
@@ -98,6 +144,16 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+    /**
+     * Issues an airlift command order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_sourceCountry The source country for the airlift.
+     * @param p_targetCountry The target country for the airlift.
+     * @param p_numberOfArmies The number of armies for the airlift.
+     * @return The airlift command order.
+     */
 	private Order issueAirliftCommand(Player p_player, GameEngine p_gameEngine, String p_sourceCountry,
 			String p_targetCountry, int p_numberOfArmies) {
 		Airlift l_airlift = new Airlift(p_sourceCountry, p_targetCountry, p_numberOfArmies, p_gameEngine);
@@ -108,6 +164,14 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+    /**
+     * Issues a blockade order.
+     *
+     * @param p_player The player issuing the order.
+     * @param p_gameEngine The game engine managing the game.
+     * @param p_targetCountry The target country for the blockade.
+     * @return The blockade order.
+     */
 	private Order issueBlockadeOrder(Player p_player, GameEngine p_gameEngine, String p_targetCountry) {
 		Blockade l_blockade = new Blockade(p_targetCountry, p_gameEngine);
 
@@ -117,6 +181,9 @@ public class HumanPlayerStrategy extends PlayerStrategy {
 		return null;
 	}
 
+    /**
+     * Resets the player's strategy.
+     */
 	@Override
 	public void reset() {
 		setHasOrder(true);

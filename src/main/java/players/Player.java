@@ -157,6 +157,7 @@ public class Player {
 	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
 	 * @param p_gameEngine The game engine instance managing the game state
+	 * @throws ValidationException If the order issued is not valid.
 	 */
 	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) throws ValidationException {
 		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);

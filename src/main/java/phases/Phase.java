@@ -128,12 +128,8 @@ public abstract class Phase {
 
 	/**
 	 * Abstract method to start tournament mode.
-	 * @param p_mapFile TODO
-	 * @param p_playerStrategies TODO
-	 * @param l_maxNumberOfTurns
-	 * @param l_numberOfGames
-	 * @param l_playerStrategies
-	 * @param l_mapFiles
+	 * @param p_mapFile
+	 * @param p_playerStrategies
 	 */
 	abstract public void setupTournament(String p_mapFile, List<String> p_playerStrategies);
 

@@ -92,7 +92,6 @@ public class DominationMapReader implements DominationReader {
 	/**
 	 * Reads continent data from a line under [continents] in the map file.
 	 *
-	 * @param p_mapEditor   The MapEditor instance to which continents are added.
 	 * @param p_singleLine  The line containing continent data.
 	 * @param p_continentId The identifier for the continent being read.
 	 */
@@ -105,7 +104,6 @@ public class DominationMapReader implements DominationReader {
 	/**
 	 * Reads country data from a line under [countries] in the map file.
 	 *
-	 * @param p_mapEditor  The MapEditor instance to which countries are added.
 	 * @param p_singleLine The line containing country data.
 	 */
 	public void readCountries(String p_singleLine) {
@@ -117,8 +115,6 @@ public class DominationMapReader implements DominationReader {
 	/**
 	 * Reads country neighbors from a line under [borders] in the map file.
 	 *
-	 * @param p_mapEditor  The MapEditor instance to which country neighbors are
-	 *                     added.
 	 * @param p_singleLine The line containing country neighbor data.
 	 */
 	public void readCountryNeighbors(String p_singleLine) {
