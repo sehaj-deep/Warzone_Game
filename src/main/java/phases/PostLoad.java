@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class PostLoad extends Edit {
 	@Override
 	public void next() {
 		// System.out.println("must save map");
-		d_gameEngine.setPhase(new PlaySetup(d_gameEngine));
+		d_gameEngine.setPhase(new PlaySetupSingleMode(d_gameEngine));
 	}
 
 	/**
@@ -338,6 +339,11 @@ public class PostLoad extends Edit {
 		}
 		// to close the printwriter
 		l_printWriter.close();
+	}
+
+	@Override
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		this.printInvalidCommandMessage();
 	}
 
 }

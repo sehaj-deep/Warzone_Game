@@ -1,5 +1,8 @@
 package players;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.GameEngine;
 import map.Country;
 import orders.Order;
@@ -24,15 +27,20 @@ public class CheaterPlayerStrategy extends PlayerStrategy {
 	 * @param p_gameEngine
 	 */
 	private void conquerNeighboringCountries(Player p_cheater, GameEngine p_gameEngine) {
+		List<String> l_countriesToConquer = new ArrayList<String>();
 		for (String l_cheaterCountryName : p_cheater.getOwnership()) {
 			Country l_cheaterCountry = p_gameEngine.getD_countries(l_cheaterCountryName);
 			for (Country l_neighbor : l_cheaterCountry.getNeighbors()) {
 				Player l_neighborOwner = getOwnerOfCountry(p_gameEngine, l_neighbor);
 				if (l_neighborOwner != null && !l_neighborOwner.getPlayerName().equals(p_cheater.getPlayerName())) {
 					l_neighborOwner.removeCountry(l_neighbor.getD_name());
-					p_cheater.conquerCountry(l_neighbor.getD_name());
+					l_countriesToConquer.add(l_neighbor.getD_name());
 				}
 			}
+		}
+
+		for (String l_countryToConquer : l_countriesToConquer) {
+			p_cheater.conquerCountry(l_countryToConquer);
 		}
 	}
 

@@ -2,6 +2,7 @@ package orders;
 
 import java.util.List;
 import java.util.Random;
+
 import game.GameEngine;
 import map.Country;
 import players.Player;
@@ -72,8 +73,7 @@ public class Advance extends Order {
 			int l_currTargetNumArmy = d_gameEngine.getGameBoard().get(d_targetCountry);
 			// increase the target army
 			d_gameEngine.getGameBoard().put(d_targetCountry, l_currTargetNumArmy + d_numArmy);
-		}
-		else { // attacking advance
+		} else { // attacking advance
 			attack(p_playerId);
 		}
 	}
@@ -130,8 +130,7 @@ public class Advance extends Order {
 			d_gameEngine.getGameBoard().put(d_targetCountry, l_numArmyAttack);
 
 			System.out.println("Advance executed: " + d_targetCountry + " has been conquered.");
-		}
-		else { // no conquer. previous owner still has the target country
+		} else { // no conquer. previous owner still has the target country
 			d_gameEngine.getGameBoard().put(d_targetCountry, l_numArmyDefence);
 			System.out.println("Advance executed: " + d_targetCountry + " defended successfully.");
 		}
@@ -156,7 +155,8 @@ public class Advance extends Order {
 				throw new ValidationException(l_errMessage);
 			}
 			if (d_numArmy >= d_gameEngine.getGameBoard().get(d_sourceCountry)) {
-				l_errMessage = "Number of armies to advance must be less than " + "the number of armies of the source country";
+				l_errMessage = "Number of armies to advance must be less than "
+						+ "the number of armies of the source country";
 				throw new ValidationException(l_errMessage);
 			}
 			if (d_numArmy < 0) {
@@ -168,9 +168,8 @@ public class Advance extends Order {
 				l_errMessage = "There is no link from source country to destination country ";
 				throw new ValidationException(l_errMessage);
 			}
-		}
-		catch (ValidationException e) {
-			System.out.println(e);
+		} catch (ValidationException e) {
+			// System.out.println(e);
 			return false;
 		}
 		return true;

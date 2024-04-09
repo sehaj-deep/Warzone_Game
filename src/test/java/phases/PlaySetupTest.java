@@ -18,16 +18,16 @@ import players.Player;
 import players.PlayerStrategy;
 
 /**
- * This class contains unit tests for the {@link PlaySetup} class. It tests
+ * This class contains unit tests for the {@link PlaySetupSingleMode} class. It tests
  * methods such as adding players, removing players, checking the validity of
  * assigned countries, and assigning countries to players.
  */
 public class PlaySetupTest {
 	/**
-	 * Private field to store an instance of the {@link PlaySetup} class, which
+	 * Private field to store an instance of the {@link PlaySetupSingleMode} class, which
 	 * manages the setup phase of the game.
 	 */
-	private PlaySetup d_playSetup;
+	private PlaySetupSingleMode d_playSetup;
 
 	/**
 	 * Private field to store a list of {@link Player} objects representing the
@@ -43,17 +43,17 @@ public class PlaySetupTest {
 
 	/**
 	 * Sets up the test environment before each test case execution. It initializes
-	 * the {@link GameEngine}, {@link PlaySetup}, players list, and game state.
+	 * the {@link GameEngine}, {@link PlaySetupSingleMode}, players list, and game state.
 	 */
 	@Before
 	public void before() {
 		d_newGameEngine = new GameEngine();
-		d_playSetup = new PlaySetup(d_newGameEngine);
+		d_playSetup = new PlaySetupSingleMode(d_newGameEngine);
 		d_players = new ArrayList<>();
 	}
 
 	/**
-	 * Tests the {@link PlaySetup#addPlayers(String, PlayerStrategy)} method. It
+	 * Tests the {@link PlaySetupSingleMode#addPlayers(String, PlayerStrategy)} method. It
 	 * verifies whether players are successfully added to the game.
 	 */
 	@Test
@@ -74,7 +74,7 @@ public class PlaySetupTest {
 	}
 
 	/**
-	 * Tests the {@link PlaySetup#removePlayers(String)} method. It verifies whether
+	 * Tests the {@link PlaySetupSingleMode#removePlayers(String)} method. It verifies whether
 	 * players are successfully removed from the game.
 	 */
 	@Test
@@ -94,7 +94,7 @@ public class PlaySetupTest {
 	}
 
 	/**
-	 * Tests the {@link PlaySetup#isAssignCountriesValid()} method. It checks the
+	 * Tests the {@link PlaySetupSingleMode#isAssignCountriesValid()} method. It checks the
 	 * validity of assigned countries to players.
 	 */
 	@Test
@@ -123,7 +123,7 @@ public class PlaySetupTest {
 	}
 
 	/**
-	 * Tests the {@link PlaySetup#assignCountries()} method. It verifies the
+	 * Tests the {@link PlaySetupSingleMode#assignCountries()} method. It verifies the
 	 * distribution of countries among players.
 	 */
 	@Test

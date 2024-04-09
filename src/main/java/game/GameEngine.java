@@ -14,7 +14,8 @@ import phases.EndPhase;
 import phases.ExecuteOrdersPhase;
 import phases.IssueOrdersPhase;
 import phases.Phase;
-import phases.PlaySetup;
+import phases.PlaySetupSingleMode;
+import phases.PlaySetupTournamentMode;
 import phases.Preload;
 import phases.ReinforcePhase;
 import players.AggressivePlayerStrategy;
@@ -46,9 +47,14 @@ public class GameEngine {
 	private LogFileWriter d_logFileWriter = new LogFileWriter(d_logEntryBuffer);
 
 	/**
-	 * Map to store the validity of orders for each player.
+	 * The current game number
 	 */
-	private Map<Player, Boolean> d_validOrder = new HashMap<>();
+	private static int d_gameNumber = 1;
+
+	/**
+	 * The current round
+	 */
+	private int d_roundNumber = 1;
 
 	/**
 	 * The current phase of the game.
@@ -94,6 +100,57 @@ public class GameEngine {
 	 * key: country name. value: number of army in the country
 	 */
 	private Map<String, Integer> d_board = new HashMap<String, Integer>();
+
+	/**
+	 * To change the game number and reset the round number
+	 * 
+	 * @param p_phase The game number to be set
+	 */
+	public void setGameNumber(int p_gameNumber) {
+		d_gameNumber = p_gameNumber;
+		d_roundNumber = 1;
+	}
+
+	/**
+	 * To get the game number
+	 * 
+	 * @return The current game number
+	 */
+	public int getGameNumber() {
+		return d_gameNumber;
+	}
+
+	/**
+	 * To change the round number
+	 * 
+	 * @param p_phase The round number to be set
+	 */
+	public void setRoundNumber(int p_roundNumber) {
+		d_roundNumber = p_roundNumber;
+	}
+
+	/**
+	 * To get the round number
+	 * 
+	 * @return The current round number
+	 */
+	public int getRoundNumber() {
+		return d_roundNumber;
+	}
+
+	/**
+	 * Increment game number by 1
+	 */
+	public void incrementGameNumber() {
+		setGameNumber(getGameNumber() + 1);
+	}
+
+	/**
+	 * Increment game round by 1
+	 */
+	public void incrementRoundNumber() {
+		setRoundNumber(getRoundNumber() + 1);
+	}
 
 	/**
 	 * To change the phase
@@ -298,7 +355,7 @@ public class GameEngine {
 
 			String l_command = "";
 
-			while (this.getPhase() instanceof PlaySetup) {
+			while (this.getPhase() instanceof PlaySetupSingleMode) {
 				System.out.print("\n> Enter a command: ");
 				l_command = d_scanner.nextLine();
 				parseUserCommand(l_command);
@@ -326,16 +383,18 @@ public class GameEngine {
 					l_executeOrdersPhase.executeAllOrders();
 					continue;
 				}
+
 				if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
 					EndPhase l_endPhase = (EndPhase) this.getPhase();
-					l_endPhase.end();
+
+					l_endPhase.checkForWinner();
 					if (l_endPhase.getAnyWinner()) {
 						break;
 					}
-
 					continue;
 				}
-				System.out.println("Enter a command: ");
+
+				System.out.println("\n> Enter a command: ");
 				l_command = d_scanner.nextLine();
 
 				parseUserCommand(l_command);
@@ -355,10 +414,10 @@ public class GameEngine {
 
 		switch (choice) {
 		case "1":
-			setPhase(new PlaySetup(this));
+			setPhase(new PlaySetupSingleMode(this));
 			break;
 		case "2":
-			// TODO: Implement tournament logic
+			setPhase(new PlaySetupTournamentMode(this));
 			break;
 		default:
 			System.out.println("Invalid choice. Please try again.");
@@ -408,6 +467,9 @@ public class GameEngine {
 		case "loadmap":
 			parseLoadMapCommand(l_tokens);
 			break;
+		case "tournament":
+			parseTournamentCommand(l_tokens);
+			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -439,6 +501,197 @@ public class GameEngine {
 			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * Parses the 'tournament' command.
+	 * 
+	 * @param p_tokens command tokens.
+	 */
+	private void parseTournamentCommand(String[] p_tokens) {
+		if (p_tokens.length < 10) {
+			System.out.println(
+					"Invalid command. Syntax: tournament -M listofmapfiles -P listofplayerstrategies -G numberofgames -D maxnumberofturns");
+			return;
+		}
+
+		String l_option = "";
+		List<String> l_mapFiles = new ArrayList<String>();
+		List<String> l_playerStrategies = new ArrayList<String>();
+		int l_numberOfGames = 0;
+		int l_maxNumberOfTurns = 0;
+
+		try {
+			for (int i = 1; i < p_tokens.length; i++) {
+
+				if (p_tokens[i].startsWith("-")) {
+					l_option = p_tokens[i].toUpperCase();
+				} else {
+					switch (l_option) {
+					case "-M":
+						if (p_tokens[i].endsWith(".map")) {
+							l_mapFiles.add(p_tokens[i]);
+						} else {
+							throw new IllegalArgumentException(
+									"Invalid input: Map files must end with .map extension.");
+						}
+						break;
+					case "-P":
+						l_playerStrategies.add(p_tokens[i]);
+						break;
+					case "-G":
+						l_numberOfGames = Integer.parseInt(p_tokens[i]);
+						break;
+					case "-D":
+						l_maxNumberOfTurns = Integer.parseInt(p_tokens[i]);
+						break;
+					default:
+						throw new IllegalArgumentException(
+								"Invalid option for tournament command. Use -M, -P, -G or -D.");
+					}
+				}
+			}
+			validateArgumentsForTournmanetCommand(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
+			startTournament(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 * Starts tournament mode by setting up maps and players, then goes through the
+	 * main gameplay loop
+	 * 
+	 * @param p_mapFiles         list of map files given by user
+	 * @param p_playerStrategies list of player strategies given by user
+	 * @param p_gamesToBePlayed  number of games to be played on each map given by
+	 *                           user
+	 */
+	private void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
+			int p_maxNumberOfTurns) {
+		String[][] l_results = new String[p_mapFiles.size()][p_gamesToBePlayed];
+
+		int l_fileIdx = 0;
+		for (String l_mapFile : p_mapFiles) {
+			setGameNumber(1); // reset Game Number as map file changes
+
+			while (getGameNumber() <= p_gamesToBePlayed) {
+				System.out.println("\nGame " + getGameNumber() + " on " + l_mapFile);
+				System.out.println("------------------");
+
+				setPhase(new PlaySetupTournamentMode(this));
+
+				// reset map related objects and players list as new game begins
+				d_continents.clear();
+				d_continentId.clear();
+				d_countries.clear();
+				d_countriesId.clear();
+				d_board.clear();
+				d_players.clear();
+				d_gamePhase.setupTournament(l_mapFile, p_playerStrategies);
+				System.out.println(d_gamePhase);
+				boolean l_isWinner = false;
+
+				do {
+					System.out.println("\nRound " + getRoundNumber());
+					System.out.println("--------");
+
+					if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
+						ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
+
+						l_reinforcePhase.calculateReinforcements();
+					}
+
+					if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
+						IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
+
+						l_issueOrdersPhase.issueOrders(d_scanner);
+					}
+
+					if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
+						ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
+
+						l_executeOrdersPhase.executeAllOrders();
+					}
+
+					if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
+						EndPhase l_endPhase = (EndPhase) this.getPhase();
+
+						l_endPhase.checkForWinner();
+						l_isWinner = l_endPhase.getAnyWinner();
+						if (l_isWinner) {
+							break;
+						}
+					}
+					incrementRoundNumber();
+				} while (getRoundNumber() <= p_maxNumberOfTurns);
+
+				if (l_isWinner) {
+					l_results[l_fileIdx][getGameNumber() - 1] = findWinner().getPlayerName();
+				} else {
+					l_results[l_fileIdx][getGameNumber() - 1] = "Draw";
+				}
+				incrementGameNumber();
+			}
+			l_fileIdx++;
+		}
+		System.out.println("\nResults report:\n" + reportTournamentResult(l_results, p_mapFiles));
+		System.exit(1);
+	}
+
+	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
+		// Initialize the report with column titles
+		String l_report = "\t\t|\t"; // Empty space for row titles
+		for (int j = 0; j < p_results[0].length; j++) {
+			l_report += "Game " + (j + 1) + "\t\t|\t"; // Add column titles
+		}
+		l_report += "\n";
+
+		// Add data rows with map titles
+		for (int i = 0; i < p_results.length; i++) {
+			l_report += p_mapFiles.get(i) + "\t|\t"; // Add row title (map)
+			for (int j = 0; j < p_results[i].length; j++) {
+				l_report += p_results[i][j] + "\t|\t"; // Add data
+			}
+			l_report += "\n";
+		}
+
+		return l_report;
+	}
+
+	public Player findWinner() {
+		return this.getPlayers().get(0); // only one player left when there is a winner
+	}
+
+	/**
+	 * Validates tournament command arguments and throws exceptions accordingly
+	 * 
+	 * @param l_mapFiles         list of map files provided by the user
+	 * @param l_playerStrategies list of player strategies provided by the user
+	 * @param l_numberOfGames    number of games to be played per map provided by
+	 *                           the user
+	 * @param l_maxNumberOfTurns max number of turns provided by the user
+	 */
+	private void validateArgumentsForTournmanetCommand(List<String> l_mapFiles, List<String> l_playerStrategies,
+			int l_numberOfGames, int l_maxNumberOfTurns) {
+		if (l_mapFiles.size() < 1 || l_mapFiles.size() > 5) {
+
+			throw new IllegalArgumentException("Invalid input: Please provide between 1 and 5 maps.");
+
+		} else if (l_playerStrategies.size() < 2 || l_playerStrategies.size() > 4) {
+
+			throw new IllegalArgumentException("Invalid input: Please provide between 2 and 4 player strategies.");
+
+		} else if (l_numberOfGames < 1 || l_numberOfGames > 5) {
+
+			throw new IllegalArgumentException(
+					"Invalid input: Please input a number between 1 and 5 for the number of games you can play on each map.");
+
+		} else if (l_maxNumberOfTurns < 10 || l_maxNumberOfTurns > 50) {
+
+			throw new IllegalArgumentException(
+					"Invalid input: Please input a number between 10 and 50 for the maximum number of turns.");
 		}
 	}
 
@@ -782,24 +1035,5 @@ public class GameEngine {
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
-	}
-
-	/**
-	 * This class check if a player made a deal with another player then the attack
-	 * is not allowed
-	 *
-	 * @param p_player            The attacking player.
-	 * @param p_targetCountryName accept the country name which player want to
-	 *                            attack
-	 * @return the boolean value true if attack is allowed
-	 */
-	public boolean checkAttackAllowed(Player p_player, String p_targetCountryName) {
-		for (Player p : p_player.getD_negotiatedWith()) {
-			if (p.getOwnership().contains(p_targetCountryName)) {
-				System.err.println("The negotiated player cannot be attacked for this turn");
-				return false;
-			}
-		}
-		return true;
 	}
 }
