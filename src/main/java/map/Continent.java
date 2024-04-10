@@ -9,6 +9,9 @@ import java.util.Set;
  */
 public class Continent implements Serializable {
 
+    /**
+     * Unique identifier for serialization.
+     */
 	private static final long serialVersionUID = 1L;
 
 	/**

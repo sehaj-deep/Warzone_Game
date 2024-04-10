@@ -113,7 +113,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy implements Serializ
 					break;
 				}
 			}
-			// Strongest iff a country has most army and located in the border
+			// Strongest if a country has most army and located in the border
 			if (l_isBorder && l_numArmy >= l_mostNumArmy) {
 				l_mostNumArmy = l_numArmy;
 				l_strongest = l_countryName;
