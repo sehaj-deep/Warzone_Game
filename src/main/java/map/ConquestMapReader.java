@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import game.GameEngine;
@@ -11,7 +12,7 @@ import game.GameEngine;
 /**
  * Reads and processes a Conquest map file.
  */
-public class ConquestMapReader {
+public class ConquestMapReader implements Serializable {
 
 	/** 
 	 * The game engine instance. 

@@ -1,12 +1,14 @@
 package orders;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 import utils.ValidationException;
 
 /**
  * Implementation of Deploy order command from Order class
  */
-public class Deploy extends Order {
+public class Deploy extends Order implements Serializable {
 
 	/**
 	 * number of armies to be deployed
