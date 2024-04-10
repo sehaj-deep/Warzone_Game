@@ -50,8 +50,6 @@ public class EndPhase extends MainPlay {
 			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game!");
 			d_anyWinner = true;
 		}
-		// todo
-
 		this.next();
 	}
 

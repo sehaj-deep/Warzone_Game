@@ -21,7 +21,7 @@ public class RandomPlayerTest {
     public void testDeployRandomly() {
         // Test setup
         GameEngine gameEngine = new GameEngine();
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         Player testPlayer = new Player("TestPlayer");
         gameEngine.getPlayers().add(testPlayer);
         Country country = new Country("CountryName");
@@ -44,7 +44,7 @@ public class RandomPlayerTest {
     public void testAttackRandomly_WithValidTargets() {
         // Test setup with valid targets for attack
         GameEngine gameEngine = new GameEngine();
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         Player testPlayer = new Player("TestPlayer");
         gameEngine.getPlayers().add(testPlayer);
         // Add owned country
@@ -77,7 +77,7 @@ public class RandomPlayerTest {
     public void testGetRandomCountry() {
         // Test setup
         GameEngine gameEngine = new GameEngine();
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         Player testPlayer = new Player("TestPlayer");
         gameEngine.getPlayers().add(testPlayer);
         testPlayer.getOwnership().add("testCountry");
@@ -97,7 +97,7 @@ public class RandomPlayerTest {
     public void testGetRandomCountryOwnedByOtherPlayer() {
         // Test setup
         GameEngine gameEngine = new GameEngine();
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         Player testPlayer = new Player("TestPlayer");
         Player otherPlayer = new Player("OtherPlayer");
         gameEngine.getPlayers().add(otherPlayer);
@@ -118,7 +118,7 @@ public class RandomPlayerTest {
     public void testGetRandomPlayerId() {
         // Test setup
         GameEngine gameEngine = new GameEngine();
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         Player testPlayer = new Player("TestPlayer");
         Player otherPlayer = new Player("OtherPlayer");
         gameEngine.getPlayers().add(otherPlayer);
@@ -137,7 +137,7 @@ public class RandomPlayerTest {
     @Test
     public void testIsD_canDeploy() {
         // Test setup
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
 
         // Assertion
         assertTrue(player.isD_canDeploy());
@@ -150,7 +150,7 @@ public class RandomPlayerTest {
     @Test
     public void testSetD_canDeploy() {
         // Test setup
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
 
         // Execute the method under test
         player.setD_canDeploy(false);
@@ -166,7 +166,7 @@ public class RandomPlayerTest {
     @Test
     public void testIsD_canAttack() {
         // Test setup
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
 
         // Assertion
         assertTrue(player.isD_canAttack());
@@ -179,7 +179,7 @@ public class RandomPlayerTest {
     @Test
     public void testSetD_canAttack() {
         // Test setup
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
 
         // Execute the method under test
         player.setD_canAttack(false);
@@ -195,7 +195,7 @@ public class RandomPlayerTest {
     @Test
     public void testReset() {
         // Test setup
-        RandomPlayer player = new RandomPlayer();
+        RandomPlayerStrategy player = new RandomPlayerStrategy();
         player.setD_canDeploy(false);
         player.setD_canAttack(false);
 

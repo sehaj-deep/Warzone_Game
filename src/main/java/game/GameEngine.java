@@ -24,6 +24,7 @@ import players.CheaterPlayerStrategy;
 import players.HumanPlayerStrategy;
 import players.Player;
 import players.PlayerStrategy;
+import players.RandomPlayerStrategy;
 import utils.Common;
 
 /**
@@ -996,8 +997,7 @@ public class GameEngine {
 				l_playerStrategy = new BenevolentPlayerStrategy();
 				break;
 			case "d":
-				// TODO:
-				// l_playerStrategy = new RandomPlayerStrategy();
+				l_playerStrategy = new RandomPlayerStrategy();
 				break;
 			case "e":
 				l_playerStrategy = new CheaterPlayerStrategy();

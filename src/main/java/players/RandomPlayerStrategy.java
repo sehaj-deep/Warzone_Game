@@ -12,7 +12,7 @@ import orders.*;
  * It extends the abstract class PlayerStrategy and implements methods for creating
  * orders based on the current game state.
  */
-public class RandomPlayer extends PlayerStrategy {
+public class RandomPlayerStrategy extends PlayerStrategy {
 
     /**
      * Boolean representing whether issuing Deploy order is allowed currently

@@ -7,6 +7,7 @@ import players.AggressivePlayerStrategy;
 import players.BenevolentPlayerStrategy;
 import players.CheaterPlayerStrategy;
 import players.PlayerStrategy;
+import players.RandomPlayerStrategy;
 import utils.Common;
 
 public class PlaySetupTournamentMode extends PlaySetupSingleMode {
@@ -101,8 +102,7 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode {
 				l_playerStrategy = new BenevolentPlayerStrategy();
 				break;
 			case "random":
-				// TODO
-				// l_playerStrategy = new RandomPlayerStrategy();
+				l_playerStrategy = new RandomPlayerStrategy();
 				break;
 			case "cheater":
 				l_playerStrategy = new CheaterPlayerStrategy();

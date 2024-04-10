@@ -274,8 +274,7 @@ public class PlaySetupSingleMode extends Play {
 
 	@Override
 	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
-		// TODO Auto-generated method stub
-
+		printInvalidCommandMessage();
 	}
 
 }
