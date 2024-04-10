@@ -15,6 +15,9 @@ import map.MapReaderAdapter;
  */
 public class Preload extends Edit {
 
+	/** 
+	 * The map reader instance.
+	 */
 	DominationMapReader mapReader;
 
 	/**

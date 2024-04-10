@@ -7,6 +7,9 @@ import game.GameEngine;
 import map.Country;
 import orders.Order;
 
+/**
+ * Strategy for a cheater player that conquers neighboring enemy countries and doubles the number of armies on its own countries.
+ */
 public class CheaterPlayerStrategy extends PlayerStrategy {
 
 	@Override

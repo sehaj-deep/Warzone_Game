@@ -88,44 +88,45 @@ public class AdvanceTest {
 	}
 
 	/**
-	 * test isValidIssue methods of Advance class test one valid case where
-	 * expecting output true from isValid test three invalid cases where expecting
-	 * output false from isValid
-	 */
-	@Test
-	public void testIsValidIssue() {
-		System.out.println("Testing isValidIssue method of Advance class");
+     * Test isValidIssue method of Advance class for valid cases.
+     */
+    @Test
+    public void testIsValidIssue_ValidCases() {
 
 		System.out.println("Testing Valid cases");
-		d_advanceOrder = new Advance("korea", "italy", 1, d_gameEngine);
-		assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
-		d_advanceOrder = new Advance("korea", "greece", 1, d_gameEngine);
-		assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
+        d_advanceOrder = new Advance("korea", "italy", 1, d_gameEngine);
+        assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
+        d_advanceOrder = new Advance("korea", "greece", 1, d_gameEngine);
+        assertTrue(d_advanceOrder.isValidIssue(d_plyrId));
 
-		// Invalid case 1: country not occupied by the player
+		System.out.println("Testing advance.isValidIssue method for valid cases PASSED!");
+
+    }
+
+	/**
+	 * Test isValidIssue method of Advance class for invalid cases where expecting
+	 */
+	@Test
+	public void testIsValidIssue_InvalidCases() {
 		System.out.println("Testing invalid advance: advance from country not owned");
 		d_advanceOrder = new Advance("japan", "italy", 1, d_gameEngine);
 		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
-
-		// Invalid case 2: more armies to be deployed than the armies available in the
-		// source country
-		System.out.println("Testing invalid advance: advance more armies than availabe in the source country");
+		
+		System.out.println("Testing invalid advance: advance more armies than available in the source country");
 		d_advanceOrder = new Advance("korea", "italy", 4, d_gameEngine);
 		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
-
-		// Invalid case 3: negative number of armies for deploy
+		
 		System.out.println("Testing invalid advance: negative number of armies for advance");
 		d_advanceOrder = new Advance("korea", "italy", -1, d_gameEngine);
 		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
-
-		// Invalid case: no link from source to target
+		
 		System.out.println("Testing invalid advance: advance to a non-neighbor country");
 		d_advanceOrder = new Advance("korea", "usa", 1, d_gameEngine);
 		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
 		d_advanceOrder = new Advance("korea", "japan", 1, d_gameEngine);
 		assertFalse(d_advanceOrder.isValidIssue(d_plyrId));
-
-		System.out.println("Testing advance.isValidIssue method PASSED!");
+		
+		System.out.println("Testing advance.isValidIssue method for invalid cases PASSED!");
 	}
 
 	/**

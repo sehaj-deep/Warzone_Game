@@ -63,6 +63,20 @@ public class ReinforcePhaseTest {
 		assertEquals(3, d_gameEngine.getReinforcements().get(0).intValue());
 	}
 
+	@Test
+	public void testCalculateReinforcementArmiesWithOneCountry() {
+		d_player.setOwnership(new HashSet<>(Arrays.asList("Country1")));
+		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
+		assertEquals(3, d_gameEngine.getReinforcements().get(0).intValue());
+	}
+
+	@Test
+	public void testCalculateReinforcementArmiesWithTwoCountries() {
+		d_player.setOwnership(new HashSet<>(Arrays.asList("Country1", "Country2")));
+		d_reinforcePhase.calculateReinforcements(); // Calculate reinforcements first
+		assertEquals(3, d_gameEngine.getReinforcements().get(0).intValue());
+	}
+
 	/**
 	 * Method to check Reinforcements for 3 countries
 	 */

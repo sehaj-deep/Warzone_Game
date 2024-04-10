@@ -6,14 +6,30 @@ import java.io.PrintWriter;
 
 import game.GameEngine;
 
+/**
+ * Writes Conquest map data to a file.
+ */
 public class ConquestMapWriter {
 
+    /** 
+	 * The game engine instance. 
+	 */
 	private GameEngine d_gameEngine;
 
+    /**
+     * Constructs a ConquestMapWriter object with a specified game engine.
+     *
+     * @param p_gameEngine The game engine instance.
+     */
 	public ConquestMapWriter(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
+    /**
+     * Writes Conquest map data to a file.
+     *
+     * @param p_mapName The filename of the Conquest map file to be written.
+     */
 	public void writeConquestFile(String p_mapName) {
 
 		PrintWriter l_printWriter = null;
