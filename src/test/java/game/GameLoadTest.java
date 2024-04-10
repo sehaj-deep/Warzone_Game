@@ -18,7 +18,7 @@ public class GameLoadTest {
 
 	@Test
 	public void testLoadGame() {
-		gameLoad.loadGame("test_serialized_data.txt");
+		gameLoad.loadGame("test_game.txt");
 
 		// Assert that players list, countries, and continents in game engine are not
 		// null
