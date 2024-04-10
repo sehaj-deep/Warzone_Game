@@ -33,7 +33,7 @@ public class GameConstants implements Serializable {
 	/**
 	 * Save id to track different versions of save game
 	 */
-	public static int d_saveId = 0;
+	public static int d_saveId = 1;
 
 	/**
 	 * Name of the file to store player objects
