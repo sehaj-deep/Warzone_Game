@@ -12,7 +12,8 @@ import orders.DeployTest;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ EndPhaseTest.class, ExecuteOrdersPhaseTest.class, PhaseTest.class, PlaySetupTest.class,
-		ReinforcePhaseTest.class, AdvanceTest.class, BlockadeTest.class, DeployTest.class })
+		ReinforcePhaseTest.class, AdvanceTest.class, BlockadeTest.class, DeployTest.class,
+		PlaySetupTournamentModeTest.class })
 public class PhasesTestSuite {
 
 }
