@@ -1,8 +1,10 @@
 package orders;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import game.GameEngine;
 import map.Country;
 import players.Player;
@@ -10,7 +12,7 @@ import players.Player;
 /**
  * Bomb order to reduce the number of armies in a country.
  */
-public class Bomb extends Order {
+public class Bomb extends Order implements Serializable {
 
 	/**
 	 * The name of the country where to drop the bomb

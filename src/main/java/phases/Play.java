@@ -1,9 +1,11 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import game.GameEngine;
 import map.Continent;
 import map.Country;
@@ -12,7 +14,7 @@ import players.Player;
 /**
  * Represents the phase where the game is played.
  */
-public abstract class Play extends Phase {
+public abstract class Play extends Phase implements Serializable {
 
 	/**
 	 * Constructs a new Play phase with the given game engine context.
@@ -28,7 +30,7 @@ public abstract class Play extends Phase {
 	 */
 	@Override
 	public void showMap() {
-		System.out.println("The following is the text format of the map");
+		System.out.println("\nThe following is the text format of the map");
 		System.out.println("----------------------------------------------------------------------");
 
 		Map<String, Continent> l_continents = d_gameEngine.getD_continents();

@@ -1,19 +1,25 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.Player;
 import players.PlayerStrategy;
 
 /**
  * Represents the edit phase of the game map.
  */
-public abstract class Edit extends Phase {
+public abstract class Edit extends Phase implements Serializable {
 
+    /** 
+	 * Flag indicating whether the map is a Conquest map. 
+	 */
 	protected boolean d_isConquestMap = false;
 
 	/**
@@ -64,6 +70,27 @@ public abstract class Edit extends Phase {
 	 * End the game in the edit phase.
 	 */
 	public void endGame() {
+		printInvalidCommandMessage();
+	}
+
+	/**
+	 * To setup tournament mode
+	 */
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+		printInvalidCommandMessage();
+	}
+
+	/**
+	 * save current game state to a file
+	 */
+	public void saveGame(String p_fileName, Player p_lastPlayer) {
+		printInvalidCommandMessage();
+	}
+
+	/**
+	 * load game state from a file
+	 */
+	public void loadGame(String p_fileName) {
 		printInvalidCommandMessage();
 	}
 

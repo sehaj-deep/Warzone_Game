@@ -1,6 +1,8 @@
 package orders;
 
+import java.io.Serializable;
 import java.util.Set;
+
 import game.GameEngine;
 import players.Player;
 import utils.ValidationException;
@@ -10,7 +12,7 @@ import utils.ValidationException;
  * When executed, the army count in the target territory is tripled, and the
  * territory becomes neutral. Inherits from the Order class.
  */
-public class Blockade extends Order {
+public class Blockade extends Order implements Serializable {
 
 	/**
 	 * The ID of the country to be blockaded.
@@ -80,8 +82,7 @@ public class Blockade extends Order {
 				l_errMessage = "Blockade can't be issued on country without any army units";
 				throw new ValidationException();
 			}
-		}
-		catch (ValidationException e) {
+		} catch (ValidationException e) {
 			System.out.println(l_errMessage);
 			return false;
 		}

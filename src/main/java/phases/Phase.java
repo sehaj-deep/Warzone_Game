@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,12 +14,13 @@ import java.util.Set;
 import game.GameEngine;
 import map.Continent;
 import map.Country;
+import players.Player;
 import players.PlayerStrategy;
 
 /**
  * Abstract class representing a phase in the game.
  */
-public abstract class Phase {
+public abstract class Phase implements Serializable {
 
 	/**
 	 * The game engine associated with this phase.
@@ -129,8 +131,7 @@ public abstract class Phase {
 	/**
 	 * Abstract method to start tournament mode.
 	 * 
-	 * @param p_mapFile          map file provided by user
-	 * @param p_playerStrategies player strategy provided by user
+	 * @param p_playerStrategies player strategies provided by user
 	 */
 	abstract public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies,
 			int p_gamesToBePlayed, int p_maxNumberOfTurns);
@@ -144,6 +145,16 @@ public abstract class Phase {
 	 * move to the next state(phase)
 	 */
 	abstract public void next();
+
+	/**
+	 * save current game state to a file
+	 */
+	abstract public void saveGame(String p_fileName, Player p_lastPlayer);
+
+	/**
+	 * load game state from a file
+	 */
+	abstract public void loadGame(String p_fileName);
 
 	/**
 	 * Prints an invalid command message.

@@ -1,12 +1,14 @@
 package orders;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 
 /**
  * abstract interface of Order class to represent player's orders All order
  * types will inherit from Order class
  */
-public abstract class Order {
+public abstract class Order implements Serializable {
 
 	/**
 	 * The game engine associated with the order.

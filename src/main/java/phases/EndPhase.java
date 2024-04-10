@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import players.Player;
 /**
  * Phase that ends the game if there is a winner
  */
-public class EndPhase extends MainPlay {
+public class EndPhase extends MainPlay implements Serializable {
 	/**
 	 * Store the boolean value of winner player
 	 */

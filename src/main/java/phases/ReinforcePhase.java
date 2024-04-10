@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -12,7 +13,7 @@ import players.Player;
 /**
  * Represents the reinforcement phase in the game.
  */
-public class ReinforcePhase extends MainPlay {
+public class ReinforcePhase extends MainPlay implements Serializable {
 	/**
 	 * Constructs a new ReinforcePhase object.
 	 * 

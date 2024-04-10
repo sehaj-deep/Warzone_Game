@@ -1,5 +1,6 @@
 package players;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,11 @@ import game.GameEngine;
 import map.Country;
 import orders.Order;
 
-public class CheaterPlayerStrategy extends PlayerStrategy {
+/**
+ * Strategy for a cheater player that conquers neighboring enemy countries and
+ * doubles the number of armies on its own countries.
+ */
+public class CheaterPlayerStrategy extends PlayerStrategy implements Serializable {
 
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {

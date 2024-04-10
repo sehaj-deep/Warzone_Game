@@ -3,6 +3,7 @@ package phases;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ import utils.ValidationException;
 /**
  * Represents the post-load phase of map editing.
  */
-public class PostLoad extends Edit {
+public class PostLoad extends Edit implements Serializable {
 
 	/**
 	 * Constructs a new PostLoad object.

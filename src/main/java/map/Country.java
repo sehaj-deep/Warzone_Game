@@ -1,11 +1,14 @@
 package map;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  * Country class represents a country in the game map.
  */
-public class Country {
+public class Country implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * store id of the country
@@ -49,6 +52,11 @@ public class Country {
 		this.d_name = p_name;
 	}
 
+    /**
+     * Parameterized constructor
+     *
+     * @param p_name The name of the country.
+     */
 	public Country(String p_name) {
 		this.d_name = p_name;
 	}

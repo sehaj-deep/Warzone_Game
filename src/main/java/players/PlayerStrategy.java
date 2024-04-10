@@ -1,5 +1,7 @@
 package players;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 import orders.Order;
 
@@ -7,7 +9,7 @@ import orders.Order;
  * Abstract class for PlayerStrategy by Strategy pattern from which all concrete
  * strategies must inherit
  */
-public abstract class PlayerStrategy {
+public abstract class PlayerStrategy implements Serializable {
 	/**
 	 * Boolean representing whether issuing an order is allowed currently
 	 */

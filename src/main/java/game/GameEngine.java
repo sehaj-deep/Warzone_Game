@@ -1,5 +1,9 @@
 package game;
 
+import java.io.Serializable;
+
+//package game;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +35,7 @@ import utils.Common;
  * GameEngine Class This Class runs the game by integrating all the functions
  * and classes needed for Warzone
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
 	/**
 	 * Scanner to take user input
 	 */
@@ -105,7 +109,7 @@ public class GameEngine {
 	/**
 	 * To change the game number and reset the round number
 	 * 
-	 * @param p_phase The game number to be set
+	 * @param p_gameNumber The game number to be set
 	 */
 	public void setGameNumber(int p_gameNumber) {
 		d_gameNumber = p_gameNumber;
@@ -124,7 +128,7 @@ public class GameEngine {
 	/**
 	 * To change the round number
 	 * 
-	 * @param p_phase The round number to be set
+	 * @param p_roundNumber The round number to be set
 	 */
 	public void setRoundNumber(int p_roundNumber) {
 		d_roundNumber = p_roundNumber;
@@ -185,6 +189,15 @@ public class GameEngine {
 	}
 
 	/**
+	 * To set the d_continents Hashmap.
+	 * 
+	 * @param p_continents the Hashmap of String Key and Continent Value
+	 */
+	public void setD_continents(HashMap<String, Continent> p_continents) {
+		this.d_continents = p_continents;
+	}
+
+	/**
 	 * 
 	 * @param p_continentName Unique name of the continent
 	 * @return the required continent mapped to continent ID
@@ -239,6 +252,16 @@ public class GameEngine {
 	 */
 	public HashMap<String, Country> getD_countries() {
 		return d_countries;
+	}
+
+	/**
+	 * Set the countries HashMap
+	 * 
+	 * @param p_countries The Hashmap of countries storing String Key and Country
+	 *                    Values
+	 */
+	public void setD_countries(HashMap<String, Country> p_countries) {
+		d_countries = p_countries;
 	}
 
 	/**
@@ -475,6 +498,12 @@ public class GameEngine {
 		case "tournament":
 			parseTournamentCommand(l_tokens);
 			break;
+		case "savegame":
+			parseSaveGameCommand(l_tokens);
+			break;
+		case "loadgame":
+			parseLoadGameCommand(l_tokens);
+			break;
 		default:
 			System.out.println("Invalid command. Please try again.");
 		}
@@ -506,6 +535,29 @@ public class GameEngine {
 			d_logEntryBuffer.setD_effectOfAction("Continent " + l_continentName + " was removed.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	public void parseSaveGameCommand(String[] p_tokens) {
+		if (p_tokens.length <= 1 || p_tokens.length > 2) {
+			System.out.println("Invalid command. Syntax: savegame filename");
+			return;
+		}
+		d_gamePhase.saveGame(d_mapName, null);
+	}
+
+	public void parseLoadGameCommand(String[] p_tokens) {
+		if (p_tokens.length <= 1 || p_tokens.length > 2) {
+			System.out.println("Invalid command. Syntax: loadgame filename");
+			return;
+		}
+
+		d_gamePhase.loadGame(p_tokens[1]);
+
+		System.out.println("The following players are there in the game.");
+		// print the players list
+		for (Player p : d_players) {
+			System.out.println(p.getPlayerName());
 		}
 	}
 
@@ -564,8 +616,13 @@ public class GameEngine {
 		}
 	}
 
+	/**
+	 * Finds the winner of the game.
+	 * In a valid game scenario, this method returns the only player remaining, as there is only one player left when there is a winner.
+	 * @return The winning player.
+	 */
 	public Player findWinner() {
-		return this.getPlayers().get(0); // only one player left when there is a winner
+		return this.getPlayers().get(0);
 	}
 
 	/**
@@ -875,7 +932,7 @@ public class GameEngine {
 
 	private PlayerStrategy choosePlayerBehavior(String l_playerName) {
 
-		System.out.println("a. Human");
+		System.out.println("\na. Human");
 		System.out.println("b. Aggressive");
 		System.out.println("c. Benevolent");
 		System.out.println("d. Random");

@@ -1,5 +1,7 @@
 package orders;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 import players.Player;
 
@@ -7,7 +9,7 @@ import players.Player;
  * The diplomacy class check if attack is valid or not based on player using
  * diplomacy card.
  */
-public class Diplomacy extends Order {
+public class Diplomacy extends Order implements Serializable {
 
 	/**
 	 * Target player
@@ -94,7 +96,6 @@ public class Diplomacy extends Order {
 	 */
 	@Override
 	public boolean isValidExecute(int p_playerId) {
-
 
 		// if the player is inputting null name
 		if (d_targetPlayer == null || d_targetPlayer.trim().isEmpty()) {

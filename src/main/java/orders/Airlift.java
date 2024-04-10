@@ -1,13 +1,15 @@
 package orders;
 
+import java.io.Serializable;
 import java.util.Map;
+
 import game.GameEngine;
 import players.Player;
 
 /**
  * Airlift order to transfer armies from one country to another.
  */
-public class Airlift extends Order {
+public class Airlift extends Order implements Serializable {
 
 	/**
 	 * number of armies to airlift
@@ -51,8 +53,8 @@ public class Airlift extends Order {
 		Player l_currentPlayer = d_gameEngine.getPlayers().get(p_playerId);
 		l_currentPlayer.decreaseCardCount(this.d_orderName);
 
-		System.out
-				.println("Airlift executed:" + d_numArmies + "armies moved from " + d_sourceCountry + " to " + d_targetCountry);
+		System.out.println(
+				"Airlift executed:" + d_numArmies + "armies moved from " + d_sourceCountry + " to " + d_targetCountry);
 	}
 
 	/**

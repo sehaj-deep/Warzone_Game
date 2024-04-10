@@ -1,5 +1,6 @@
 package players;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,7 +18,9 @@ import utils.ValidationException;
  * player
  */
 
-public class Player {
+public class Player implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * player name
@@ -157,6 +160,7 @@ public class Player {
 	 * 
 	 * @param p_tokens     The array of tokens representing the issued command.
 	 * @param p_gameEngine The game engine instance managing the game state
+	 * @throws ValidationException If the order issued is not valid.
 	 */
 	public void issue_order(String[] p_tokens, GameEngine p_gameEngine) throws ValidationException {
 		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
