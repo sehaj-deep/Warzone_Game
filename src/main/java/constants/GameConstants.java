@@ -1,9 +1,11 @@
 package constants;
 
+import java.io.Serializable;
+
 /**
  * Constant class
  */
-public class GameConstants {
+public class GameConstants implements Serializable {
 
 	/**
 	 * Private constructor to stop the class from instantiating
@@ -49,8 +51,13 @@ public class GameConstants {
 	public static final String COUNTRIES_FILE = SRC_MAIN_RESOURCES + "countries" + d_saveId + ".ser";
 
 	/**
-	 * Name of the file to store issue orders
+	 * Name of the file to store game board
 	 */
-	public static final String ISSUE_ORDERS_FILE = SRC_MAIN_RESOURCES + "issueOrders" + d_saveId + ".ser";
+	public static final String GAME_BOARD = SRC_MAIN_RESOURCES + "gameBoard" + d_saveId + ".ser";
+
+	/**
+	 * Name of the file to store last player
+	 */
+	public static final String LAST_PLAYER = SRC_MAIN_RESOURCES + "lastPlayer" + d_saveId + ".ser";
 
 }

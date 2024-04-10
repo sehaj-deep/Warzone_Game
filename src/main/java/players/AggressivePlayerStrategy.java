@@ -1,7 +1,9 @@
 package players;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Queue;
+
 import game.GameEngine;
 import map.Country;
 import orders.Advance;
@@ -11,7 +13,7 @@ import orders.Order;
 /**
  * Aggressive Player's issue order implementation using player strategy
  */
-public class AggressivePlayerStrategy extends PlayerStrategy {
+public class AggressivePlayerStrategy extends PlayerStrategy implements Serializable {
 	/**
 	 * Boolean representing whether issuing Deploy order is allowed currently
 	 */
@@ -50,12 +52,10 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 		if (d_canDeploy) {
 			l_order = deployAggressive(p_player, p_gameEngine);
 			l_currPhasePtr = d_canDeploy;
-		}
-		else if (d_canAttack) {
+		} else if (d_canAttack) {
 			l_order = orderAttack(p_player, p_gameEngine);
 			l_currPhasePtr = d_canAttack;
-		}
-		else if (getHasOrder()) { // After deploy, now move armies to weaker countries
+		} else if (getHasOrder()) { // After deploy, now move armies to weaker countries
 			// No need to create card Order because benevolent player will never get a card
 			// as the player does not attack
 			if (d_waitingOrders.size() == 0) {
@@ -73,8 +73,7 @@ public class AggressivePlayerStrategy extends PlayerStrategy {
 		}
 		if (l_order != null && l_order.isValidIssue(l_playerIdx)) {
 			return l_order;
-		}
-		else {
+		} else {
 			// if the order is not valid, then ignore and skip the order
 			return null;
 		}

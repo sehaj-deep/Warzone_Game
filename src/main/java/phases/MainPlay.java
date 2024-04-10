@@ -1,5 +1,7 @@
 package phases;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 import game.GameSave;
 import players.Player;
@@ -8,7 +10,7 @@ import players.PlayerStrategy;
 /**
  * Represents the main play phase in the game.
  */
-public abstract class MainPlay extends Play {
+public abstract class MainPlay extends Play implements Serializable {
 
 	/**
 	 * Constructor for MainPlay.
@@ -65,6 +67,8 @@ public abstract class MainPlay extends Play {
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		GameSave l_saveGame = new GameSave(d_gameEngine);
 		l_saveGame.saveGame(p_fileName, p_lastPlayer);
+//		GameSave l_saveGame = new GameSave(this.d_gameEngine);
+//		l_saveGame.saveGame(p_fileName, this.d_gameEngine);
 	}
 
 	/**

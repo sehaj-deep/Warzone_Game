@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import game.GameEngine;
 
-public class ConquestMapReader {
+public class ConquestMapReader implements Serializable {
 
 	private GameEngine d_gameEngine;
 

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ import players.PlayerStrategy;
 /**
  * Abstract class representing a phase in the game.
  */
-public abstract class Phase {
+public abstract class Phase implements Serializable {
 
 	/**
 	 * The game engine associated with this phase.

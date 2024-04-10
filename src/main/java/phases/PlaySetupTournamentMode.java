@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.List;
 
 import game.GameEngine;
@@ -9,7 +10,7 @@ import players.CheaterPlayerStrategy;
 import players.PlayerStrategy;
 import utils.Common;
 
-public class PlaySetupTournamentMode extends PlaySetupSingleMode {
+public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Serializable {
 
 	/**
 	 * Constructs a PlaySetupTournament object with the specified game engine.

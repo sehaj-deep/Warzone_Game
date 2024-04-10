@@ -37,10 +37,10 @@ public class GameSave implements Serializable {
 		// to print player Hashmap into file
 		try {
 			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_playerFileName));
-//			for (Player p : l_players) {
-//				l_outputStream.writeObject(p);
-//			}
-			l_outputStream.writeObject(l_players);
+			for (Player p : l_players) {
+				l_outputStream.writeObject(p);
+			}
+//			l_outputStream.writeObject(l_players);
 			l_outputStream.close();
 		} catch (IOException e) {
 			System.out.println("Input - Output Exception in creating the new file for player objects.");
@@ -86,8 +86,41 @@ public class GameSave implements Serializable {
 		return l_countriesFileName;
 	}
 
-	public void saveLastPlayer() {
+	public String saveLastPlayer(Player p_lastPlayer) {
 
+		String l_lastPlayerFileName = GameConstants.LAST_PLAYER;
+
+		ObjectOutputStream l_outputStream = null;
+
+		try {
+			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_lastPlayerFileName));
+			l_outputStream.writeObject(p_lastPlayer);
+			l_outputStream.close();
+
+		} catch (IOException e) {
+			System.out.println("Input - Output Exception in creating the new file for Last Player Objects.");
+		}
+
+		return l_lastPlayerFileName;
+
+	}
+
+	public String saveGameBoard() {
+		String l_gameBoardFileName = GameConstants.GAME_BOARD;
+
+		Map<String, Integer> l_gameBoard = d_gameEngine.getGameBoard();
+
+		// create the printWriter to write to the file
+		ObjectOutputStream l_outputStream = null;
+		// to print country HashMap into the file
+		try {
+			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_gameBoardFileName));
+			l_outputStream.writeObject(l_gameBoard);
+			l_outputStream.close();
+		} catch (IOException e) {
+			System.out.println("Input - Output Exception in creating the new file for Game Board Objects.");
+		}
+		return l_gameBoardFileName;
 	}
 
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
@@ -98,6 +131,8 @@ public class GameSave implements Serializable {
 		String l_playersFileName = savePlayers();
 		String l_continentsFileName = saveContinents();
 		String l_countriesFileName = saveCountries();
+		String l_lastPlayerFileName = saveLastPlayer(p_lastPlayer);
+		String l_gameBoardFileName = saveGameBoard();
 
 		// create a text file using the same name passed
 		// This is going to contain the names of the object files
@@ -114,6 +149,8 @@ public class GameSave implements Serializable {
 		l_stateWriter.println(l_playersFileName);
 		l_stateWriter.println(l_continentsFileName);
 		l_stateWriter.println(l_countriesFileName);
+		l_stateWriter.println(l_lastPlayerFileName);
+		l_stateWriter.println(l_gameBoardFileName);
 
 		// close the writer if it was not initialized properly
 		if (l_stateWriter != null) {
@@ -124,4 +161,24 @@ public class GameSave implements Serializable {
 		System.out.println("Exiting...");
 		System.exit(0);
 	}
+
+//	public void saveGame(String p_fileName, GameEngine p_gameEngine) {
+//		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
+//
+//		ObjectOutputStream l_outputStream = null;
+//
+//		try {
+//			l_outputStream = new ObjectOutputStream(new FileOutputStream(p_fileName));
+//			l_outputStream.writeObject(d_gameEngine);
+//			l_outputStream.close();
+//
+//		} catch (IOException e) {
+//			System.out.println("Input - Output Exception in creating the new file for Last Player Objects.");
+//		}
+//
+//		System.out.println("Game saved.");
+//		System.out.println("Exiting...");
+//		System.exit(0);
+//
+//	}
 }

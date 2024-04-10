@@ -1,7 +1,9 @@
 package players;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Queue;
+
 import game.GameEngine;
 import map.Country;
 import orders.Advance;
@@ -11,7 +13,7 @@ import orders.Order;
 /**
  * Benevolent Player's issue order implementation using player strategy
  */
-public class BenevolentPlayerStrategy extends PlayerStrategy {
+public class BenevolentPlayerStrategy extends PlayerStrategy implements Serializable {
 	/**
 	 * The name of the weakest country owned by this player
 	 */
@@ -44,8 +46,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 		if (d_canDeploy) { // Make deploy order first
 			l_order = deployToWeakest(p_player, p_gameEngine);
 			l_currPhasePtr = d_canDeploy;
-		}
-		else if (getHasOrder()) { // After deploy, now move armies to weaker countries
+		} else if (getHasOrder()) { // After deploy, now move armies to weaker countries
 			// No need to create card Order because benevolent player will never get a card
 			// as the player does not attack
 			if (d_waitingOrders.size() == 0) {
@@ -63,8 +64,7 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 		}
 		if (l_order != null && l_order.isValidIssue(l_playerIdx)) {
 			return l_order;
-		}
-		else {
+		} else {
 			// if the order is not valid, then ignore and skip the order
 			return null;
 		}
@@ -127,7 +127,8 @@ public class BenevolentPlayerStrategy extends PlayerStrategy {
 						int l_numDeployedArmy = l_numArmy / (l_country.getNeighbors().size() + 1);
 						l_numDeployedArmy = l_numDeployedArmy - l_numArmyNeighbor;
 						// validation of the order will be done in create order for efficiency
-						Advance l_order = new Advance(l_countryName, l_neighbor.getD_name(), l_numDeployedArmy, p_gameEngine);
+						Advance l_order = new Advance(l_countryName, l_neighbor.getD_name(), l_numDeployedArmy,
+								p_gameEngine);
 						d_waitingOrders.add(l_order);
 					}
 				}

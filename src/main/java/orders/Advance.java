@@ -1,5 +1,6 @@
 package orders;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +13,7 @@ import utils.ValidationException;
  * Concrete command class for Advance order which inherits Abstract concrete
  * class Order
  */
-public class Advance extends Order {
+public class Advance extends Order implements Serializable {
 
 	/**
 	 * The number of armies for advancement.

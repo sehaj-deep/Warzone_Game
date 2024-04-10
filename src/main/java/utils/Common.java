@@ -1,11 +1,13 @@
 package utils;
 
+import java.io.Serializable;
+
 import constants.GameConstants;
 
 /**
  * Class to have common functionalities
  */
-public class Common {
+public class Common implements Serializable {
 
 	/**
 	 * Retrieves the path of the map based on its name.

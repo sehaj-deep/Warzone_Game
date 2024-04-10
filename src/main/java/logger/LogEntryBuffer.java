@@ -1,67 +1,67 @@
 package logger;
 
+import java.io.Serializable;
+
 /**
  * A buffer for log entries with observable functionality.
  */
-public class LogEntryBuffer extends Observable {
+public class LogEntryBuffer extends Observable implements Serializable {
 	/**
-     * The buffer to store log entries.
-     */
+	 * The buffer to store log entries.
+	 */
 	private StringBuilder d_buffer;
 
 	/**
-     * The current phase of the game.
-     */
+	 * The current phase of the game.
+	 */
 	private String d_currentPhase;
 
 	/**
-     * The effect of the action being performed.
-     */
+	 * The effect of the action being performed.
+	 */
 	private String d_effectOfAction;
 
 	/**
-     * Constructs a new LogEntryBuffer.
-     */
+	 * Constructs a new LogEntryBuffer.
+	 */
 	public LogEntryBuffer() {
 		d_buffer = new StringBuilder();
 		d_currentPhase = "";
 		d_effectOfAction = "";
 	}
 
-	
-    /**
-     * Gets the effect of the action.
-     * 
-     * @return the effect of the action
-     */
+	/**
+	 * Gets the effect of the action.
+	 * 
+	 * @return the effect of the action
+	 */
 	public String getD_effectOfAction() {
 		return d_effectOfAction;
 	}
 
-	
-    /**
-     * Gets the current phase.
-     * 
-     * @return the current phase
-     */
+	/**
+	 * Gets the current phase.
+	 * 
+	 * @return the current phase
+	 */
 	public String getD_currentPhase() {
 		return d_currentPhase;
 	}
 
 	/**
-     * Gets the buffer.
-     * 
-     * @return the buffer
-     */
+	 * Gets the buffer.
+	 * 
+	 * @return the buffer
+	 */
 	public StringBuilder getD_buffer() {
 		return d_buffer;
 	}
 
-	 /**
-     * Sets the effect of the action.
-     * 
-     * @param p_effectOfAction the effect of the action to set
-     */
+	/**
+	 * Sets the effect of the action.
+	 * 
+	 * @param p_effectOfAction the effect of the action to set
+	 */
 	public void setD_effectOfAction(String p_effectOfAction) {
 		d_effectOfAction = p_effectOfAction;
 
@@ -72,10 +72,10 @@ public class LogEntryBuffer extends Observable {
 	}
 
 	/**
-     * Sets the current phase.
-     * 
-     * @param p_currentPhase the current phase to set
-     */
+	 * Sets the current phase.
+	 * 
+	 * @param p_currentPhase the current phase to set
+	 */
 	public void setD_currentPhase(String p_currentPhase) {
 		d_currentPhase = p_currentPhase;
 
@@ -88,8 +88,8 @@ public class LogEntryBuffer extends Observable {
 	}
 
 	/**
-     * Clears the buffer.
-     */
+	 * Clears the buffer.
+	 */
 	private void clearBuffer() {
 		d_buffer.setLength(0);
 	}

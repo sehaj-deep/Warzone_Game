@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import players.Player;
 /**
  * Represents the phase where the game is played.
  */
-public abstract class Play extends Phase {
+public abstract class Play extends Phase implements Serializable {
 
 	/**
 	 * Constructs a new Play phase with the given game engine context.

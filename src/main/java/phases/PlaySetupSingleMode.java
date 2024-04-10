@@ -2,6 +2,7 @@ package phases;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import utils.ValidationException;
 /**
  * Setup phase of the game where players are added and countries are assigned.
  */
-public class PlaySetupSingleMode extends Play {
+public class PlaySetupSingleMode extends Play implements Serializable {
 
 	/**
 	 * Constructs a PlaySetupSingle object with the specified game engine.
@@ -292,5 +293,7 @@ public class PlaySetupSingleMode extends Play {
 	public void loadGame(String p_fileName) {
 		GameLoad l_loadGame = new GameLoad(d_gameEngine);
 		l_loadGame.loadGame(p_fileName);
+//		this.d_gameEngine = l_loadGame.loadGame(p_fileName);
+////		l_loadGame.loadGame(p_fileName);
 	}
 }

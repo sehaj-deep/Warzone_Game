@@ -1,5 +1,9 @@
 package game;
 
+import java.io.Serializable;
+
+//package game;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +34,7 @@ import utils.Common;
  * GameEngine Class This Class runs the game by integrating all the functions
  * and classes needed for Warzone
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
 	/**
 	 * Scanner to take user input
 	 */

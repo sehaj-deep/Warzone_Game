@@ -2,6 +2,7 @@ package phases;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import map.MapReaderAdapter;
 /**
  * Represents the preload phase in the map editing process.
  */
-public class Preload extends Edit {
+public class Preload extends Edit implements Serializable {
 
 	DominationMapReader mapReader;
 

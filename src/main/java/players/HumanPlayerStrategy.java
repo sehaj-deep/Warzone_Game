@@ -1,5 +1,7 @@
 package players;
 
+import java.io.Serializable;
+
 import game.GameEngine;
 import orders.Advance;
 import orders.Airlift;
@@ -9,7 +11,7 @@ import orders.Deploy;
 import orders.Diplomacy;
 import orders.Order;
 
-public class HumanPlayerStrategy extends PlayerStrategy {
+public class HumanPlayerStrategy extends PlayerStrategy implements Serializable {
 
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {

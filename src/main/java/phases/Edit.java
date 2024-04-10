@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import players.PlayerStrategy;
 /**
  * Represents the edit phase of the game map.
  */
-public abstract class Edit extends Phase {
+public abstract class Edit extends Phase implements Serializable {
 
 	protected boolean d_isConquestMap = false;
 

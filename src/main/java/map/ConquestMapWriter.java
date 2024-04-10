@@ -3,10 +3,11 @@ package map;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 
 import game.GameEngine;
 
-public class ConquestMapWriter {
+public class ConquestMapWriter implements Serializable {
 
 	private GameEngine d_gameEngine;
 

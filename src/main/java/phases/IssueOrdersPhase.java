@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ import utils.ValidationException;
 /**
  * Represents the phase where players issue orders during gameplay.
  */
-public class IssueOrdersPhase extends MainPlay {
+public class IssueOrdersPhase extends MainPlay implements Serializable {
 
 	/**
 	 * the Constructor for IssueOrdersPhase.
@@ -69,7 +70,7 @@ public class IssueOrdersPhase extends MainPlay {
 			l_player.getPlayerStrategy().reset();
 		}
 
-		while (anyPlayerWithCommandLeft()) {
+		while (anyPlayerWithCommandLeft() || d_lastPlayer != null) {
 			for (Player l_player : d_gameEngine.getPlayers()) {
 				// Last player is not null when the game state is laoded
 				if (d_lastPlayer != null) {

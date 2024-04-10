@@ -1,5 +1,6 @@
 package phases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +12,7 @@ import players.Player;
 /**
  * Executes orders of players in the game in a round-robin fashion for one time.
  */
-public class ExecuteOrdersPhase extends MainPlay {
+public class ExecuteOrdersPhase extends MainPlay implements Serializable {
 
 	/**
 	 * List to store the number of successful conquests per player during the
