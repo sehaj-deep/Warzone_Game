@@ -17,6 +17,12 @@ import utils.Common;
  */
 public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Serializable {
 
+	private String[][] d_results;
+
+	public String[][] getD_results() {
+		return d_results;
+	}
+
 	/**
 	 * Constructs a PlaySetupTournament object with the specified game engine.
 	 *
@@ -159,7 +165,7 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Seri
 	 * @param p_mapFile          The filename of the map for the tournament.
 	 * @param p_playerStrategies The strategies chosen for the players.
 	 */
-	private void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		// 1 load map
 		String l_filename = Common.getMapPath(p_mapFile);
 		super.loadMap(l_filename);
@@ -269,10 +275,10 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Seri
 			l_fileIdx++;
 		}
 		System.out.println("\nResults report:\n" + reportTournamentResult(l_results, p_mapFiles));
-		System.exit(1);
+		d_results = l_results;
 	}
 
-	private String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
+	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
 		// Initialize the report with column titles
 		String l_report = "\t\t|\t"; // Empty space for row titles
 		for (int j = 0; j < p_results[0].length; j++) {

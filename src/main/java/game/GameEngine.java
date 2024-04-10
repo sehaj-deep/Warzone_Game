@@ -611,14 +611,17 @@ public class GameEngine implements Serializable {
 			}
 			validateArgumentsForTournmanetCommand(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
 			d_gamePhase.startTournament(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
+			System.exit(1);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
 	/**
-	 * Finds the winner of the game.
-	 * In a valid game scenario, this method returns the only player remaining, as there is only one player left when there is a winner.
+	 * Finds the winner of the game. In a valid game scenario, this method returns
+	 * the only player remaining, as there is only one player left when there is a
+	 * winner.
+	 * 
 	 * @return The winning player.
 	 */
 	public Player findWinner() {
