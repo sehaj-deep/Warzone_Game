@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import constants.GameConstants;
 import map.Continent;
@@ -26,6 +26,7 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Constructor for GameSave.
+	 * 
 	 * @param p_gameEngine The game engine associated with the game save.
 	 */
 	public GameSave(GameEngine p_gameEngine) {
@@ -34,24 +35,41 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the player data to a file.
+	 * 
 	 * @return The file name containing the saved player data.
 	 */
+//	public String savePlayers() {
+//		String l_playerFileName = GameConstants.PLAYERS_FILE;
+//
+//		// to retrieve the List of players
+//		List<Player> l_players = d_gameEngine.getPlayers();
+//
+//		// create the printWriter to write to the file
+//		ObjectOutputStream l_outputStream = null;
+//		// to print player into file
+//		try {
+//			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_playerFileName));
+////			l_outputStream.writeObject(l_players);
+//			for (Player p : l_players) {
+//				l_outputStream.writeObject(p);
+//			}
+//			l_outputStream.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			System.out.println("Input - Output Exception in creating the new file for player objects.");
+//		}
+//		return l_playerFileName;
+//	}
+
 	public String savePlayers() {
 		String l_playerFileName = GameConstants.PLAYERS_FILE;
 
-		// to retrieve the Hashmap of players
-		List<Player> l_players = d_gameEngine.getPlayers();
+		ArrayList<Player> l_players = (ArrayList<Player>) d_gameEngine.getPlayers();
 
-		// create the printWriter to write to the file
-		ObjectOutputStream l_outputStream = null;
-		// to print player Hashmap into file
-		try {
-			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_playerFileName));
-			for (Player p : l_players) {
-				l_outputStream.writeObject(p);
-			}
-			l_outputStream.close();
+		try (ObjectOutputStream l_outputStream = new ObjectOutputStream(new FileOutputStream(l_playerFileName))) {
+			l_outputStream.writeObject(l_players);
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("Input - Output Exception in creating the new file for player objects.");
 		}
 		return l_playerFileName;
@@ -59,12 +77,13 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the continents data to a file.
+	 * 
 	 * @return The file name containing the saved continents data.
 	 */
 	public String saveContinents() {
 		String l_continentsFileName = GameConstants.CONTINENTS_FILE;
 
-		Map<String, Continent> l_allContinents = d_gameEngine.getD_continents();
+		HashMap<String, Continent> l_allContinents = (HashMap<String, Continent>) d_gameEngine.getD_continents();
 
 		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
@@ -82,12 +101,13 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the countries data to a file.
+	 * 
 	 * @return The file name containing the saved countries data.
 	 */
 	public String saveCountries() {
 		String l_countriesFileName = GameConstants.COUNTRIES_FILE;
 
-		Map<String, Country> l_allCountries = d_gameEngine.getD_countries();
+		HashMap<String, Country> l_allCountries = (HashMap) d_gameEngine.getD_countries();
 
 		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
@@ -104,6 +124,7 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the last player to a file.
+	 * 
 	 * @param p_lastPlayer The last player to be saved.
 	 * @return The file name containing the saved last player data.
 	 */
@@ -126,12 +147,13 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the game board data to a file.
+	 * 
 	 * @return The file name containing the saved game board data.
 	 */
 	public String saveGameBoard() {
 		String l_gameBoardFileName = GameConstants.GAME_BOARD;
 
-		Map<String, Integer> l_gameBoard = d_gameEngine.getGameBoard();
+		HashMap<String, Integer> l_gameBoard = (HashMap<String, Integer>) d_gameEngine.getGameBoard();
 
 		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
@@ -148,16 +170,17 @@ public class GameSave implements Serializable {
 
 	/**
 	 * Saves the entire game state.
-	 * @param p_fileName The name of the file to save the game state to.
+	 * 
+	 * @param p_fileName   The name of the file to save the game state to.
 	 * @param p_lastPlayer The last player in the game.
 	 */
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		GameConstants.d_saveId++;
 		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
 
-		String l_playersFileName = savePlayers();
 		String l_continentsFileName = saveContinents();
 		String l_countriesFileName = saveCountries();
+		String l_playersFileName = savePlayers();
 		String l_lastPlayerFileName = saveLastPlayer(p_lastPlayer);
 		String l_gameBoardFileName = saveGameBoard();
 
@@ -175,6 +198,7 @@ public class GameSave implements Serializable {
 		// write the names of the files
 		l_stateWriter.println(l_playersFileName);
 		l_stateWriter.println(l_continentsFileName);
+//		l_stateWriter.println(l_playersFileName);
 		l_stateWriter.println(l_countriesFileName);
 		l_stateWriter.println(l_lastPlayerFileName);
 		l_stateWriter.println(l_gameBoardFileName);

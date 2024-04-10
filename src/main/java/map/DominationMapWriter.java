@@ -3,37 +3,37 @@ package map;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import game.GameEngine;
 
 /**
- * The DominationMapWriter class is responsible for writing a Domination-style map to a file.
- * It implements the DominationWriter interface.
+ * The DominationMapWriter class is responsible for writing a Domination-style
+ * map to a file. It implements the DominationWriter interface.
  */
-public class DominationMapWriter implements DominationWriter {
+public class DominationMapWriter implements DominationWriter, Serializable {
 
-    /** 
+	/**
 	 * The game engine associated with this map writer.
 	 */
 	private GameEngine d_gameEngine;
 
-    /**
-     * Constructs a DominationMapWriter object with the specified GameEngine.
-     *
-     * @param p_gameEngine The GameEngine object to associate with this map writer.
-     */
+	/**
+	 * Constructs a DominationMapWriter object with the specified GameEngine.
+	 *
+	 * @param p_gameEngine The GameEngine object to associate with this map writer.
+	 */
 	public DominationMapWriter(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
-	
-    /**
-     * Writes the Domination-style map to a file with the specified name.
-     *
-     * @param p_mapName The name of the file to write the map to.
-     */
+	/**
+	 * Writes the Domination-style map to a file with the specified name.
+	 *
+	 * @param p_mapName The name of the file to write the map to.
+	 */
 	public void writeDominationFile(String p_mapName) {
 
 		PrintWriter l_printWriter = null;

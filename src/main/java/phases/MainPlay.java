@@ -64,6 +64,7 @@ public abstract class MainPlay extends Play implements Serializable {
 	/**
 	 * save current game state to a file
 	 */
+	@Override
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		GameSave l_saveGame = new GameSave(d_gameEngine);
 		l_saveGame.saveGame(p_fileName, p_lastPlayer);

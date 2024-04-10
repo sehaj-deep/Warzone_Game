@@ -39,7 +39,7 @@ public class GameEngine implements Serializable {
 	/**
 	 * Scanner to take user input
 	 */
-	private Scanner d_scanner = new Scanner(System.in);
+	private transient Scanner d_scanner = new Scanner(System.in);
 
 	/**
 	 * Buffer to store log entries.
@@ -501,9 +501,9 @@ public class GameEngine implements Serializable {
 		case "tournament":
 			parseTournamentCommand(l_tokens);
 			break;
-		case "savegame":
-			parseSaveGameCommand(l_tokens);
-			break;
+//		case "savegame":
+//			parseSaveGameCommand(l_tokens);
+//			break;
 		case "loadgame":
 			parseLoadGameCommand(l_tokens);
 			break;
@@ -546,13 +546,13 @@ public class GameEngine implements Serializable {
 	 *
 	 * @param p_tokens Command token
 	 */
-	public void parseSaveGameCommand(String[] p_tokens) {
-		if (p_tokens.length <= 1 || p_tokens.length > 2) {
-			System.out.println("Invalid command. Syntax: savegame filename");
-			return;
-		}
-		d_gamePhase.saveGame(d_mapName, null);
-	}
+//	public void parseSaveGameCommand(String[] p_tokens) {
+//		if (p_tokens.length <= 1 || p_tokens.length > 2) {
+//			System.out.println("Invalid command. Syntax: savegame filename");
+//			return;
+//		}
+//		d_gamePhase.saveGame(p_tokens[1], null);
+//	}
 
 	/**
 	 * Functionality of this method is to load game command
