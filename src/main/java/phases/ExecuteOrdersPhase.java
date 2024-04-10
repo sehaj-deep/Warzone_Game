@@ -287,7 +287,8 @@ public class ExecuteOrdersPhase extends MainPlay {
 	}
 
 	@Override
-	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
+			int p_maxNumberOfTurns) {
 		this.printInvalidCommandMessage();
 	}
 }

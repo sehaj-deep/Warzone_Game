@@ -153,6 +153,10 @@ public class GameEngine {
 		setRoundNumber(getRoundNumber() + 1);
 	}
 
+	public Scanner getD_scanner() {
+		return d_scanner;
+	}
+
 	/**
 	 * To change the phase
 	 * 
@@ -554,111 +558,10 @@ public class GameEngine {
 				}
 			}
 			validateArgumentsForTournmanetCommand(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
-			startTournament(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
+			d_gamePhase.startTournament(l_mapFiles, l_playerStrategies, l_numberOfGames, l_maxNumberOfTurns);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-
-	/**
-	 * Starts tournament mode by setting up maps and players, then goes through the
-	 * main gameplay loop
-	 * 
-	 * @param p_mapFiles         list of map files given by user
-	 * @param p_playerStrategies list of player strategies given by user
-	 * @param p_gamesToBePlayed  number of games to be played on each map given by
-	 *                           user
-	 */
-	private void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
-			int p_maxNumberOfTurns) {
-		String[][] l_results = new String[p_mapFiles.size()][p_gamesToBePlayed];
-
-		int l_fileIdx = 0;
-		for (String l_mapFile : p_mapFiles) {
-			setGameNumber(1); // reset Game Number as map file changes
-
-			while (getGameNumber() <= p_gamesToBePlayed) {
-				System.out.println("\nGame " + getGameNumber() + " on " + l_mapFile);
-				System.out.println("------------------");
-
-				setPhase(new PlaySetupTournamentMode(this));
-
-				// reset map related objects and players list as new game begins
-				d_continents.clear();
-				d_continentId.clear();
-				d_countries.clear();
-				d_countriesId.clear();
-				d_board.clear();
-				d_players.clear();
-				d_gamePhase.setupTournament(l_mapFile, p_playerStrategies);
-				System.out.println(d_gamePhase);
-				boolean l_isWinner = false;
-
-				do {
-					System.out.println("\nRound " + getRoundNumber());
-					System.out.println("--------");
-
-					if (this.getPhase().getClass().equals(new ReinforcePhase(this).getClass())) {
-						ReinforcePhase l_reinforcePhase = (ReinforcePhase) this.getPhase();
-
-						l_reinforcePhase.calculateReinforcements();
-					}
-
-					if (this.getPhase().getClass().equals(new IssueOrdersPhase(this).getClass())) {
-						IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) this.getPhase();
-
-						l_issueOrdersPhase.issueOrders(d_scanner);
-					}
-
-					if (this.getPhase().getClass().equals(new ExecuteOrdersPhase(this).getClass())) {
-						ExecuteOrdersPhase l_executeOrdersPhase = (ExecuteOrdersPhase) this.getPhase();
-
-						l_executeOrdersPhase.executeAllOrders();
-					}
-
-					if (this.getPhase().getClass().equals(new EndPhase(this).getClass())) {
-						EndPhase l_endPhase = (EndPhase) this.getPhase();
-
-						l_endPhase.checkForWinner();
-						l_isWinner = l_endPhase.getAnyWinner();
-						if (l_isWinner) {
-							break;
-						}
-					}
-					incrementRoundNumber();
-				} while (getRoundNumber() <= p_maxNumberOfTurns);
-
-				if (l_isWinner) {
-					l_results[l_fileIdx][getGameNumber() - 1] = findWinner().getPlayerName();
-				} else {
-					l_results[l_fileIdx][getGameNumber() - 1] = "Draw";
-				}
-				incrementGameNumber();
-			}
-			l_fileIdx++;
-		}
-		System.out.println("\nResults report:\n" + reportTournamentResult(l_results, p_mapFiles));
-		System.exit(1);
-	}
-
-	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
-		// Initialize the report with column titles
-		String l_report = "\t\t|\t"; // Empty space for row titles
-		for (int j = 0; j < p_results[0].length; j++) {
-			l_report += "Game " + (j + 1) + "\t\t|\t"; // Add column titles
-		}
-		l_report += "\n";
-
-		// Add data rows with map titles
-		for (int i = 0; i < p_results.length; i++) {
-			l_report += p_mapFiles.get(i) + "\t|\t"; // Add row title (map)
-			for (int j = 0; j < p_results[i].length; j++) {
-				l_report += p_results[i][j] + "\t|\t"; // Add data
-			}
-			l_report += "\n";
-		}
-
-		return l_report;
 	}
 
 	public Player findWinner() {

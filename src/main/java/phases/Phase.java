@@ -132,7 +132,8 @@ public abstract class Phase {
 	 * @param p_mapFile          map file provided by user
 	 * @param p_playerStrategies player strategy provided by user
 	 */
-	abstract public void setupTournament(String p_mapFile, List<String> p_playerStrategies);
+	abstract public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies,
+			int p_gamesToBePlayed, int p_maxNumberOfTurns);
 
 	/**
 	 * Abstract method to end the game.
@@ -457,5 +458,4 @@ public abstract class Phase {
 		d_gameEngine.getD_continents().clear();
 		d_gameEngine.getD_countries().clear();
 	}
-
 }
