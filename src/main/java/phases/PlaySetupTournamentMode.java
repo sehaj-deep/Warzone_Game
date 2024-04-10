@@ -17,8 +17,16 @@ import utils.Common;
  */
 public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Serializable {
 
+	/**
+	 * A two-dimensional array containing tournament results.
+	 */
 	private String[][] d_results;
 
+	/**
+	 * Retrieves the tournament results array.
+	 * 
+	 * @return The two-dimensional array containing tournament results.
+	 */
 	public String[][] getD_results() {
 		return d_results;
 	}

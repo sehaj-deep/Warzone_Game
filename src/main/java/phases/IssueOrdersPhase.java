@@ -25,25 +25,12 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 
 	}
 
-	/**
-	 * The last player who issued orders, used for resuming the game state.
-	 */
 	private Player d_lastPlayer = null;
 
-	/**
-	 * Constructor for IssueOrdersPhase.
-	 *
-	 * @param p_gameEngine The instance of the game engine.
-	 */
 	public Player getD_lastPlayer() {
 		return d_lastPlayer;
 	}
 
-	/**
-	 * Gets the last player who issued orders.
-	 *
-	 * @return The last player who issued orders.
-	 */
 	public void setD_lastPlayer(Player d_lastPlayer) {
 		this.d_lastPlayer = d_lastPlayer;
 	}
@@ -259,14 +246,6 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 		d_gameEngine.setPhase(new ExecuteOrdersPhase(d_gameEngine));
 	}
 
-	/**
-	 * Starts a tournament with the specified parameters.
-	 *
-	 * @param p_mapFiles          A list of map files to be used in the tournament.
-	 * @param p_playerStrategies  A list of player strategies to participate in the tournament.
-	 * @param p_gamesToBePlayed   The number of games to be played in the tournament.
-	 * @param p_maxNumberOfTurns  The maximum number of turns allowed per game in the tournament.
-	 */
 	@Override
 	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
 			int p_maxNumberOfTurns) {

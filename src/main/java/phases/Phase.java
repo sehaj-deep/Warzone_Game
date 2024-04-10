@@ -163,6 +163,7 @@ public abstract class Phase implements Serializable {
 		System.out.println("Invalid command in " + this.getClass().getSimpleName() + " phase.");
 	}
 
+	// Common functionalities of all phases
 	/**
 	 * Validates if the map's continents form a connected graph.
 	 * 

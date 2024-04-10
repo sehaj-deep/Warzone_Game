@@ -8,6 +8,10 @@ import java.util.List;
  * Class representing an observable object in the Observer pattern.
  */
 public class Observable implements Serializable {
+
+	/**
+	 * List of observers attached to this observable object.
+	 */
 	private List<Observer> d_observers = new ArrayList<Observer>();
 
 	/**

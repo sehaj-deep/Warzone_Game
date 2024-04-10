@@ -250,6 +250,7 @@ public class RandomPlayerStrategy extends PlayerStrategy {
     /**
      * Retrieves the ID of a randomly selected player from the game engine.
      *
+     * @param player     The player whose ID should not be returned.
      * @param gameEngine The game engine object representing the current game state.
      * @return A string representing the ID of the selected player.
      */

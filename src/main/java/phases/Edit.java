@@ -74,21 +74,29 @@ public abstract class Edit extends Phase implements Serializable {
 	}
 
 	/**
-	 * To setup tournament mode
+	 * Sets up the tournament mode.
+	 * 
+	 * @param p_mapFile         The file containing the map for the tournament.
+	 * @param p_playerStrategies The list of player strategies for the tournament.
 	 */
 	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
 		printInvalidCommandMessage();
 	}
 
 	/**
-	 * save current game state to a file
+	 * Saves the current game state to a file.
+	 * 
+	 * @param p_fileName   The filename to save the game state to.
+	 * @param p_lastPlayer The last player who made a move before saving the game state.
 	 */
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		printInvalidCommandMessage();
 	}
 
 	/**
-	 * load game state from a file
+	 * Loads the game state from a file.
+	 * 
+	 * @param p_fileName The filename from which to load the game state.
 	 */
 	public void loadGame(String p_fileName) {
 		printInvalidCommandMessage();
