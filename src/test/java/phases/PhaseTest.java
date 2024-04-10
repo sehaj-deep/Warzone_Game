@@ -46,7 +46,7 @@ public class PhaseTest {
 	public void testValidateMapConnectedGraph() {
 		// Create a GameEngine instance with a disconnected graph map
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test.map";
-		d_preload.readMap(d_fileName, false);
+		d_preload.editMap(d_fileName);
 		assertTrue(d_preload.validateMap());
 	}
 
@@ -57,7 +57,7 @@ public class PhaseTest {
 	public void testValidateMapDisconnectedGraph() {
 		// Create a GameEngine instance with a disconnected graph map
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_graph.map";
-		d_preload.readMap(d_fileName, false);
+		d_preload.editMap(d_fileName);
 		assertFalse(d_preload.validateMap());
 	}
 
@@ -68,7 +68,7 @@ public class PhaseTest {
 	public void testValidateMapContinentWithNoCountries() {
 		// Create a GameEngine instance with a continent having no countries
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_empty_continent.map";
-		d_preload.readMap(d_fileName, false);
+		d_preload.editMap(d_fileName);
 		assertFalse(d_preload.validateMap());
 	}
 
@@ -80,7 +80,7 @@ public class PhaseTest {
 		// Create a GameEngine instance with a continent containing a
 		// disconnectedsubgraph
 		d_fileName = GameConstants.SRC_TEST_RESOURCES + "test_disconnected_subgraph.map";
-		d_preload.readMap(d_fileName, false);
+		d_preload.editMap(d_fileName);
 		assertFalse(d_preload.validateMap());
 	}
 
