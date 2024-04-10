@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
 import game.GameEngine;
 import orders.Order;
 import utils.ValidationException;
@@ -166,7 +165,8 @@ public class Player implements Serializable {
 		Order l_order = d_playerStrategy.createOrder(this, p_tokens, p_gameEngine);
 		if (l_order != null) {
 			this.d_listOrders.add(l_order);
-		} else {
+		}
+		else {
 			throw new ValidationException();
 		}
 	}
@@ -212,6 +212,7 @@ public class Player implements Serializable {
 	 * To display the card count of each card
 	 */
 	public void displayCards() {
+		System.out.println(this.getPlayerName() + "'s cards in hand");
 		for (HashMap.Entry<String, Integer> l_cards : d_listOfCards.entrySet()) {
 			System.out.println("The count of the Card :" + l_cards.getKey() + " is:" + l_cards.getValue());
 		}
