@@ -287,6 +287,14 @@ public class ExecuteOrdersPhase extends MainPlay implements Serializable {
 
 	}
 
+	/**
+	 * Starts a tournament with the specified parameters.
+	 *
+	 * @param p_mapFiles          A list of map files to be used in the tournament.
+	 * @param p_playerStrategies  A list of player strategies to participate in the tournament.
+	 * @param p_gamesToBePlayed   The number of games to be played in the tournament.
+	 * @param p_maxNumberOfTurns  The maximum number of turns allowed per game in the tournament.
+	 */
 	@Override
 	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
 			int p_maxNumberOfTurns) {

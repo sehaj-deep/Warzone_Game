@@ -14,6 +14,16 @@ import orders.Order;
  */
 public class CheaterPlayerStrategy extends PlayerStrategy implements Serializable {
 
+    /**
+     * Creates orders for the cheater player strategy.
+     *
+     * This method conquers neighboring enemy countries and doubles the number of armies on its own countries.
+     *
+     * @param p_player     The player implementing the strategy.
+     * @param p_tokens     Tokens representing the issued command (not used).
+     * @param p_gameEngine The game engine instance.
+     * @return Always returns null since no specific orders are created.
+     */
 	@Override
 	protected Order createOrder(Player p_player, String[] p_tokens, GameEngine p_gameEngine) {
 
@@ -84,6 +94,11 @@ public class CheaterPlayerStrategy extends PlayerStrategy implements Serializabl
 		return null;
 	}
 
+	/**
+     * Resets the strategy.
+     *
+     * Sets the hasOrder flag to true to indicate that the player can issue orders again.
+     */
 	@Override
 	public void reset() {
 		setHasOrder(true);

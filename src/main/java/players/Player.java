@@ -20,6 +20,9 @@ import utils.ValidationException;
 
 public class Player implements Serializable {
 
+    /**
+     * Unique identifier for serialization.
+     */
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -83,51 +83,108 @@ public class ReinforcePhase extends MainPlay implements Serializable {
 		return d_reinforcementArmies;
 	}
 
+	/**
+	 * Load map while playing
+	 *
+	 * @param p_filename the filename of the map
+	 */
 	@Override
 	public void loadMap(String p_filename) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Edit the map of the countries
+	 *
+	 * @param p_filename the filename of the map
+	 */
 	@Override
 	public void editMap(String p_filename) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Add the new continent taking by command from player
+	 *
+	 * @param p_continentName the name of the continent
+	 * @param p_bonusArmies   the bonus armies for owning the continent
+	 */
 	@Override
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Remove continent form game map
+	 *
+	 * @param p_continentName the name of the continent to remove
+	 */
 	@Override
 	public void removeContinent(String p_continentName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Add country in map
+	 *
+	 * @param p_countryName the name of the country
+	 * @param p_continent   the continent to which the country belongs
+	 */
 	@Override
 	public void addCountry(String p_countryName, String p_continent) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Remove the country from country map
+	 *
+	 * @param p_countryName the name of the country to remove
+	 */
 	@Override
 	public void removeCountry(String p_countryName) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Add neighbor country in map
+	 *
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country
+	 */
 	@Override
 	public void addNeighbor(String p_country, String p_neighbor) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Remove neighbor country from map
+	 *
+	 * @param p_country  the name of the country
+	 * @param p_neighbor the name of the neighbor country to remove
+	 */
 	@Override
 	public void removeNeighbor(String p_country, String p_neighbor) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Save the map in game
+	 *
+	 * @param p_filename The filename to save the map to.
+	 */
 	@Override
 	public void saveMap(String p_filename) {
 		printInvalidCommandMessage();
 	}
 
+	/**
+	 * Starts a tournament with the specified parameters.
+	 *
+	 * @param p_mapFiles          A list of map files to be used in the tournament.
+	 * @param p_playerStrategies  A list of player strategies to participate in the tournament.
+	 * @param p_gamesToBePlayed   The number of games to be played in the tournament.
+	 * @param p_maxNumberOfTurns  The maximum number of turns allowed per game in the tournament.
+	 */
 	@Override
 	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
 			int p_maxNumberOfTurns) {

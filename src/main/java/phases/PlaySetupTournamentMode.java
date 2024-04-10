@@ -278,6 +278,14 @@ public class PlaySetupTournamentMode extends PlaySetupSingleMode implements Seri
 		d_results = l_results;
 	}
 
+	/**
+	 * Generates a report of the tournament results based on the provided results and map files.
+	 *
+	 * @param p_results A two-dimensional array representing the tournament results.
+	 *                    Each row corresponds to a map file, and each column represents a game result.
+	 * @param p_mapFiles A list of map file names used in the tournament.
+	 * @return A formatted string representing the tournament results, including map titles and game outcomes.
+	 */
 	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
 		// Initialize the report with column titles
 		String l_report = "\t\t|\t"; // Empty space for row titles
