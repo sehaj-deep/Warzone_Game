@@ -52,6 +52,11 @@ public class Country implements Serializable {
 		this.d_name = p_name;
 	}
 
+    /**
+     * Parameterized constructor
+     *
+     * @param p_name The name of the country.
+     */
 	public Country(String p_name) {
 		this.d_name = p_name;
 	}

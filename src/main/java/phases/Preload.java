@@ -16,6 +16,9 @@ import map.MapReaderAdapter;
  */
 public class Preload extends Edit implements Serializable {
 
+	/** 
+	 * The map reader instance.
+	 */
 	DominationMapReader mapReader;
 
 	/**

@@ -9,14 +9,31 @@ import java.util.Scanner;
 
 import game.GameEngine;
 
+/**
+ * Reads and processes a Conquest map file.
+ */
 public class ConquestMapReader implements Serializable {
 
+	/** 
+	 * The game engine instance. 
+	 */
 	private GameEngine d_gameEngine;
 
+	/**
+     * Constructs a ConquestMapReader object with a specified game engine.
+     *
+     * @param p_gameEngine The game engine instance.
+     */
 	public ConquestMapReader(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
+	/**
+     * Reads a Conquest map file and processes it.
+     *
+     * @param p_fileName  The filename of the Conquest map file.
+     * @param p_createNew Indicates whether to create a new file if not found.
+     */
 	public void readConquestMap(String p_fileName, boolean p_createNew) {
 		Scanner l_scanner = null;
 
@@ -64,6 +81,11 @@ public class ConquestMapReader implements Serializable {
 		}
 	}
 
+    /**
+     * Processes the continent information from a line of text.
+     *
+     * @param p_singleLine The line of text containing continent information.
+     */
 	public void readContinents(String p_singleLine) {
 		if (p_singleLine.length() > 1) {
 			String[] l_continentArr = p_singleLine.split("=");
@@ -71,6 +93,11 @@ public class ConquestMapReader implements Serializable {
 		}
 	}
 
+    /**
+     * Processes the country and its neighbors information from a line of text.
+     *
+     * @param p_singleLine The line of text containing country and neighbors information.
+     */
 	public void readCountriesAndNeighbors(String p_singleLine) {
 		if (p_singleLine.length() > 1 && p_singleLine.contains(",")) {
 			String[] l_countryNames = p_singleLine.split("\\,");
@@ -90,6 +117,12 @@ public class ConquestMapReader implements Serializable {
 		}
 	}
 
+    /**
+     * Adds a continent to the game engine's data.
+     *
+     * @param p_continentName The name of the continent to be added.
+     * @param p_bonusArmies   The bonus armies for the continent.
+     */
 	public void addContinent(String p_continentName, int p_bonusArmies) {
 		if (!d_gameEngine.getD_continents().containsKey(p_continentName)) {
 			Continent l_continent = new Continent(p_continentName, p_bonusArmies);
@@ -97,6 +130,12 @@ public class ConquestMapReader implements Serializable {
 		}
 	}
 
+    /**
+     * Adds a country to the game engine's data.
+     *
+     * @param p_countryName  The name of the country to be added.
+     * @param p_continentName The name of the continent to which the country belongs.
+     */
 	public void addCountry(String p_countryName, String p_continentName) {
 		// to check that the country has not been already added to the list
 		if (d_gameEngine.getD_countries().containsKey(p_countryName)) {
@@ -115,6 +154,12 @@ public class ConquestMapReader implements Serializable {
 		}
 	}
 
+    /**
+     * Adds a neighbor to a country.
+     *
+     * @param p_countryName  The name of the country to which the neighbor will be added.
+     * @param p_neighborName The name of the neighbor country to be added.
+     */
 	public void addNeighbor(String p_countryName, String p_neighborName) {
 		Country l_country;
 		Country l_neighbor;

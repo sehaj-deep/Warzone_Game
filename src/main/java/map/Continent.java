@@ -36,7 +36,7 @@ public class Continent implements Serializable {
 	 * 
 	 * @param p_continentID          The serial number of continent
 	 * @param p_continentName        The name of the continent
-	 * @param p_continentBonusArmies Number of bonus armies
+	 * @param p_continentBonusArmies Number of bonus armies for the continent
 	 */
 	public Continent(int p_continentID, String p_continentName, int p_continentBonusArmies) {
 		this.d_continentID = p_continentID;
@@ -44,6 +44,12 @@ public class Continent implements Serializable {
 		this.d_continentBonusArmies = p_continentBonusArmies;
 	}
 
+    /**
+     * Constructor of continent class with specified name and bonus armies.
+     *
+     * @param p_continentName        The name of the continent
+     * @param p_continentBonusArmies The number of bonus armies for the continent
+     */
 	public Continent(String p_continentName, int p_continentBonusArmies) {
 		this.d_continentName = p_continentName;
 		this.d_continentBonusArmies = p_continentBonusArmies;

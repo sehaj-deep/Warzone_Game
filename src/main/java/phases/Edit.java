@@ -17,6 +17,9 @@ import players.PlayerStrategy;
  */
 public abstract class Edit extends Phase implements Serializable {
 
+    /** 
+	 * Flag indicating whether the map is a Conquest map. 
+	 */
 	protected boolean d_isConquestMap = false;
 
 	/**

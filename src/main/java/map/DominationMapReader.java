@@ -8,14 +8,32 @@ import java.util.Scanner;
 
 import game.GameEngine;
 
+/**
+ * The DominationMapReader class is responsible for reading domination map files and constructing
+ * the game map accordingly.
+ */
 public class DominationMapReader implements DominationReader {
 
+    /** 
+	 * The GameEngine instance associated with this reader
+	 */
 	private GameEngine d_gameEngine;
 
+    /**
+     * Constructs a DominationMapReader with the specified GameEngine instance.
+     *
+     * @param p_gameEngine The GameEngine instance to associate with this reader.
+     */
 	public DominationMapReader(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
+    /**
+     * Reads a domination map file and constructs the game map accordingly.
+     *
+     * @param p_fileName  The name of the domination map file.
+     * @param p_createNew Indicates whether to create a new file if it doesn't exist.
+     */
 	public void readDominationMap(String p_fileName, boolean p_createNew) {
 
 		Scanner l_scanner = null;
@@ -74,7 +92,6 @@ public class DominationMapReader implements DominationReader {
 	/**
 	 * Reads continent data from a line under [continents] in the map file.
 	 *
-	 * @param p_mapEditor   The MapEditor instance to which continents are added.
 	 * @param p_singleLine  The line containing continent data.
 	 * @param p_continentId The identifier for the continent being read.
 	 */
@@ -87,22 +104,17 @@ public class DominationMapReader implements DominationReader {
 	/**
 	 * Reads country data from a line under [countries] in the map file.
 	 *
-	 * @param p_mapEditor  The MapEditor instance to which countries are added.
 	 * @param p_singleLine The line containing country data.
 	 */
 	public void readCountries(String p_singleLine) {
 		String[] l_countriesArr = p_singleLine.split("\\s");
 		if (l_countriesArr.length >= 3)
 			addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1], Integer.parseInt(l_countriesArr[2]));
-//		d_gameEngine.addCountry(Integer.parseInt(l_countriesArr[0]), l_countriesArr[1],
-//				Integer.parseInt(l_countriesArr[2]));
 	}
 
 	/**
 	 * Reads country neighbors from a line under [borders] in the map file.
 	 *
-	 * @param p_mapEditor  The MapEditor instance to which country neighbors are
-	 *                     added.
 	 * @param p_singleLine The line containing country neighbor data.
 	 */
 	public void readCountryNeighbors(String p_singleLine) {

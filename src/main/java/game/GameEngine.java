@@ -108,7 +108,7 @@ public class GameEngine implements Serializable {
 	/**
 	 * To change the game number and reset the round number
 	 * 
-	 * @param p_phase The game number to be set
+	 * @param p_gameNumber The game number to be set
 	 */
 	public void setGameNumber(int p_gameNumber) {
 		d_gameNumber = p_gameNumber;
@@ -127,7 +127,7 @@ public class GameEngine implements Serializable {
 	/**
 	 * To change the round number
 	 * 
-	 * @param p_phase The round number to be set
+	 * @param p_roundNumber The round number to be set
 	 */
 	public void setRoundNumber(int p_roundNumber) {
 		d_roundNumber = p_roundNumber;
@@ -692,6 +692,13 @@ public class GameEngine implements Serializable {
 		System.exit(0);
 	}
 
+    /**
+     * Generate a report of tournament results.
+     *
+     * @param p_results   The results of the tournament in a 2D array.
+     * @param p_mapFiles  The list of map files used in the tournament.
+     * @return The tournament result report.
+     */
 	public String reportTournamentResult(String[][] p_results, List<String> p_mapFiles) {
 		// Initialize the report with column titles
 		String l_report = "\t\t|\t"; // Empty space for row titles
@@ -712,8 +719,13 @@ public class GameEngine implements Serializable {
 		return l_report;
 	}
 
+	/**
+	 * Finds the winner of the game.
+	 * In a valid game scenario, this method returns the only player remaining, as there is only one player left when there is a winner.
+	 * @return The winning player.
+	 */
 	public Player findWinner() {
-		return this.getPlayers().get(0); // only one player left when there is a winner
+		return this.getPlayers().get(0);
 	}
 
 	/**

@@ -51,6 +51,11 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 		return false;
 	}
 
+    /**
+     * Checks if any player has commands left to issue.
+     *
+     * @return true if any player has commands left to issue, false otherwise.
+     */
 	public boolean anyPlayerWithCommandLeft() {
 		for (Player l_player : d_gameEngine.getPlayers()) {
 			if (l_player.getPlayerStrategy().getHasOrder()) {
