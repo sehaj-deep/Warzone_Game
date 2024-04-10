@@ -1,7 +1,6 @@
 package players;
 
 import java.io.Serializable;
-
 import game.GameEngine;
 import orders.Advance;
 import orders.Airlift;
@@ -62,8 +61,6 @@ public class HumanPlayerStrategy extends PlayerStrategy implements Serializable 
 			l_targetCountry = p_tokens[1];
 			l_order = issueBlockadeOrder(p_player, p_gameEngine, l_targetCountry);
 			break;
-		case "none":
-			setHasOrder(false);
 		default:
 			System.out.println("Invalid order. Please try again.");
 			l_order = null;

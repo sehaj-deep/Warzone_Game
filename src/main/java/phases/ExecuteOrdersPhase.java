@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import game.GameEngine;
 import orders.Order;
 import players.Player;
@@ -56,12 +55,14 @@ public class ExecuteOrdersPhase extends MainPlay implements Serializable {
 				// order is valid in the current state, so execute it
 				if (l_order.getIsAttack()) {
 					attack(i, l_order);
-				} else {
-					l_order.execute(i);
-					System.out.println(
-							l_player.getPlayerName() + " executed a " + l_order.getClass().getSimpleName() + " order.");
 				}
-			} else { // order can't be executed, so update error log and return it
+				else {
+					l_order.execute(i);
+					System.out
+							.println(l_player.getPlayerName() + " executed a " + l_order.getClass().getSimpleName() + " order.");
+				}
+			}
+			else { // order can't be executed, so update error log and return it
 				l_errorLog.add(i);
 				l_errorLog.add(0);
 			}
@@ -148,19 +149,19 @@ public class ExecuteOrdersPhase extends MainPlay implements Serializable {
 				switch (l_randNum) {
 				case 1:
 					l_cardName = "Bomb";
-					System.out.println("You have been assigned Bomb Card.");
+					System.out.println(l_players.get(i).getPlayerName() + " have been assigned Bomb Card.");
 					break;
 				case 2:
 					l_cardName = "Blockade";
-					System.out.println("You have been assigned Blockade Card.");
+					System.out.println(l_players.get(i).getPlayerName() + " have been assigned Blockade Card.");
 					break;
 				case 3:
 					l_cardName = "Airlift";
-					System.out.println("You have been assigned Airlift Card.");
+					System.out.println(l_players.get(i).getPlayerName() + " have been assigned Airlift Card.");
 					break;
 				default:
 					l_cardName = "Diplomacy";
-					System.out.println("You have been assigned Diplomacy Card.");
+					System.out.println(l_players.get(i).getPlayerName() + " have been assigned Diplomacy Card.");
 					break;
 				}
 				l_players.get(i).increaseCardCount(l_cardName);

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import game.GameEngine;
 import players.HumanPlayerStrategy;
 import players.Player;
@@ -51,11 +50,11 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 		return false;
 	}
 
-    /**
-     * Checks if any player has commands left to issue.
-     *
-     * @return true if any player has commands left to issue, false otherwise.
-     */
+	/**
+	 * Checks if any player has commands left to issue.
+	 *
+	 * @return true if any player has commands left to issue, false otherwise.
+	 */
 	public boolean anyPlayerWithCommandLeft() {
 		for (Player l_player : d_gameEngine.getPlayers()) {
 			if (l_player.getPlayerStrategy().getHasOrder()) {
@@ -94,8 +93,7 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 					boolean l_isCommandValid = false;
 
 					do {
-						System.out.print(
-								"\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
+						System.out.print("\n" + l_player.getPlayerName() + ", enter an order (type 'none' if no commands): ");
 						l_orderCommand = p_scanner.nextLine();
 
 						try {
@@ -108,22 +106,34 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 								}
 								d_gameEngine.getPhase().saveGame(l_tokens[1], l_player);
 								break;
-							} else if (l_tokens[0].equalsIgnoreCase("showmap")) {
+							}
+							else if (l_tokens[0].equalsIgnoreCase("showmap")) {
 								showMap();
-							} else {
+							}
+							else if (l_tokens[0].equalsIgnoreCase("none")) {
+								// Human player wants to stop giving an order in this turn
+								l_player.getPlayerStrategy().setHasOrder(false);
+								break;
+							}
+							else {
 								l_player.issue_order(l_tokens, d_gameEngine);
 								l_isCommandValid = true;
 							}
-						} catch (ValidationException e) {
+						}
+						catch (ValidationException e) {
 							// newly created order is invalid, so continue asking the player until valid one
 							// is given
 							continue;
 						}
-					} while (!l_isCommandValid);
-				} else {
+					}
+					while (!l_isCommandValid);
+				}
+				else {
 					try {
 						l_player.issue_order(null, d_gameEngine);
-					} catch (ValidationException e) {
+						System.out.println(l_player.getPlayerName() + " has issued an order");
+					}
+					catch (ValidationException e) {
 						// ignore and skip the exception in this case as null order is not added in the
 						// player's orders list
 						continue;
