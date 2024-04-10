@@ -15,21 +15,53 @@ import map.Country;
 import phases.IssueOrdersPhase;
 import players.Player;
 
+/**
+ * This class is responsible for loading the state of the game from files.
+ */
 public class GameLoad implements Serializable {
 
+	/**
+	 * Engine of the game
+	 */
 	private GameEngine d_gameEngine;
 
+	/**
+	 * The file name containing player data.
+	 */
 	private String d_playersFileName;
+
+	/**
+	 * The file name containing continent data.
+	 */
 	private String d_continentFileName;
+
+	/**
+	 * The file name containing country data.
+	 */
 	private String d_countriesFileName;
+
+	/**
+	 * The file name containing the last player data.
+	 */
 	private String d_lastPlayerFileName;
+
+	/**
+	 * The file name containing the game board data.
+	 */
 	private String d_gameBoardFileName;
 
+	/**
+	 * Constructor for GameLoad.
+	 * @param p_gameEngine The game engine associated with the game load.
+	 */
 	public GameLoad(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
-//	 load game state to populate the variables in gameEngine
+	/**
+	 * Loads the game state from files.
+	 * @param p_fileName The name of the file containing the game state.
+	 */
 	public void loadGame(String p_fileName) {
 		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
 		Scanner l_stateReader = null;
@@ -54,15 +86,16 @@ public class GameLoad implements Serializable {
 		if (d_gameEngine.getPhase().getClass().equals(new IssueOrdersPhase(d_gameEngine).getClass())) {
 			IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) d_gameEngine.getPhase();
 
-			// TODO populate last player and set it in the issueordersphase here
-			// l_issueOrdersPhase.setD_lastPlayer();
-
 			Player l_lastPlayer = getLastPlayer(d_lastPlayerFileName);
 			l_issueOrdersPhase.setD_lastPlayer(l_lastPlayer);
 
 		}
 	}
 
+	/**
+	 * Populates the game board with data from a file.
+	 * @param p_gameBoardFileName The name of the file containing the game board data.
+	 */
 	public void populateGameBoard(String p_gameBoardFileName) {
 		ObjectInputStream l_inputStream = null;
 		try {
@@ -82,34 +115,15 @@ public class GameLoad implements Serializable {
 
 	}
 
-//	public GameEngine loadGame(String p_fileName) {
-//		p_fileName = GameConstants.SRC_MAIN_RESOURCES + p_fileName;
-//		GameEngine l_gameEngine = null;
-//		ObjectInputStream l_inputStream = null;
-//
-//		try {
-//			l_inputStream = new ObjectInputStream(new FileInputStream(p_fileName));
-//			l_gameEngine = (GameEngine) l_inputStream.readObject();
-//			l_inputStream.close();
-//		} catch (IOException e) {
-//			System.out.println("Input Output Exception occurred while reading Gamw Engine objects.");
-//
-//		} catch (ClassNotFoundException c) {
-//			System.out.println("The class of the GameEngine object did not match.");
-//		}
-//
-//		return l_gameEngine;
-//
-//	}
-
+	/**
+	 * Populates the player data from a file.
+	 * @param p_playersFileName The name of the file containing player data.
+	 */
 	public void populatePlayer(String p_playersFileName) {
 		ObjectInputStream l_inputStream = null;
 
 		try {
 			l_inputStream = new ObjectInputStream(new FileInputStream(p_playersFileName));
-
-			// read the players hashmap
-//			List<Player> l_allPlayers = (List<Player>) l_inputStream.readObject();
 
 			while (true) {
 				Player l_player = (Player) l_inputStream.readObject();
@@ -131,6 +145,10 @@ public class GameLoad implements Serializable {
 		}
 	}
 
+	/**
+	 * Populates the continents data from a file.
+	 * @param p_continentFileName The name of the file containing continent data.
+	 */
 	public void populateContinents(String p_continentFileName) {
 		ObjectInputStream l_inputStream = null;
 		try {
@@ -149,6 +167,10 @@ public class GameLoad implements Serializable {
 		}
 	}
 
+	/**
+	 * Populates the countries data from a file.
+	 * @param p_countriesFileName The name of the file containing country data.
+	 */
 	public void populateCountries(String p_countriesFileName) {
 		ObjectInputStream l_inputStream = null;
 		try {
@@ -167,6 +189,11 @@ public class GameLoad implements Serializable {
 		}
 	}
 
+	/**
+	 * Retrieves the last player from a file.
+	 * @param p_lastPlayerFile The name of the file containing the last player data.
+	 * @return The last player.
+	 */
 	public Player getLastPlayer(String p_lastPlayerFile) {
 		ObjectInputStream l_inputStream = null;
 

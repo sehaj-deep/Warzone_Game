@@ -426,7 +426,7 @@ public class GameEngine implements Serializable {
 				l_command = d_scanner.nextLine();
 
 				parseUserCommand(l_command);
-			} while (!l_command.toLowerCase().equals("done"));
+			} while (!l_command.equalsIgnoreCase("done"));
 		} finally {
 			if (d_scanner != null) {
 				d_scanner.close();
@@ -434,6 +434,9 @@ public class GameEngine implements Serializable {
 		}
 	}
 
+	/**
+	 * This method allow you to choose the game mode
+	 */
 	private void chooseGameMode() {
 		System.out.println("\n1. Single Game Mode");
 		System.out.println("2. Tournament Mode");
@@ -538,6 +541,11 @@ public class GameEngine implements Serializable {
 		}
 	}
 
+	/**
+	 * Functionality of this method is to save the game command
+	 *
+	 * @param p_tokens Command token
+	 */
 	public void parseSaveGameCommand(String[] p_tokens) {
 		if (p_tokens.length <= 1 || p_tokens.length > 2) {
 			System.out.println("Invalid command. Syntax: savegame filename");
@@ -546,6 +554,11 @@ public class GameEngine implements Serializable {
 		d_gamePhase.saveGame(d_mapName, null);
 	}
 
+	/**
+	 * Functionality of this method is to load game command
+	 *
+	 * @param p_tokens Command token
+	 */
 	public void parseLoadGameCommand(String[] p_tokens) {
 		if (p_tokens.length <= 1 || p_tokens.length > 2) {
 			System.out.println("Invalid command. Syntax: loadgame filename");
@@ -660,7 +673,7 @@ public class GameEngine implements Serializable {
 	}
 
 	/**
-	 * Parses the 'editcontinent' command.
+	 * Parses the 'edit continent' command.
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
@@ -710,7 +723,7 @@ public class GameEngine implements Serializable {
 	}
 
 	/**
-	 * Parses the 'editcountry' command.
+	 * Parses the 'edit country' command.
 	 * 
 	 * @param p_tokens Command tokens.
 	 */
@@ -933,6 +946,12 @@ public class GameEngine implements Serializable {
 		}
 	}
 
+	/**
+	 * This method allow us to choose player behaviour
+	 *
+	 * @param l_playerName name of the player
+	 * @return the player Strategy
+	 */
 	private PlayerStrategy choosePlayerBehavior(String l_playerName) {
 
 		System.out.println("\na. Human");
