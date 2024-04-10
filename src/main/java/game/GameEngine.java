@@ -549,20 +549,7 @@ public class GameEngine implements Serializable {
 
 		d_gamePhase.loadGame(p_tokens[1]);
 
-		// test the methods
-		// TODO remove once done testing
-		// print the countries list
-		for (Country c : d_countries.values()) {
-			System.out.println(c.getD_name());
-		}
-		System.out.println("-----------------------------------------------");
-		System.out.println("Players list:");
-		System.out.println("-----------------------------------------------");
-
-		for (Continent c : d_continents.values()) {
-			System.out.println(c.getD_continentName());
-		}
-
+		System.out.println("The following players are there in the game.");
 		// print the players list
 		for (Player p : d_players) {
 			System.out.println(p.getPlayerName());

@@ -70,7 +70,7 @@ public class IssueOrdersPhase extends MainPlay implements Serializable {
 			l_player.getPlayerStrategy().reset();
 		}
 
-		while (anyPlayerWithCommandLeft() || d_lastPlayer != null) {
+		while (anyPlayerWithCommandLeft()) {
 			for (Player l_player : d_gameEngine.getPlayers()) {
 				// Last player is not null when the game state is laoded
 				if (d_lastPlayer != null) {
