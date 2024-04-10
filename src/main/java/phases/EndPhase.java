@@ -51,8 +51,6 @@ public class EndPhase extends MainPlay implements Serializable {
 			System.out.println("Player " + d_gameEngine.getPlayers().get(0).getPlayerName() + " has won the game!");
 			d_anyWinner = true;
 		}
-		// todo
-
 		this.next();
 	}
 
@@ -175,7 +173,8 @@ public class EndPhase extends MainPlay implements Serializable {
 	}
 
 	@Override
-	public void setupTournament(String p_mapFile, List<String> p_playerStrategies) {
+	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
+			int p_maxNumberOfTurns) {
 		this.printInvalidCommandMessage();
 	}
 }
