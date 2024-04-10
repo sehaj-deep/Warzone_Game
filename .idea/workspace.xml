@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="305bed67-c301-47f0-80f3-046a31c6d661" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/GameSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/GameSave.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit3 Test Class" />
+        <option value="JUnit4 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2eZO7yWdS5kqkAZ0iWhoRGtkrhr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.AllTests.executor": "Run",
+    "JUnit.RandomPlayerTest.executor": "Run",
+    "JUnit.RandomPlayerTest.testAttackRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testAttackRandomly_NoValidTargets.executor": "Run",
+    "JUnit.RandomPlayerTest.testAttackRandomly_WithValidTargets.executor": "Run",
+    "JUnit.RandomPlayerTest.testCreateRandomCardOrder.executor": "Run",
+    "JUnit.RandomPlayerTest.testDeployRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomCountry.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomCountryOwnedByOtherPlayer.executor": "Run",
+    "JUnit.RandomPlayerTest.testGetRandomPlayerId.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomly.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomlyNoValidMoves.executor": "Run",
+    "JUnit.RandomPlayerTest.testMoveArmiesRandomlyWithValidMoves.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit3": "junit.framework.TestCase",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "git-widget-placeholder": "build__three__NB",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/players" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+      <recent name="junit.framework.TestCase" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="players" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.AllTests">
+    <configuration name="AllTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="AllTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomPlayerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomPlayerTest.testAttackRandomly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="METHOD_NAME" value="testAttackRandomly" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomPlayerTest.testAttackRandomly_NoValidTargets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="METHOD_NAME" value="testAttackRandomly_NoValidTargets" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RandomPlayerTest.testAttackRandomly_WithValidTargets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="players.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="players" />
+      <option name="MAIN_CLASS_NAME" value="players.RandomPlayerTest" />
+      <option name="METHOD_NAME" value="testAttackRandomly_WithValidTargets" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.AllTests" />
+        <item itemvalue="JUnit.RandomPlayerTest" />
+        <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly_NoValidTargets" />
+        <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly_WithValidTargets" />
+        <item itemvalue="JUnit.RandomPlayerTest.testAttackRandomly" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-1.8.0_402-corretto-1.8.0_402-3183f394aec4-8ce719b4" />
+        <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-1e1a4159" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="305bed67-c301-47f0-80f3-046a31c6d661" name="Changes" comment="" />
+      <created>1712108471445</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712108471445</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -39,9 +39,12 @@ public class GameSave implements Serializable {
 	public String savePlayers() {
 		String l_playerFileName = GameConstants.PLAYERS_FILE;
 
+		// to retrieve the Hashmap of players
 		List<Player> l_players = d_gameEngine.getPlayers();
 
+		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
+		// to print player Hashmap into file
 		try {
 			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_playerFileName));
 			for (Player p : l_players) {
@@ -63,7 +66,9 @@ public class GameSave implements Serializable {
 
 		Map<String, Continent> l_allContinents = d_gameEngine.getD_continents();
 
+		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
+		// to print continent Hashmap into the file
 		try {
 			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_continentsFileName));
 			l_outputStream.writeObject(l_allContinents);
@@ -84,7 +89,9 @@ public class GameSave implements Serializable {
 
 		Map<String, Country> l_allCountries = d_gameEngine.getD_countries();
 
+		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
+		// to print country HashMap into the file
 		try {
 			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_countriesFileName));
 			l_outputStream.writeObject(l_allCountries);
@@ -126,7 +133,9 @@ public class GameSave implements Serializable {
 
 		Map<String, Integer> l_gameBoard = d_gameEngine.getGameBoard();
 
+		// create the printWriter to write to the file
 		ObjectOutputStream l_outputStream = null;
+		// to print country HashMap into the file
 		try {
 			l_outputStream = new ObjectOutputStream(new FileOutputStream(l_gameBoardFileName));
 			l_outputStream.writeObject(l_gameBoard);
@@ -152,6 +161,9 @@ public class GameSave implements Serializable {
 		String l_lastPlayerFileName = saveLastPlayer(p_lastPlayer);
 		String l_gameBoardFileName = saveGameBoard();
 
+		// create a text file using the same name passed
+		// This is going to contain the names of the object files
+
 		PrintWriter l_stateWriter = null;
 		try {
 			l_stateWriter = new PrintWriter(new FileOutputStream(p_fileName));
@@ -160,12 +172,14 @@ public class GameSave implements Serializable {
 			return;
 		}
 
+		// write the names of the files
 		l_stateWriter.println(l_playersFileName);
 		l_stateWriter.println(l_continentsFileName);
 		l_stateWriter.println(l_countriesFileName);
 		l_stateWriter.println(l_lastPlayerFileName);
 		l_stateWriter.println(l_gameBoardFileName);
 
+		// close the writer if it was not initialized properly
 		if (l_stateWriter != null) {
 			l_stateWriter.close();
 		}
