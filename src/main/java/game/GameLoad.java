@@ -14,6 +14,7 @@ import constants.GameConstants;
 import map.Continent;
 import map.Country;
 import phases.IssueOrdersPhase;
+import phases.ReinforcePhase;
 import players.Player;
 
 /**
@@ -85,13 +86,18 @@ public class GameLoad implements Serializable {
 		populateCountries(d_countriesFileName);
 		populateGameBoard(d_gameBoardFileName);
 
-		d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
+		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
+		if (d_gameEngine.getPhase().getClass().equals(new ReinforcePhase(d_gameEngine).getClass())) {
+			ReinforcePhase l_reinforcePhase = (ReinforcePhase) d_gameEngine.getPhase();
+
+			l_reinforcePhase.calculateReinforcements();
+		}
+
 		if (d_gameEngine.getPhase().getClass().equals(new IssueOrdersPhase(d_gameEngine).getClass())) {
 			IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) d_gameEngine.getPhase();
 
 			Player l_lastPlayer = getLastPlayer(d_lastPlayerFileName);
 			l_issueOrdersPhase.setD_lastPlayer(l_lastPlayer);
-
 		}
 	}
 
