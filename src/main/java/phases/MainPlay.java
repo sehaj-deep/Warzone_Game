@@ -62,18 +62,21 @@ public abstract class MainPlay extends Play implements Serializable {
 	}
 
 	/**
-	 * save current game state to a file
+	 * Saves the current game state to a file.
+	 *
+	 * @param p_fileName  The filename to save the game state to.
+	 * @param p_lastPlayer The last player who issued orders before saving the game state.
 	 */
 	@Override
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		GameSave l_saveGame = new GameSave(d_gameEngine);
 		l_saveGame.saveGame(p_fileName, p_lastPlayer);
-//		GameSave l_saveGame = new GameSave(this.d_gameEngine);
-//		l_saveGame.saveGame(p_fileName, this.d_gameEngine);
 	}
 
 	/**
-	 * load game state from a file
+	 * Loads the game state from a file.
+	 *
+	 * @param p_fileName The filename from which to load the game state.
 	 */
 	public void loadGame(String p_fileName) {
 		printInvalidCommandMessage();

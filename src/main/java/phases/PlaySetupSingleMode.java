@@ -86,8 +86,7 @@ public class PlaySetupSingleMode extends Play implements Serializable {
 			if (player.getPlayerName().equals(p_playerName)) {
 				iterator.remove();
 				playerRemoved = true;
-				break; // Assuming each player has a unique name, so we can break after finding the
-				// player
+				break; // Assuming each player has a unique name, so we can break after finding the player //
 			}
 		}
 
@@ -275,6 +274,14 @@ public class PlaySetupSingleMode extends Play implements Serializable {
 		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
 	}
 
+	/**
+	 * Starts a tournament with the specified parameters.
+	 *
+	 * @param p_mapFiles          A list of map files to be used in the tournament.
+	 * @param p_playerStrategies  A list of player strategies to participate in the tournament.
+	 * @param p_gamesToBePlayed   The number of games to be played in the tournament.
+	 * @param p_maxNumberOfTurns  The maximum number of turns allowed per game in the tournament.
+	 */
 	@Override
 	public void startTournament(List<String> p_mapFiles, List<String> p_playerStrategies, int p_gamesToBePlayed,
 			int p_maxNumberOfTurns) {
@@ -282,19 +289,22 @@ public class PlaySetupSingleMode extends Play implements Serializable {
 	}
 
 	/**
-	 * save current game state to a file
+	 * Saves the current game state to a file.
+	 *
+	 * @param p_fileName  The filename to save the game state to.
+	 * @param p_lastPlayer The last player who issued orders before saving the game state.
 	 */
 	public void saveGame(String p_fileName, Player p_lastPlayer) {
 		this.printInvalidCommandMessage();
 	}
 
 	/**
-	 * load game state from a file
+	 * Loads the game state from a file.
+	 *
+	 * @param p_fileName The filename from which to load the game state.
 	 */
 	public void loadGame(String p_fileName) {
 		GameLoad l_loadGame = new GameLoad(d_gameEngine);
 		l_loadGame.loadGame(p_fileName);
-//		this.d_gameEngine = l_loadGame.loadGame(p_fileName);
-////		l_loadGame.loadGame(p_fileName);
 	}
 }
