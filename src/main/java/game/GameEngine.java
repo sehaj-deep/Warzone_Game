@@ -5,6 +5,7 @@ import java.io.Serializable;
 //package game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +88,14 @@ public class GameEngine implements Serializable {
 	protected HashMap<Integer, Country> d_countriesId = new HashMap<>();
 
 	/**
-	 * The name of the map.
+	 * The name of the map given by the user
 	 */
-	protected String d_mapName;
+	protected String d_userInputMapName = "";
+
+	/**
+	 * The list of player strategies given by the user
+	 */
+	protected List<String> d_userInputPlayerStrategies = new ArrayList<>();
 
 	/**
 	 * list of all players in the game
@@ -288,8 +294,8 @@ public class GameEngine implements Serializable {
 	 * 
 	 * @return name of the map
 	 */
-	public String getD_mapName() {
-		return d_mapName;
+	public String getD_userInputMapName() {
+		return d_userInputMapName;
 	}
 
 	/**
@@ -297,8 +303,8 @@ public class GameEngine implements Serializable {
 	 * 
 	 * @param d_mapName Name of the map file
 	 */
-	public void setD_mapName(String d_mapName) {
-		this.d_mapName = d_mapName;
+	public void setD_userInputMapName(String d_mapName) {
+		this.d_userInputMapName = d_mapName;
 	}
 
 	/**
@@ -383,7 +389,7 @@ public class GameEngine implements Serializable {
 
 			String l_command = "";
 
-			while (this.getPhase() instanceof PlaySetupSingleMode) {
+			while (this.getPhase().getClass().equals(new PlaySetupSingleMode(this).getClass())) {
 				System.out.print("\n> Enter a command: ");
 				l_command = d_scanner.nextLine();
 				parseUserCommand(l_command);
@@ -432,6 +438,24 @@ public class GameEngine implements Serializable {
 				d_scanner.close();
 			}
 		}
+	}
+
+	private boolean convertSingleModeToTournamentMode() {
+		for (Player l_player : getPlayers()) {
+			if (l_player.getD_playerStrategy().getClass().equals(new HumanPlayerStrategy().getClass())) {
+				return false;
+			}
+		}
+		setPhase(new PlaySetupTournamentMode(this));
+		getPhase().startTournament(new ArrayList<>(Arrays.asList(getD_userInputMapName())),
+				getD_userInputPlayerStrategies(), 1, 10);
+		System.exit(1);
+
+		return true;
+	}
+
+	public List<String> getD_userInputPlayerStrategies() {
+		return d_userInputPlayerStrategies;
 	}
 
 	/**
@@ -551,7 +575,7 @@ public class GameEngine implements Serializable {
 			System.out.println("Invalid command. Syntax: savegame filename");
 			return;
 		}
-		d_gamePhase.saveGame(d_mapName, null);
+		d_gamePhase.saveGame(d_userInputMapName, null);
 	}
 
 	/**
@@ -971,18 +995,23 @@ public class GameEngine implements Serializable {
 			switch (choice) {
 			case "a":
 				l_playerStrategy = new HumanPlayerStrategy();
+				d_userInputPlayerStrategies.add("human");
 				break;
 			case "b":
 				l_playerStrategy = new AggressivePlayerStrategy();
+				d_userInputPlayerStrategies.add("aggressive");
 				break;
 			case "c":
 				l_playerStrategy = new BenevolentPlayerStrategy();
+				d_userInputPlayerStrategies.add("benevolent");
 				break;
 			case "d":
 				l_playerStrategy = new RandomPlayerStrategy();
+				d_userInputPlayerStrategies.add("random");
 				break;
 			case "e":
 				l_playerStrategy = new CheaterPlayerStrategy();
+				d_userInputPlayerStrategies.add("cheater");
 				break;
 			default:
 				System.out.println("Invalid choice. Please try again.");
@@ -1000,8 +1029,26 @@ public class GameEngine implements Serializable {
 	 * @param p_tokens Command tokens.
 	 */
 	private void parseAssignCountriesCommand(String[] p_tokens) {
-		d_gamePhase.assignCountries();
-		d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
+		boolean l_humanPlayerExists = checkIfHumanPlayerExists();
+
+		if (l_humanPlayerExists) {
+			d_gamePhase.assignCountries();
+			d_logEntryBuffer.setD_effectOfAction("Countries have been assigned to players.");
+		} else {
+			setPhase(new PlaySetupTournamentMode(this));
+			getPhase().startTournament(new ArrayList<>(Arrays.asList(getD_userInputMapName())),
+					getD_userInputPlayerStrategies(), 1, 10);
+			System.exit(1);
+		}
+	}
+
+	private boolean checkIfHumanPlayerExists() {
+		for (Player l_player : getPlayers()) {
+			if (l_player.getD_playerStrategy().getClass().equals(new HumanPlayerStrategy().getClass())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -1014,6 +1061,8 @@ public class GameEngine implements Serializable {
 			System.out.println("Invalid command. Syntax: loadmap filename");
 		} else {
 			String l_filename = Common.getMapPath(p_tokens[1]);
+			setD_userInputMapName(p_tokens[1]);
+
 			d_gamePhase.loadMap(l_filename);
 			d_logEntryBuffer.setD_effectOfAction(l_filename + " map file was loaded.");
 		}
