@@ -172,6 +172,7 @@ public class PlaySetupSingleMode extends Play implements Serializable {
 			l_scanner = new Scanner(new FileInputStream(p_filename));
 		} catch (FileNotFoundException e) {
 			System.out.println("The map file " + p_filename + " is not found in resources folder.");
+			return;
 		}
 
 		if (l_scanner != null) {
