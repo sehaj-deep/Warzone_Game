@@ -4,36 +4,38 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 import game.GameEngine;
 
 /**
- * The DominationMapReader class is responsible for reading domination map files and constructing
- * the game map accordingly.
+ * The DominationMapReader class is responsible for reading domination map files
+ * and constructing the game map accordingly.
  */
-public class DominationMapReader implements DominationReader {
+public class DominationMapReader implements DominationReader, Serializable {
 
-    /** 
+	/**
 	 * The GameEngine instance associated with this reader
 	 */
 	private GameEngine d_gameEngine;
 
-    /**
-     * Constructs a DominationMapReader with the specified GameEngine instance.
-     *
-     * @param p_gameEngine The GameEngine instance to associate with this reader.
-     */
+	/**
+	 * Constructs a DominationMapReader with the specified GameEngine instance.
+	 *
+	 * @param p_gameEngine The GameEngine instance to associate with this reader.
+	 */
 	public DominationMapReader(GameEngine p_gameEngine) {
 		d_gameEngine = p_gameEngine;
 	}
 
-    /**
-     * Reads a domination map file and constructs the game map accordingly.
-     *
-     * @param p_fileName  The name of the domination map file.
-     * @param p_createNew Indicates whether to create a new file if it doesn't exist.
-     */
+	/**
+	 * Reads a domination map file and constructs the game map accordingly.
+	 *
+	 * @param p_fileName  The name of the domination map file.
+	 * @param p_createNew Indicates whether to create a new file if it doesn't
+	 *                    exist.
+	 */
 	public void readDominationMap(String p_fileName, boolean p_createNew) {
 
 		Scanner l_scanner = null;

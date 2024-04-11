@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ import constants.GameConstants;
 import map.Continent;
 import map.Country;
 import phases.IssueOrdersPhase;
+import phases.ReinforcePhase;
 import players.Player;
 
 /**
@@ -52,6 +54,7 @@ public class GameLoad implements Serializable {
 
 	/**
 	 * Constructor for GameLoad.
+	 * 
 	 * @param p_gameEngine The game engine associated with the game load.
 	 */
 	public GameLoad(GameEngine p_gameEngine) {
@@ -60,6 +63,7 @@ public class GameLoad implements Serializable {
 
 	/**
 	 * Loads the game state from files.
+	 * 
 	 * @param p_fileName The name of the file containing the game state.
 	 */
 	public void loadGame(String p_fileName) {
@@ -82,19 +86,26 @@ public class GameLoad implements Serializable {
 		populateCountries(d_countriesFileName);
 		populateGameBoard(d_gameBoardFileName);
 
-		d_gameEngine.setPhase(new IssueOrdersPhase(d_gameEngine));
+		d_gameEngine.setPhase(new ReinforcePhase(d_gameEngine));
+		if (d_gameEngine.getPhase().getClass().equals(new ReinforcePhase(d_gameEngine).getClass())) {
+			ReinforcePhase l_reinforcePhase = (ReinforcePhase) d_gameEngine.getPhase();
+
+			l_reinforcePhase.calculateReinforcements();
+		}
+
 		if (d_gameEngine.getPhase().getClass().equals(new IssueOrdersPhase(d_gameEngine).getClass())) {
 			IssueOrdersPhase l_issueOrdersPhase = (IssueOrdersPhase) d_gameEngine.getPhase();
 
 			Player l_lastPlayer = getLastPlayer(d_lastPlayerFileName);
 			l_issueOrdersPhase.setD_lastPlayer(l_lastPlayer);
-
 		}
 	}
 
 	/**
 	 * Populates the game board with data from a file.
-	 * @param p_gameBoardFileName The name of the file containing the game board data.
+	 * 
+	 * @param p_gameBoardFileName The name of the file containing the game board
+	 *                            data.
 	 */
 	public void populateGameBoard(String p_gameBoardFileName) {
 		ObjectInputStream l_inputStream = null;
@@ -117,36 +128,59 @@ public class GameLoad implements Serializable {
 
 	/**
 	 * Populates the player data from a file.
+	 * 
 	 * @param p_playersFileName The name of the file containing player data.
 	 */
+//	public void populatePlayer(String p_playersFileName) {
+//		ObjectInputStream l_inputStream = null;
+//
+//		try {
+//			l_inputStream = new ObjectInputStream(new FileInputStream(p_playersFileName));
+//
+////			List<Player> l_players = (List<Player>) l_inputStream.readObject();
+////			d_gameEngine.setPlayers(l_players);
+//			while (true) {
+//				Player l_player = (Player) l_inputStream.readObject();
+//				d_gameEngine.getPlayers().add(l_player);
+//			}
+//		} catch (EOFException eof) {
+//			try {
+//				l_inputStream.close();
+//			} catch (IOException ex) {
+//				System.out.println("Exception while closing the file.");
+//			}
+//
+//		} catch (IOException e) {
+//			System.out.println("Input Output Exception occurred while reading players objects.");
+//
+//		} catch (ClassNotFoundException c) {
+//			c.printStackTrace();
+//			System.out.println("The class of the player object did not match.");
+//		}
+//	}
+
 	public void populatePlayer(String p_playersFileName) {
-		ObjectInputStream l_inputStream = null;
+		try (ObjectInputStream l_inputStream = new ObjectInputStream(new FileInputStream(p_playersFileName))) {
+			@SuppressWarnings("unchecked") // Suppress the unchecked warning for the cast
+			ArrayList<Player> l_players = (ArrayList<Player>) l_inputStream.readObject();
 
-		try {
-			l_inputStream = new ObjectInputStream(new FileInputStream(p_playersFileName));
-
-			while (true) {
-				Player l_player = (Player) l_inputStream.readObject();
-				d_gameEngine.getPlayers().add(l_player);
+			for (Player p : l_players) {
+				d_gameEngine.getPlayers().add(p);
 			}
-
 		} catch (EOFException eof) {
-			try {
-				l_inputStream.close();
-			} catch (IOException ex) {
-				System.out.println("Exception while closing the file.");
-			}
-
+			// EOFException can be ignored as it indicates the end of the stream
 		} catch (IOException e) {
-			System.out.println("Input Output Exception occurred while reading players objects.");
-
+			System.out.println("IO Exception occurred while reading players objects.");
 		} catch (ClassNotFoundException c) {
 			System.out.println("The class of the player object did not match.");
+		} catch (ClassCastException e) {
+			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Populates the continents data from a file.
+	 * 
 	 * @param p_continentFileName The name of the file containing continent data.
 	 */
 	public void populateContinents(String p_continentFileName) {
@@ -169,6 +203,7 @@ public class GameLoad implements Serializable {
 
 	/**
 	 * Populates the countries data from a file.
+	 * 
 	 * @param p_countriesFileName The name of the file containing country data.
 	 */
 	public void populateCountries(String p_countriesFileName) {
@@ -191,6 +226,7 @@ public class GameLoad implements Serializable {
 
 	/**
 	 * Retrieves the last player from a file.
+	 * 
 	 * @param p_lastPlayerFile The name of the file containing the last player data.
 	 * @return The last player.
 	 */
